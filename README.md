@@ -2,14 +2,18 @@
 
 - 생존을 위해 다른 눈사람들과 경쟁하여 최후의 1인으로 살아남아 녹지 않는 눈사람인 “Eternal Snowman”이 되기 위한 배틀 로얄 게임
 
+
 ---
+
 
 # 📦 Package
 
 - Native WebSockets (1.1.4 ver) [링크](https://github.com/endel/NativeWebSocket.git#upm)  
 - NuGetForUnity (4.2.0 ver) [링크](https://github.com/GlitchEnzo/NuGetForUnity.git?path=/src/NuGetForUnity)
+
     
 ---
+
 
 # ⚙️ Code Convention
 
@@ -38,6 +42,7 @@ ex) `_currentLevel`, `_isGameOver`
 : 모든 문자를 대문자로 하고, 단어 사이에 밑줄(_)을 사용합니다.
 
 ex) `MAX_HEALTH`, `DEFAULT_SPEED`
+
 
 ## **중괄호 사용**
 
