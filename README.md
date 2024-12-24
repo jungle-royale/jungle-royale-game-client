@@ -7,6 +7,9 @@
 
 
 # 📦 Package
+- 설치 방법
+    : Unity > Window > Package Manger > ‘+’ 버튼 >  add package from git URL…
+    - 아래 링크 붙여넣기
 
 - Native WebSockets (1.1.4 ver) [링크](https://github.com/endel/NativeWebSocket.git#upm)  
 - NuGetForUnity (4.2.0 ver) [링크](https://github.com/GlitchEnzo/NuGetForUnity.git?path=/src/NuGetForUnity)
