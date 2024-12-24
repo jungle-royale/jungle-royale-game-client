@@ -143,5 +143,4 @@ string playerInfo = $"Name: {playerName}, Score: {playerScore}"
 ```
 
 참고
-
 https://unity.com/kr/how-to/naming-and-code-style-tips-c-scripting-unity
