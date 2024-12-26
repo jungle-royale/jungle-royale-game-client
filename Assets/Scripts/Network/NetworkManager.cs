@@ -21,10 +21,14 @@ public class NetworkManager : MonoBehaviour
     private string clientId;
 
     private float PLAYER_Y;
+    private float BULLET_Y;
 
     // 이동
     private Vector2 lastDirection = Vector2.zero; // 이전 프레임의 방향
     private bool wasMoved = false;                // 이전 프레임의 이동 상태
+
+    // 총알
+    private Dictionary<string, GameObject> bullets = new Dictionary<string, GameObject>();
 
     // Start is called before the first frame update
     async void Start()
@@ -33,6 +37,8 @@ public class NetworkManager : MonoBehaviour
         GameObject playerPrefab = Resources.Load<GameObject>($"Prefabs/Player");
 
         PLAYER_Y = CalculateSurfaceY();
+        BULLET_Y = PLAYER_Y + 1.5f;
+
 
         mainCamera = Camera.main;
 
@@ -165,11 +171,20 @@ public class NetworkManager : MonoBehaviour
 
                 // 클릭한 위치와 플레이어 위치 간 벡터 계산
                 Vector3 direction = (clickPosition - playerPosition).normalized;
+                direction.z = -direction.z; // Z축 반전 적용
 
-                // 2D 평면에서 각도 계산
-                float angle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
+                // Z축 기준 각도 계산 (Z축 중심으로 회전)
+                float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
 
-                Debug.Log($"Player ID: {player.name}, StartX: {playerPosition.x}, StartY: {playerPosition.z}, Angle: {angle}");
+                // 각도를 0~360° 범위로 변환
+                if (angle < 0)
+                {
+                    angle += 360f;
+                }
+
+                Debug.LogError($"click: {clickPosition}, player: {playerPosition}");
+                Debug.LogError($"direction: {direction}");
+                Debug.LogError($"angle: {angle}");
 
                 // 서버로 데이터 전송
                 SendBulletCreateMessage(player.name, playerPosition.x, playerPosition.z, angle);
@@ -235,9 +250,6 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
-
-
-
     private void HandleGameInit(GameInit init)
     {
         clientId = init.Id;
@@ -261,6 +273,83 @@ public class NetworkManager : MonoBehaviour
                     // 원격 플레이어의 위치를 업데이트
                     UpdateRemotePlayerPosition(player);
                 }
+            }
+        }
+
+        if (state.BulletState != null)
+        {
+            UpdateAllBullets(state.BulletState);
+        }
+    }
+
+    private void UpdateAllBullets(IEnumerable<BulletState> bulletStates)
+    {
+        // 서버에서 받은 총알 ID 저장
+        HashSet<string> activeBulletIds = new HashSet<string>();
+
+        // 서버에서 받은 총알 상태를 순회
+        foreach (var bulletState in bulletStates)
+        {
+            activeBulletIds.Add(bulletState.BulletId);
+            UpdateBulletPosition(bulletState);
+        }
+
+        // Dictionary에서 서버에 없는 총알 제거
+        // RemoveInactiveBullets(activeBulletIds);
+    }
+
+    private void UpdateBulletPosition(BulletState bullet)
+    {
+        GameObject firedBullet;
+
+        // 총알이 Dictionary에 없으면 새로 생성
+        if (!bullets.TryGetValue(bullet.BulletId, out firedBullet))
+        {
+            GameObject bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet");
+            if (bulletPrefab != null)
+            {
+                firedBullet = Instantiate(bulletPrefab, new Vector3(bullet.X, BULLET_Y, bullet.Y), Quaternion.identity);
+                firedBullet.tag = "Bullet";
+
+                // Dictionary에 추가
+                bullets[bullet.BulletId] = firedBullet;
+                Debug.Log($"발사: {bullet.BulletId}");
+            }
+            else
+            {
+                Debug.LogError("Bullet prefab could not be loaded.");
+            }
+        }
+
+        // 총알 위치 업데이트
+        // if (firedBullet != null)
+        // {
+        firedBullet.transform.position = new Vector3(bullet.X, BULLET_Y, bullet.Y);
+        Debug.LogError($"총알 위치: {firedBullet.transform.position}");
+        // }
+    }
+
+    private void RemoveInactiveBullets(HashSet<string> activeBulletIds)
+    {
+        // 서버에서 제공되지 않은 총알 ID를 제거
+        List<string> bulletsToRemove = new List<string>();
+
+        foreach (var bulletId in bullets.Keys)
+        {
+            if (!activeBulletIds.Contains(bulletId))
+            {
+                bulletsToRemove.Add(bulletId);
+            }
+        }
+
+        // Dictionary에서 제거하고 GameObject 파괴
+        foreach (var bulletId in bulletsToRemove)
+        {
+            if (bullets.TryGetValue(bulletId, out GameObject bullet))
+            {
+                Destroy(bullet);
+                bullets.Remove(bulletId);
+                Debug.Log($"총알 제거: {bulletId}");
             }
         }
     }
@@ -330,23 +419,23 @@ public class NetworkManager : MonoBehaviour
             return 0f;
         }
 
-        // Map의 Scale에서 높이 계산
+        // // Map의 Scale에서 높이 계산
         float mapHeight = mapPrefab.transform.localScale.y / 2;
 
-        // Player의 CapsuleCollider에서 높이 계산
-        CapsuleCollider playerCollider = playerPrefab.GetComponent<CapsuleCollider>();
-        if (playerCollider == null)
-        {
-            Debug.LogError("Player prefab does not have a CapsuleCollider.");
-            return 0f;
-        }
-        float playerHeight = playerCollider.height / 2;
+        // // Player의 CapsuleCollider에서 높이 계산
+        // CapsuleCollider playerCollider = playerPrefab.GetComponent<CapsuleCollider>();
+        // if (playerCollider == null)
+        // {
+        //     Debug.LogError("Player prefab does not have a CapsuleCollider.");
+        //     return 0f;
+        // }
+        // float playerHeight = playerCollider.height;
 
-        // Map 표면에 정확히 위치하도록 Y값 계산
-        float PLAYER_Y = mapHeight + playerHeight;
-        Debug.Log(PLAYER_Y);
+        // // Map 표면에 정확히 위치하도록 Y값 계산
+        // float PLAYER_Y = mapHeight+ playerHeight;
 
-        return PLAYER_Y;
+        // return PLAYER_Y;
+        return mapHeight;
     }
 
     private async void SendBulletCreateMessage(string playerId, float startX, float startY, float angle)
