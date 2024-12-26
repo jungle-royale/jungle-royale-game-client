@@ -12,7 +12,7 @@ public class NetworkManager : MonoBehaviour
     private WebSocket websocket;
 
     // 카메라
-    [SerializeField] private FollowCam cameraFollow;
+    private Camera mainCamera;
 
     // 플레이어 데이터 관리
     private Dictionary<string, GameObject> players = new Dictionary<string, GameObject>();
@@ -33,6 +33,8 @@ public class NetworkManager : MonoBehaviour
         GameObject playerPrefab = Resources.Load<GameObject>($"Prefabs/Player");
 
         PLAYER_Y = CalculateSurfaceY();
+
+        mainCamera = Camera.main;
 
         // WebSocket 서버 주소
         websocket = new WebSocket("ws://localhost:8000/ws");
@@ -212,9 +214,6 @@ public class NetworkManager : MonoBehaviour
                 {
                     // 로컬 플레이어의 위치를 업데이트
                     UpdateLocalPlayerPosition(player);
-
-                    // 카메라를 로컬 플레이어에 고정
-                    // LockCameraToPlayer(player);
                 }
                 else
                 {
@@ -241,7 +240,8 @@ public class NetworkManager : MonoBehaviour
                 players[player.Id] = localPlayer; // 딕셔너리에 추가
                 Debug.Log($"Created new player for ID: {player.Id}");
 
-                // cameraFollow.SetPlayer(localPlayer.transform);
+                // 카메라 세팅
+                // Camera.main.GetComponent<FollowCam>().SetTarget(localPlayer.transform);
             }
             else
             {
@@ -249,8 +249,13 @@ public class NetworkManager : MonoBehaviour
             }
         }
         // 플레이어 위치 업데이트
-
         localPlayer.transform.position = new Vector3(player.X, PLAYER_Y, player.Y);
+
+        mainCamera.transform.position = new Vector3(player.X, PLAYER_Y + 5, player.Y - 10);
+        // Side View를 유지하기 위해 회전 고정
+        mainCamera.transform.rotation = Quaternion.Euler(30, 0, 0); // 예시: 고정된 각도
+
+        // 플레이어
     }
 
     private void UpdateRemotePlayerPosition(Player player)
