@@ -78,10 +78,6 @@ public class NetworkManager : MonoBehaviour
                         HandleGameState(wrapper.State);
                         break;
 
-                    case Wrapper.MessageTypeOneofCase.BulletCreate:
-                        // Debug.Log($"BulletCreate: {wrapper.BulletCreate}");
-                        break;
-
                     default:
                         Debug.Log($"Unknown message type received: {wrapper.MessageTypeCase}");
                         break;
@@ -102,15 +98,30 @@ public class NetworkManager : MonoBehaviour
         await websocket.Connect();
     }
 
+    private async void OnApplicationQuit()
+    {
+        if (websocket != null)
+        {
+            await websocket.Close();
+        }
+    }
+
     void Update()
     {
 #if !UNITY_WEBGL || UNITY_EDITOR
         websocket?.DispatchMessageQueue();
 #endif
-        HandleMovementInput();
+        HandlePlayerInput();
     }
 
-    private void HandleMovementInput()
+    private void HandlePlayerInput()
+    {
+        HandleKeyboardInput();
+
+        HandleMouseInput();
+    }
+
+    private void HandleKeyboardInput()
     {
         // WASD 입력 벡터 계산
         Vector2 inputDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
@@ -128,6 +139,41 @@ public class NetworkManager : MonoBehaviour
             // 상태 업데이트
             lastDirection = inputDirection;
             wasMoved = isMoved;
+        }
+    }
+
+    private void HandleMouseInput()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player == null)
+        {
+            Debug.LogError("Player tag에 해당하는 객체 없음");
+            return; // Player가 없으면 함수 종료
+        }
+
+        if (Input.GetMouseButtonDown(0)) // 마우스 왼쪽 버튼 클릭
+        {
+            // 클릭한 위치 계산
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                Vector3 clickPosition = hit.point; // 클릭한 월드 좌표
+                Vector3 playerPosition = player.transform.position; // 플레이어 위치
+
+                // 클릭한 위치와 플레이어 위치 간 벡터 계산
+                Vector3 direction = (clickPosition - playerPosition).normalized;
+
+                // 2D 평면에서 각도 계산
+                float angle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
+
+                Debug.Log($"Player ID: {player.name}, StartX: {playerPosition.x}, StartY: {playerPosition.z}, Angle: {angle}");
+
+                // 서버로 데이터 전송
+                SendBulletCreateMessage(player.name, playerPosition.x, playerPosition.z, angle);
+            }
         }
     }
 
@@ -189,13 +235,8 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
-    private async void OnApplicationQuit()
-    {
-        if (websocket != null)
-        {
-            await websocket.Close();
-        }
-    }
+
+
 
     private void HandleGameInit(GameInit init)
     {
@@ -237,6 +278,10 @@ public class NetworkManager : MonoBehaviour
             if (playerPrefab != null)
             {
                 localPlayer = Instantiate(playerPrefab, new Vector3(player.X, PLAYER_Y, player.Y), Quaternion.identity);
+
+                // 태그 설정
+                localPlayer.tag = "Player";
+
                 players[player.Id] = localPlayer; // 딕셔너리에 추가
                 Debug.Log($"Created new player for ID: {player.Id}");
 
@@ -254,8 +299,6 @@ public class NetworkManager : MonoBehaviour
         mainCamera.transform.position = new Vector3(player.X, PLAYER_Y + 5, player.Y - 10);
         // Side View를 유지하기 위해 회전 고정
         mainCamera.transform.rotation = Quaternion.Euler(30, 0, 0); // 예시: 고정된 각도
-
-        // 플레이어
     }
 
     private void UpdateRemotePlayerPosition(Player player)
@@ -274,8 +317,6 @@ public class NetworkManager : MonoBehaviour
         // 위치 업데이트
         remotePlayer.transform.position = new Vector3(player.X, PLAYER_Y, player.Y);
     }
-
-
 
     private float CalculateSurfaceY()
     {
@@ -306,5 +347,44 @@ public class NetworkManager : MonoBehaviour
         Debug.Log(PLAYER_Y);
 
         return PLAYER_Y;
+    }
+
+    private async void SendBulletCreateMessage(string playerId, float startX, float startY, float angle)
+    {
+        if (websocket == null || websocket.State != WebSocketState.Open)
+        {
+            Debug.LogError("WebSocket is not connected.");
+            return;
+        }
+
+        try
+        {
+            // BulletCreate 메시지 생성
+            var bulletCreate = new BulletCreate
+            {
+                PlayerId = playerId,
+                StartX = startX,
+                StartY = startY,
+                Angle = angle
+            };
+
+            // Wrapper 메시지 생성 및 BulletCreate 메시지 포함
+            var wrapper = new Wrapper
+            {
+                BulletCreate = bulletCreate
+            };
+
+            // Protobuf 직렬화
+            var data = wrapper.ToByteArray();
+
+            // WebSocket으로 메시지 전송
+            await websocket.Send(data);
+
+            Debug.Log($"Sent BulletCreate: PlayerId={playerId}, StartX={startX}, StartY={startY}, Angle={angle}");
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Failed to send BulletCreate message: {ex.Message}");
+        }
     }
 }
