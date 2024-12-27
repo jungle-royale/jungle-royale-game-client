@@ -116,10 +116,14 @@ public class GameManager : MonoBehaviour
                     HandleGameInit(wrapper.GameInit);
                     break;
 
+                case Wrapper.MessageTypeOneofCase.GameCount:
+                    Debug.Log($"game play in: {wrapper.GameCount.Count}");
+                    break;
                 case Wrapper.MessageTypeOneofCase.GameState:
-                    // Debug.Log($"State: {wrapper.State}");
+                    // Debug.Log($"State: {wrapper.GameState}");
                     HandleGameState(wrapper.GameState);
                     break;
+
 
                 default:
                     Debug.Log($"Unknown message type received: {wrapper.MessageTypeCase}");
@@ -156,13 +160,13 @@ public class GameManager : MonoBehaviour
 
         bool dash = false;
         // 왼쪽 또는 오른쪽 Shift 키가 눌렸는지 확인
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
             // Debug.Log("Shift key is being held down.");
             dash = true;
+            SendDoDashMessage(dash);
         }
 
-        SendDoDashMessage(dash);
 
         // 입력 벡터로 방향 및 이동 상태 계산
         float angle = CalculateAngle(inputDirection);
