@@ -152,3 +152,33 @@ string playerInfo = $"Name: {playerName}, Score: {playerScore}"
 
 참고
 https://unity.com/kr/how-to/naming-and-code-style-tips-c-scripting-unity
+
+---
+
+📌 # **시스템 요구 사항**
+
+## **WebGL**
+
+| **브라우저를 실행하는 운영체제** | **Windows, macOS, Linux** |
+| --- | --- |
+| **하드웨어** | 워크스테이션 및 노트북 폼 팩터. |
+| **추가 요구 사항** | 다음에 해당하는 Chrome, Firefox, Safari 또는 Edge(Chromium 기반) 버전:- WebGL 2.0 지원- HTML 5 스탠다드 준수- 64비트- WebAssembly 지원**참고**:WebGL 1.0은 지원 중단 예정입니다. |
+
+## **브라우저별 최소 지원 버전**
+
+1. **Chrome**
+- 최소 버전: **57**
+- WebGL 2.0 및 WebAssembly 지원이 포함된 첫 버전.
+1. **Firefox**
+- 최소 버전: **51**
+- WebGL 2.0 및 WebAssembly 지원이 포함된 첫 버전.
+1. **Safari**
+- 최소 버전: **11**
+- macOS High Sierra(10.13)+에서 WebGL 2.0 지원.
+1. **Edge (Chromium 기반)**
+- 최소 버전: **79**
+- Chromium 기반으로 전환 후 WebGL 2.0 및 WebAssembly 지원.
+
+**참고**
+
+https://docs.unity3d.com/kr/2022.3/Manual/system-requirements.html
