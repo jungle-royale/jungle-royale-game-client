@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Google.Protobuf;
@@ -14,14 +13,19 @@ public class NetworkManager : MonoBehaviour
     // 카메라
     private Camera mainCamera;
 
+    const float CAMERA_ROTATION_X = 60f;
+    const float CAMERA_OFFSET_Y = 10f;
+    const float CAMERA_OFFSET_Z = -4f;
+
     // 플레이어 데이터 관리
     private Dictionary<string, GameObject> players = new Dictionary<string, GameObject>();
     private GameObject mapPrefab;
     private GameObject playerPrefab;
     private string clientId;
 
-    private float PLAYER_Y;
-    private float BULLET_Y;
+    const float PLAYER_Y;
+    const float BULLET_Y;
+
 
     // 이동
     private Vector2 lastDirection = Vector2.zero; // 이전 프레임의 방향
@@ -385,9 +389,9 @@ public class NetworkManager : MonoBehaviour
         // 플레이어 위치 업데이트
         localPlayer.transform.position = new Vector3(player.X, PLAYER_Y, player.Y);
 
-        mainCamera.transform.position = new Vector3(player.X, PLAYER_Y + 5, player.Y - 10);
-        // Side View를 유지하기 위해 회전 고정
-        mainCamera.transform.rotation = Quaternion.Euler(30, 0, 0); // 예시: 고정된 각도
+        // 카메라 세팅
+        mainCamera.transform.position = new Vector3(player.X, PLAYER_Y + CAMERA_OFFSET_Y, player.Y - CAMERA_OFFSET_Z); // player 위치 offset 조정
+        mainCamera.transform.rotation = Quaternion.Euler(CAMERA_ROTATION_X, 0, 0); // side view
     }
 
     private void UpdateRemotePlayerPosition(Player player)
