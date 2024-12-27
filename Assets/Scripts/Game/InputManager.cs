@@ -79,9 +79,9 @@ public class InputManager : MonoBehaviour
                     angle += 360f;
                 }
 
-                Debug.Log($"click: {clickPosition}, player: {playerPosition}");
-                Debug.Log($"direction: {direction}");
-                Debug.Log($"angle: {angle}");
+                // Debug.Log($"click: {clickPosition}, player: {playerPosition}");
+                // Debug.Log($"direction: {direction}");
+                // Debug.Log($"angle: {angle}");
 
                 Bullet?.Invoke(playerPosition.x, playerPosition.z, angle);
             }
