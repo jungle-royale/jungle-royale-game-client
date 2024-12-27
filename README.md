@@ -155,7 +155,7 @@ https://unity.com/kr/how-to/naming-and-code-style-tips-c-scripting-unity
 
 ---
 
-📌 # **시스템 요구 사항**
+# 📌 **시스템 요구 사항**
 
 ## **WebGL**
 
