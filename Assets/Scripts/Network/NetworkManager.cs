@@ -242,7 +242,7 @@ public class NetworkManager : MonoBehaviour
         {
             // WebSocket으로 메시지 전송
             await websocket.Send(data);
-            Debug.Log($"Sent movement: angle={angle}, isMoved={isMoved}");
+            // Debug.Log($"Sent movement: angle={angle}, isMoved={isMoved}");
         }
         catch (Exception ex)
         {
@@ -295,7 +295,7 @@ public class NetworkManager : MonoBehaviour
         }
 
         // Dictionary에서 서버에 없는 총알 제거
-        // RemoveInactiveBullets(activeBulletIds);
+        RemoveInactiveBullets(activeBulletIds);
     }
 
     private void UpdateBulletPosition(BulletState bullet)
