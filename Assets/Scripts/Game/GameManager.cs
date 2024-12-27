@@ -13,12 +13,12 @@ public class GameManager : MonoBehaviour
 
     // 카메라
     private Camera mainCamera;
-    const float CAMERA_ROTATION_X = 60f;
+    const float CAMERA_ROTATION_X = 40f;
     const float CAMERA_OFFSET_Y = 10f;
-    const float CAMERA_OFFSET_Z = 4f;
+    const float CAMERA_OFFSET_Z = 10f;
 
     // 플레이어 데이터 관리
-    private Dictionary<string, GameObject> players = new Dictionary<string, GameObject>();
+    private Dictionary<string, GameObject> playerObjectList = new Dictionary<string, GameObject>();
     private string clientId;
     float PLAYER_Y;
     float BULLET_Y;
@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     private bool wasMoved = false;                // 이전 프레임의 이동 상태
 
     // 총알
-    private Dictionary<string, GameObject> bullets = new Dictionary<string, GameObject>();
+    private Dictionary<string, GameObject> bulletObjectList = new Dictionary<string, GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
         GameObject mapPrefab = Resources.Load<GameObject>($"Prefabs/Map");
         GameObject playerPrefab = Resources.Load<GameObject>($"Prefabs/Player");
 
-        PLAYER_Y = CalculateSurfaceY();
+        PLAYER_Y = CalculateSurfaceY(mapPrefab);
         BULLET_Y = PLAYER_Y + 1.5f;
 
         mainCamera = Camera.main;
@@ -177,6 +177,13 @@ public class GameManager : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
+                // hit된 오브젝트가 내 플레이어라면 return
+                if (hit.collider.gameObject == player)
+                {
+                    Debug.Log("Hit on own player, ignoring.");
+                    return;
+                }
+
                 Vector3 clickPosition = hit.point; // 클릭한 월드 좌표
                 Vector3 playerPosition = player.transform.position; // 플레이어 위치
 
@@ -202,7 +209,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
 
 
     private float CalculateAngle(Vector2 inputDirection)
@@ -237,22 +243,7 @@ public class GameManager : MonoBehaviour
     {
         if (state.Players != null)
         {
-            foreach (var player in state.Players)
-            {
-                // 플레이어 ID와 클라이언트 ID가 일치하면 로컬 플레이어로 처리
-                if (player.Id == clientId)
-                {
-                    // 로컬 플레이어의 위치를 업데이트
-                    Debug.Log("로컬 플레이어");
-                    UpdateLocalPlayerPosition(player);
-                }
-                else
-                {
-                    Debug.Log("다른 플레이어");
-                    // 원격 플레이어의 위치를 업데이트
-                    UpdateRemotePlayerPosition(player);
-                }
-            }
+            UpdatePlayers(state.Players);
         }
 
         if (state.BulletState != null)
@@ -264,17 +255,96 @@ public class GameManager : MonoBehaviour
     private void UpdateAllBullets(IEnumerable<BulletState> bulletStates)
     {
         // 서버에서 받은 총알 ID 저장
-        HashSet<string> activeBulletIds = new HashSet<string>();
+        HashSet<string> bulletStateIds = new HashSet<string>();
 
         // 서버에서 받은 총알 상태를 순회
         foreach (var bulletState in bulletStates)
         {
-            activeBulletIds.Add(bulletState.BulletId);
+            bulletStateIds.Add(bulletState.BulletId);
             UpdateBulletPosition(bulletState);
         }
 
         // Dictionary에서 서버에 없는 총알 제거
-        RemoveInactiveBullets(activeBulletIds);
+        RemoveInactiveBullets(bulletStateIds);
+    }
+
+    // GameState를 기반으로 플레이어 관리
+    private void UpdatePlayers(IEnumerable<Player> players)
+    {
+        HashSet<string> playerStateIds = new HashSet<string>();
+
+        // 서버에서 받은 players 리스트를 순회하며 업데이트
+        foreach (var player in players)
+        {
+            playerStateIds.Add(player.Id);
+            UpdatePlayerPosition(player);
+        }
+
+        // 서버에 없는 플레이어 제거
+        RemoveInactivePlayers(playerStateIds);
+    }
+
+    private void UpdatePlayerPosition(Player player)
+    {
+        GameObject playerObject;
+
+        // 플레이어가 Dictionary에 없으면 새로 생성
+        if (!playerObjectList.TryGetValue(player.Id, out playerObject))
+        {
+            GameObject playerPrefab = Resources.Load<GameObject>("Prefabs/Player");
+            if (playerPrefab != null)
+            {
+                playerObject = Instantiate(playerPrefab, new Vector3(player.X, PLAYER_Y, player.Y), Quaternion.identity);
+
+                if (player.Id == clientId) // 내 플레이어면 태그를 Player로 설정
+                {
+                    playerObject.tag = "Player";
+                    Debug.Log($"Created client player for ID: {player.Id}");
+                }
+
+                // Dictionary에 추가
+                playerObjectList[player.Id] = playerObject;
+            }
+            else
+            {
+                Debug.LogError("Player prefab could not be loaded.");
+            }
+        }
+
+        // 위치 업데이트
+        playerObject.transform.position = new Vector3(player.X, PLAYER_Y, player.Y);
+
+        // 카메라 세팅 (내 플레이어일 경우에만)
+        if (player.Id == clientId)
+        {
+            mainCamera.transform.position = new Vector3(player.X, PLAYER_Y + CAMERA_OFFSET_Y, player.Y - CAMERA_OFFSET_Z);
+            mainCamera.transform.rotation = Quaternion.Euler(CAMERA_ROTATION_X, 0, 0);
+        }
+    }
+
+    private void RemoveInactivePlayers(HashSet<string> playerStateIds)
+    {
+        List<string> playersToRemove = new List<string>();
+
+        // Dictionary에서 서버에 없는 플레이어 찾기
+        foreach (var playerId in playerObjectList.Keys)
+        {
+            if (!playerStateIds.Contains(playerId))
+            {
+                playersToRemove.Add(playerId);
+            }
+        }
+
+        // Dictionary에서 제거 및 GameObject 파괴
+        foreach (var playerId in playersToRemove)
+        {
+            if (playerObjectList.TryGetValue(playerId, out GameObject player))
+            {
+                Destroy(player);
+                playerObjectList.Remove(playerId);
+                Debug.Log($"Removed player with ID: {playerId}");
+            }
+        }
     }
 
     private void UpdateBulletPosition(BulletState bullet)
@@ -282,7 +352,7 @@ public class GameManager : MonoBehaviour
         GameObject firedBullet;
 
         // 총알이 Dictionary에 없으면 새로 생성
-        if (!bullets.TryGetValue(bullet.BulletId, out firedBullet))
+        if (!bulletObjectList.TryGetValue(bullet.BulletId, out firedBullet))
         {
             GameObject bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet");
             if (bulletPrefab != null)
@@ -291,7 +361,7 @@ public class GameManager : MonoBehaviour
                 firedBullet.tag = "Bullet";
 
                 // Dictionary에 추가
-                bullets[bullet.BulletId] = firedBullet;
+                bulletObjectList[bullet.BulletId] = firedBullet;
                 Debug.Log($"발사: {bullet.BulletId}");
             }
             else
@@ -300,22 +370,18 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        // 총알 위치 업데이트
-        // if (firedBullet != null)
-        // {
         firedBullet.transform.position = new Vector3(bullet.X, BULLET_Y, bullet.Y);
         Debug.LogError($"총알 위치: {firedBullet.transform.position}");
-        // }
     }
 
-    private void RemoveInactiveBullets(HashSet<string> activeBulletIds)
+    private void RemoveInactiveBullets(HashSet<string> bulletStateIds)
     {
         // 서버에서 제공되지 않은 총알 ID를 제거
         List<string> bulletsToRemove = new List<string>();
 
-        foreach (var bulletId in bullets.Keys)
+        foreach (var bulletId in bulletObjectList.Keys)
         {
-            if (!activeBulletIds.Contains(bulletId))
+            if (!bulletStateIds.Contains(bulletId))
             {
                 bulletsToRemove.Add(bulletId);
             }
@@ -324,75 +390,18 @@ public class GameManager : MonoBehaviour
         // Dictionary에서 제거하고 GameObject 파괴
         foreach (var bulletId in bulletsToRemove)
         {
-            if (bullets.TryGetValue(bulletId, out GameObject bullet))
+            if (bulletObjectList.TryGetValue(bulletId, out GameObject bullet))
             {
                 Destroy(bullet);
-                bullets.Remove(bulletId);
+                bulletObjectList.Remove(bulletId);
                 Debug.Log($"총알 제거: {bulletId}");
             }
         }
     }
 
-    private void UpdateLocalPlayerPosition(Player player)
+    private float CalculateSurfaceY(GameObject mapPrefab)
     {
-        GameObject localPlayer;
-
-        // players 딕셔너리에서 ID에 해당하는 플레이어 찾기
-        if (!players.TryGetValue(player.Id, out localPlayer))
-        {
-
-            GameObject playerPrefab = Resources.Load<GameObject>($"Prefabs/Player");
-            // 플레이어가 없으면 Prefab으로 새로 생성
-            if (playerPrefab != null)
-            {
-                localPlayer = Instantiate(playerPrefab, new Vector3(player.X, PLAYER_Y, player.Y), Quaternion.identity);
-
-                // 태그 설정
-                localPlayer.tag = "Player";
-
-                players[player.Id] = localPlayer; // 딕셔너리에 추가
-                Debug.Log($"Created new player for ID: {player.Id}");
-
-                // 카메라 세팅
-                // Camera.main.GetComponent<FollowCam>().SetTarget(localPlayer.transform);
-            }
-            else
-            {
-                Debug.LogError($"플레이어 프리팹 'Player'을(를) 찾을 수 없습니다.");
-            }
-        }
-        // 플레이어 위치 업데이트
-        localPlayer.transform.position = new Vector3(player.X, PLAYER_Y, player.Y);
-
-        // 카메라 세팅
-        mainCamera.transform.position = new Vector3(player.X, PLAYER_Y + CAMERA_OFFSET_Y, player.Y - CAMERA_OFFSET_Z); // player 위치 offset 조정
-        mainCamera.transform.rotation = Quaternion.Euler(CAMERA_ROTATION_X, 0, 0); // side view
-    }
-
-    private void UpdateRemotePlayerPosition(Player player)
-    {
-        GameObject remotePlayer;
-        GameObject playerPrefab = Resources.Load<GameObject>($"Prefabs/Player");
-
-        if (!players.TryGetValue(player.Id, out remotePlayer))
-        {
-            // 원격 플레이어 생성
-            remotePlayer = Instantiate(playerPrefab, new Vector3(player.X, PLAYER_Y, player.Y), Quaternion.identity);
-            players[player.Id] = remotePlayer;
-            Debug.Log($"Created remote player for ID: {player.Id}");
-        }
-
-        // 위치 업데이트
-        remotePlayer.transform.position = new Vector3(player.X, PLAYER_Y, player.Y);
-    }
-
-    private float CalculateSurfaceY()
-    {
-        // Resources에서 Prefabs 로드
-        GameObject mapPrefab = Resources.Load<GameObject>($"Prefabs/Map");
-        GameObject playerPrefab = Resources.Load<GameObject>($"Prefabs/Player");
-
-        if (mapPrefab == null || playerPrefab == null)
+        if (mapPrefab == null)
         {
             Debug.LogError("Map or Player prefab is not assigned or could not be loaded.");
             return 0f;
@@ -401,19 +410,6 @@ public class GameManager : MonoBehaviour
         // // Map의 Scale에서 높이 계산
         float mapHeight = mapPrefab.transform.localScale.y / 2;
 
-        // // Player의 CapsuleCollider에서 높이 계산
-        // CapsuleCollider playerCollider = playerPrefab.GetComponent<CapsuleCollider>();
-        // if (playerCollider == null)
-        // {
-        //     Debug.LogError("Player prefab does not have a CapsuleCollider.");
-        //     return 0f;
-        // }
-        // float playerHeight = playerCollider.height;
-
-        // // Map 표면에 정확히 위치하도록 Y값 계산
-        // float PLAYER_Y = mapHeight+ playerHeight;
-
-        // return PLAYER_Y;
         return mapHeight;
     }
 
@@ -491,7 +487,5 @@ public class GameManager : MonoBehaviour
             Debug.LogError($"Failed to send BulletCreate message: {ex.Message}");
         }
     }
-
-
 }
 
