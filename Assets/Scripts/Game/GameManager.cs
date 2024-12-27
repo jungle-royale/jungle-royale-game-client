@@ -43,7 +43,14 @@ public class GameManager : MonoBehaviour
         }
 
         // NetworkManager 초기화 및 핸들러 등록
-        networkManager.Initialize("ws://localhost:8000/ws");
+        if (Debug.isDebugBuild)
+        {
+            networkManager.Initialize("ws://localhost:8000/ws");
+        }
+        else
+        {
+            networkManager.Initialize("ws://eternal-snowman:8000/ws");
+        }
 
         networkManager.RegisterHandler(
             onOpen: HandleOnOpen,
