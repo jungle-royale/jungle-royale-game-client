@@ -430,7 +430,7 @@ public class GameManager : MonoBehaviour
         }
 
         // DirChange 메시지 생성
-        var dirChange = new DirChange
+        var changeDir = new ChangeDir
         {
             Angle = angle,
             IsMoved = isMoved
@@ -439,7 +439,7 @@ public class GameManager : MonoBehaviour
         // Wrapper 메시지 생성 및 DirChange 메시지 포함
         var wrapper = new Wrapper
         {
-            DirChange = dirChange
+            ChangeDir = changeDir
         };
 
         // Protobuf 직렬화

@@ -24,32 +24,34 @@ namespace Message {
     static MessageReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cg1tZXNzYWdlLnByb3RvEgdtZXNzYWdlIukBCgdXcmFwcGVyEicKCWRpckNo",
-            "YW5nZRgBIAEoCzISLm1lc3NhZ2UuRGlyQ2hhbmdlSAASLQoMY3JlYXRlQnVs",
-            "bGV0GAIgASgLMhUubWVzc2FnZS5DcmVhdGVCdWxsZXRIABInCglnYW1lU3Rh",
-            "dGUYAyABKAsyEi5tZXNzYWdlLkdhbWVTdGF0ZUgAEicKCWdhbWVDb3VudBgE",
-            "IAEoCzISLm1lc3NhZ2UuR2FtZUNvdW50SAASJQoIZ2FtZUluaXQYBSABKAsy",
-            "ES5tZXNzYWdlLkdhbWVJbml0SABCDQoLTWVzc2FnZVR5cGUiFgoIR2FtZUlu",
-            "aXQSCgoCaWQYASABKAkiKwoJRGlyQ2hhbmdlEg0KBWFuZ2xlGAEgASgCEg8K",
-            "B2lzTW92ZWQYAiABKAgiYQoJR2FtZVN0YXRlEikKC3BsYXllclN0YXRlGAEg",
-            "AygLMhQubWVzc2FnZS5QbGF5ZXJTdGF0ZRIpCgtidWxsZXRTdGF0ZRgCIAMo",
-            "CzIULm1lc3NhZ2UuQnVsbGV0U3RhdGUiLwoLUGxheWVyU3RhdGUSCgoCaWQY",
-            "ASABKAkSCQoBeBgCIAEoAhIJCgF5GAMgASgCIk8KDENyZWF0ZUJ1bGxldBIQ",
-            "CghwbGF5ZXJJZBgBIAEoCRIOCgZzdGFydFgYAiABKAISDgoGc3RhcnRZGAMg",
-            "ASgCEg0KBWFuZ2xlGAQgASgCIjUKC0J1bGxldFN0YXRlEhAKCGJ1bGxldElk",
-            "GAEgASgJEgkKAXgYAiABKAISCQoBeRgDIAEoAiIaCglHYW1lQ291bnQSDQoF",
-            "Y291bnQYASABKAViBnByb3RvMw=="));
+            "Cg1tZXNzYWdlLnByb3RvEgdtZXNzYWdlIowCCgdXcmFwcGVyEicKCWNoYW5n",
+            "ZURpchgBIAEoCzISLm1lc3NhZ2UuQ2hhbmdlRGlySAASIQoGZG9EYXNoGAIg",
+            "ASgLMg8ubWVzc2FnZS5Eb0Rhc2hIABItCgxjcmVhdGVCdWxsZXQYAyABKAsy",
+            "FS5tZXNzYWdlLkNyZWF0ZUJ1bGxldEgAEicKCWdhbWVTdGF0ZRgEIAEoCzIS",
+            "Lm1lc3NhZ2UuR2FtZVN0YXRlSAASJwoJZ2FtZUNvdW50GAUgASgLMhIubWVz",
+            "c2FnZS5HYW1lQ291bnRIABIlCghnYW1lSW5pdBgGIAEoCzIRLm1lc3NhZ2Uu",
+            "R2FtZUluaXRIAEINCgtNZXNzYWdlVHlwZSIWCghHYW1lSW5pdBIKCgJpZBgB",
+            "IAEoCSIrCglDaGFuZ2VEaXISDQoFYW5nbGUYASABKAISDwoHaXNNb3ZlZBgC",
+            "IAEoCCJhCglHYW1lU3RhdGUSKQoLcGxheWVyU3RhdGUYASADKAsyFC5tZXNz",
+            "YWdlLlBsYXllclN0YXRlEikKC2J1bGxldFN0YXRlGAIgAygLMhQubWVzc2Fn",
+            "ZS5CdWxsZXRTdGF0ZSIvCgtQbGF5ZXJTdGF0ZRIKCgJpZBgBIAEoCRIJCgF4",
+            "GAIgASgCEgkKAXkYAyABKAIiTwoMQ3JlYXRlQnVsbGV0EhAKCHBsYXllcklk",
+            "GAEgASgJEg4KBnN0YXJ0WBgCIAEoAhIOCgZzdGFydFkYAyABKAISDQoFYW5n",
+            "bGUYBCABKAIiNQoLQnVsbGV0U3RhdGUSEAoIYnVsbGV0SWQYASABKAkSCQoB",
+            "eBgCIAEoAhIJCgF5GAMgASgCIhoKCUdhbWVDb3VudBINCgVjb3VudBgBIAEo",
+            "BSIWCgZEb0Rhc2gSDAoEZGFzaBgBIAEoCGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Message.Wrapper), global::Message.Wrapper.Parser, new[]{ "DirChange", "CreateBullet", "GameState", "GameCount", "GameInit" }, new[]{ "MessageType" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Message.Wrapper), global::Message.Wrapper.Parser, new[]{ "ChangeDir", "DoDash", "CreateBullet", "GameState", "GameCount", "GameInit" }, new[]{ "MessageType" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameInit), global::Message.GameInit.Parser, new[]{ "Id" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Message.DirChange), global::Message.DirChange.Parser, new[]{ "Angle", "IsMoved" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Message.ChangeDir), global::Message.ChangeDir.Parser, new[]{ "Angle", "IsMoved" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameState), global::Message.GameState.Parser, new[]{ "PlayerState", "BulletState" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.PlayerState), global::Message.PlayerState.Parser, new[]{ "Id", "X", "Y" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.CreateBullet), global::Message.CreateBullet.Parser, new[]{ "PlayerId", "StartX", "StartY", "Angle" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.BulletState), global::Message.BulletState.Parser, new[]{ "BulletId", "X", "Y" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameCount), global::Message.GameCount.Parser, new[]{ "Count" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameCount), global::Message.GameCount.Parser, new[]{ "Count" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Message.DoDash), global::Message.DoDash.Parser, new[]{ "Dash" }, null, null, null, null)
           }));
     }
     #endregion
@@ -92,8 +94,11 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public Wrapper(Wrapper other) : this() {
       switch (other.MessageTypeCase) {
-        case MessageTypeOneofCase.DirChange:
-          DirChange = other.DirChange.Clone();
+        case MessageTypeOneofCase.ChangeDir:
+          ChangeDir = other.ChangeDir.Clone();
+          break;
+        case MessageTypeOneofCase.DoDash:
+          DoDash = other.DoDash.Clone();
           break;
         case MessageTypeOneofCase.CreateBullet:
           CreateBullet = other.CreateBullet.Clone();
@@ -118,20 +123,32 @@ namespace Message {
       return new Wrapper(this);
     }
 
-    /// <summary>Field number for the "dirChange" field.</summary>
-    public const int DirChangeFieldNumber = 1;
+    /// <summary>Field number for the "changeDir" field.</summary>
+    public const int ChangeDirFieldNumber = 1;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Message.DirChange DirChange {
-      get { return messageTypeCase_ == MessageTypeOneofCase.DirChange ? (global::Message.DirChange) messageType_ : null; }
+    public global::Message.ChangeDir ChangeDir {
+      get { return messageTypeCase_ == MessageTypeOneofCase.ChangeDir ? (global::Message.ChangeDir) messageType_ : null; }
       set {
         messageType_ = value;
-        messageTypeCase_ = value == null ? MessageTypeOneofCase.None : MessageTypeOneofCase.DirChange;
+        messageTypeCase_ = value == null ? MessageTypeOneofCase.None : MessageTypeOneofCase.ChangeDir;
+      }
+    }
+
+    /// <summary>Field number for the "doDash" field.</summary>
+    public const int DoDashFieldNumber = 2;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Message.DoDash DoDash {
+      get { return messageTypeCase_ == MessageTypeOneofCase.DoDash ? (global::Message.DoDash) messageType_ : null; }
+      set {
+        messageType_ = value;
+        messageTypeCase_ = value == null ? MessageTypeOneofCase.None : MessageTypeOneofCase.DoDash;
       }
     }
 
     /// <summary>Field number for the "createBullet" field.</summary>
-    public const int CreateBulletFieldNumber = 2;
+    public const int CreateBulletFieldNumber = 3;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::Message.CreateBullet CreateBullet {
@@ -143,7 +160,7 @@ namespace Message {
     }
 
     /// <summary>Field number for the "gameState" field.</summary>
-    public const int GameStateFieldNumber = 3;
+    public const int GameStateFieldNumber = 4;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::Message.GameState GameState {
@@ -155,7 +172,7 @@ namespace Message {
     }
 
     /// <summary>Field number for the "gameCount" field.</summary>
-    public const int GameCountFieldNumber = 4;
+    public const int GameCountFieldNumber = 5;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::Message.GameCount GameCount {
@@ -167,7 +184,7 @@ namespace Message {
     }
 
     /// <summary>Field number for the "gameInit" field.</summary>
-    public const int GameInitFieldNumber = 5;
+    public const int GameInitFieldNumber = 6;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::Message.GameInit GameInit {
@@ -182,11 +199,12 @@ namespace Message {
     /// <summary>Enum of possible cases for the "MessageType" oneof.</summary>
     public enum MessageTypeOneofCase {
       None = 0,
-      DirChange = 1,
-      CreateBullet = 2,
-      GameState = 3,
-      GameCount = 4,
-      GameInit = 5,
+      ChangeDir = 1,
+      DoDash = 2,
+      CreateBullet = 3,
+      GameState = 4,
+      GameCount = 5,
+      GameInit = 6,
     }
     private MessageTypeOneofCase messageTypeCase_ = MessageTypeOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -217,7 +235,8 @@ namespace Message {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (!object.Equals(DirChange, other.DirChange)) return false;
+      if (!object.Equals(ChangeDir, other.ChangeDir)) return false;
+      if (!object.Equals(DoDash, other.DoDash)) return false;
       if (!object.Equals(CreateBullet, other.CreateBullet)) return false;
       if (!object.Equals(GameState, other.GameState)) return false;
       if (!object.Equals(GameCount, other.GameCount)) return false;
@@ -230,7 +249,8 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (messageTypeCase_ == MessageTypeOneofCase.DirChange) hash ^= DirChange.GetHashCode();
+      if (messageTypeCase_ == MessageTypeOneofCase.ChangeDir) hash ^= ChangeDir.GetHashCode();
+      if (messageTypeCase_ == MessageTypeOneofCase.DoDash) hash ^= DoDash.GetHashCode();
       if (messageTypeCase_ == MessageTypeOneofCase.CreateBullet) hash ^= CreateBullet.GetHashCode();
       if (messageTypeCase_ == MessageTypeOneofCase.GameState) hash ^= GameState.GetHashCode();
       if (messageTypeCase_ == MessageTypeOneofCase.GameCount) hash ^= GameCount.GetHashCode();
@@ -254,24 +274,28 @@ namespace Message {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (messageTypeCase_ == MessageTypeOneofCase.DirChange) {
+      if (messageTypeCase_ == MessageTypeOneofCase.ChangeDir) {
         output.WriteRawTag(10);
-        output.WriteMessage(DirChange);
+        output.WriteMessage(ChangeDir);
+      }
+      if (messageTypeCase_ == MessageTypeOneofCase.DoDash) {
+        output.WriteRawTag(18);
+        output.WriteMessage(DoDash);
       }
       if (messageTypeCase_ == MessageTypeOneofCase.CreateBullet) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteMessage(CreateBullet);
       }
       if (messageTypeCase_ == MessageTypeOneofCase.GameState) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(34);
         output.WriteMessage(GameState);
       }
       if (messageTypeCase_ == MessageTypeOneofCase.GameCount) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(42);
         output.WriteMessage(GameCount);
       }
       if (messageTypeCase_ == MessageTypeOneofCase.GameInit) {
-        output.WriteRawTag(42);
+        output.WriteRawTag(50);
         output.WriteMessage(GameInit);
       }
       if (_unknownFields != null) {
@@ -284,24 +308,28 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (messageTypeCase_ == MessageTypeOneofCase.DirChange) {
+      if (messageTypeCase_ == MessageTypeOneofCase.ChangeDir) {
         output.WriteRawTag(10);
-        output.WriteMessage(DirChange);
+        output.WriteMessage(ChangeDir);
+      }
+      if (messageTypeCase_ == MessageTypeOneofCase.DoDash) {
+        output.WriteRawTag(18);
+        output.WriteMessage(DoDash);
       }
       if (messageTypeCase_ == MessageTypeOneofCase.CreateBullet) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteMessage(CreateBullet);
       }
       if (messageTypeCase_ == MessageTypeOneofCase.GameState) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(34);
         output.WriteMessage(GameState);
       }
       if (messageTypeCase_ == MessageTypeOneofCase.GameCount) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(42);
         output.WriteMessage(GameCount);
       }
       if (messageTypeCase_ == MessageTypeOneofCase.GameInit) {
-        output.WriteRawTag(42);
+        output.WriteRawTag(50);
         output.WriteMessage(GameInit);
       }
       if (_unknownFields != null) {
@@ -314,8 +342,11 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (messageTypeCase_ == MessageTypeOneofCase.DirChange) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(DirChange);
+      if (messageTypeCase_ == MessageTypeOneofCase.ChangeDir) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(ChangeDir);
+      }
+      if (messageTypeCase_ == MessageTypeOneofCase.DoDash) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(DoDash);
       }
       if (messageTypeCase_ == MessageTypeOneofCase.CreateBullet) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(CreateBullet);
@@ -342,11 +373,17 @@ namespace Message {
         return;
       }
       switch (other.MessageTypeCase) {
-        case MessageTypeOneofCase.DirChange:
-          if (DirChange == null) {
-            DirChange = new global::Message.DirChange();
+        case MessageTypeOneofCase.ChangeDir:
+          if (ChangeDir == null) {
+            ChangeDir = new global::Message.ChangeDir();
           }
-          DirChange.MergeFrom(other.DirChange);
+          ChangeDir.MergeFrom(other.ChangeDir);
+          break;
+        case MessageTypeOneofCase.DoDash:
+          if (DoDash == null) {
+            DoDash = new global::Message.DoDash();
+          }
+          DoDash.MergeFrom(other.DoDash);
           break;
         case MessageTypeOneofCase.CreateBullet:
           if (CreateBullet == null) {
@@ -394,15 +431,24 @@ namespace Message {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            global::Message.DirChange subBuilder = new global::Message.DirChange();
-            if (messageTypeCase_ == MessageTypeOneofCase.DirChange) {
-              subBuilder.MergeFrom(DirChange);
+            global::Message.ChangeDir subBuilder = new global::Message.ChangeDir();
+            if (messageTypeCase_ == MessageTypeOneofCase.ChangeDir) {
+              subBuilder.MergeFrom(ChangeDir);
             }
             input.ReadMessage(subBuilder);
-            DirChange = subBuilder;
+            ChangeDir = subBuilder;
             break;
           }
           case 18: {
+            global::Message.DoDash subBuilder = new global::Message.DoDash();
+            if (messageTypeCase_ == MessageTypeOneofCase.DoDash) {
+              subBuilder.MergeFrom(DoDash);
+            }
+            input.ReadMessage(subBuilder);
+            DoDash = subBuilder;
+            break;
+          }
+          case 26: {
             global::Message.CreateBullet subBuilder = new global::Message.CreateBullet();
             if (messageTypeCase_ == MessageTypeOneofCase.CreateBullet) {
               subBuilder.MergeFrom(CreateBullet);
@@ -411,7 +457,7 @@ namespace Message {
             CreateBullet = subBuilder;
             break;
           }
-          case 26: {
+          case 34: {
             global::Message.GameState subBuilder = new global::Message.GameState();
             if (messageTypeCase_ == MessageTypeOneofCase.GameState) {
               subBuilder.MergeFrom(GameState);
@@ -420,7 +466,7 @@ namespace Message {
             GameState = subBuilder;
             break;
           }
-          case 34: {
+          case 42: {
             global::Message.GameCount subBuilder = new global::Message.GameCount();
             if (messageTypeCase_ == MessageTypeOneofCase.GameCount) {
               subBuilder.MergeFrom(GameCount);
@@ -429,7 +475,7 @@ namespace Message {
             GameCount = subBuilder;
             break;
           }
-          case 42: {
+          case 50: {
             global::Message.GameInit subBuilder = new global::Message.GameInit();
             if (messageTypeCase_ == MessageTypeOneofCase.GameInit) {
               subBuilder.MergeFrom(GameInit);
@@ -458,15 +504,24 @@ namespace Message {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            global::Message.DirChange subBuilder = new global::Message.DirChange();
-            if (messageTypeCase_ == MessageTypeOneofCase.DirChange) {
-              subBuilder.MergeFrom(DirChange);
+            global::Message.ChangeDir subBuilder = new global::Message.ChangeDir();
+            if (messageTypeCase_ == MessageTypeOneofCase.ChangeDir) {
+              subBuilder.MergeFrom(ChangeDir);
             }
             input.ReadMessage(subBuilder);
-            DirChange = subBuilder;
+            ChangeDir = subBuilder;
             break;
           }
           case 18: {
+            global::Message.DoDash subBuilder = new global::Message.DoDash();
+            if (messageTypeCase_ == MessageTypeOneofCase.DoDash) {
+              subBuilder.MergeFrom(DoDash);
+            }
+            input.ReadMessage(subBuilder);
+            DoDash = subBuilder;
+            break;
+          }
+          case 26: {
             global::Message.CreateBullet subBuilder = new global::Message.CreateBullet();
             if (messageTypeCase_ == MessageTypeOneofCase.CreateBullet) {
               subBuilder.MergeFrom(CreateBullet);
@@ -475,7 +530,7 @@ namespace Message {
             CreateBullet = subBuilder;
             break;
           }
-          case 26: {
+          case 34: {
             global::Message.GameState subBuilder = new global::Message.GameState();
             if (messageTypeCase_ == MessageTypeOneofCase.GameState) {
               subBuilder.MergeFrom(GameState);
@@ -484,7 +539,7 @@ namespace Message {
             GameState = subBuilder;
             break;
           }
-          case 34: {
+          case 42: {
             global::Message.GameCount subBuilder = new global::Message.GameCount();
             if (messageTypeCase_ == MessageTypeOneofCase.GameCount) {
               subBuilder.MergeFrom(GameCount);
@@ -493,7 +548,7 @@ namespace Message {
             GameCount = subBuilder;
             break;
           }
-          case 42: {
+          case 50: {
             global::Message.GameInit subBuilder = new global::Message.GameInit();
             if (messageTypeCase_ == MessageTypeOneofCase.GameInit) {
               subBuilder.MergeFrom(GameInit);
@@ -717,16 +772,16 @@ namespace Message {
   /// client → server : changing state
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class DirChange : pb::IMessage<DirChange>
+  public sealed partial class ChangeDir : pb::IMessage<ChangeDir>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<DirChange> _parser = new pb::MessageParser<DirChange>(() => new DirChange());
+    private static readonly pb::MessageParser<ChangeDir> _parser = new pb::MessageParser<ChangeDir>(() => new ChangeDir());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<DirChange> Parser { get { return _parser; } }
+    public static pb::MessageParser<ChangeDir> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -742,7 +797,7 @@ namespace Message {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DirChange() {
+    public ChangeDir() {
       OnConstruction();
     }
 
@@ -750,7 +805,7 @@ namespace Message {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DirChange(DirChange other) : this() {
+    public ChangeDir(ChangeDir other) : this() {
       angle_ = other.angle_;
       isMoved_ = other.isMoved_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -758,8 +813,8 @@ namespace Message {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DirChange Clone() {
-      return new DirChange(this);
+    public ChangeDir Clone() {
+      return new ChangeDir(this);
     }
 
     /// <summary>Field number for the "angle" field.</summary>
@@ -789,12 +844,12 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as DirChange);
+      return Equals(other as ChangeDir);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(DirChange other) {
+    public bool Equals(ChangeDir other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -880,7 +935,7 @@ namespace Message {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(DirChange other) {
+    public void MergeFrom(ChangeDir other) {
       if (other == null) {
         return;
       }
@@ -2209,6 +2264,204 @@ namespace Message {
             break;
           case 8: {
             Count = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class DoDash : pb::IMessage<DoDash>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<DoDash> _parser = new pb::MessageParser<DoDash>(() => new DoDash());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<DoDash> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Message.MessageReflection.Descriptor.MessageTypes[8]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public DoDash() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public DoDash(DoDash other) : this() {
+      dash_ = other.dash_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public DoDash Clone() {
+      return new DoDash(this);
+    }
+
+    /// <summary>Field number for the "dash" field.</summary>
+    public const int DashFieldNumber = 1;
+    private bool dash_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Dash {
+      get { return dash_; }
+      set {
+        dash_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as DoDash);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(DoDash other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Dash != other.Dash) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Dash != false) hash ^= Dash.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Dash != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(Dash);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Dash != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(Dash);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (Dash != false) {
+        size += 1 + 1;
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(DoDash other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Dash != false) {
+        Dash = other.Dash;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Dash = input.ReadBool();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            Dash = input.ReadBool();
             break;
           }
         }
