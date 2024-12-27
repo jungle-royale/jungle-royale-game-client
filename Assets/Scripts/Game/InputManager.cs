@@ -92,7 +92,7 @@ public class InputManager : MonoBehaviour
     {
         bool dash = false;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             dash = true;
             Dash?.Invoke(dash);
