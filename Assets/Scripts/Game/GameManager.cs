@@ -25,10 +25,6 @@ public class GameManager : MonoBehaviour
     float PLAYER_Y;
     float BULLET_Y;
 
-    // 이동
-    private Vector2 lastDirection = Vector2.zero; // 이전 프레임의 방향
-    private bool wasMoved = false;                // 이전 프레임의 이동 상태
-
     // 총알
     private Dictionary<string, GameObject> bulletObjectList = new Dictionary<string, GameObject>();
 
@@ -45,6 +41,9 @@ public class GameManager : MonoBehaviour
         BULLET_Y = PLAYER_Y + 0.9f;
 
         mainCamera = Camera.main;
+
+        // AudioManager를 통해 BackgroundBGM 재생
+        AudioManager.Instance.PlayBGM("BackgroundBGM");
     }
 
     public void ConfigureInput()

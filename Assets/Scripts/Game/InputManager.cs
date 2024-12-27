@@ -3,7 +3,6 @@ using System;
 
 public class InputManager : MonoBehaviour
 {
-
     // 이동
     private Vector2 lastDirection = Vector2.zero; // 이전 프레임의 방향
     private bool wasMoved = false;                // 이전 프레임의 이동 상태
