@@ -45,11 +45,12 @@ public class GameManager : MonoBehaviour
         // NetworkManager 초기화 및 핸들러 등록
         if (Debug.isDebugBuild)
         {
-            networkManager.Initialize("ws://localhost:8000/ws");
+            var roomId = "test";
+            networkManager.Initialize($"ws://localhost:8000/room?roomId={roomId}");
         }
         else
         {
-            networkManager.Initialize("ws://eternal-snowman:8000/ws");
+            networkManager.Initialize("ws://eternal-snowman:8000/room");
         }
 
         networkManager.RegisterHandler(
@@ -112,9 +113,9 @@ public class GameManager : MonoBehaviour
                     HandleGameInit(wrapper.GameInit);
                     break;
 
-                case Wrapper.MessageTypeOneofCase.State:
+                case Wrapper.MessageTypeOneofCase.GameState:
                     // Debug.Log($"State: {wrapper.State}");
-                    HandleGameState(wrapper.State);
+                    HandleGameState(wrapper.GameState);
                     break;
 
                 default:
@@ -246,16 +247,16 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Assigned Client ID: {clientId}");
     }
 
-    private void HandleGameState(GameState state)
+    private void HandleGameState(GameState gameState)
     {
-        if (state.Players != null)
+        if (gameState.PlayerState != null)
         {
-            UpdatePlayers(state.Players);
+            UpdatePlayers(gameState.PlayerState);
         }
 
-        if (state.BulletState != null)
+        if (gameState.BulletState != null)
         {
-            UpdateAllBullets(state.BulletState);
+            UpdateAllBullets(gameState.BulletState);
         }
     }
 
@@ -276,7 +277,7 @@ public class GameManager : MonoBehaviour
     }
 
     // GameState를 기반으로 플레이어 관리
-    private void UpdatePlayers(IEnumerable<Player> players)
+    private void UpdatePlayers(IEnumerable<PlayerState> players)
     {
         HashSet<string> playerStateIds = new HashSet<string>();
 
@@ -291,26 +292,26 @@ public class GameManager : MonoBehaviour
         RemoveInactivePlayers(playerStateIds);
     }
 
-    private void UpdatePlayerPosition(Player player)
+    private void UpdatePlayerPosition(PlayerState playerState)
     {
         GameObject playerObject;
 
         // 플레이어가 Dictionary에 없으면 새로 생성
-        if (!playerObjectList.TryGetValue(player.Id, out playerObject))
+        if (!playerObjectList.TryGetValue(playerState.Id, out playerObject))
         {
             GameObject playerPrefab = Resources.Load<GameObject>("Prefabs/Player");
             if (playerPrefab != null)
             {
-                playerObject = Instantiate(playerPrefab, new Vector3(player.X, PLAYER_Y, player.Y), Quaternion.identity);
+                playerObject = Instantiate(playerPrefab, new Vector3(playerState.X, PLAYER_Y, playerState.Y), Quaternion.identity);
 
-                if (player.Id == clientId) // 내 플레이어면 태그를 Player로 설정
+                if (playerState.Id == clientId) // 내 플레이어면 태그를 Player로 설정
                 {
                     playerObject.tag = "Player";
-                    Debug.Log($"Created client player for ID: {player.Id}");
+                    Debug.Log($"Created client player for ID: {playerState.Id}");
                 }
 
                 // Dictionary에 추가
-                playerObjectList[player.Id] = playerObject;
+                playerObjectList[playerState.Id] = playerObject;
             }
             else
             {
@@ -319,12 +320,12 @@ public class GameManager : MonoBehaviour
         }
 
         // 위치 업데이트
-        playerObject.transform.position = new Vector3(player.X, PLAYER_Y, player.Y);
+        playerObject.transform.position = new Vector3(playerState.X, PLAYER_Y, playerState.Y);
 
         // 카메라 세팅 (내 플레이어일 경우에만)
-        if (player.Id == clientId)
+        if (playerState.Id == clientId)
         {
-            mainCamera.transform.position = new Vector3(player.X, PLAYER_Y + CAMERA_OFFSET_Y, player.Y - CAMERA_OFFSET_Z);
+            mainCamera.transform.position = new Vector3(playerState.X, PLAYER_Y + CAMERA_OFFSET_Y, playerState.Y - CAMERA_OFFSET_Z);
             mainCamera.transform.rotation = Quaternion.Euler(CAMERA_ROTATION_X, 0, 0);
         }
     }
@@ -467,7 +468,7 @@ public class GameManager : MonoBehaviour
         try
         {
             // BulletCreate 메시지 생성
-            var bulletCreate = new BulletCreate
+            var createBullet = new CreateBullet
             {
                 PlayerId = playerId,
                 StartX = startX,
@@ -475,10 +476,10 @@ public class GameManager : MonoBehaviour
                 Angle = angle
             };
 
-            // Wrapper 메시지 생성 및 BulletCreate 메시지 포함
+            // Wrapper 메시지 생성 및 CreateBullet 메시지 포함
             var wrapper = new Wrapper
             {
-                BulletCreate = bulletCreate
+                CreateBullet = createBullet
             };
 
             // Protobuf 직렬화
@@ -487,11 +488,11 @@ public class GameManager : MonoBehaviour
             // WebSocket으로 메시지 전송
             networkManager.Send(data);
 
-            Debug.Log($"Sent BulletCreate: PlayerId={playerId}, StartX={startX}, StartY={startY}, Angle={angle}");
+            Debug.Log($"Sent CreateBullet: PlayerId={playerId}, StartX={startX}, StartY={startY}, Angle={angle}");
         }
         catch (Exception ex)
         {
-            Debug.LogError($"Failed to send BulletCreate message: {ex.Message}");
+            Debug.LogError($"Failed to send CreateBullet message: {ex.Message}");
         }
     }
 }

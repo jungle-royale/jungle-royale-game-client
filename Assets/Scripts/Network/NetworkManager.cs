@@ -8,6 +8,7 @@ public class NetworkManager : MonoBehaviour
 
     public void Initialize(string url)
     {
+        Debug.Log($"Initializing WebSocket with URL: {url}");
         websocket = new WebSocket(url);
     }
 
