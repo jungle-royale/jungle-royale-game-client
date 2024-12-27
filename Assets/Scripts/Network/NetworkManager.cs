@@ -1,15 +1,43 @@
 using System;
 using UnityEngine;
 using NativeWebSocket;
+using System.Web;
 
 public class NetworkManager : MonoBehaviour
 {
     private WebSocket websocket;
 
-    public void Initialize(string url)
+    public static event Action OnOpen;
+    public static event Action<string> OnError;
+    public static event Action<string> OnClose;
+    public static event Action<byte[]> OnMessage;
+
+    void Awake()
     {
-        Debug.Log($"Initializing WebSocket with URL: {url}");
-        websocket = new WebSocket(url);
+        Initialize();
+        RegisterHandler();
+    }
+
+    void Start()
+    {
+       
+
+    }
+
+    public void Initialize()
+    {
+        var roomId = "test";
+        if (!Debug.isDebugBuild)
+        {
+            var url = Application.absoluteURL;
+            Uri uri = new Uri(url);
+            string query = uri.Query;
+            var queryParams = HttpUtility.ParseQueryString(query);
+            roomId = queryParams["roomId"];
+        }
+        var urlString = $"ws://localhost:8000/room?roomId={roomId}";
+        Debug.Log($"Initializing WebSocket with URL: {urlString}");
+        websocket = new WebSocket(urlString);
     }
 
     public async void Connect()
@@ -30,12 +58,8 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
-    public void RegisterHandler(
-        Action onOpen,
-        Action<string> onError,
-        Action<string> onClose,
-        Action<byte[]> onMessage
-    )
+
+    private void RegisterHandler()
     {
         if (websocket == null)
         {
@@ -46,50 +70,27 @@ public class NetworkManager : MonoBehaviour
         websocket.OnOpen += () =>
         {
             Debug.Log("Connection open!");
-            onOpen();
+            OnOpen?.Invoke();
         };
 
         websocket.OnError += (e) =>
         {
             Debug.Log($"Error! {e}");
-            onError(e);
+            OnError?.Invoke(e);
         };
 
-        websocket.OnClose += (e) =>
+        websocket.OnClose += (code) =>
         {
             Debug.Log("Connection closed!");
-            onClose(e.ToString());
+            OnClose?.Invoke(code.ToString());
         };
 
         websocket.OnMessage += (bytes) =>
         {
-            onMessage(bytes);
+            OnMessage?.Invoke(bytes);
         };
     }
 
-    public async void Close()
-    {
-        if (websocket == null)
-        {
-            Debug.LogWarning("WebSocket is not initialized.");
-            return;
-        }
-
-        if (websocket.State == WebSocketState.Closed || websocket.State == WebSocketState.Closing)
-        {
-            Debug.LogWarning("WebSocket is already closed or closing.");
-            return;
-        }
-
-        try
-        {
-            await websocket.Close();
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Failed to close WebSocket: {ex.Message}");
-        }
-    }
 
     public bool IsOpen()
     {
@@ -116,8 +117,38 @@ public class NetworkManager : MonoBehaviour
 
     public void Update()
     {
+    // NativeWebsocket에서는 이 코드가 필요합니다.
 #if !UNITY_WEBGL || UNITY_EDITOR
         websocket?.DispatchMessageQueue();
 #endif
+    }
+
+    private void OnApplicationQuit()
+    {
+        Close();
+    }
+
+    public async void Close()
+    {
+        if (websocket == null)
+        {
+            Debug.LogWarning("WebSocket is not initialized.");
+            return;
+        }
+
+        if (websocket.State == WebSocketState.Closed || websocket.State == WebSocketState.Closing)
+        {
+            Debug.LogWarning("WebSocket is already closed or closing.");
+            return;
+        }
+
+        try
+        {
+            await websocket.Close();
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Failed to close WebSocket: {ex.Message}");
+        }
     }
 }
