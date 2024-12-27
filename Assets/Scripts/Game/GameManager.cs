@@ -6,6 +6,9 @@ using Google.Protobuf;
 using Unity.VisualScripting;
 using System.Net.WebSockets;
 using System;
+using System.Data.Common;
+using System.Linq.Expressions;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -151,6 +154,16 @@ public class GameManager : MonoBehaviour
         // WASD 입력 벡터 계산
         Vector2 inputDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
+        bool dash = false;
+        // 왼쪽 또는 오른쪽 Shift 키가 눌렸는지 확인
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        {
+            // Debug.Log("Shift key is being held down.");
+            dash = true;
+        }
+
+        SendDoDashMessage(dash);
+
         // 입력 벡터로 방향 및 이동 상태 계산
         float angle = CalculateAngle(inputDirection);
         bool isMoved = inputDirection != Vector2.zero;
@@ -159,7 +172,7 @@ public class GameManager : MonoBehaviour
         if (inputDirection != lastDirection || isMoved != wasMoved)
         {
             // 서버로 메시지 전송
-            SendMovementMessage(angle, isMoved);
+            SendChangeDirMessage(angle, isMoved);
 
             // 상태 업데이트
             lastDirection = inputDirection;
@@ -213,7 +226,7 @@ public class GameManager : MonoBehaviour
                 Debug.LogError($"angle: {angle}");
 
                 // 서버로 데이터 전송
-                SendBulletCreateMessage(player.name, playerPosition.x, playerPosition.z, angle);
+                SendCreateBulletMessage(player.name, playerPosition.x, playerPosition.z, angle);
             }
         }
     }
@@ -421,7 +434,7 @@ public class GameManager : MonoBehaviour
         return mapHeight;
     }
 
-    private void SendMovementMessage(float angle, bool isMoved)
+    private void SendChangeDirMessage(float angle, bool isMoved)
     {
         if (networkManager == null || !networkManager.IsOpen())
         {
@@ -457,7 +470,37 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void SendBulletCreateMessage(string playerId, float startX, float startY, float angle)
+    private void SendDoDashMessage(bool dash)
+    {
+        if (networkManager == null || !networkManager.IsOpen())
+        {
+            Debug.LogError("WebSocket is not connected.");
+            return;
+        }
+
+        var doDash = new DoDash
+        {
+            Dash = dash
+        };
+
+        var wrapper = new Wrapper
+        {
+            DoDash = doDash
+        };
+
+        var data = wrapper.ToByteArray();
+
+        try
+        {
+            networkManager.Send(data);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Failed to send movement: {ex.Message}");
+        }
+    }
+
+    private void SendCreateBulletMessage(string playerId, float startX, float startY, float angle)
     {
         if (networkManager == null || !networkManager.IsOpen())
         {
@@ -467,7 +510,7 @@ public class GameManager : MonoBehaviour
 
         try
         {
-            // BulletCreate 메시지 생성
+            // CreateBullet 메시지 생성
             var createBullet = new CreateBullet
             {
                 PlayerId = playerId,
