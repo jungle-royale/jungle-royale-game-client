@@ -3,7 +3,6 @@ using System;
 
 public class InputManager : MonoBehaviour
 {
-
     // 이동
     private Vector2 lastDirection = Vector2.zero; // 이전 프레임의 방향
     private bool wasMoved = false;                // 이전 프레임의 이동 상태
@@ -25,9 +24,10 @@ public class InputManager : MonoBehaviour
     private void HandleMove()
     {
         // WASD 입력 벡터 계산
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
+        float x = Input.GetAxisRaw("Horizontal");
+        float y = Input.GetAxisRaw("Vertical");
         Vector2 inputDirection = new Vector2(x, y);
+
 
         // 입력 벡터로 방향 및 이동 상태 계산
         float angle = CalculateAngle(inputDirection);
@@ -36,12 +36,12 @@ public class InputManager : MonoBehaviour
         // 입력 상태 변화 감지
         if (inputDirection != lastDirection || isMoved != wasMoved)
         {
-            // SendChangeDirMessage(angle, isMoved);
             Move?.Invoke(angle, isMoved);
 
             // 상태 업데이트
             lastDirection = inputDirection;
             wasMoved = isMoved;
+
         }
     }
 
@@ -79,9 +79,9 @@ public class InputManager : MonoBehaviour
                     angle += 360f;
                 }
 
-                Debug.Log($"click: {clickPosition}, player: {playerPosition}");
-                Debug.Log($"direction: {direction}");
-                Debug.Log($"angle: {angle}");
+                // Debug.Log($"click: {clickPosition}, player: {playerPosition}");
+                // Debug.Log($"direction: {direction}");
+                // Debug.Log($"angle: {angle}");
 
                 Bullet?.Invoke(playerPosition.x, playerPosition.z, angle);
             }

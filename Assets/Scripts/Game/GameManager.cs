@@ -25,10 +25,6 @@ public class GameManager : MonoBehaviour
     float PLAYER_Y;
     float BULLET_Y;
 
-    // 이동
-    private Vector2 lastDirection = Vector2.zero; // 이전 프레임의 방향
-    private bool wasMoved = false;                // 이전 프레임의 이동 상태
-
     // 총알
     private Dictionary<string, GameObject> bulletObjectList = new Dictionary<string, GameObject>();
 
@@ -42,19 +38,38 @@ public class GameManager : MonoBehaviour
         GameObject playerPrefab = Resources.Load<GameObject>($"Prefabs/Player");
 
         PLAYER_Y = CalculateSurfaceY(mapPrefab);
-        BULLET_Y = PLAYER_Y + 1.5f;
+        BULLET_Y = PLAYER_Y + 0.9f;
 
         mainCamera = Camera.main;
+
+        // AudioManager를 통해 BackgroundBGM 재생
+        AudioManager.Instance.PlayBGM("BackgroundBGM");
     }
-    
-    public void ConfigureInput() {
-        InputManager.Dash += (dash) => {
+
+    public void ConfigureInput()
+    {
+        InputManager.Dash += (dash) =>
+        {
             SendDoDashMessage(dash);
         };
-        InputManager.Move += (angle, isMoved) => {
-            SendChangeDirMessage(angle, isMoved);            
+        InputManager.Move += (angle, isMoved) =>
+        {
+            SendChangeDirMessage(angle, isMoved);
+
+            if (isMoved)
+            {
+                // start audio
+                AudioManager.Instance.StartWalkingSound("RunningSFX");
+            }
+            else
+            {
+                // stopch audio
+                AudioManager.Instance.StopWalkingSound();
+            }
+
         };
-        InputManager.Bullet += (x, y, angle) => {
+        InputManager.Bullet += (x, y, angle) =>
+        {
             SendCreateBulletMessage(clientId, x, y, angle);
         };
     }
@@ -69,10 +84,11 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        NetworkManager.OnOpen += () => {};
-        NetworkManager.OnClose += (error) => {};
-        NetworkManager.OnError += (closeCode) => {};
-        NetworkManager.OnMessage += (bytes) => {
+        NetworkManager.OnOpen += () => { };
+        NetworkManager.OnClose += (error) => { };
+        NetworkManager.OnError += (closeCode) => { };
+        NetworkManager.OnMessage += (bytes) =>
+        {
             try
             {
                 var wrapper = Wrapper.Parser.ParseFrom(bytes);
@@ -249,7 +265,7 @@ public class GameManager : MonoBehaviour
 
                 // Dictionary에 추가
                 bulletObjectList[bullet.BulletId] = firedBullet;
-                Debug.Log($"발사: {bullet.BulletId}");
+                // Debug.Log($"발사: {bullet.BulletId}");
             }
             else
             {
@@ -258,7 +274,7 @@ public class GameManager : MonoBehaviour
         }
 
         firedBullet.transform.position = new Vector3(bullet.X, BULLET_Y, bullet.Y);
-        Debug.Log($"총알 위치: {firedBullet.transform.position}");
+        // Debug.Log($"총알 위치: {firedBullet.transform.position}");
     }
 
     private void RemoveInactiveBullets(HashSet<string> bulletStateIds)
@@ -281,7 +297,7 @@ public class GameManager : MonoBehaviour
             {
                 Destroy(bullet);
                 bulletObjectList.Remove(bulletId);
-                Debug.Log($"총알 제거: {bulletId}");
+                // Debug.Log($"총알 제거: {bulletId}");
             }
         }
     }
@@ -397,7 +413,7 @@ public class GameManager : MonoBehaviour
             // WebSocket으로 메시지 전송
             networkManager.Send(data);
 
-            Debug.Log($"Sent CreateBullet: PlayerId={playerId}, StartX={startX}, StartY={startY}, Angle={angle}");
+            // Debug.Log($"Sent CreateBullet: PlayerId={playerId}, StartX={startX}, StartY={startY}, Angle={angle}");
         }
         catch (Exception ex)
         {
