@@ -36,8 +36,6 @@ public class InputManager : MonoBehaviour
         // 입력 상태 변화 감지
         if (inputDirection != lastDirection || isMoved != wasMoved)
         {
-            Debug.Log($"입력: {inputDirection}");
-            // SendChangeDirMessage(angle, isMoved);
             Move?.Invoke(angle, isMoved);
 
             // 상태 업데이트

@@ -7,6 +7,8 @@ public class AudioManager : MonoBehaviour
     const float DEFAULT_BGM_VOL = 0.05f;
     const float DEFAULT_SFX_VOL = 1.0f;
 
+    private DateTime walkingStartTime;
+
     // 싱글톤 인스턴스
     private static AudioManager _instance;
     public static AudioManager Instance
@@ -108,6 +110,7 @@ public class AudioManager : MonoBehaviour
             walkingSource.clip = clip;
             walkingSource.loop = true; // 루프 활성화
             walkingSource.Play();
+            walkingStartTime = DateTime.Now;
         }
     }
 
@@ -116,8 +119,25 @@ public class AudioManager : MonoBehaviour
     {
         if (walkingSource.isPlaying)
         {
-            walkingSource.Stop();
-            walkingSource.clip = null; // 클립을 해제하여 상태 초기화
+
+            DateTime endTime = DateTime.Now;
+
+            TimeSpan timeDiff = endTime - walkingStartTime;
+
+            if (timeDiff.Milliseconds <= 200)
+            {
+                DelayedExecutor.ExecuteAfterDelay(200 - timeDiff.Milliseconds, () =>
+                {
+                    walkingSource.Stop();
+                    walkingSource.clip = null; // 클립 초기화
+                });
+            }
+            else
+            {
+                walkingSource.Stop();
+                walkingSource.clip = null; // 클립을 해제하여 상태 초기화
+            }
+
         }
     }
 
