@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 public class AudioManager : MonoBehaviour
 {
+    const float DEFAULT_BGM_VOL = 0.05f;
+    const float DEFAULT_SFX_VOL = 1.0f;
+
     // 싱글톤 인스턴스
     private static AudioManager _instance;
     public static AudioManager Instance
@@ -23,7 +26,9 @@ public class AudioManager : MonoBehaviour
 
     // BGM과 효과음을 재생할 AudioSource
     private AudioSource bgmSource;
-    private AudioSource sfxSource;
+    // private AudioSource sfxSource;
+    private AudioSource walkingSource; // 걷는 소리 전용 AudioSource
+
 
     // 오디오 클립 캐싱을 위한 딕셔너리
     private Dictionary<string, AudioClip> audioClips;
@@ -44,9 +49,10 @@ public class AudioManager : MonoBehaviour
 
         // AudioSource 초기화
         bgmSource = gameObject.AddComponent<AudioSource>();
-        bgmSource.loop = true; // BGM은 반복 재생
+        bgmSource.loop = true;
 
-        sfxSource = gameObject.AddComponent<AudioSource>();
+        walkingSource = gameObject.AddComponent<AudioSource>();
+        walkingSource.loop = true;
 
         // 오디오 클립 딕셔너리 초기화
         audioClips = new Dictionary<string, AudioClip>();
@@ -75,23 +81,49 @@ public class AudioManager : MonoBehaviour
     }
 
     // BGM 재생
-    public void PlayBGM(string bgmName)
+    public void PlayBGM(string bgmName, float volume = DEFAULT_BGM_VOL)
     {
         AudioClip clip = LoadAudioClip($"Audio/BGM/{bgmName}");
         if (clip != null && bgmSource.clip != clip)
         {
             bgmSource.clip = clip;
-            bgmSource.Play();
+            bgmSource.volume = volume;
+            bgmSource.Play(); // BGM 또는 오디오 루프 재생 (현재 오디오 중단되고 새 오디오가 재생됨)
         }
     }
 
-    // 효과음 재생
-    public void PlaySFX(string sfxName)
+    // 걷는 소리 재생
+    public void StartWalkingSound(string clipName)
     {
-        AudioClip clip = LoadAudioClip($"Audio/SFX/{sfxName}");
-        if (clip != null)
+        AudioClip clip = LoadAudioClip($"Audio/SFX/{clipName}");
+        if (clip != null && walkingSource.clip != clip)
         {
-            sfxSource.PlayOneShot(clip);
+            // 이미 재생 중인 소리가 같은 클립일 경우 다시 재생하지 않음
+            if (walkingSource.isPlaying && walkingSource.clip == clip)
+            {
+                return;
+            }
+
+            // 클립 설정 및 재생
+            walkingSource.clip = clip;
+            walkingSource.loop = true; // 루프 활성화
+            walkingSource.Play();
         }
     }
+
+    // 걷는 소리 중지
+    public void StopWalkingSound()
+    {
+        if (walkingSource.isPlaying)
+        {
+            walkingSource.Stop();
+            walkingSource.clip = null; // 클립을 해제하여 상태 초기화
+        }
+    }
+
+    // public void StartShootSound(string clipName)
+    // {
+    //     AudioClip clip = LoadAudioClip($"Audio/SFX/{clipName}");
+
+    // }
 }

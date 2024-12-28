@@ -55,6 +55,18 @@ public class GameManager : MonoBehaviour
         InputManager.Move += (angle, isMoved) =>
         {
             SendChangeDirMessage(angle, isMoved);
+
+            if (isMoved)
+            {
+                // start audio
+                AudioManager.Instance.StartWalkingSound("RunningSFX");
+            }
+            else
+            {
+                // stopch audio
+                AudioManager.Instance.StopWalkingSound();
+            }
+
         };
         InputManager.Bullet += (x, y, angle) =>
         {

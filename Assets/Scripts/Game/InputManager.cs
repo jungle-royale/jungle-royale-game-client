@@ -24,9 +24,10 @@ public class InputManager : MonoBehaviour
     private void HandleMove()
     {
         // WASD 입력 벡터 계산
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
+        float x = Input.GetAxisRaw("Horizontal");
+        float y = Input.GetAxisRaw("Vertical");
         Vector2 inputDirection = new Vector2(x, y);
+
 
         // 입력 벡터로 방향 및 이동 상태 계산
         float angle = CalculateAngle(inputDirection);
@@ -35,12 +36,14 @@ public class InputManager : MonoBehaviour
         // 입력 상태 변화 감지
         if (inputDirection != lastDirection || isMoved != wasMoved)
         {
+            Debug.Log($"입력: {inputDirection}");
             // SendChangeDirMessage(angle, isMoved);
             Move?.Invoke(angle, isMoved);
 
             // 상태 업데이트
             lastDirection = inputDirection;
             wasMoved = isMoved;
+
         }
     }
 
