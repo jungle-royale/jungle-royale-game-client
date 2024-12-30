@@ -252,6 +252,7 @@ public class GameManager : MonoBehaviour
 
     private void UpdateBulletPosition(BulletState bullet)
     {
+
         GameObject firedBullet;
 
         // 총알이 Dictionary에 없으면 새로 생성

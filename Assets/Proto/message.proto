@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package message;
 
+option go_package = "/message";
+
 message Wrapper {
     oneof MessageType {
         ChangeDir changeDir = 1;
@@ -10,6 +12,7 @@ message Wrapper {
         GameState gameState = 4;
         GameCount gameCount = 5;
         GameInit gameInit = 6;
+        GameStart gameStart = 7;
     }
 }
 
@@ -28,12 +31,16 @@ message ChangeDir {
 message GameState {
     repeated PlayerState playerState = 1;
     repeated BulletState bulletState = 2;
+    repeated HealPackState healPackState = 3;
+    repeated MagicItemState magicItemState = 4;
 }
 
 message PlayerState {
     string id = 1;
     float x = 2;
     float y = 3;
+    int32 health = 4;
+    int32 magicType = 5;
 }
 
 message CreateBullet {
@@ -45,8 +52,9 @@ message CreateBullet {
 
 message BulletState {
     string bulletId = 1;
-    float x = 2;
-    float y = 3;
+    int32 bulletType = 2;
+    float x = 3;
+    float y = 4;
 }
 
 message GameCount {
@@ -55,4 +63,21 @@ message GameCount {
 
 message DoDash {
     bool dash = 1;
+}
+
+message GameStart {
+    bool start = 1;
+}
+
+message HealPackState {
+    string itemId = 1;
+    float x = 2;
+    float y = 3;
+}
+
+message MagicItemState {
+    string itemId = 1;
+    int32 magicType = 2;
+    float x = 3;
+    float y = 4;
 }
