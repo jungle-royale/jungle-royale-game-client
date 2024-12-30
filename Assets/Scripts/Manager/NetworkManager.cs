@@ -2,8 +2,8 @@ using System;
 using UnityEngine;
 using NativeWebSocket;
 using System.Web;
-
-public class NetworkManager : MonoBehaviour
+    
+public class NetworkManager : Singleton<NetworkManager>
 {
     private WebSocket websocket;
 
@@ -12,16 +12,10 @@ public class NetworkManager : MonoBehaviour
     public static event Action<string> OnClose;
     public static event Action<byte[]> OnMessage;
 
-    void Awake()
+    void Start()
     {
         Initialize();
         RegisterHandler();
-    }
-
-    void Start()
-    {
-       
-
     }
 
     public void Initialize()

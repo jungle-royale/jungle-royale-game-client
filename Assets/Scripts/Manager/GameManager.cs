@@ -9,9 +9,11 @@ using System.Data.Common;
 using System.Linq.Expressions;
 using TMPro;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     private NetworkManager networkManager;
+
+    private DateTime _sessionStartTime;
 
     // 카메라
     private Camera mainCamera;
@@ -31,6 +33,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _sessionStartTime = DateTime.Now;
+        Debug.Log("게임 시작 : " + _sessionStartTime);
+
         ConfigureInput();
         ConfigureNetwork();
 
@@ -45,6 +50,21 @@ public class GameManager : MonoBehaviour
         // AudioManager를 통해 BackgroundBGM 재생
         AudioManager.Instance.PlayBGM("BackgroundBGM");
     }
+
+    void Update()
+    {
+
+    }
+
+    private void OnApplicationQuit()
+    {
+        var _sessionEndTime = DateTime.Now;
+        networkManager.Close();
+
+        Debug.Log("게임 종료 : " + DateTime.Now);
+        Debug.Log("게임 플레이 시간 : " + _sessionEndTime.Subtract(_sessionStartTime));
+    }
+
 
     public void ConfigureInput()
     {
@@ -125,15 +145,6 @@ public class GameManager : MonoBehaviour
 
         // WebSocket 연결 시도
         networkManager.Connect();
-    }
-
-    private void OnApplicationQuit()
-    {
-        networkManager.Close();
-    }
-
-    void Update()
-    {
     }
 
     private void HandleGameInit(GameInit init)
