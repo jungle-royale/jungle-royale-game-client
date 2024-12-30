@@ -163,6 +163,18 @@ public class GameManager : Singleton<GameManager>
 
             EventBus<BulletEventType>.Publish(BulletEventType.UpdateBulletStates, bulletStateIds);
         }
+
+        if (gameState.HealPackState != null)
+        {
+            List<HealPack> healpackStateIds = new List<HealPack>();
+
+            foreach (var healpackState in gameState.HealPackState)
+            {
+                healpackStateIds.Add(new HealPack(healpackState.ItemId, healpackState.X, healpackState.Y));
+            }
+
+            EventBus<ItemEventType>.Publish(ItemEventType.UpdateHealPackStates, healpackStateIds);
+        }
     }
 
     private void SendChangeDirMessage(float angle, bool isMoved)
@@ -245,9 +257,6 @@ public class GameManager : Singleton<GameManager>
             // CreateBullet 메시지 생성
             var createBullet = new CreateBullet
             {
-                PlayerId = playerId,
-                StartX = startX,
-                StartY = startY,
                 Angle = angle
             };
 

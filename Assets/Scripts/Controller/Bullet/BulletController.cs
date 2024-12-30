@@ -10,8 +10,7 @@ public class BulletController : MonoBehaviour
     {
         EventBus<BulletEventType>.Subscribe<IEnumerable<Bullet>>(BulletEventType.UpdateBulletStates, UpdateBullets);
 
-        GameObject mapPrefab = Resources.Load<GameObject>("Prefabs/Map");
-        BULLET_Y = mapPrefab.transform.localScale.y / 2 + 0.9f;
+        BULLET_Y = 0.9f;
     }
 
     private void UpdateBullets(IEnumerable<Bullet> bullets)
