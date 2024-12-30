@@ -151,6 +151,9 @@ public class GameManager : Singleton<GameManager>
     {
         clientId = init.Id;
         Debug.Log($"Assigned Client ID: {clientId}");
+
+        EventBus<MapEventType>.Publish(MapEventType.UpdateMapState, new MapInit(100, 100));
+
     }
 
     private void HandleGameState(GameState gameState)

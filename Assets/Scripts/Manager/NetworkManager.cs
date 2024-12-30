@@ -25,7 +25,7 @@ public class NetworkManager : Singleton<NetworkManager>
 
         if (Debug.isDebugBuild)
         {
-            InvokeRepeating(nameof(SendHttpPing), 1f, 1f);
+            InvokeRepeating(nameof(SendHttpPing), 1f, 10f);
         }
     }
 
