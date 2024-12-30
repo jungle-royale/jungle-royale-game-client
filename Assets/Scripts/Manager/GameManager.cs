@@ -16,10 +16,6 @@ public class GameManager : Singleton<GameManager>
     private DateTime _sessionStartTime;
 
     // 카메라
-    private Camera mainCamera;
-    const float CAMERA_ROTATION_X = 40f;
-    const float CAMERA_OFFSET_Y = 10f;
-    const float CAMERA_OFFSET_Z = 10f;
 
     // 플레이어 데이터 관리
     private Dictionary<string, GameObject> playerObjectList = new Dictionary<string, GameObject>();
@@ -42,11 +38,8 @@ public class GameManager : Singleton<GameManager>
         GameObject mapPrefab = Resources.Load<GameObject>($"Prefabs/Map");
         GameObject playerPrefab = Resources.Load<GameObject>($"Prefabs/Player");
 
-        PLAYER_Y = CalculateSurfaceY(mapPrefab);
         BULLET_Y = PLAYER_Y + 0.9f;
-
-        mainCamera = Camera.main;
-
+ 
         // AudioManager를 통해 BackgroundBGM 재생
         AudioManager.Instance.PlayBGM("BackgroundBGM");
     }
@@ -151,6 +144,8 @@ public class GameManager : Singleton<GameManager>
     {
         EventBus<MapEventType>.Publish(MapEventType.UpdateMapState, new Map(100, 100));
         EventBus<PlayerEventType>.Publish(PlayerEventType.InitPlayer, new PlayerInit(init.Id));
+        EventBus<MainCameraEventType>.Publish(MainCameraEventType.MainCameraInit, new MainCameraInit(init.Id));
+
     }
 
     private void HandleGameState(GameState gameState)
@@ -158,11 +153,15 @@ public class GameManager : Singleton<GameManager>
         if (gameState.PlayerState != null)
         {
             List<Player> playerList = new List<Player>();
+            List<MainCamera> mainCameraPlayerList = new List<MainCamera>();
+
             foreach (var player in gameState.PlayerState)
             {
                 playerList.Add(new Player(player.Id, player.X, player.Y, player.Health, player.MagicType));
+                mainCameraPlayerList.Add(new MainCamera(player.Id, player.X, player.Y));
             }
             EventBus<PlayerEventType>.Publish(PlayerEventType.UpdatePlayerStates, playerList);
+            EventBus<MainCameraEventType>.Publish(MainCameraEventType.MainCameraState, mainCameraPlayerList);
         }
 
         if (gameState.BulletState != null)
@@ -187,84 +186,6 @@ public class GameManager : Singleton<GameManager>
         RemoveInactiveBullets(bulletStateIds);
     }
 
-    // GameState를 기반으로 플레이어 관리
-    private void UpdatePlayers(IEnumerable<PlayerState> players)
-    {
-        HashSet<string> playerStateIds = new HashSet<string>();
-
-        // 서버에서 받은 players 리스트를 순회하며 업데이트
-        foreach (var player in players)
-        {
-            playerStateIds.Add(player.Id);
-            UpdatePlayerPosition(player);
-        }
-
-        // 서버에 없는 플레이어 제거
-        RemoveInactivePlayers(playerStateIds);
-    }
-
-    private void UpdatePlayerPosition(PlayerState playerState)
-    {
-        GameObject playerObject;
-
-        // 플레이어가 Dictionary에 없으면 새로 생성
-        if (!playerObjectList.TryGetValue(playerState.Id, out playerObject))
-        {
-            GameObject playerPrefab = Resources.Load<GameObject>("Prefabs/Player");
-            if (playerPrefab != null)
-            {
-                playerObject = Instantiate(playerPrefab, new Vector3(playerState.X, PLAYER_Y, playerState.Y), Quaternion.identity);
-
-                if (playerState.Id == clientId) // 내 플레이어면 태그를 Player로 설정
-                {
-                    playerObject.tag = "Player";
-                    Debug.Log($"Created client player for ID: {playerState.Id}");
-                }
-
-                // Dictionary에 추가
-                playerObjectList[playerState.Id] = playerObject;
-            }
-            else
-            {
-                Debug.LogError("Player prefab could not be loaded.");
-            }
-        }
-
-        // 위치 업데이트
-        playerObject.transform.position = new Vector3(playerState.X, PLAYER_Y, playerState.Y);
-
-        // 카메라 세팅 (내 플레이어일 경우에만)
-        if (playerState.Id == clientId)
-        {
-            mainCamera.transform.position = new Vector3(playerState.X, PLAYER_Y + CAMERA_OFFSET_Y, playerState.Y - CAMERA_OFFSET_Z);
-            mainCamera.transform.rotation = Quaternion.Euler(CAMERA_ROTATION_X, 0, 0);
-        }
-    }
-
-    private void RemoveInactivePlayers(HashSet<string> playerStateIds)
-    {
-        List<string> playersToRemove = new List<string>();
-
-        // Dictionary에서 서버에 없는 플레이어 찾기
-        foreach (var playerId in playerObjectList.Keys)
-        {
-            if (!playerStateIds.Contains(playerId))
-            {
-                playersToRemove.Add(playerId);
-            }
-        }
-
-        // Dictionary에서 제거 및 GameObject 파괴
-        foreach (var playerId in playersToRemove)
-        {
-            if (playerObjectList.TryGetValue(playerId, out GameObject player))
-            {
-                Destroy(player);
-                playerObjectList.Remove(playerId);
-                Debug.Log($"Removed player with ID: {playerId}");
-            }
-        }
-    }
 
     private void UpdateBulletPosition(BulletState bullet)
     {

@@ -86,5 +86,6 @@ public class PlayerController : MonoBehaviour
     private void OnDestroy()
     {
         EventBus<PlayerEventType>.Unsubscribe<IEnumerable<Player>>(PlayerEventType.UpdatePlayerStates, UpdatePlayers);
+        EventBus<PlayerEventType>.Unsubscribe<PlayerInit>(PlayerEventType.InitPlayer, InitializeClient);
     }
 }
