@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class MapInit {
+public class Map {
     float width;
     float length;
 
-    public MapInit(float width, float length)
+    public Map(float width, float length)
     {
         this.width = width;
         this.length = length;

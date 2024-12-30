@@ -149,18 +149,20 @@ public class GameManager : Singleton<GameManager>
 
     private void HandleGameInit(GameInit init)
     {
-        clientId = init.Id;
-        Debug.Log($"Assigned Client ID: {clientId}");
-
-        EventBus<MapEventType>.Publish(MapEventType.UpdateMapState, new MapInit(100, 100));
-
+        EventBus<MapEventType>.Publish(MapEventType.UpdateMapState, new Map(100, 100));
+        EventBus<PlayerEventType>.Publish(PlayerEventType.InitPlayer, new PlayerInit(init.Id));
     }
 
     private void HandleGameState(GameState gameState)
     {
         if (gameState.PlayerState != null)
         {
-            UpdatePlayers(gameState.PlayerState);
+            List<Player> playerList = new List<Player>();
+            foreach (var player in gameState.PlayerState)
+            {
+                playerList.Add(new Player(player.Id, player.X, player.Y, player.Health, player.MagicType));
+            }
+            EventBus<PlayerEventType>.Publish(PlayerEventType.UpdatePlayerStates, playerList);
         }
 
         if (gameState.BulletState != null)

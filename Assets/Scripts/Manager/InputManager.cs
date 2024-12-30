@@ -18,7 +18,7 @@ public class InputManager : Singleton<InputManager>
     {
         HandleMove();
         HandleShift();
-        HandleBullet();
+        // HandleBullet();
     }
 
     private void HandleMove()

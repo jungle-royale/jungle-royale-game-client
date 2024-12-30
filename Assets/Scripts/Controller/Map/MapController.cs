@@ -7,10 +7,10 @@ public class MapController : MonoBehaviour
 
     void Start()
     {
-        EventBus<MapEventType>.Subscribe<MapInit>(MapEventType.UpdateMapState, UpdateMap);
+        EventBus<MapEventType>.Subscribe<Map>(MapEventType.UpdateMapState, UpdateMap);
     }
 
-    private void UpdateMap(MapInit mapState)
+    private void UpdateMap(Map mapState)
     {
         if (mapObject == null)
         {
@@ -33,6 +33,6 @@ public class MapController : MonoBehaviour
 
     private void OnDestroy()
     {
-        EventBus<MapEventType>.Unsubscribe<MapInit>(MapEventType.UpdateMapState, UpdateMap);
+        EventBus<MapEventType>.Unsubscribe<Map>(MapEventType.UpdateMapState, UpdateMap);
     }
 }
