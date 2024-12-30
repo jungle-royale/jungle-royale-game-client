@@ -2,7 +2,9 @@ using System;
 using UnityEngine;
 using NativeWebSocket;
 using System.Web;
-    
+using UnityEngine.Networking;
+using System.Collections;
+
 public class NetworkManager : Singleton<NetworkManager>
 {
     private WebSocket websocket;
@@ -12,24 +14,52 @@ public class NetworkManager : Singleton<NetworkManager>
     public static event Action<string> OnClose;
     public static event Action<byte[]> OnMessage;
 
+    private String host;
+    private String urlString;
+    private DateTime requestStartTime;
+
     void Start()
     {
         Initialize();
         RegisterHandler();
+
+        if (Debug.isDebugBuild)
+        {
+            InvokeRepeating(nameof(SendHttpPing), 1f, 1f);
+        }
     }
 
     public void Initialize()
     {
-        var roomId = "test";
         if (!Debug.isDebugBuild)
         {
             var url = Application.absoluteURL;
-            Uri uri = new Uri(url);
-            string query = uri.Query;
-            var queryParams = HttpUtility.ParseQueryString(query);
-            roomId = queryParams["roomId"];
+
+            try
+            {
+                Uri uri = new Uri(url);
+                host = uri.Host; // 호스트 영역 추출
+            }
+            catch (UriFormatException e)
+            {
+                Debug.LogError($"Invalid URL format: {e.Message}");
+            }
+
+            if (url.StartsWith("https://"))
+            {
+                url = url.Replace("https://", "wss://");
+            }
+            else if (url.StartsWith("http://"))
+            {
+                url = url.Replace("http://", "ws://");
+            }
+            urlString = url;
         }
-        var urlString = $"ws://localhost:8000/room?roomId={roomId}";
+        else
+        {
+            urlString = $"ws://localhost:8000/room?roomId=test";
+            host = "localhost:8000";
+        }
         Debug.Log($"Initializing WebSocket with URL: {urlString}");
         websocket = new WebSocket(urlString);
     }
@@ -51,7 +81,6 @@ public class NetworkManager : Singleton<NetworkManager>
             Debug.LogError($"Failed to connect WebSocket: {ex.Message}");
         }
     }
-
 
     private void RegisterHandler()
     {
@@ -84,7 +113,6 @@ public class NetworkManager : Singleton<NetworkManager>
             OnMessage?.Invoke(bytes);
         };
     }
-
 
     public bool IsOpen()
     {
@@ -143,6 +171,38 @@ public class NetworkManager : Singleton<NetworkManager>
         catch (Exception ex)
         {
             Debug.LogError($"Failed to close WebSocket: {ex.Message}");
+        }
+    }
+
+    private void SendHttpPing()
+    {
+        StartCoroutine(SendHttpPingCoroutine());
+    }
+
+    private IEnumerator SendHttpPingCoroutine()
+    {
+        // 요청 시작 시간 기록
+        requestStartTime = DateTime.Now;
+
+        using (UnityWebRequest request = UnityWebRequest.Get("http://" + host + "/ping"))
+        {
+            yield return request.SendWebRequest(); // 요청 보내기
+
+            // 요청 완료 시간
+            DateTime requestEndTime = DateTime.Now;
+            long latency = (long)(requestEndTime - requestStartTime).TotalMilliseconds; // 레이턴시 계산
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log($"HTTP Ping success. RTT: {latency} ms");
+
+                // EventBus를 통해 레이턴시 전달
+                EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.PingUpdated, latency);
+            }
+            else
+            {
+                Debug.LogError($"HTTP Ping failed: {request.error}");
+            }
         }
     }
 }
