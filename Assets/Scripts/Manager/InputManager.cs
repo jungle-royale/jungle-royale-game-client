@@ -7,18 +7,25 @@ public class InputManager : Singleton<InputManager>
     private Vector2 lastDirection = Vector2.zero; // 이전 프레임의 방향
     private bool wasMoved = false;                // 이전 프레임의 이동 상태
 
+    private string ClientId;
+
 
     // 이벤트 정의
     public static event Action<bool> Dash;
     public static event Action<float, bool> Move;
-    public static event Action<float, float, float> Bullet;
+    public static event Action<string, float, float, float> Bullet;
 
 
     void Update()
     {
         HandleMove();
         HandleShift();
-        // HandleBullet();
+        HandleBullet();
+    }
+
+    public void ConfigureClientId(string clientId)
+    {
+        ClientId = clientId;
     }
 
     private void HandleMove()
@@ -83,7 +90,7 @@ public class InputManager : Singleton<InputManager>
                 // Debug.Log($"direction: {direction}");
                 // Debug.Log($"angle: {angle}");
 
-                Bullet?.Invoke(playerPosition.x, playerPosition.z, angle);
+                Bullet?.Invoke(ClientId, playerPosition.x, playerPosition.z, angle);
             }
         }
     }

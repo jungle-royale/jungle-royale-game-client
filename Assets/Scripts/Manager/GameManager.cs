@@ -15,16 +15,6 @@ public class GameManager : Singleton<GameManager>
 
     private DateTime _sessionStartTime;
 
-    // 카메라
-
-    // 플레이어 데이터 관리
-    private Dictionary<string, GameObject> playerObjectList = new Dictionary<string, GameObject>();
-    private string clientId;
-    float PLAYER_Y;
-    float BULLET_Y;
-
-    // 총알
-    private Dictionary<string, GameObject> bulletObjectList = new Dictionary<string, GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -38,8 +28,6 @@ public class GameManager : Singleton<GameManager>
         GameObject mapPrefab = Resources.Load<GameObject>($"Prefabs/Map");
         GameObject playerPrefab = Resources.Load<GameObject>($"Prefabs/Player");
 
-        BULLET_Y = PLAYER_Y + 0.9f;
- 
         // AudioManager를 통해 BackgroundBGM 재생
         AudioManager.Instance.PlayBGM("BackgroundBGM");
     }
@@ -81,7 +69,7 @@ public class GameManager : Singleton<GameManager>
             }
 
         };
-        InputManager.Bullet += (x, y, angle) =>
+        InputManager.Bullet += (clientId, x, y, angle) =>
         {
             SendCreateBulletMessage(clientId, x, y, angle);
         };
@@ -145,7 +133,7 @@ public class GameManager : Singleton<GameManager>
         EventBus<MapEventType>.Publish(MapEventType.UpdateMapState, new Map(100, 100));
         EventBus<PlayerEventType>.Publish(PlayerEventType.InitPlayer, new PlayerInit(init.Id));
         EventBus<MainCameraEventType>.Publish(MainCameraEventType.MainCameraInit, new MainCameraInit(init.Id));
-
+        InputManager.Instance.ConfigureClientId(init.Id);
     }
 
     private void HandleGameState(GameState gameState)
@@ -166,92 +154,15 @@ public class GameManager : Singleton<GameManager>
 
         if (gameState.BulletState != null)
         {
-            UpdateAllBullets(gameState.BulletState);
-        }
-    }
+            List<Bullet> bulletStateIds = new List<Bullet>();
 
-    private void UpdateAllBullets(IEnumerable<BulletState> bulletStates)
-    {
-        // 서버에서 받은 총알 ID 저장
-        HashSet<string> bulletStateIds = new HashSet<string>();
-
-        // 서버에서 받은 총알 상태를 순회
-        foreach (var bulletState in bulletStates)
-        {
-            bulletStateIds.Add(bulletState.BulletId);
-            UpdateBulletPosition(bulletState);
-        }
-
-        // Dictionary에서 서버에 없는 총알 제거
-        RemoveInactiveBullets(bulletStateIds);
-    }
-
-
-    private void UpdateBulletPosition(BulletState bullet)
-    {
-
-        GameObject firedBullet;
-
-        // 총알이 Dictionary에 없으면 새로 생성
-        if (!bulletObjectList.TryGetValue(bullet.BulletId, out firedBullet))
-        {
-            GameObject bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet");
-            if (bulletPrefab != null)
+            foreach (var bulletState in gameState.BulletState)
             {
-                firedBullet = Instantiate(bulletPrefab, new Vector3(bullet.X, BULLET_Y, bullet.Y), Quaternion.identity);
-                firedBullet.tag = "Bullet";
-
-                // Dictionary에 추가
-                bulletObjectList[bullet.BulletId] = firedBullet;
-                // Debug.Log($"발사: {bullet.BulletId}");
+                bulletStateIds.Add(new Bullet(bulletState.BulletId, bulletState.X, bulletState.Y));
             }
-            else
-            {
-                Debug.LogError("Bullet prefab could not be loaded.");
-            }
+
+            EventBus<BulletEventType>.Publish(BulletEventType.UpdateBulletStates, bulletStateIds);
         }
-
-        firedBullet.transform.position = new Vector3(bullet.X, BULLET_Y, bullet.Y);
-        // Debug.Log($"총알 위치: {firedBullet.transform.position}");
-    }
-
-    private void RemoveInactiveBullets(HashSet<string> bulletStateIds)
-    {
-        // 서버에서 제공되지 않은 총알 ID를 제거
-        List<string> bulletsToRemove = new List<string>();
-
-        foreach (var bulletId in bulletObjectList.Keys)
-        {
-            if (!bulletStateIds.Contains(bulletId))
-            {
-                bulletsToRemove.Add(bulletId);
-            }
-        }
-
-        // Dictionary에서 제거하고 GameObject 파괴
-        foreach (var bulletId in bulletsToRemove)
-        {
-            if (bulletObjectList.TryGetValue(bulletId, out GameObject bullet))
-            {
-                Destroy(bullet);
-                bulletObjectList.Remove(bulletId);
-                // Debug.Log($"총알 제거: {bulletId}");
-            }
-        }
-    }
-
-    private float CalculateSurfaceY(GameObject mapPrefab)
-    {
-        if (mapPrefab == null)
-        {
-            Debug.LogError("Map or Player prefab is not assigned or could not be loaded.");
-            return 0f;
-        }
-
-        // // Map의 Scale에서 높이 계산
-        float mapHeight = mapPrefab.transform.localScale.y / 2;
-
-        return mapHeight;
     }
 
     private void SendChangeDirMessage(float angle, bool isMoved)
@@ -330,6 +241,7 @@ public class GameManager : Singleton<GameManager>
 
         try
         {
+
             // CreateBullet 메시지 생성
             var createBullet = new CreateBullet
             {
