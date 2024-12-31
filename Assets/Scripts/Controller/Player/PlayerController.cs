@@ -59,6 +59,8 @@ public class PlayerController : MonoBehaviour
 
             playerObject.transform.position = new Vector3(player.X, PLAYER_Y, player.Y);
 
+
+            EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.PlayerCountUpdated, activePlayerIds.Count);
             if (player.Id == clientId)
                 // EventBus를 통해 레이턴시 전달
                 EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.HpUpdated, player.health);

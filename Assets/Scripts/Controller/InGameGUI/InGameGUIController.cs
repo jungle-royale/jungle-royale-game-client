@@ -5,6 +5,7 @@ public class InGameGUIController : MonoBehaviour
 {
     private TextMeshProUGUI pingLabel;
     private TextMeshProUGUI hpLabel;
+    private TextMeshProUGUI playerCountLabel;
     GameObject canvasObject;
 
     void Start()
@@ -15,10 +16,12 @@ public class InGameGUIController : MonoBehaviour
         // Label 생성
         CreatePingLabel();
         CreateHpLabel();
+        CreatePlayerCountLabel();
 
         // PingUpdated 이벤트 구독
         EventBus<InGameGUIEventType>.Subscribe<long>(InGameGUIEventType.PingUpdated, UpdatePingUI);
         EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.HpUpdated, UpdateHpUI);
+        EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.PlayerCountUpdated, UpdatePlayerCountUI);
     }
 
     private void CreateCanvas()
@@ -61,10 +64,26 @@ public class InGameGUIController : MonoBehaviour
         hpLabel.text = "HP: --";
     }
 
+    private void CreatePlayerCountLabel()
+    {
+        GameObject labelObject = new GameObject("PlayerCountLabel");
+        labelObject.transform.SetParent(canvasObject.transform);
+
+        // TextMeshPro 설정
+        playerCountLabel = labelObject.AddComponent<TextMeshProUGUI>();
+        playerCountLabel.fontSize = 24;
+        playerCountLabel.alignment = TextAlignmentOptions.TopRight;
+        playerCountLabel.rectTransform.anchorMin = new Vector2(1, 1);
+        playerCountLabel.rectTransform.anchorMax = new Vector2(1, 1);
+        playerCountLabel.rectTransform.pivot = new Vector2(1, 1);
+        playerCountLabel.rectTransform.anchoredPosition = new Vector2(-10, -120);
+        playerCountLabel.text = "Player Count: --";
+    }
+
     private void UpdatePingUI(long ping)
     {
         pingLabel.text = $"Ping: {ping} ms";
-        Debug.Log($"Ping Updated in UI: {ping}");
+        // Debug.Log($"Ping Updated in UI: {ping}");
     }
 
     private void UpdateHpUI(int hp)
@@ -73,10 +92,16 @@ public class InGameGUIController : MonoBehaviour
         // Debug.Log($"HP Updated in UI: {hp}");
     }
 
+    private void UpdatePlayerCountUI(int playerCount)
+    {
+        playerCountLabel.text = $"Player Count : {playerCount}";
+    }
+
     private void OnDestroy()
     {
         // 이벤트 구독 해제
         EventBus<InGameGUIEventType>.Unsubscribe<long>(InGameGUIEventType.PingUpdated, UpdatePingUI);
         EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.HpUpdated, UpdateHpUI);
+        EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.PlayerCountUpdated, UpdatePlayerCountUI);
     }
 }

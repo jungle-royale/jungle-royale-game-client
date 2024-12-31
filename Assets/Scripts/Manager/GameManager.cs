@@ -149,7 +149,6 @@ public class GameManager : Singleton<GameManager>
     {
         if (gameState.PlayerState != null)
         {
-            Debug.Log($"PlayerState: {gameState.PlayerState}");
             List<Player> playerList = new List<Player>();
             List<MainCamera> mainCameraPlayerList = new List<MainCamera>();
 
@@ -198,6 +197,11 @@ public class GameManager : Singleton<GameManager>
             }
 
             EventBus<ItemEventType>.Publish(ItemEventType.UpdateMagicItemStates, magicitemStateIds);
+        }
+
+        if (gameState.PlayerDeadState != null)
+        {
+            Debug.Log($"PlayerDeadState: {gameState.PlayerDeadState}");
         }
     }
 
