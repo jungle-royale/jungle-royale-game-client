@@ -8,6 +8,8 @@ using System;
 using System.Data.Common;
 using System.Linq.Expressions;
 using TMPro;
+using UnityEditor.Build.Content;
+using UnityEngine.Tilemaps;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -101,6 +103,7 @@ public class GameManager : Singleton<GameManager>
                         break;
 
                     case Wrapper.MessageTypeOneofCase.GameCount:
+                        HandleGameCount(wrapper.GameCount);
                         Debug.Log($"game play in: {wrapper.GameCount.Count}");
                         break;
 
@@ -139,10 +142,15 @@ public class GameManager : Singleton<GameManager>
         InputManager.Instance.ConfigureClientId(init.Id);
     }
 
+    private void HandleGameCount(GameCount count)
+    {
+
+    }
+
     private void HandleGameStart(GameStart gameStart)
     {
-        Debug.Log(gameStart.MapLength);
-        EventBus<MapEventType>.Publish(MapEventType.UpdateMapState, new Map(gameStart.MapLength, gameStart.MapLength));
+        // Debug.Log(gameStart.MapLength);
+        // EventBus<MapEventType>.Publish(MapEventType.UpdateMapState, new Map(gameStart.MapLength, gameStart.MapLength));
     }
 
     private void HandleGameState(GameState gameState)
@@ -210,9 +218,20 @@ public class GameManager : Singleton<GameManager>
 
             foreach (var playerDeadState in gameState.PlayerDeadState)
             {
-                playerDeadStateList.Add(new PlayerDead(playerDeadState.Killer, playerDeadState.Dead, playerDeadState.DyingStatus));
+                playerDeadStateList.Add(new PlayerDead(playerDeadState.KillerId, playerDeadState.DeadId, playerDeadState.DyingStatus));
+            }
+        }
+
+        if (gameState.TileState != null)
+        {
+            List<Tile> tileStateList = new List<Tile>();
+
+            foreach (var tileState in gameState.TileState)
+            {
+                tileStateList.Add(new Tile(tileState.TileId, tileState.X, tileState.Y));
             }
 
+            EventBus<TileEventType>.Publish(TileEventType.UpdateTileStates, tileStateList);
         }
     }
 

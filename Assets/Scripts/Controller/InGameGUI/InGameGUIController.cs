@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Xml.Serialization;
 
 public class InGameGUIController : MonoBehaviour
 {
@@ -95,6 +96,11 @@ public class InGameGUIController : MonoBehaviour
     private void UpdatePlayerCountUI(int playerCount)
     {
         playerCountLabel.text = $"Player Count : {playerCount}";
+    }
+
+    private void UpdateGameCountDownUI(int gameCountDown)
+    {
+        
     }
 
     private void OnDestroy()
