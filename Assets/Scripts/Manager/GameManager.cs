@@ -149,6 +149,7 @@ public class GameManager : Singleton<GameManager>
     {
         if (gameState.PlayerState != null)
         {
+            Debug.Log($"PlayerState: {gameState.PlayerState}");
             List<Player> playerList = new List<Player>();
             List<MainCamera> mainCameraPlayerList = new List<MainCamera>();
 
@@ -175,7 +176,7 @@ public class GameManager : Singleton<GameManager>
 
         if (gameState.HealPackState != null)
         {
-            Debug.Log($"HealPackState: {gameState.HealPackState}");
+            // Debug.Log($"HealPackState: {gameState.HealPackState}");
             List<HealPack> healpackStateIds = new List<HealPack>();
 
             foreach (var healpackState in gameState.HealPackState)
@@ -188,7 +189,7 @@ public class GameManager : Singleton<GameManager>
 
         if (gameState.MagicItemState != null)
         {
-            Debug.Log($"MagicItemState: {gameState.MagicItemState}");
+            // Debug.Log($"MagicItemState: {gameState.MagicItemState}");
             List<MagicItem> magicitemStateIds = new List<MagicItem>();
 
             foreach (var magicitemState in gameState.MagicItemState)
