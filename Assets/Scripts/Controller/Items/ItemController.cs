@@ -52,7 +52,7 @@ public class ItemController : MonoBehaviour
                 {
                     itemObject = Instantiate(itemPrefab, item.Position(), Quaternion.identity);
                     targetDictionary[item.ItemId] = itemObject;
-                    Debug.Log($"{itemType} created with ID: {item.ItemId}");
+                    // Debug.Log($"{itemType} created with ID: {item.ItemId}");
                 }
                 else
                 {
@@ -120,7 +120,7 @@ public class ItemController : MonoBehaviour
             {
                 Destroy(itemObject);
                 targetDictionary.Remove(itemId);
-                Debug.Log($"Removed inactive {itemId}.");
+                // Debug.Log($"Removed inactive {itemId}.");
             }
         }
     }

@@ -149,59 +149,70 @@ public class GameManager : Singleton<GameManager>
     {
         if (gameState.PlayerState != null)
         {
-            List<Player> playerList = new List<Player>();
-            List<MainCamera> mainCameraPlayerList = new List<MainCamera>();
+            List<Player> playerStateList = new List<Player>();
+            List<MainCamera> mainCameraPlayerStateList = new List<MainCamera>();
 
             foreach (var player in gameState.PlayerState)
             {
-                playerList.Add(new Player(player.Id, player.X, player.Y, player.Health, player.MagicType));
-                mainCameraPlayerList.Add(new MainCamera(player.Id, player.X, player.Y));
+                playerStateList.Add(new Player(player.Id, player.X, player.Y, player.Health, player.MagicType));
+                mainCameraPlayerStateList.Add(new MainCamera(player.Id, player.X, player.Y));
             }
-            EventBus<PlayerEventType>.Publish(PlayerEventType.UpdatePlayerStates, playerList);
-            EventBus<MainCameraEventType>.Publish(MainCameraEventType.MainCameraState, mainCameraPlayerList);
+            EventBus<PlayerEventType>.Publish(PlayerEventType.UpdatePlayerStates, playerStateList);
+            EventBus<MainCameraEventType>.Publish(MainCameraEventType.MainCameraState, mainCameraPlayerStateList);
         }
 
         if (gameState.BulletState != null)
         {
-            List<Bullet> bulletStateIds = new List<Bullet>();
+            List<Bullet> bulletStateList = new List<Bullet>();
 
             foreach (var bulletState in gameState.BulletState)
             {
-                bulletStateIds.Add(new Bullet(bulletState.BulletId, bulletState.X, bulletState.Y));
+                bulletStateList.Add(new Bullet(bulletState.BulletId, bulletState.X, bulletState.Y));
             }
 
-            EventBus<BulletEventType>.Publish(BulletEventType.UpdateBulletStates, bulletStateIds);
+            EventBus<BulletEventType>.Publish(BulletEventType.UpdateBulletStates, bulletStateList);
         }
 
         if (gameState.HealPackState != null)
         {
             // Debug.Log($"HealPackState: {gameState.HealPackState}");
-            List<HealPack> healpackStateIds = new List<HealPack>();
+            List<HealPack> healpackStateList = new List<HealPack>();
 
             foreach (var healpackState in gameState.HealPackState)
             {
-                healpackStateIds.Add(new HealPack(healpackState.ItemId, healpackState.X, healpackState.Y));
+                healpackStateList.Add(new HealPack(healpackState.ItemId, healpackState.X, healpackState.Y));
             }
 
-            EventBus<ItemEventType>.Publish(ItemEventType.UpdateHealPackStates, healpackStateIds);
+            EventBus<ItemEventType>.Publish(ItemEventType.UpdateHealPackStates, healpackStateList);
         }
 
         if (gameState.MagicItemState != null)
         {
             // Debug.Log($"MagicItemState: {gameState.MagicItemState}");
-            List<MagicItem> magicitemStateIds = new List<MagicItem>();
+            List<MagicItem> magicitemStateList = new List<MagicItem>();
 
             foreach (var magicitemState in gameState.MagicItemState)
             {
-                magicitemStateIds.Add(new MagicItem(magicitemState.ItemId, magicitemState.MagicType, magicitemState.X, magicitemState.Y));
+                magicitemStateList.Add(new MagicItem(magicitemState.ItemId, magicitemState.MagicType, magicitemState.X, magicitemState.Y));
             }
 
-            EventBus<ItemEventType>.Publish(ItemEventType.UpdateMagicItemStates, magicitemStateIds);
+            EventBus<ItemEventType>.Publish(ItemEventType.UpdateMagicItemStates, magicitemStateList);
         }
 
         if (gameState.PlayerDeadState != null)
         {
-            Debug.Log($"PlayerDeadState: {gameState.PlayerDeadState}");
+            if (gameState.PlayerDeadState.Count > 0)
+            {
+                Debug.Log($"PlayerDeadState: {gameState.PlayerDeadState}");
+            }
+
+            List<PlayerDead> playerDeadStateList = new List<PlayerDead>();
+
+            foreach (var playerDeadState in gameState.PlayerDeadState)
+            {
+                playerDeadStateList.Add(new PlayerDead(playerDeadState.Killer, playerDeadState.Dead, playerDeadState.DyingStatus));
+            }
+
         }
     }
 

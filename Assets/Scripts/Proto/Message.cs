@@ -33,30 +33,32 @@ namespace Message {
             "R2FtZUluaXRIABInCglnYW1lU3RhcnQYByABKAsyEi5tZXNzYWdlLkdhbWVT",
             "dGFydEgAQg0KC01lc3NhZ2VUeXBlIhYKCEdhbWVJbml0EgoKAmlkGAEgASgJ",
             "IisKCUNoYW5nZURpchINCgVhbmdsZRgBIAEoAhIPCgdpc01vdmVkGAIgASgI",
-            "IvQBCglHYW1lU3RhdGUSKQoLcGxheWVyU3RhdGUYASADKAsyFC5tZXNzYWdl",
+            "IrECCglHYW1lU3RhdGUSKQoLcGxheWVyU3RhdGUYASADKAsyFC5tZXNzYWdl",
             "LlBsYXllclN0YXRlEikKC2J1bGxldFN0YXRlGAIgAygLMhQubWVzc2FnZS5C",
             "dWxsZXRTdGF0ZRItCg1oZWFsUGFja1N0YXRlGAMgAygLMhYubWVzc2FnZS5I",
             "ZWFsUGFja1N0YXRlEi8KDm1hZ2ljSXRlbVN0YXRlGAQgAygLMhcubWVzc2Fn",
             "ZS5NYWdpY0l0ZW1TdGF0ZRIxCg9wbGF5ZXJEZWFkU3RhdGUYBSADKAsyGC5t",
-            "ZXNzYWdlLlBsYXllckRlYWRTdGF0ZSJSCgtQbGF5ZXJTdGF0ZRIKCgJpZBgB",
-            "IAEoCRIJCgF4GAIgASgCEgkKAXkYAyABKAISDgoGaGVhbHRoGAQgASgFEhEK",
-            "CW1hZ2ljVHlwZRgFIAEoBSIdCgxDcmVhdGVCdWxsZXQSDQoFYW5nbGUYASAB",
-            "KAIiSQoLQnVsbGV0U3RhdGUSEAoIYnVsbGV0SWQYASABKAkSEgoKYnVsbGV0",
-            "VHlwZRgCIAEoBRIJCgF4GAMgASgCEgkKAXkYBCABKAIiGgoJR2FtZUNvdW50",
-            "Eg0KBWNvdW50GAEgASgFIhYKBkRvRGFzaBIMCgRkYXNoGAEgASgIIh4KCUdh",
-            "bWVTdGFydBIRCgltYXBMZW5ndGgYASABKAUiNQoNSGVhbFBhY2tTdGF0ZRIO",
-            "CgZpdGVtSWQYASABKAkSCQoBeBgCIAEoAhIJCgF5GAMgASgCIkkKDk1hZ2lj",
-            "SXRlbVN0YXRlEg4KBml0ZW1JZBgBIAEoCRIRCgltYWdpY1R5cGUYAiABKAUS",
-            "CQoBeBgDIAEoAhIJCgF5GAQgASgCIkQKD1BsYXllckRlYWRTdGF0ZRIOCgZr",
-            "aWxsZXIYASABKAkSDAoEZGVhZBgCIAEoCRITCgtkeWluZ1N0YXR1cxgDIAEo",
-            "BUIKWggvbWVzc2FnZWIGcHJvdG8z"));
+            "ZXNzYWdlLlBsYXllckRlYWRTdGF0ZRI7ChRmYWxsZW5SZWFkeVRpbGVTdGF0",
+            "ZRgGIAMoCzIdLm1lc3NhZ2UuRmFsbGVuUmVhZHlUaWxlU3RhdGUiUgoLUGxh",
+            "eWVyU3RhdGUSCgoCaWQYASABKAkSCQoBeBgCIAEoAhIJCgF5GAMgASgCEg4K",
+            "BmhlYWx0aBgEIAEoBRIRCgltYWdpY1R5cGUYBSABKAUiHQoMQ3JlYXRlQnVs",
+            "bGV0Eg0KBWFuZ2xlGAEgASgCIkkKC0J1bGxldFN0YXRlEhAKCGJ1bGxldElk",
+            "GAEgASgJEhIKCmJ1bGxldFR5cGUYAiABKAUSCQoBeBgDIAEoAhIJCgF5GAQg",
+            "ASgCIhoKCUdhbWVDb3VudBINCgVjb3VudBgBIAEoBSIWCgZEb0Rhc2gSDAoE",
+            "ZGFzaBgBIAEoCCIeCglHYW1lU3RhcnQSEQoJbWFwTGVuZ3RoGAEgASgFIjUK",
+            "DUhlYWxQYWNrU3RhdGUSDgoGaXRlbUlkGAEgASgJEgkKAXgYAiABKAISCQoB",
+            "eRgDIAEoAiJJCg5NYWdpY0l0ZW1TdGF0ZRIOCgZpdGVtSWQYASABKAkSEQoJ",
+            "bWFnaWNUeXBlGAIgASgFEgkKAXgYAyABKAISCQoBeRgEIAEoAiJECg9QbGF5",
+            "ZXJEZWFkU3RhdGUSDgoGa2lsbGVyGAEgASgJEgwKBGRlYWQYAiABKAkSEwoL",
+            "ZHlpbmdTdGF0dXMYAyABKAUiLAoURmFsbGVuUmVhZHlUaWxlU3RhdGUSCQoB",
+            "eBgBIAEoAhIJCgF5GAIgASgCQgpaCC9tZXNzYWdlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.Wrapper), global::Message.Wrapper.Parser, new[]{ "ChangeDir", "DoDash", "CreateBullet", "GameState", "GameCount", "GameInit", "GameStart" }, new[]{ "MessageType" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameInit), global::Message.GameInit.Parser, new[]{ "Id" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.ChangeDir), global::Message.ChangeDir.Parser, new[]{ "Angle", "IsMoved" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameState), global::Message.GameState.Parser, new[]{ "PlayerState", "BulletState", "HealPackState", "MagicItemState", "PlayerDeadState" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameState), global::Message.GameState.Parser, new[]{ "PlayerState", "BulletState", "HealPackState", "MagicItemState", "PlayerDeadState", "FallenReadyTileState" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.PlayerState), global::Message.PlayerState.Parser, new[]{ "Id", "X", "Y", "Health", "MagicType" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.CreateBullet), global::Message.CreateBullet.Parser, new[]{ "Angle" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.BulletState), global::Message.BulletState.Parser, new[]{ "BulletId", "BulletType", "X", "Y" }, null, null, null, null),
@@ -65,7 +67,8 @@ namespace Message {
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameStart), global::Message.GameStart.Parser, new[]{ "MapLength" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.HealPackState), global::Message.HealPackState.Parser, new[]{ "ItemId", "X", "Y" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.MagicItemState), global::Message.MagicItemState.Parser, new[]{ "ItemId", "MagicType", "X", "Y" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Message.PlayerDeadState), global::Message.PlayerDeadState.Parser, new[]{ "Killer", "Dead", "DyingStatus" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Message.PlayerDeadState), global::Message.PlayerDeadState.Parser, new[]{ "Killer", "Dead", "DyingStatus" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Message.FallenReadyTileState), global::Message.FallenReadyTileState.Parser, new[]{ "X", "Y" }, null, null, null, null)
           }));
     }
     #endregion
@@ -1116,6 +1119,7 @@ namespace Message {
       healPackState_ = other.healPackState_.Clone();
       magicItemState_ = other.magicItemState_.Clone();
       playerDeadState_ = other.playerDeadState_.Clone();
+      fallenReadyTileState_ = other.fallenReadyTileState_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1180,6 +1184,17 @@ namespace Message {
       get { return playerDeadState_; }
     }
 
+    /// <summary>Field number for the "fallenReadyTileState" field.</summary>
+    public const int FallenReadyTileStateFieldNumber = 6;
+    private static readonly pb::FieldCodec<global::Message.FallenReadyTileState> _repeated_fallenReadyTileState_codec
+        = pb::FieldCodec.ForMessage(50, global::Message.FallenReadyTileState.Parser);
+    private readonly pbc::RepeatedField<global::Message.FallenReadyTileState> fallenReadyTileState_ = new pbc::RepeatedField<global::Message.FallenReadyTileState>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::Message.FallenReadyTileState> FallenReadyTileState {
+      get { return fallenReadyTileState_; }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1200,6 +1215,7 @@ namespace Message {
       if(!healPackState_.Equals(other.healPackState_)) return false;
       if(!magicItemState_.Equals(other.magicItemState_)) return false;
       if(!playerDeadState_.Equals(other.playerDeadState_)) return false;
+      if(!fallenReadyTileState_.Equals(other.fallenReadyTileState_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1212,6 +1228,7 @@ namespace Message {
       hash ^= healPackState_.GetHashCode();
       hash ^= magicItemState_.GetHashCode();
       hash ^= playerDeadState_.GetHashCode();
+      hash ^= fallenReadyTileState_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1235,6 +1252,7 @@ namespace Message {
       healPackState_.WriteTo(output, _repeated_healPackState_codec);
       magicItemState_.WriteTo(output, _repeated_magicItemState_codec);
       playerDeadState_.WriteTo(output, _repeated_playerDeadState_codec);
+      fallenReadyTileState_.WriteTo(output, _repeated_fallenReadyTileState_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1250,6 +1268,7 @@ namespace Message {
       healPackState_.WriteTo(ref output, _repeated_healPackState_codec);
       magicItemState_.WriteTo(ref output, _repeated_magicItemState_codec);
       playerDeadState_.WriteTo(ref output, _repeated_playerDeadState_codec);
+      fallenReadyTileState_.WriteTo(ref output, _repeated_fallenReadyTileState_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1265,6 +1284,7 @@ namespace Message {
       size += healPackState_.CalculateSize(_repeated_healPackState_codec);
       size += magicItemState_.CalculateSize(_repeated_magicItemState_codec);
       size += playerDeadState_.CalculateSize(_repeated_playerDeadState_codec);
+      size += fallenReadyTileState_.CalculateSize(_repeated_fallenReadyTileState_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1282,6 +1302,7 @@ namespace Message {
       healPackState_.Add(other.healPackState_);
       magicItemState_.Add(other.magicItemState_);
       playerDeadState_.Add(other.playerDeadState_);
+      fallenReadyTileState_.Add(other.fallenReadyTileState_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -1321,6 +1342,10 @@ namespace Message {
             playerDeadState_.AddEntriesFrom(input, _repeated_playerDeadState_codec);
             break;
           }
+          case 50: {
+            fallenReadyTileState_.AddEntriesFrom(input, _repeated_fallenReadyTileState_codec);
+            break;
+          }
         }
       }
     #endif
@@ -1358,6 +1383,10 @@ namespace Message {
           }
           case 42: {
             playerDeadState_.AddEntriesFrom(ref input, _repeated_playerDeadState_codec);
+            break;
+          }
+          case 50: {
+            fallenReadyTileState_.AddEntriesFrom(ref input, _repeated_fallenReadyTileState_codec);
             break;
           }
         }
@@ -3664,6 +3693,241 @@ namespace Message {
           }
           case 24: {
             DyingStatus = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class FallenReadyTileState : pb::IMessage<FallenReadyTileState>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<FallenReadyTileState> _parser = new pb::MessageParser<FallenReadyTileState>(() => new FallenReadyTileState());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<FallenReadyTileState> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Message.MessageReflection.Descriptor.MessageTypes[13]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public FallenReadyTileState() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public FallenReadyTileState(FallenReadyTileState other) : this() {
+      x_ = other.x_;
+      y_ = other.y_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public FallenReadyTileState Clone() {
+      return new FallenReadyTileState(this);
+    }
+
+    /// <summary>Field number for the "x" field.</summary>
+    public const int XFieldNumber = 1;
+    private float x_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float X {
+      get { return x_; }
+      set {
+        x_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "y" field.</summary>
+    public const int YFieldNumber = 2;
+    private float y_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float Y {
+      get { return y_; }
+      set {
+        y_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as FallenReadyTileState);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(FallenReadyTileState other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(X, other.X)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Y, other.Y)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
+      if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (X != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(X);
+      }
+      if (Y != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Y);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (X != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(X);
+      }
+      if (Y != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Y);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (X != 0F) {
+        size += 1 + 4;
+      }
+      if (Y != 0F) {
+        size += 1 + 4;
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(FallenReadyTileState other) {
+      if (other == null) {
+        return;
+      }
+      if (other.X != 0F) {
+        X = other.X;
+      }
+      if (other.Y != 0F) {
+        Y = other.Y;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 13: {
+            X = input.ReadFloat();
+            break;
+          }
+          case 21: {
+            Y = input.ReadFloat();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 13: {
+            X = input.ReadFloat();
+            break;
+          }
+          case 21: {
+            Y = input.ReadFloat();
             break;
           }
         }
