@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Xml.Serialization;
 
 public class InGameGUIController : MonoBehaviour
 {
@@ -18,10 +19,10 @@ public class InGameGUIController : MonoBehaviour
         CreateHpLabel();
         CreatePlayerCountLabel();
 
-        // PingUpdated 이벤트 구독
-        EventBus<InGameGUIEventType>.Subscribe<long>(InGameGUIEventType.PingUpdated, UpdatePingUI);
-        EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.HpUpdated, UpdateHpUI);
-        EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.PlayerCountUpdated, UpdatePlayerCountUI);
+        // UpdatePingLabel 이벤트 구독
+        EventBus<InGameGUIEventType>.Subscribe<long>(InGameGUIEventType.UpdatePingLabel, UpdatePingUI);
+        EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.UpdateHpLabel, UpdateHpUI);
+        EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.UpdatePlayerCountLabel, UpdatePlayerCountUI);
     }
 
     private void CreateCanvas()
@@ -97,11 +98,16 @@ public class InGameGUIController : MonoBehaviour
         playerCountLabel.text = $"Player Count : {playerCount}";
     }
 
+    private void UpdateGameCountDownUI(int gameCountDown)
+    {
+
+    }
+
     private void OnDestroy()
     {
         // 이벤트 구독 해제
-        EventBus<InGameGUIEventType>.Unsubscribe<long>(InGameGUIEventType.PingUpdated, UpdatePingUI);
-        EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.HpUpdated, UpdateHpUI);
-        EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.PlayerCountUpdated, UpdatePlayerCountUI);
+        EventBus<InGameGUIEventType>.Unsubscribe<long>(InGameGUIEventType.UpdatePingLabel, UpdatePingUI);
+        EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.UpdateHpLabel, UpdateHpUI);
+        EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.UpdatePlayerCountLabel, UpdatePlayerCountUI);
     }
 }

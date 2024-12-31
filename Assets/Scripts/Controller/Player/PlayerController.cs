@@ -29,26 +29,26 @@ public class PlayerController : MonoBehaviour
 
         foreach (var player in players)
         {
-            activePlayerIds.Add(player.Id);
+            activePlayerIds.Add(player.id);
 
             // Debug.Log($"{player.X}{player.Y}");
 
-            if (!playerObjects.TryGetValue(player.Id, out GameObject playerObject))
+            if (!playerObjects.TryGetValue(player.id, out GameObject playerObject))
             {
                 GameObject playerPrefab = Resources.Load<GameObject>("Prefabs/Player");
                 if (playerPrefab != null)
                 {
-                    playerObject = Instantiate(playerPrefab, new Vector3(player.X, PLAYER_Y, player.Y), Quaternion.identity);
+                    playerObject = Instantiate(playerPrefab, new Vector3(player.x, PLAYER_Y, player.y), Quaternion.identity);
 
                     // 내 플레이어면 태그를 Player로 설정
-                    if (player.Id == clientId)
+                    if (player.id == clientId)
                     {
                         playerObject.tag = "Player";
                         playerObject.name = "MyPlayer";
-                        Debug.Log($"Created client player for ID: {player.Id}");
+                        Debug.Log($"Created client player for ID: {player.id}");
                     }
 
-                    playerObjects[player.Id] = playerObject;
+                    playerObjects[player.id] = playerObject;
                 }
                 else
                 {
@@ -57,13 +57,15 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            playerObject.transform.position = new Vector3(player.X, PLAYER_Y, player.Y);
+            playerObject.transform.position = new Vector3(player.x, PLAYER_Y, player.y);
+            Debug.Log($"player Angle: {player.angle}");
+            playerObject.transform.rotation = Quaternion.Euler(0, -(player.angle - 180), 0);
 
 
-            EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.PlayerCountUpdated, activePlayerIds.Count);
-            if (player.Id == clientId)
+            EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdatePlayerCountLabel, activePlayerIds.Count);
+            if (player.id == clientId)
                 // EventBus를 통해 레이턴시 전달
-                EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.HpUpdated, player.health);
+                EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateHpLabel, player.health);
         }
 
         RemoveInactivePlayers(activePlayerIds);

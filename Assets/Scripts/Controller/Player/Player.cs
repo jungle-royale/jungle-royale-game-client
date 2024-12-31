@@ -2,18 +2,22 @@ using Message;
 
 public class Player
 {
-    public string Id;
-    public float X;
-    public float Y;
+    public string id;
+    public float x;
+    public float y;
     public int health;
     public int magicType;
+    public float angle;
+    public int dashCoolTime;
 
-    public Player(string playerId, float x, float y, int health, int magictype)
+    public Player(string playerId, float x, float y, int health, int magictype, float angle, int dashCoolTime)
     {
-        this.Id = playerId;
-        this.X = x;
-        this.Y = y;
+        this.id = playerId;
+        this.x = x;
+        this.y = y;
         this.health = health;
         this.magicType = magictype;
+        this.angle = angle;
+        this.dashCoolTime = dashCoolTime;
     }
 }
