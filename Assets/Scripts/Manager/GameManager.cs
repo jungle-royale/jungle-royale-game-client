@@ -137,6 +137,9 @@ public class GameManager : Singleton<GameManager>
 
     private void HandleGameInit(GameInit init)
     {
+        // WaitingRoom UI 생성
+        // EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.)
+
         EventBus<PlayerEventType>.Publish(PlayerEventType.InitPlayer, new PlayerInit(init.Id));
         EventBus<MainCameraEventType>.Publish(MainCameraEventType.MainCameraInit, new MainCameraInit(init.Id));
         InputManager.Instance.ConfigureClientId(init.Id);
@@ -157,12 +160,13 @@ public class GameManager : Singleton<GameManager>
     {
         if (gameState.PlayerState != null)
         {
+            // Debug.Log($"PlayerState: {gameState.PlayerState.Count}");
             List<Player> playerStateList = new List<Player>();
             List<MainCamera> mainCameraPlayerStateList = new List<MainCamera>();
 
             foreach (var player in gameState.PlayerState)
             {
-                playerStateList.Add(new Player(player.Id, player.X, player.Y, player.Health, player.MagicType));
+                playerStateList.Add(new Player(player.Id, player.X, player.Y, player.Health, player.MagicType, player.Angle, player. DashCoolTime));
                 mainCameraPlayerStateList.Add(new MainCamera(player.Id, player.X, player.Y));
             }
             EventBus<PlayerEventType>.Publish(PlayerEventType.UpdatePlayerStates, playerStateList);

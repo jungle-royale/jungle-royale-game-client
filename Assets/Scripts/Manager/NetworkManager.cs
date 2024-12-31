@@ -139,7 +139,7 @@ public class NetworkManager : Singleton<NetworkManager>
 
     public void Update()
     {
-    // NativeWebsocket에서는 이 코드가 필요합니다.
+        // NativeWebsocket에서는 이 코드가 필요합니다.
 #if !UNITY_WEBGL || UNITY_EDITOR
         websocket?.DispatchMessageQueue();
 #endif
@@ -197,7 +197,7 @@ public class NetworkManager : Singleton<NetworkManager>
                 Debug.Log($"HTTP Ping success. RTT: {latency} ms");
 
                 // EventBus를 통해 레이턴시 전달
-                EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.PingUpdated, latency);
+                EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdatePingLabel, latency);
             }
             else
             {

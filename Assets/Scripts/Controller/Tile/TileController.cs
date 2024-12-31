@@ -30,11 +30,11 @@ public class TileController : MonoBehaviour
 
                     tileObjects[tile.tileId] = tileObejct;
                 }
-            }
-            else
-            {
-                Debug.LogError("Tile prefab could not be loaded.");
-                return;
+                else
+                {
+                    Debug.LogError("Tile prefab could not be loaded.");
+                    return;
+                }
             }
 
             tileObejct.transform.position = tile.Position();
