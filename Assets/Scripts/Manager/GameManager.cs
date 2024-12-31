@@ -96,17 +96,21 @@ public class GameManager : Singleton<GameManager>
 
                 switch (wrapper.MessageTypeCase)
                 {
-                    case Wrapper.MessageTypeOneofCase.GameInit:
-                        HandleGameInit(wrapper.GameInit);
+                    case Wrapper.MessageTypeOneofCase.GameState:
+                        HandleGameState(wrapper.GameState);
                         break;
 
                     case Wrapper.MessageTypeOneofCase.GameCount:
                         Debug.Log($"game play in: {wrapper.GameCount.Count}");
                         break;
-                    case Wrapper.MessageTypeOneofCase.GameState:
-                        HandleGameState(wrapper.GameState);
+
+                    case Wrapper.MessageTypeOneofCase.GameInit:
+                        HandleGameInit(wrapper.GameInit);
                         break;
 
+                    case Wrapper.MessageTypeOneofCase.GameStart:
+                        HandleGameStart(wrapper.GameStart);
+                        break;
 
                     default:
                         Debug.Log($"Unknown message type received: {wrapper.MessageTypeCase}");
@@ -130,38 +134,85 @@ public class GameManager : Singleton<GameManager>
 
     private void HandleGameInit(GameInit init)
     {
-        EventBus<MapEventType>.Publish(MapEventType.UpdateMapState, new Map(100, 100));
         EventBus<PlayerEventType>.Publish(PlayerEventType.InitPlayer, new PlayerInit(init.Id));
         EventBus<MainCameraEventType>.Publish(MainCameraEventType.MainCameraInit, new MainCameraInit(init.Id));
         InputManager.Instance.ConfigureClientId(init.Id);
+    }
+
+    private void HandleGameStart(GameStart gameStart)
+    {
+        Debug.Log(gameStart.MapLength);
+        EventBus<MapEventType>.Publish(MapEventType.UpdateMapState, new Map(gameStart.MapLength, gameStart.MapLength));
     }
 
     private void HandleGameState(GameState gameState)
     {
         if (gameState.PlayerState != null)
         {
-            List<Player> playerList = new List<Player>();
-            List<MainCamera> mainCameraPlayerList = new List<MainCamera>();
+            List<Player> playerStateList = new List<Player>();
+            List<MainCamera> mainCameraPlayerStateList = new List<MainCamera>();
 
             foreach (var player in gameState.PlayerState)
             {
-                playerList.Add(new Player(player.Id, player.X, player.Y, player.Health, player.MagicType));
-                mainCameraPlayerList.Add(new MainCamera(player.Id, player.X, player.Y));
+                playerStateList.Add(new Player(player.Id, player.X, player.Y, player.Health, player.MagicType));
+                mainCameraPlayerStateList.Add(new MainCamera(player.Id, player.X, player.Y));
             }
-            EventBus<PlayerEventType>.Publish(PlayerEventType.UpdatePlayerStates, playerList);
-            EventBus<MainCameraEventType>.Publish(MainCameraEventType.MainCameraState, mainCameraPlayerList);
+            EventBus<PlayerEventType>.Publish(PlayerEventType.UpdatePlayerStates, playerStateList);
+            EventBus<MainCameraEventType>.Publish(MainCameraEventType.MainCameraState, mainCameraPlayerStateList);
         }
 
         if (gameState.BulletState != null)
         {
-            List<Bullet> bulletStateIds = new List<Bullet>();
+            List<Bullet> bulletStateList = new List<Bullet>();
 
             foreach (var bulletState in gameState.BulletState)
             {
-                bulletStateIds.Add(new Bullet(bulletState.BulletId, bulletState.X, bulletState.Y));
+                bulletStateList.Add(new Bullet(bulletState.BulletId, bulletState.X, bulletState.Y));
             }
 
-            EventBus<BulletEventType>.Publish(BulletEventType.UpdateBulletStates, bulletStateIds);
+            EventBus<BulletEventType>.Publish(BulletEventType.UpdateBulletStates, bulletStateList);
+        }
+
+        if (gameState.HealPackState != null)
+        {
+            // Debug.Log($"HealPackState: {gameState.HealPackState}");
+            List<HealPack> healpackStateList = new List<HealPack>();
+
+            foreach (var healpackState in gameState.HealPackState)
+            {
+                healpackStateList.Add(new HealPack(healpackState.ItemId, healpackState.X, healpackState.Y));
+            }
+
+            EventBus<ItemEventType>.Publish(ItemEventType.UpdateHealPackStates, healpackStateList);
+        }
+
+        if (gameState.MagicItemState != null)
+        {
+            // Debug.Log($"MagicItemState: {gameState.MagicItemState}");
+            List<MagicItem> magicitemStateList = new List<MagicItem>();
+
+            foreach (var magicitemState in gameState.MagicItemState)
+            {
+                magicitemStateList.Add(new MagicItem(magicitemState.ItemId, magicitemState.MagicType, magicitemState.X, magicitemState.Y));
+            }
+
+            EventBus<ItemEventType>.Publish(ItemEventType.UpdateMagicItemStates, magicitemStateList);
+        }
+
+        if (gameState.PlayerDeadState != null)
+        {
+            if (gameState.PlayerDeadState.Count > 0)
+            {
+                Debug.Log($"PlayerDeadState: {gameState.PlayerDeadState}");
+            }
+
+            List<PlayerDead> playerDeadStateList = new List<PlayerDead>();
+
+            foreach (var playerDeadState in gameState.PlayerDeadState)
+            {
+                playerDeadStateList.Add(new PlayerDead(playerDeadState.Killer, playerDeadState.Dead, playerDeadState.DyingStatus));
+            }
+
         }
     }
 
@@ -245,9 +296,6 @@ public class GameManager : Singleton<GameManager>
             // CreateBullet 메시지 생성
             var createBullet = new CreateBullet
             {
-                PlayerId = playerId,
-                StartX = startX,
-                StartY = startY,
                 Angle = angle
             };
 

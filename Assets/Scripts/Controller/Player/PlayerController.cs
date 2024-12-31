@@ -13,7 +13,8 @@ public class PlayerController : MonoBehaviour
         EventBus<PlayerEventType>.Subscribe<IEnumerable<Player>>(PlayerEventType.UpdatePlayerStates, UpdatePlayers);
 
         GameObject mapPrefab = Resources.Load<GameObject>("Prefabs/Map");
-        PLAYER_Y = mapPrefab.transform.localScale.y / 2;
+        // PLAYER_Y = mapPrefab.transform.localScale.y / 2;
+        PLAYER_Y = 0;
     }
 
     private void InitializeClient(PlayerInit init)
@@ -43,6 +44,7 @@ public class PlayerController : MonoBehaviour
                     if (player.Id == clientId)
                     {
                         playerObject.tag = "Player";
+                        playerObject.name = "MyPlayer";
                         Debug.Log($"Created client player for ID: {player.Id}");
                     }
 
@@ -56,6 +58,12 @@ public class PlayerController : MonoBehaviour
             }
 
             playerObject.transform.position = new Vector3(player.X, PLAYER_Y, player.Y);
+
+
+            EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.PlayerCountUpdated, activePlayerIds.Count);
+            if (player.Id == clientId)
+                // EventBus를 통해 레이턴시 전달
+                EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.HpUpdated, player.health);
         }
 
         RemoveInactivePlayers(activePlayerIds);
