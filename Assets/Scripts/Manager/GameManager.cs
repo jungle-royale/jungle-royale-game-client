@@ -57,6 +57,8 @@ public class GameManager : Singleton<GameManager>
         };
         InputManager.Instance.Move += (angle, isMoved) =>
         {
+            Debug.Log("Clicked: " + angle.ToString());
+
             SendChangeDirMessage(angle, isMoved);
 
             if (isMoved)
@@ -78,7 +80,8 @@ public class GameManager : Singleton<GameManager>
         InputManager.Instance.Direction += (angle) => 
         {
             // TODO: 네트워크 통신
-            Debug.Log(angle);
+            Debug.Log("Angle" + angle.ToString());
+            SendChangeAngleMessage(angle);
         };
     }
 
@@ -276,6 +279,43 @@ public class GameManager : Singleton<GameManager>
             Debug.LogError($"Failed to send movement: {ex.Message}");
         }
     }
+
+    
+    private void SendChangeAngleMessage(float angle)
+    {
+        if (networkManager == null || !networkManager.IsOpen())
+        {
+            Debug.LogError("WebSocket is not connected.");
+            return;
+        }
+
+        // DirChange 메시지 생성
+        var changeAngle = new ChangeAngle
+        {
+            Angle = angle,
+        };
+
+        // Wrapper 메시지 생성 및 DirChange 메시지 포함
+        var wrapper = new Wrapper
+        {
+            ChangeAngle = changeAngle
+        };
+
+        // Protobuf 직렬화
+        var data = wrapper.ToByteArray();
+
+        try
+        {
+            // WebSocket으로 메시지 전송
+            networkManager.Send(data);
+            // Debug.Log($"Sent movement: angle={angle}, isMoved={isMoved}");
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Failed to send movement: {ex.Message}");
+        }
+    }
+
 
     private void SendDoDashMessage(bool dash)
     {

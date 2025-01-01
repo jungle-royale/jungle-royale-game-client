@@ -18,17 +18,15 @@ public class InputManager : Singleton<InputManager>
     public event Action<string, float, float, float> Bullet;
 
 
+    private string previousMouseDirection = ""; // 이전 8방향 저장
 
-    private Vector2 previousMousePosition;
-
-    private string currentDirection = "";
 
 
     void Update()
     {
         HandleMove();
         HandleDash();
-        HandleMouseDirection();
+        HandleDirection();
         HandleBullet();
     }
 
@@ -115,30 +113,51 @@ public class InputManager : Singleton<InputManager>
         }
     }
 
-    void HandleMouseDirection()
+    void HandleDirection()
     {
-        Vector2 currentMousePosition = Input.mousePosition;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-        // 마우스 이동 벡터 계산
-        Vector2 delta = currentMousePosition - previousMousePosition;
-        float angle = Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg;
-
-        if (delta.magnitude > 0) // 마우스가 움직였을 때만 계산
+        if (player == null)
         {
-            
-            string newDirection = GetDirection(angle);
-
-            // 방향이 변했을 때만 이벤트 호출
-            if (newDirection != currentDirection)
-            {
-                currentDirection = newDirection;
-                Direction?.Invoke(angle);
-                Debug.Log("Direction Changed: " + currentDirection);
-            }
+            Debug.LogError("Player tag에 해당하는 객체 없음");
+            return;
         }
 
-        // 이전 위치 업데이트
-        previousMousePosition = currentMousePosition;
+        Vector3 playerPosition = player.transform.position;
+
+        // 현재 마우스 위치를 월드 좌표로 변환
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Plane plane = new Plane(Vector3.up, playerPosition); // Y축 평면 사용
+        if (plane.Raycast(ray, out float enter))
+        {
+            Vector3 mouseWorldPosition = ray.GetPoint(enter);
+
+            // 방향 벡터 계산
+            Vector3 direction = (mouseWorldPosition - playerPosition).normalized;
+
+            // 방향 각도 계산
+            float angle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
+
+            // Unity의 좌표계에서는 W = 90°, S = -90°이므로 보정
+            angle += 90f;
+
+            // 각도를 0~360 범위로 변환
+            if (angle < 0)
+            {
+                angle += 360f;
+            }
+
+            // 8방향 문자열로 변환
+            string currentMouseDirection = GetDirection(angle);
+
+            // 방향이 변경되었을 때만 이벤트 호출
+            if (currentMouseDirection != previousMouseDirection)
+            {
+                previousMouseDirection = currentMouseDirection;
+                Direction?.Invoke(angle);
+                Debug.Log("Mouse Direction Changed: " + currentMouseDirection);
+            }
+        }
     }
 
 
