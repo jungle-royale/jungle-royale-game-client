@@ -3,44 +3,29 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-public class ItemController : MonoBehaviour
+public class MagicController : MonoBehaviour
 {
-    private Dictionary<string, GameObject> healPackObjects = new Dictionary<string, GameObject>();
     private Dictionary<string, GameObject> magicItemObjects = new Dictionary<string, GameObject>();
-
-    public enum ItemType
-    {
-        HealPack,
-        MagicItem,
-        StoneMagic,
-        FireMagic,
-    }
 
     void Start()
     {
         // EventBus 구독 설정
-        EventBus<ItemEventType>.Subscribe<IEnumerable<Item>>(ItemEventType.UpdateHealPackStates, OnUpdateHealPackStates);
-        EventBus<ItemEventType>.Subscribe<IEnumerable<Item>>(ItemEventType.UpdateMagicItemStates, OnUpdateMagicItemStates);
+        EventBus<MagicEventType>.Subscribe<IEnumerable<Magic>>(MagicEventType.UpdateMagicStates, OnUpdateMagicItemStates);
     }
 
-    private void OnUpdateHealPackStates(IEnumerable<Item> items)
+    private void OnUpdateMagicItemStates(IEnumerable<Magic> items)
     {
-        Debug.Log($"Updating HealPacks: {items?.Count() ?? 0} items.");
-        UpdateItems(items, ItemType.HealPack);
+        // Debug.Log($"Updating MagicItems: {items?.Count() ?? 0} items.");
+        UpdateItems(items);
     }
 
-    private void OnUpdateMagicItemStates(IEnumerable<Item> items)
+    private void UpdateItems(IEnumerable<Magic> items)
     {
-        Debug.Log($"Updating MagicItems: {items?.Count() ?? 0} items.");
-        UpdateItems(items, ItemType.MagicItem);
-    }
-
-    private void UpdateItems(IEnumerable<Item> items, ItemType itemType)
-    {
-        if (items == null) return;
+        
+        if (items == null || items.Count() == 0) return;
 
         HashSet<string> activeItemIds = new HashSet<string>();
-        Dictionary<string, GameObject> targetDictionary = GetTargetDictionary(itemType);
+        Dictionary<string, GameObject> targetDictionary = magicItemObjects;
 
         foreach (var item in items)
         {
@@ -49,17 +34,17 @@ public class ItemController : MonoBehaviour
             if (!targetDictionary.TryGetValue(item.ItemId, out GameObject itemObject))
             {
 
-                GameObject itemPrefab = LoadPrefab(itemType);
+                GameObject itemPrefab = LoadPrefab(item.MagicType);
 
                 if (itemPrefab != null)
                 {
                     itemObject = Instantiate(itemPrefab, item.Position(), Quaternion.identity);
                     targetDictionary[item.ItemId] = itemObject;
-                    Debug.Log($"{itemType} created with ID: {item.ItemId}");
+                    Debug.Log($"Magic {item.MagicType} created with ID: {item.ItemId}");
                 }
                 else
                 {
-                    Debug.LogError($"{itemType} prefab could not be loaded.");
+                    Debug.LogError($"Magic {item.MagicType} prefab could not be loaded.");
                     continue;
                 }
             }
@@ -72,13 +57,22 @@ public class ItemController : MonoBehaviour
         RemoveInactiveItems(activeItemIds, targetDictionary);
     }
 
-    private GameObject LoadPrefab(ItemType itemType)
+    private GameObject LoadPrefab(MagicType type)
     {
-        string path = itemType switch
+
+        string path = "Prefabs/Items_";
+        
+        switch (type)
         {
-            ItemType.HealPack => "Prefabs/Item_HealPack",
-            ItemType.MagicItem => "Prefabs/Item_StoneMagic",
-            _ => null
+            case MagicType.Fire:
+                path += "StoneMagic";
+                break;
+            case MagicType.Stone:
+                path += "StoneMagic";
+                break;
+            default:
+                path += "StoneMagic";
+                break;
         };
 
         if (string.IsNullOrEmpty(path))
@@ -95,15 +89,6 @@ public class ItemController : MonoBehaviour
         return prefab;
     }
 
-    private Dictionary<string, GameObject> GetTargetDictionary(ItemType itemType)
-    {
-        return itemType switch
-        {
-            ItemType.HealPack => healPackObjects,
-            ItemType.MagicItem => magicItemObjects,
-            _ => throw new ArgumentOutOfRangeException(nameof(itemType), $"Unsupported item type: {itemType}")
-        };
-    }
 
     private void RemoveInactiveItems(HashSet<string> activeItemIds, Dictionary<string, GameObject> targetDictionary)
     {
@@ -131,7 +116,6 @@ public class ItemController : MonoBehaviour
     private void OnDestroy()
     {
         // EventBus 구독 해제
-        EventBus<ItemEventType>.Unsubscribe<IEnumerable<Item>>(ItemEventType.UpdateHealPackStates, OnUpdateHealPackStates);
-        EventBus<ItemEventType>.Unsubscribe<IEnumerable<Item>>(ItemEventType.UpdateMagicItemStates, OnUpdateMagicItemStates);
+        EventBus<MagicEventType>.Unsubscribe<IEnumerable<Magic>>(MagicEventType.UpdateMagicStates, OnUpdateMagicItemStates);
     }
 }

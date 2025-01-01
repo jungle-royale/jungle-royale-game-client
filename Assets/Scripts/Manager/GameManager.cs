@@ -51,12 +51,14 @@ public class GameManager : Singleton<GameManager>
 
     public void ConfigureInput()
     {
-        InputManager.Dash += (dash) =>
+        InputManager.Instance.Dash += (dash) =>
         {
             SendDoDashMessage(dash);
         };
-        InputManager.Move += (angle, isMoved) =>
+        InputManager.Instance.Move += (angle, isMoved) =>
         {
+            Debug.Log("Clicked: " + angle.ToString());
+
             SendChangeDirMessage(angle, isMoved);
 
             if (isMoved)
@@ -71,9 +73,15 @@ public class GameManager : Singleton<GameManager>
             }
 
         };
-        InputManager.Bullet += (clientId, x, y, angle) =>
+        InputManager.Instance.Bullet += (clientId, x, y, angle) =>
         {
             SendCreateBulletMessage(clientId, x, y, angle);
+        };
+        InputManager.Instance.Direction += (angle) => 
+        {
+            // TODO: 네트워크 통신
+            Debug.Log("Angle" + angle.ToString());
+            SendChangeAngleMessage(angle);
         };
     }
 
@@ -193,20 +201,20 @@ public class GameManager : Singleton<GameManager>
                 healpackStateList.Add(new HealPack(healpackState.ItemId, healpackState.X, healpackState.Y));
             }
 
-            EventBus<ItemEventType>.Publish(ItemEventType.UpdateHealPackStates, healpackStateList);
+            EventBus<HealPackEventType>.Publish(HealPackEventType.UpdateHealPackStates, healpackStateList);
         }
 
         if (gameState.MagicItemState != null)
         {
             // Debug.Log($"MagicItemState: {gameState.MagicItemState}");
-            List<MagicItem> magicitemStateList = new List<MagicItem>();
+            List<Magic> magicitemStateList = new List<Magic>();
 
             foreach (var magicitemState in gameState.MagicItemState)
             {
-                magicitemStateList.Add(new MagicItem(magicitemState.ItemId, magicitemState.MagicType, magicitemState.X, magicitemState.Y));
+                magicitemStateList.Add(new Magic(magicitemState.ItemId, magicitemState.MagicType, magicitemState.X, magicitemState.Y));
             }
 
-            EventBus<ItemEventType>.Publish(ItemEventType.UpdateMagicItemStates, magicitemStateList);
+            EventBus<MagicEventType>.Publish(MagicEventType.UpdateMagicStates, magicitemStateList);
         }
 
         if (gameState.PlayerDeadState != null)
@@ -272,6 +280,43 @@ public class GameManager : Singleton<GameManager>
             Debug.LogError($"Failed to send movement: {ex.Message}");
         }
     }
+
+    
+    private void SendChangeAngleMessage(float angle)
+    {
+        if (networkManager == null || !networkManager.IsOpen())
+        {
+            Debug.LogError("WebSocket is not connected.");
+            return;
+        }
+
+        // DirChange 메시지 생성
+        var changeAngle = new ChangeAngle
+        {
+            Angle = angle,
+        };
+
+        // Wrapper 메시지 생성 및 DirChange 메시지 포함
+        var wrapper = new Wrapper
+        {
+            ChangeAngle = changeAngle
+        };
+
+        // Protobuf 직렬화
+        var data = wrapper.ToByteArray();
+
+        try
+        {
+            // WebSocket으로 메시지 전송
+            networkManager.Send(data);
+            // Debug.Log($"Sent movement: angle={angle}, isMoved={isMoved}");
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Failed to send movement: {ex.Message}");
+        }
+    }
+
 
     private void SendDoDashMessage(bool dash)
     {
