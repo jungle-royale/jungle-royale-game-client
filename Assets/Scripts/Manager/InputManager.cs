@@ -11,15 +11,22 @@ public class InputManager : Singleton<InputManager>
 
 
     // 이벤트 정의
-    public static event Action<bool> Dash;
-    public static event Action<float, bool> Move;
-    public static event Action<string, float, float, float> Bullet;
+    public event Action<bool> Dash;
+    public event Action<float, bool> Move;
+    public event Action<float> Direction;
+    
+    public event Action<string, float, float, float> Bullet;
+
+
+    private string previousMouseDirection = ""; // 이전 8방향 저장
+
 
 
     void Update()
     {
         HandleMove();
         HandleDash();
+        HandleDirection();
         HandleBullet();
     }
 
@@ -106,6 +113,54 @@ public class InputManager : Singleton<InputManager>
         }
     }
 
+    void HandleDirection()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player == null)
+        {
+            Debug.LogError("Player tag에 해당하는 객체 없음");
+            return;
+        }
+
+        Vector3 playerPosition = player.transform.position;
+
+        // 현재 마우스 위치를 월드 좌표로 변환
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Plane plane = new Plane(Vector3.up, playerPosition); // Y축 평면 사용
+        if (plane.Raycast(ray, out float enter))
+        {
+            Vector3 mouseWorldPosition = ray.GetPoint(enter);
+
+            // 방향 벡터 계산
+            Vector3 direction = (mouseWorldPosition - playerPosition).normalized;
+
+            // 방향 각도 계산
+            float angle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
+
+            // Unity의 좌표계에서는 W = 90°, S = -90°이므로 보정
+            angle += 90f;
+
+            // 각도를 0~360 범위로 변환
+            if (angle < 0)
+            {
+                angle += 360f;
+            }
+
+            // 8방향 문자열로 변환
+            string currentMouseDirection = GetDirection(angle);
+
+            // 방향이 변경되었을 때만 이벤트 호출
+            if (currentMouseDirection != previousMouseDirection)
+            {
+                previousMouseDirection = currentMouseDirection;
+                Direction?.Invoke(angle);
+                Debug.Log("Mouse Direction Changed: " + currentMouseDirection);
+            }
+        }
+    }
+
+
     private float CalculateAngle(Vector2 inputDirection)
     {
         if (inputDirection == Vector2.zero)
@@ -126,6 +181,31 @@ public class InputManager : Singleton<InputManager>
         }
 
         return angle;
+    }
+
+     string GetDirection(float angle)
+    {
+        if (angle < 0)
+            angle += 360;
+
+        if (angle >= 337.5 || angle < 22.5)
+            return "East";
+        else if (angle >= 22.5 && angle < 67.5)
+            return "Northeast";
+        else if (angle >= 67.5 && angle < 112.5)
+            return "North";
+        else if (angle >= 112.5 && angle < 157.5)
+            return "Northwest";
+        else if (angle >= 157.5 && angle < 202.5)
+            return "West";
+        else if (angle >= 202.5 && angle < 247.5)
+            return "Southwest";
+        else if (angle >= 247.5 && angle < 292.5)
+            return "South";
+        else if (angle >= 292.5 && angle < 337.5)
+            return "Southeast";
+
+        return "";
     }
 
 }
