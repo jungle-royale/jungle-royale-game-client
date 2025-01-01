@@ -18,6 +18,8 @@ public class NetworkManager : Singleton<NetworkManager>
     private String urlString;
     private DateTime requestStartTime;
 
+    private int serverPort = 8000;
+
     void Start()
     {
         Initialize();
@@ -31,14 +33,30 @@ public class NetworkManager : Singleton<NetworkManager>
 
     public void Initialize()
     {
+        Debug.Log($"💩 Init Network");
+
         if (!Debug.isDebugBuild)
         {
+
+            // TODO: 서버 배포 후에는 Host를 DomainName으로 바꿔야 함
+
             var url = Application.absoluteURL;
+
+            Debug.LogError($"💩 Try: {url}");
 
             try
             {
                 Uri uri = new Uri(url);
                 host = uri.Host; // 호스트 영역 추출
+
+                // 포트를 8000으로 설정
+                UriBuilder uriBuilder = new UriBuilder(uri)
+                {
+                    Port = serverPort // 포트를 8000으로 설정
+                };
+
+                // URL 변경
+                url = uriBuilder.ToString();
             }
             catch (UriFormatException e)
             {
@@ -53,12 +71,13 @@ public class NetworkManager : Singleton<NetworkManager>
             {
                 url = url.Replace("http://", "ws://");
             }
-            urlString = url;
+
+            urlString = url; // 실제 웹앱에서 넘어올 때에는 경로와 쿼리스트링이 같이 넘어온다.
         }
         else
         {
-            urlString = $"ws://localhost:8000/room?roomId=test";
-            host = "localhost:8000";
+            urlString = $"ws://localhost:{serverPort}/room?roomId=test&clientId=test";
+            host = $"localhost:{serverPort}";
         }
         Debug.Log($"Initializing WebSocket with URL: {urlString}");
         websocket = new WebSocket(urlString);
