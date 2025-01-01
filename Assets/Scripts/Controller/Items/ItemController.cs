@@ -25,13 +25,13 @@ public class ItemController : MonoBehaviour
 
     private void OnUpdateHealPackStates(IEnumerable<Item> items)
     {
-        // Debug.Log($"Updating HealPacks: {items?.Count() ?? 0} items.");
+        Debug.Log($"Updating HealPacks: {items?.Count() ?? 0} items.");
         UpdateItems(items, ItemType.HealPack);
     }
 
     private void OnUpdateMagicItemStates(IEnumerable<Item> items)
     {
-        // Debug.Log($"Updating MagicItems: {items?.Count() ?? 0} items.");
+        Debug.Log($"Updating MagicItems: {items?.Count() ?? 0} items.");
         UpdateItems(items, ItemType.MagicItem);
     }
 

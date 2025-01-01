@@ -96,10 +96,16 @@ message PlayerDeadState {
     // 2: stone
     // 3: fire
     // 4: fall
+
+    int32 killNum = 4;
+    int32 Placement = 5;
 }
 
 message TileState {
     int32 tileId = 1;
     float x = 2;
     float y = 3;
+    int32 tileState = 4;
+    // 0: tile normal
+    // 1: tile dangerous (tile fall in 5 sec)
 }

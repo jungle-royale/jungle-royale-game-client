@@ -99,6 +99,7 @@ public class GameManager : Singleton<GameManager>
                 switch (wrapper.MessageTypeCase)
                 {
                     case Wrapper.MessageTypeOneofCase.GameState:
+                        // Debug.Log(wrapper.GameState);
                         HandleGameState(wrapper.GameState);
                         break;
 
@@ -144,7 +145,7 @@ public class GameManager : Singleton<GameManager>
 
     private void HandleGameCount(GameCount count)
     {
-
+        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateGameCountDownLabel, count.Count);
     }
 
     private void HandleGameStart(GameStart gameStart)
@@ -264,7 +265,7 @@ public class GameManager : Singleton<GameManager>
         {
             // WebSocket으로 메시지 전송
             networkManager.Send(data);
-            // Debug.Log($"Sent movement: angle={angle}, isMoved={isMoved}");
+            Debug.Log($"Sent movement: angle={angle}, isMoved={isMoved}");
         }
         catch (Exception ex)
         {

@@ -40,9 +40,12 @@ public class InputManager : Singleton<InputManager>
         float angle = CalculateAngle(inputDirection);
         bool isMoved = inputDirection != Vector2.zero;
 
+        // Debug.Log($"anlge, move: {angle}, {isMoved}");
+
         // 입력 상태 변화 감지
         if (inputDirection != lastDirection || isMoved != wasMoved)
         {
+            Debug.Log("움직여라");
             Move?.Invoke(angle, isMoved);
 
             // 상태 업데이트
