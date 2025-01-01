@@ -165,7 +165,6 @@ public class InputManager : Singleton<InputManager>
             {
                 previousMouseDirection = currentMouseDirection;
                 Direction?.Invoke(angle);
-                // Debug.Log("Mouse Direction Changed: " + currentMouseDirection);
             }
         }
     }
