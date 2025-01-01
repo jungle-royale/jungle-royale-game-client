@@ -8,7 +8,6 @@ using System;
 using System.Data.Common;
 using System.Linq.Expressions;
 using TMPro;
-using UnityEditor.Build.Content;
 using UnityEngine.Tilemaps;
 
 public class GameManager : Singleton<GameManager>
@@ -17,6 +16,7 @@ public class GameManager : Singleton<GameManager>
 
     private DateTime _sessionStartTime;
 
+    private bool _gameStart = false;
 
     // Start is called before the first frame update
     void Start()
@@ -62,7 +62,7 @@ public class GameManager : Singleton<GameManager>
             if (isMoved)
             {
                 // start audio
-                AudioManager.Instance.StartWalkingSound("RunningSFX");
+                AudioManager.Instance.StartWalkingSound();
             }
             else
             {
@@ -75,7 +75,7 @@ public class GameManager : Singleton<GameManager>
         {
             SendCreateBulletMessage(clientId, x, y, angle);
         };
-        InputManager.Instance.Direction += (angle) => 
+        InputManager.Instance.Direction += (angle) =>
         {
             SendChangeAngleMessage(angle);
         };
@@ -149,12 +149,14 @@ public class GameManager : Singleton<GameManager>
 
     private void HandleGameCount(GameCount count)
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.ShootStone);
         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateGameCountDownLabel, count.Count);
     }
 
     private void HandleGameStart(GameStart gameStart)
     {
         // Debug.Log(gameStart.MapLength);
+        _gameStart = true;
         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameStart");
     }
 
@@ -162,6 +164,12 @@ public class GameManager : Singleton<GameManager>
     {
         if (gameState.PlayerState != null)
         {
+            // 게임 시작 했는데 플레이어가 혼자면
+            if (_gameStart && gameState.PlayerState.Count == 1)
+            {
+                // 승리
+
+            }
             // Debug.Log($"PlayerState: {gameState.PlayerState.Count}");
             List<Player> playerStateList = new List<Player>();
             List<MainCamera> mainCameraPlayerStateList = new List<MainCamera>();

@@ -89,6 +89,8 @@ public class PlayerController : MonoBehaviour
                 // 내가 죽으면 GameOver 화면 띄우기
                 if (playerId == clientId)
                 {
+                    AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dead);
+                    AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameOver);
                     EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameOver");
                 }
 

@@ -10,7 +10,8 @@ public class Tile
     public float X;
     public float Y;
     const float TILE_SCALE = 20f;
-    const float TILE_HEIGHT = 4f;
+    const float TILE_PIVOT = TILE_SCALE / 2;
+    const float TILE_HEIGHT = 10f;
 
     public Tile(int tileId, float x, float y)
     {
@@ -21,7 +22,7 @@ public class Tile
 
     public Vector3 Position()
     {
-        return new Vector3(this.X, -(TILE_HEIGHT / 2), this.Y);
+        return new Vector3(this.X + TILE_PIVOT, -(TILE_HEIGHT / 2), this.Y + TILE_PIVOT);
     }
 
     public Vector3 Scale()

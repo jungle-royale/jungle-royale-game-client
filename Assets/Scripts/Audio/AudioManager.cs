@@ -9,6 +9,35 @@ public class AudioManager : MonoBehaviour
 
     private DateTime walkingStartTime;
 
+    [Header("#BGM")]
+    public AudioClip bgmClip;
+    public float bgmVolume;
+    AudioSource bgmPlayer;
+
+    [Header("#SFX")]
+    public AudioClip[] sfxClips;
+    public float sfxVoulme;
+    public int channels; // 오디오 동시에 몇 개 플레이 할지
+    AudioSource[] sfxPlayers;
+    int channelIndex;
+
+    public enum Sfx
+    {
+        // GameCountDown,
+        // GameStart,
+        GameOver,
+        Win,
+        Walk,
+        Dash,
+        Dead,
+        // Hit,
+        Heal,
+        GetItem,
+        ShootNormal,
+        ShootFire,
+        ShootStone,
+    }
+
     // 싱글톤 인스턴스
     private static AudioManager _instance;
     public static AudioManager Instance
@@ -58,6 +87,48 @@ public class AudioManager : MonoBehaviour
 
         // 오디오 클립 딕셔너리 초기화
         audioClips = new Dictionary<string, AudioClip>();
+
+        InitAudioManager();
+    }
+
+    private void InitAudioManager()
+    {
+        // 배경음 플레이어 초기화
+        GameObject bgmObject = new GameObject("BgmPlayer");
+        bgmObject.transform.parent = transform;
+        bgmPlayer = bgmObject.AddComponent<AudioSource>();
+        bgmPlayer.playOnAwake = false;
+        bgmPlayer.loop = true;
+        bgmPlayer.volume = bgmVolume;
+        bgmPlayer.clip = bgmClip;
+
+        // 효과음 플레이어 초기화
+        GameObject sfxObject = new GameObject("SfxPlayer");
+        sfxObject.transform.parent = transform;
+        sfxPlayers = new AudioSource[channels];
+
+        for (int i = 0; i < sfxPlayers.Length; i++)
+        {
+            sfxPlayers[i] = sfxObject.AddComponent<AudioSource>();
+            sfxPlayers[i].playOnAwake = false;
+            sfxPlayers[i].volume = sfxVoulme;
+        }
+    }
+
+    public void PlaySfx(Sfx sfx)
+    {
+        for (int i = 0; i < sfxPlayers.Length; i++)
+        {
+            int loopIndex = (i + channelIndex) % sfxPlayers.Length;
+
+            if (sfxPlayers[loopIndex].isPlaying)
+                continue;
+
+            channelIndex = loopIndex;
+            sfxPlayers[loopIndex].clip = sfxClips[(int)sfx];
+            sfxPlayers[loopIndex].Play();
+            break;
+        }
     }
 
     // 오디오 클립을 Resources 폴더에서 로드하여 딕셔너리에 저장
@@ -95,9 +166,9 @@ public class AudioManager : MonoBehaviour
     }
 
     // 걷는 소리 재생
-    public void StartWalkingSound(string clipName)
+    public void StartWalkingSound()
     {
-        AudioClip clip = LoadAudioClip($"Audio/SFX/{clipName}");
+        AudioClip clip = LoadAudioClip($"Audio/SFX/WalkSFX");
         if (clip != null && walkingSource.clip != clip)
         {
             // 이미 재생 중인 소리가 같은 클립일 경우 다시 재생하지 않음
@@ -137,13 +208,6 @@ public class AudioManager : MonoBehaviour
                 walkingSource.Stop();
                 walkingSource.clip = null; // 클립을 해제하여 상태 초기화
             }
-
         }
     }
-
-    // public void StartShootSound(string clipName)
-    // {
-    //     AudioClip clip = LoadAudioClip($"Audio/SFX/{clipName}");
-
-    // }
 }

@@ -22,7 +22,6 @@ public class ItemController : MonoBehaviour
 
     private void UpdateItems(IEnumerable<HealPack> items)
     {
-        
         if (items == null || items.Count() == 0) return;
 
         HashSet<string> activeItemIds = new HashSet<string>();
@@ -61,7 +60,7 @@ public class ItemController : MonoBehaviour
     private GameObject LoadPrefab()
     {
         string path = "Prefabs/Item_HealPack";
-        
+
         if (string.IsNullOrEmpty(path))
         {
             Debug.LogError("Invalid item type.");
@@ -76,7 +75,7 @@ public class ItemController : MonoBehaviour
         return prefab;
     }
 
- 
+
 
     private void RemoveInactiveItems(HashSet<string> activeItemIds, Dictionary<string, GameObject> targetDictionary)
     {
