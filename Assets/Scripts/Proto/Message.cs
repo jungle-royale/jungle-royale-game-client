@@ -50,11 +50,12 @@ namespace Message {
             "ZGFzaBgBIAEoCCIeCglHYW1lU3RhcnQSEQoJbWFwTGVuZ3RoGAEgASgFIjUK",
             "DUhlYWxQYWNrU3RhdGUSDgoGaXRlbUlkGAEgASgJEgkKAXgYAiABKAISCQoB",
             "eRgDIAEoAiJJCg5NYWdpY0l0ZW1TdGF0ZRIOCgZpdGVtSWQYASABKAkSEQoJ",
-            "bWFnaWNUeXBlGAIgASgFEgkKAXgYAyABKAISCQoBeRgEIAEoAiJICg9QbGF5",
+            "bWFnaWNUeXBlGAIgASgFEgkKAXgYAyABKAISCQoBeRgEIAEoAiJsCg9QbGF5",
             "ZXJEZWFkU3RhdGUSEAoIa2lsbGVySWQYASABKAkSDgoGZGVhZElkGAIgASgJ",
-            "EhMKC2R5aW5nU3RhdHVzGAMgASgFIjEKCVRpbGVTdGF0ZRIOCgZ0aWxlSWQY",
-            "ASABKAUSCQoBeBgCIAEoAhIJCgF5GAMgASgCQgpaCC9tZXNzYWdlYgZwcm90",
-            "bzM="));
+            "EhMKC2R5aW5nU3RhdHVzGAMgASgFEg8KB2tpbGxOdW0YBCABKAUSEQoJUGxh",
+            "Y2VtZW50GAUgASgFIkQKCVRpbGVTdGF0ZRIOCgZ0aWxlSWQYASABKAUSCQoB",
+            "eBgCIAEoAhIJCgF5GAMgASgCEhEKCXRpbGVTdGF0ZRgEIAEoBUIKWggvbWVz",
+            "c2FnZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -71,8 +72,8 @@ namespace Message {
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameStart), global::Message.GameStart.Parser, new[]{ "MapLength" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.HealPackState), global::Message.HealPackState.Parser, new[]{ "ItemId", "X", "Y" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.MagicItemState), global::Message.MagicItemState.Parser, new[]{ "ItemId", "MagicType", "X", "Y" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Message.PlayerDeadState), global::Message.PlayerDeadState.Parser, new[]{ "KillerId", "DeadId", "DyingStatus" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Message.TileState), global::Message.TileState.Parser, new[]{ "TileId", "X", "Y" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Message.PlayerDeadState), global::Message.PlayerDeadState.Parser, new[]{ "KillerId", "DeadId", "DyingStatus", "KillNum", "Placement" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Message.TileState), global::Message.TileState.Parser, new[]{ "TileId", "X", "Y", "TileState_" }, null, null, null, null)
           }));
     }
     #endregion
@@ -3791,6 +3792,8 @@ namespace Message {
       killerId_ = other.killerId_;
       deadId_ = other.deadId_;
       dyingStatus_ = other.dyingStatus_;
+      killNum_ = other.killNum_;
+      placement_ = other.placement_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -3842,6 +3845,30 @@ namespace Message {
       }
     }
 
+    /// <summary>Field number for the "killNum" field.</summary>
+    public const int KillNumFieldNumber = 4;
+    private int killNum_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int KillNum {
+      get { return killNum_; }
+      set {
+        killNum_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Placement" field.</summary>
+    public const int PlacementFieldNumber = 5;
+    private int placement_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Placement {
+      get { return placement_; }
+      set {
+        placement_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -3860,6 +3887,8 @@ namespace Message {
       if (KillerId != other.KillerId) return false;
       if (DeadId != other.DeadId) return false;
       if (DyingStatus != other.DyingStatus) return false;
+      if (KillNum != other.KillNum) return false;
+      if (Placement != other.Placement) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -3870,6 +3899,8 @@ namespace Message {
       if (KillerId.Length != 0) hash ^= KillerId.GetHashCode();
       if (DeadId.Length != 0) hash ^= DeadId.GetHashCode();
       if (DyingStatus != 0) hash ^= DyingStatus.GetHashCode();
+      if (KillNum != 0) hash ^= KillNum.GetHashCode();
+      if (Placement != 0) hash ^= Placement.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -3900,6 +3931,14 @@ namespace Message {
         output.WriteRawTag(24);
         output.WriteInt32(DyingStatus);
       }
+      if (KillNum != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(KillNum);
+      }
+      if (Placement != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(Placement);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -3922,6 +3961,14 @@ namespace Message {
         output.WriteRawTag(24);
         output.WriteInt32(DyingStatus);
       }
+      if (KillNum != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(KillNum);
+      }
+      if (Placement != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(Placement);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -3940,6 +3987,12 @@ namespace Message {
       }
       if (DyingStatus != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(DyingStatus);
+      }
+      if (KillNum != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(KillNum);
+      }
+      if (Placement != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Placement);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -3961,6 +4014,12 @@ namespace Message {
       }
       if (other.DyingStatus != 0) {
         DyingStatus = other.DyingStatus;
+      }
+      if (other.KillNum != 0) {
+        KillNum = other.KillNum;
+      }
+      if (other.Placement != 0) {
+        Placement = other.Placement;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -3993,6 +4052,14 @@ namespace Message {
             DyingStatus = input.ReadInt32();
             break;
           }
+          case 32: {
+            KillNum = input.ReadInt32();
+            break;
+          }
+          case 40: {
+            Placement = input.ReadInt32();
+            break;
+          }
         }
       }
     #endif
@@ -4022,6 +4089,14 @@ namespace Message {
           }
           case 24: {
             DyingStatus = input.ReadInt32();
+            break;
+          }
+          case 32: {
+            KillNum = input.ReadInt32();
+            break;
+          }
+          case 40: {
+            Placement = input.ReadInt32();
             break;
           }
         }
@@ -4069,6 +4144,7 @@ namespace Message {
       tileId_ = other.tileId_;
       x_ = other.x_;
       y_ = other.y_;
+      tileState_ = other.tileState_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -4114,6 +4190,22 @@ namespace Message {
       }
     }
 
+    /// <summary>Field number for the "tileState" field.</summary>
+    public const int TileState_FieldNumber = 4;
+    private int tileState_;
+    /// <summary>
+    /// 0: tile normal
+    /// 1: tile dangerous (tile fall in 5 sec)
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int TileState_ {
+      get { return tileState_; }
+      set {
+        tileState_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -4132,6 +4224,7 @@ namespace Message {
       if (TileId != other.TileId) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(X, other.X)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Y, other.Y)) return false;
+      if (TileState_ != other.TileState_) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -4142,6 +4235,7 @@ namespace Message {
       if (TileId != 0) hash ^= TileId.GetHashCode();
       if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
       if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
+      if (TileState_ != 0) hash ^= TileState_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -4172,6 +4266,10 @@ namespace Message {
         output.WriteRawTag(29);
         output.WriteFloat(Y);
       }
+      if (TileState_ != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(TileState_);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -4194,6 +4292,10 @@ namespace Message {
         output.WriteRawTag(29);
         output.WriteFloat(Y);
       }
+      if (TileState_ != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(TileState_);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -4212,6 +4314,9 @@ namespace Message {
       }
       if (Y != 0F) {
         size += 1 + 4;
+      }
+      if (TileState_ != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(TileState_);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -4233,6 +4338,9 @@ namespace Message {
       }
       if (other.Y != 0F) {
         Y = other.Y;
+      }
+      if (other.TileState_ != 0) {
+        TileState_ = other.TileState_;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -4265,6 +4373,10 @@ namespace Message {
             Y = input.ReadFloat();
             break;
           }
+          case 32: {
+            TileState_ = input.ReadInt32();
+            break;
+          }
         }
       }
     #endif
@@ -4294,6 +4406,10 @@ namespace Message {
           }
           case 29: {
             Y = input.ReadFloat();
+            break;
+          }
+          case 32: {
+            TileState_ = input.ReadInt32();
             break;
           }
         }

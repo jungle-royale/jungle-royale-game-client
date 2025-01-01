@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 7820551754669072463}
   m_Layer: 0
   m_Name: PingLabel
-  m_TagString: Untagged
+  m_TagString: PingLabel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 9174021928987850065}
   m_Layer: 0
   m_Name: HpLabel
-  m_TagString: Untagged
+  m_TagString: HpLabel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -385,7 +385,7 @@ GameObject:
   - component: {fileID: 2315114471807244420}
   m_Layer: 0
   m_Name: PlayerCountLabel
-  m_TagString: Untagged
+  m_TagString: PlayerCountLabel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

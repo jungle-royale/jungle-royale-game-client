@@ -64,7 +64,6 @@ public class PlayerController : MonoBehaviour
 
             EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdatePlayerCountLabel, activePlayerIds.Count);
             if (player.id == clientId)
-                // EventBus를 통해 레이턴시 전달
                 EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateHpLabel, player.health);
         }
 

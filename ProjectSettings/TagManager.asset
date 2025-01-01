@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bullet
+  - PingLabel
+  - HpLabel
+  - PlayerCountLabel
+  - PlacementLabel
+  - RankLabel
+  - GameCountDownLabel
   layers:
   - Default
   - TransparentFX
