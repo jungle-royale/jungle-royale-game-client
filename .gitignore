@@ -96,3 +96,37 @@ Thumbs.db
 
 # Cache files
 *.tmpro.meta
+
+# Build Setting
+
+# Builds
+/server/Builds/
+
+# Node.js 관련 ignore 설정
+/server/node_modules/
+/server/npm-debug.log*
+/server/yarn-error.log*
+/server/.env
+/server/.env.local
+/server/.env.development
+/server/.env.test
+/server/.env.production
+/server/.cache
+/server/dist/
+/server/build/
+/server/logs/
+/server/tmp/
+/server/debug.log
+/server/out.log
+/server/error.log
+/server/coverage/
+/server/.next/
+/server/.nuxt/
+/server/.idea/
+/server/.vscode/
+/server/.DS_Store
+/server/*.local
+
+# Operating System specific files
+/server/.AppleDouble
+/server/.LSOverride
