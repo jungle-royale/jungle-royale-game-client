@@ -51,11 +51,11 @@ public class GameManager : Singleton<GameManager>
 
     public void ConfigureInput()
     {
-        InputManager.Dash += (dash) =>
+        InputManager.Instance.Dash += (dash) =>
         {
             SendDoDashMessage(dash);
         };
-        InputManager.Move += (angle, isMoved) =>
+        InputManager.Instance.Move += (angle, isMoved) =>
         {
             SendChangeDirMessage(angle, isMoved);
 
@@ -71,9 +71,14 @@ public class GameManager : Singleton<GameManager>
             }
 
         };
-        InputManager.Bullet += (clientId, x, y, angle) =>
+        InputManager.Instance.Bullet += (clientId, x, y, angle) =>
         {
             SendCreateBulletMessage(clientId, x, y, angle);
+        };
+        InputManager.Instance.Direction += (angle) => 
+        {
+            // TODO: 네트워크 통신
+            Debug.Log(angle);
         };
     }
 
@@ -192,20 +197,20 @@ public class GameManager : Singleton<GameManager>
                 healpackStateList.Add(new HealPack(healpackState.ItemId, healpackState.X, healpackState.Y));
             }
 
-            EventBus<ItemEventType>.Publish(ItemEventType.UpdateHealPackStates, healpackStateList);
+            EventBus<HealPackEventType>.Publish(HealPackEventType.UpdateHealPackStates, healpackStateList);
         }
 
         if (gameState.MagicItemState != null)
         {
             // Debug.Log($"MagicItemState: {gameState.MagicItemState}");
-            List<MagicItem> magicitemStateList = new List<MagicItem>();
+            List<Magic> magicitemStateList = new List<Magic>();
 
             foreach (var magicitemState in gameState.MagicItemState)
             {
-                magicitemStateList.Add(new MagicItem(magicitemState.ItemId, magicitemState.MagicType, magicitemState.X, magicitemState.Y));
+                magicitemStateList.Add(new Magic(magicitemState.ItemId, magicitemState.MagicType, magicitemState.X, magicitemState.Y));
             }
 
-            EventBus<ItemEventType>.Publish(ItemEventType.UpdateMagicItemStates, magicitemStateList);
+            EventBus<MagicEventType>.Publish(MagicEventType.UpdateMagicStates, magicitemStateList);
         }
 
         if (gameState.PlayerDeadState != null)

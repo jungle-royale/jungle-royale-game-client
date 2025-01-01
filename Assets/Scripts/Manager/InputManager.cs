@@ -11,15 +11,24 @@ public class InputManager : Singleton<InputManager>
 
 
     // 이벤트 정의
-    public static event Action<bool> Dash;
-    public static event Action<float, bool> Move;
-    public static event Action<string, float, float, float> Bullet;
+    public event Action<bool> Dash;
+    public event Action<float, bool> Move;
+    public event Action<float> Direction;
+    
+    public event Action<string, float, float, float> Bullet;
+
+
+
+    private Vector2 previousMousePosition;
+
+    private string currentDirection = "";
 
 
     void Update()
     {
         HandleMove();
         HandleDash();
+        HandleMouseDirection();
         HandleBullet();
     }
 
@@ -106,6 +115,33 @@ public class InputManager : Singleton<InputManager>
         }
     }
 
+    void HandleMouseDirection()
+    {
+        Vector2 currentMousePosition = Input.mousePosition;
+
+        // 마우스 이동 벡터 계산
+        Vector2 delta = currentMousePosition - previousMousePosition;
+        float angle = Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg;
+
+        if (delta.magnitude > 0) // 마우스가 움직였을 때만 계산
+        {
+            
+            string newDirection = GetDirection(angle);
+
+            // 방향이 변했을 때만 이벤트 호출
+            if (newDirection != currentDirection)
+            {
+                currentDirection = newDirection;
+                Direction?.Invoke(angle);
+                Debug.Log("Direction Changed: " + currentDirection);
+            }
+        }
+
+        // 이전 위치 업데이트
+        previousMousePosition = currentMousePosition;
+    }
+
+
     private float CalculateAngle(Vector2 inputDirection)
     {
         if (inputDirection == Vector2.zero)
@@ -126,6 +162,31 @@ public class InputManager : Singleton<InputManager>
         }
 
         return angle;
+    }
+
+     string GetDirection(float angle)
+    {
+        if (angle < 0)
+            angle += 360;
+
+        if (angle >= 337.5 || angle < 22.5)
+            return "East";
+        else if (angle >= 22.5 && angle < 67.5)
+            return "Northeast";
+        else if (angle >= 67.5 && angle < 112.5)
+            return "North";
+        else if (angle >= 112.5 && angle < 157.5)
+            return "Northwest";
+        else if (angle >= 157.5 && angle < 202.5)
+            return "West";
+        else if (angle >= 202.5 && angle < 247.5)
+            return "Southwest";
+        else if (angle >= 247.5 && angle < 292.5)
+            return "South";
+        else if (angle >= 292.5 && angle < 337.5)
+            return "Southeast";
+
+        return "";
     }
 
 }
