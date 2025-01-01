@@ -20,4 +20,25 @@ public class Player
         this.angle = angle;
         this.dashCoolTime = dashCoolTime;
     }
+
+
+    // 대시
+
+    // 총알 나갈 때 
+
+    // 피격 - 죽엇을 때
+    // hp가 이전보다 작아졌을 때
+    // hp가 0이 아닐 때
+
+    // 이동
+
+    // 죽음
+    // PlayerList에서 사라졌을 때 
+
+    // 힐
+    // HP가 올라갔을 때 
+
+    // get item
+
+    // 
 }

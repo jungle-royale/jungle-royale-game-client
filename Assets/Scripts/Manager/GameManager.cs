@@ -8,15 +8,16 @@ using System;
 using System.Data.Common;
 using System.Linq.Expressions;
 using TMPro;
-using UnityEditor.Build.Content;
 using UnityEngine.Tilemaps;
 
 public class GameManager : Singleton<GameManager>
 {
+
     private NetworkManager networkManager;
 
     private DateTime _sessionStartTime;
 
+    private bool _gameStart = false;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +32,7 @@ public class GameManager : Singleton<GameManager>
         GameObject playerPrefab = Resources.Load<GameObject>($"Prefabs/Player");
 
         // AudioManager를 통해 BackgroundBGM 재생
-        AudioManager.Instance.PlayBGM("BackgroundBGM");
+        AudioManager.Instance.PlayBGM("WaitingRoomBGM");
     }
 
     void Update()
@@ -62,7 +63,7 @@ public class GameManager : Singleton<GameManager>
             if (isMoved)
             {
                 // start audio
-                AudioManager.Instance.StartWalkingSound("RunningSFX");
+                AudioManager.Instance.StartWalkingSound();
             }
             else
             {
@@ -75,7 +76,7 @@ public class GameManager : Singleton<GameManager>
         {
             SendCreateBulletMessage(clientId, x, y, angle);
         };
-        InputManager.Instance.Direction += (angle) => 
+        InputManager.Instance.Direction += (angle) =>
         {
             SendChangeAngleMessage(angle);
         };
@@ -99,6 +100,8 @@ public class GameManager : Singleton<GameManager>
             try
             {
                 var wrapper = Wrapper.Parser.ParseFrom(bytes);
+
+                ClientManager.Instance.SetState(wrapper);
 
                 switch (wrapper.MessageTypeCase)
                 {
@@ -142,26 +145,36 @@ public class GameManager : Singleton<GameManager>
 
     private void HandleGameInit(GameInit init)
     {
-        EventBus<PlayerEventType>.Publish(PlayerEventType.InitPlayer, new PlayerInit(init.Id));
-        EventBus<MainCameraEventType>.Publish(MainCameraEventType.MainCameraInit, new MainCameraInit(init.Id));
+        ClientManager.Instance.SetClientId(init.Id);
         InputManager.Instance.ConfigureClientId(init.Id);
     }
 
     private void HandleGameCount(GameCount count)
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameCountDown, 1.0f);
         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateGameCountDownLabel, count.Count);
     }
 
     private void HandleGameStart(GameStart gameStart)
     {
         // Debug.Log(gameStart.MapLength);
+        _gameStart = true;
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameStart);
         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameStart");
+        AudioManager.Instance.PlayBGM("InGameBGM");
     }
 
     private void HandleGameState(GameState gameState)
     {
         if (gameState.PlayerState != null)
         {
+
+            // 게임 시작 했는데 플레이어가 혼자면
+            if (_gameStart && gameState.PlayerState.Count == 1)
+            {
+                // 승리
+
+            }
             // Debug.Log($"PlayerState: {gameState.PlayerState.Count}");
             List<Player> playerStateList = new List<Player>();
             List<MainCamera> mainCameraPlayerStateList = new List<MainCamera>();
@@ -269,7 +282,7 @@ public class GameManager : Singleton<GameManager>
         {
             // WebSocket으로 메시지 전송
             networkManager.Send(data);
-            Debug.Log($"Sent movement: angle={angle}, isMoved={isMoved}");
+            // Debug.Log($"Sent movement: angle={angle}, isMoved={isMoved}");
         }
         catch (Exception ex)
         {

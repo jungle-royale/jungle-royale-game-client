@@ -21,7 +21,7 @@ public class MagicController : MonoBehaviour
 
     private void UpdateItems(IEnumerable<Magic> items)
     {
-        
+
         if (items == null || items.Count() == 0) return;
 
         HashSet<string> activeItemIds = new HashSet<string>();
@@ -61,7 +61,7 @@ public class MagicController : MonoBehaviour
     {
 
         string path = "Prefabs/Items_";
-        
+
         switch (type)
         {
             case MagicType.Fire:
@@ -108,6 +108,7 @@ public class MagicController : MonoBehaviour
             {
                 Destroy(itemObject);
                 targetDictionary.Remove(itemId);
+                AudioManager.Instance.PlaySfx(AudioManager.Sfx.GetItem);
                 Debug.Log($"Removed inactive {itemId}.");
             }
         }

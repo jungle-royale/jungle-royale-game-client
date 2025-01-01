@@ -4,10 +4,38 @@ using System.Collections.Generic;
 
 public class AudioManager : MonoBehaviour
 {
-    const float DEFAULT_BGM_VOL = 0.05f;
-    const float DEFAULT_SFX_VOL = 1.0f;
+    // const float DEFAULT_BGM_VOL = 0.3f;
+    // const float DEFAULT_SFX_VOL = 1.0f;
 
     private DateTime walkingStartTime;
+
+    [Header("#BGM")]
+    public AudioClip bgmClip;
+    public float bgmVolume;
+    AudioSource bgmPlayer;
+
+    [Header("#SFX")]
+    public AudioClip[] sfxClips;
+    public float sfxVoulme;
+    public int channels; // 오디오 동시에 몇 개 플레이 할지
+    AudioSource[] sfxPlayers;
+    int channelIndex;
+
+    public enum Sfx
+    {
+        Dash,
+        Dead,
+        GameCountDown,
+        GameOver,
+        GameStart,
+        GetItem,
+        Heal,
+        ShootFire,
+        ShootNormal,
+        ShootStone,
+        Walk,
+        Win
+    }
 
     // 싱글톤 인스턴스
     private static AudioManager _instance;
@@ -58,6 +86,52 @@ public class AudioManager : MonoBehaviour
 
         // 오디오 클립 딕셔너리 초기화
         audioClips = new Dictionary<string, AudioClip>();
+
+        InitAudioManager();
+    }
+
+    private void InitAudioManager()
+    {
+        // 배경음 플레이어 초기화
+        GameObject bgmObject = new GameObject("BgmPlayer");
+        bgmObject.transform.parent = transform;
+        bgmPlayer = bgmObject.AddComponent<AudioSource>();
+        bgmPlayer.playOnAwake = false;
+        bgmPlayer.loop = true;
+        bgmPlayer.volume = bgmVolume;
+        bgmPlayer.clip = bgmClip;
+
+        // 효과음 플레이어 초기화
+        GameObject sfxObject = new GameObject("SfxPlayer");
+        sfxObject.transform.parent = transform;
+        sfxPlayers = new AudioSource[channels];
+
+        for (int i = 0; i < sfxPlayers.Length; i++)
+        {
+            sfxPlayers[i] = sfxObject.AddComponent<AudioSource>();
+            sfxPlayers[i].playOnAwake = false;
+            sfxPlayers[i].volume = sfxVoulme;
+        }
+    }
+
+    public void PlaySfx(Sfx sfx, float? volume = null)
+    {
+        float setVolume = volume ?? sfxVoulme; // 매개변수가 null이면 sfxVoulme 사용
+
+        for (int i = 0; i < sfxPlayers.Length; i++)
+        {
+            int loopIndex = (i + channelIndex) % sfxPlayers.Length;
+
+            if (sfxPlayers[loopIndex].isPlaying)
+                continue;
+
+            channelIndex = loopIndex;
+
+            sfxPlayers[loopIndex].clip = sfxClips[(int)sfx];
+            sfxPlayers[loopIndex].volume = Mathf.Clamp(setVolume, 0f, 1f); // 볼륨 설정 (0 ~ 1 사이로 제한)
+            sfxPlayers[loopIndex].Play();
+            break;
+        }
     }
 
     // 오디오 클립을 Resources 폴더에서 로드하여 딕셔너리에 저장
@@ -83,21 +157,40 @@ public class AudioManager : MonoBehaviour
     }
 
     // BGM 재생
-    public void PlayBGM(string bgmName, float volume = DEFAULT_BGM_VOL)
+    public void PlayBGM(string bgmName, float? volume = null)
     {
-        AudioClip clip = LoadAudioClip($"Audio/BGM/{bgmName}");
-        if (clip != null && bgmSource.clip != clip)
+        AudioClip newClip = LoadAudioClip($"Audio/BGM/{bgmName}");
+
+        if (newClip != null)
         {
-            bgmSource.clip = clip;
-            bgmSource.volume = volume;
-            bgmSource.Play(); // BGM 또는 오디오 루프 재생 (현재 오디오 중단되고 새 오디오가 재생됨)
+            if (bgmSource.isPlaying && bgmSource.clip == newClip)
+            {
+                Debug.Log($"BGM '{bgmName}' is already playing.");
+                return; // 같은 BGM이 재생 중이면 아무 작업도 하지 않음
+            }
+
+            if (bgmSource.isPlaying)
+            {
+                Debug.Log($"Stopping current BGM: {bgmSource.clip.name}");
+                bgmSource.Stop(); // 기존 BGM 멈춤
+            }
+
+            float setVolume = volume ?? bgmVolume; // 매개변수가 null이면 bgmVolume 사용
+            bgmSource.clip = newClip; // 새로운 BGM 설정
+            bgmSource.volume = Mathf.Clamp(setVolume, 0f, 1f); // 볼륨 설정
+            bgmSource.Play(); // 새 BGM 재생
+            Debug.Log($"Playing new BGM: {bgmName}");
+        }
+        else
+        {
+            Debug.LogWarning($"Failed to load BGM: {bgmName}");
         }
     }
 
     // 걷는 소리 재생
-    public void StartWalkingSound(string clipName)
+    public void StartWalkingSound()
     {
-        AudioClip clip = LoadAudioClip($"Audio/SFX/{clipName}");
+        AudioClip clip = LoadAudioClip($"Audio/SFX/WalkSFX");
         if (clip != null && walkingSource.clip != clip)
         {
             // 이미 재생 중인 소리가 같은 클립일 경우 다시 재생하지 않음
@@ -124,6 +217,8 @@ public class AudioManager : MonoBehaviour
 
             TimeSpan timeDiff = endTime - walkingStartTime;
 
+
+
             if (timeDiff.Milliseconds <= 200)
             {
                 DelayedExecutor.ExecuteAfterDelay(200 - timeDiff.Milliseconds, () =>
@@ -137,13 +232,6 @@ public class AudioManager : MonoBehaviour
                 walkingSource.Stop();
                 walkingSource.clip = null; // 클립을 해제하여 상태 초기화
             }
-
         }
     }
-
-    // public void StartShootSound(string clipName)
-    // {
-    //     AudioClip clip = LoadAudioClip($"Audio/SFX/{clipName}");
-
-    // }
 }

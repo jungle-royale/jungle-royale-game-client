@@ -14,12 +14,13 @@ public class InputManager : Singleton<InputManager>
     public event Action<bool> Dash;
     public event Action<float, bool> Move;
     public event Action<float> Direction;
-    
+
     public event Action<string, float, float, float> Bullet;
 
 
     private string previousMouseDirection = ""; // 이전 8방향 저장
 
+    private Debouncer DashDebouncer = new Debouncer();
 
 
     void Update()
@@ -52,7 +53,6 @@ public class InputManager : Singleton<InputManager>
         // 입력 상태 변화 감지
         if (inputDirection != lastDirection || isMoved != wasMoved)
         {
-            Debug.Log("움직여라");
             Move?.Invoke(angle, isMoved);
 
             // 상태 업데이트
@@ -111,6 +111,13 @@ public class InputManager : Singleton<InputManager>
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            if (ClientManager.Instance.CanDoDash())
+            {
+                DashDebouncer.Debounce(300, () =>
+                {
+                    AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dash);
+                });
+            }
             dash = true;
             Dash?.Invoke(dash);
         }
@@ -122,7 +129,7 @@ public class InputManager : Singleton<InputManager>
 
         if (player == null)
         {
-            Debug.LogError("Player tag에 해당하는 객체 없음");
+            // Debug.LogError("Player tag에 해당하는 객체 없음");
             return;
         }
 
@@ -158,7 +165,7 @@ public class InputManager : Singleton<InputManager>
             {
                 previousMouseDirection = currentMouseDirection;
                 Direction?.Invoke(angle);
-                Debug.Log("Mouse Direction Changed: " + currentMouseDirection);
+                // Debug.Log("Mouse Direction Changed: " + currentMouseDirection);
             }
         }
     }
@@ -186,7 +193,7 @@ public class InputManager : Singleton<InputManager>
         return angle;
     }
 
-     string GetDirection(float angle)
+    string GetDirection(float angle)
     {
         if (angle < 0)
             angle += 360;

@@ -26,6 +26,7 @@ public class BulletController : MonoBehaviour
                 GameObject bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet");
                 if (bulletPrefab != null)
                 {
+                    AudioManager.Instance.PlaySfx(AudioManager.Sfx.ShootNormal);
                     bulletObject = Instantiate(bulletPrefab, new Vector3(bullet.X, BULLET_Y, bullet.Y), Quaternion.identity);
                     bulletObjects[bullet.BulletId] = bulletObject;
                 }
