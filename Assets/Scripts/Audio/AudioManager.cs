@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class AudioManager : MonoBehaviour
 {
-    const float DEFAULT_BGM_VOL = 0.05f;
-    const float DEFAULT_SFX_VOL = 1.0f;
+    // const float DEFAULT_BGM_VOL = 0.3f;
+    // const float DEFAULT_SFX_VOL = 1.0f;
 
     private DateTime walkingStartTime;
 
@@ -23,19 +23,18 @@ public class AudioManager : MonoBehaviour
 
     public enum Sfx
     {
-        // GameCountDown,
-        // GameStart,
-        GameOver,
-        Win,
-        Walk,
         Dash,
         Dead,
-        // Hit,
-        Heal,
+        GameCountDown,
+        GameOver,
+        GameStart,
         GetItem,
-        ShootNormal,
+        Heal,
         ShootFire,
+        ShootNormal,
         ShootStone,
+        Walk,
+        Win
     }
 
     // 싱글톤 인스턴스
@@ -115,8 +114,10 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlaySfx(Sfx sfx)
+    public void PlaySfx(Sfx sfx, float? volume = null)
     {
+        float setVolume = volume ?? sfxVoulme; // 매개변수가 null이면 sfxVoulme 사용
+
         for (int i = 0; i < sfxPlayers.Length; i++)
         {
             int loopIndex = (i + channelIndex) % sfxPlayers.Length;
@@ -125,7 +126,9 @@ public class AudioManager : MonoBehaviour
                 continue;
 
             channelIndex = loopIndex;
+
             sfxPlayers[loopIndex].clip = sfxClips[(int)sfx];
+            sfxPlayers[loopIndex].volume = Mathf.Clamp(setVolume, 0f, 1f); // 볼륨 설정 (0 ~ 1 사이로 제한)
             sfxPlayers[loopIndex].Play();
             break;
         }
@@ -154,14 +157,33 @@ public class AudioManager : MonoBehaviour
     }
 
     // BGM 재생
-    public void PlayBGM(string bgmName, float volume = DEFAULT_BGM_VOL)
+    public void PlayBGM(string bgmName, float? volume = null)
     {
-        AudioClip clip = LoadAudioClip($"Audio/BGM/{bgmName}");
-        if (clip != null && bgmSource.clip != clip)
+        AudioClip newClip = LoadAudioClip($"Audio/BGM/{bgmName}");
+
+        if (newClip != null)
         {
-            bgmSource.clip = clip;
-            bgmSource.volume = volume;
-            bgmSource.Play(); // BGM 또는 오디오 루프 재생 (현재 오디오 중단되고 새 오디오가 재생됨)
+            if (bgmSource.isPlaying && bgmSource.clip == newClip)
+            {
+                Debug.Log($"BGM '{bgmName}' is already playing.");
+                return; // 같은 BGM이 재생 중이면 아무 작업도 하지 않음
+            }
+
+            if (bgmSource.isPlaying)
+            {
+                Debug.Log($"Stopping current BGM: {bgmSource.clip.name}");
+                bgmSource.Stop(); // 기존 BGM 멈춤
+            }
+
+            float setVolume = volume ?? bgmVolume; // 매개변수가 null이면 bgmVolume 사용
+            bgmSource.clip = newClip; // 새로운 BGM 설정
+            bgmSource.volume = Mathf.Clamp(setVolume, 0f, 1f); // 볼륨 설정
+            bgmSource.Play(); // 새 BGM 재생
+            Debug.Log($"Playing new BGM: {bgmName}");
+        }
+        else
+        {
+            Debug.LogWarning($"Failed to load BGM: {bgmName}");
         }
     }
 

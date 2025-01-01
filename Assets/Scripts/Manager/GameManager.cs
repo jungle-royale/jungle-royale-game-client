@@ -32,7 +32,7 @@ public class GameManager : Singleton<GameManager>
         GameObject playerPrefab = Resources.Load<GameObject>($"Prefabs/Player");
 
         // AudioManager를 통해 BackgroundBGM 재생
-        AudioManager.Instance.PlayBGM("BackgroundBGM");
+        AudioManager.Instance.PlayBGM("WaitingRoomBGM");
     }
 
     void Update()
@@ -151,7 +151,7 @@ public class GameManager : Singleton<GameManager>
 
     private void HandleGameCount(GameCount count)
     {
-        AudioManager.Instance.PlaySfx(AudioManager.Sfx.ShootStone);
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameCountDown, 1.0f);
         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateGameCountDownLabel, count.Count);
     }
 
@@ -159,7 +159,9 @@ public class GameManager : Singleton<GameManager>
     {
         // Debug.Log(gameStart.MapLength);
         _gameStart = true;
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameStart);
         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameStart");
+        AudioManager.Instance.PlayBGM("InGameBGM");
     }
 
     private void HandleGameState(GameState gameState)
@@ -280,7 +282,7 @@ public class GameManager : Singleton<GameManager>
         {
             // WebSocket으로 메시지 전송
             networkManager.Send(data);
-            Debug.Log($"Sent movement: angle={angle}, isMoved={isMoved}");
+            // Debug.Log($"Sent movement: angle={angle}, isMoved={isMoved}");
         }
         catch (Exception ex)
         {

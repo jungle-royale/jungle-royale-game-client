@@ -93,6 +93,7 @@ public class ItemController : MonoBehaviour
         {
             if (targetDictionary.TryGetValue(itemId, out GameObject itemObject))
             {
+                AudioManager.Instance.PlaySfx(AudioManager.Sfx.Heal);
                 Destroy(itemObject);
                 targetDictionary.Remove(itemId);
                 Debug.Log($"Removed inactive {itemId}.");

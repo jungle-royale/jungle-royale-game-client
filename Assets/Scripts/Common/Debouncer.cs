@@ -4,7 +4,7 @@ using System.Collections;
 using UnityEngine;
 using System.Threading.Tasks;
 
-public class Debouncer : MonoBehaviour
+public class Debouncer
 {
     private bool isDebouncing = false;
 

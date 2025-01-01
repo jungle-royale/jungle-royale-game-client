@@ -129,7 +129,7 @@ public class InputManager : Singleton<InputManager>
 
         if (player == null)
         {
-            Debug.LogError("Player tag에 해당하는 객체 없음");
+            // Debug.LogError("Player tag에 해당하는 객체 없음");
             return;
         }
 
@@ -165,7 +165,7 @@ public class InputManager : Singleton<InputManager>
             {
                 previousMouseDirection = currentMouseDirection;
                 Direction?.Invoke(angle);
-                Debug.Log("Mouse Direction Changed: " + currentMouseDirection);
+                // Debug.Log("Mouse Direction Changed: " + currentMouseDirection);
             }
         }
     }

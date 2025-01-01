@@ -1369,17 +1369,19 @@ MonoBehaviour:
   bgmClip: {fileID: 0}
   bgmVolume: 0.2
   sfxClips:
+  - {fileID: 8300000, guid: 2e4fa4ae9d18340148375c6d4d326838, type: 3}
+  - {fileID: 8300000, guid: 3dc3b5f89a9e347cdaec38ef6007a33f, type: 3}
+  - {fileID: 8300000, guid: 7b660956a379c4f2da9d02ba8b4206b3, type: 3}
   - {fileID: 8300000, guid: cdebffbd7242d4156ad382693c39d610, type: 3}
   - {fileID: 8300000, guid: 524835154237b492eaebe689ea8b3615, type: 3}
-  - {fileID: 8300000, guid: 47ec0478366334123972f01b328d683c, type: 3}
-  - {fileID: 8300000, guid: 2e4fa4ae9d18340148375c6d4d326838, type: 3}
-  - {fileID: 8300000, guid: b159e8d8844674bf1a0a2ef93da865c5, type: 3}
-  - {fileID: 8300000, guid: 88beb0c61fb9c476492cbacd86c66210, type: 3}
   - {fileID: 8300000, guid: 0292d8407a7b840c0a2323d4b2b6be8c, type: 3}
-  - {fileID: 8300000, guid: 0c3ad5217fd574762b08a57256f56cd1, type: 3}
+  - {fileID: 8300000, guid: 88beb0c61fb9c476492cbacd86c66210, type: 3}
   - {fileID: 8300000, guid: 67771f1b3e6974e4abbc5872808ff2ac, type: 3}
+  - {fileID: 8300000, guid: 0c3ad5217fd574762b08a57256f56cd1, type: 3}
   - {fileID: 8300000, guid: df0a6bf736223469d9e0d6466fda4a24, type: 3}
-  sfxVoulme: 0.5
+  - {fileID: 8300000, guid: 47ec0478366334123972f01b328d683c, type: 3}
+  - {fileID: 8300000, guid: 95262b9d2ec65449eaddd1c6c4a7a1b6, type: 3}
+  sfxVoulme: 0.7
   channels: 16
 --- !u!1 &1910300438
 GameObject:
