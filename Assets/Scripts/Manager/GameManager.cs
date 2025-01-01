@@ -12,6 +12,7 @@ using UnityEngine.Tilemaps;
 
 public class GameManager : Singleton<GameManager>
 {
+
     private NetworkManager networkManager;
 
     private DateTime _sessionStartTime;
@@ -100,6 +101,8 @@ public class GameManager : Singleton<GameManager>
             {
                 var wrapper = Wrapper.Parser.ParseFrom(bytes);
 
+                ClientManager.Instance.SetState(wrapper);
+
                 switch (wrapper.MessageTypeCase)
                 {
                     case Wrapper.MessageTypeOneofCase.GameState:
@@ -142,8 +145,7 @@ public class GameManager : Singleton<GameManager>
 
     private void HandleGameInit(GameInit init)
     {
-        EventBus<PlayerEventType>.Publish(PlayerEventType.InitPlayer, new PlayerInit(init.Id));
-        EventBus<MainCameraEventType>.Publish(MainCameraEventType.MainCameraInit, new MainCameraInit(init.Id));
+        ClientManager.Instance.SetClientId(init.Id);
         InputManager.Instance.ConfigureClientId(init.Id);
     }
 
@@ -164,6 +166,7 @@ public class GameManager : Singleton<GameManager>
     {
         if (gameState.PlayerState != null)
         {
+
             // 게임 시작 했는데 플레이어가 혼자면
             if (_gameStart && gameState.PlayerState.Count == 1)
             {

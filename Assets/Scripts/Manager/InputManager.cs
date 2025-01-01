@@ -20,6 +20,7 @@ public class InputManager : Singleton<InputManager>
 
     private string previousMouseDirection = ""; // 이전 8방향 저장
 
+    private Debouncer DashDebouncer = new Debouncer();
 
 
     void Update()
@@ -110,7 +111,13 @@ public class InputManager : Singleton<InputManager>
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dash);
+            if (ClientManager.Instance.CanDoDash())
+            {
+                DashDebouncer.Debounce(300, () =>
+                {
+                    AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dash);
+                });
+            }
             dash = true;
             Dash?.Invoke(dash);
         }

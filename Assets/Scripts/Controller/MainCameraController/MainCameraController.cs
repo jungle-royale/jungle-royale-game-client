@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -6,8 +7,7 @@ using UnityEngine;
 public class MainCameraController : MonoBehaviour
 {
     private Camera mainCamera;
-    private string focusedClientId;
-    private string clientId;
+    private String focusedClientId = null;
 
     private const float CAMERA_ROTATION_X = 40f;
     private const float CAMERA_OFFSET_Y = 10f;
@@ -18,7 +18,6 @@ public class MainCameraController : MonoBehaviour
 
     void Start()
     {
-        EventBus<MainCameraEventType>.Subscribe<MainCameraInit>(MainCameraEventType.MainCameraInit, InitializeClient);
         EventBus<MainCameraEventType>.Subscribe<IEnumerable<MainCamera>>(MainCameraEventType.MainCameraState, UpdateCamera);
 
         mainCamera = Camera.main;
@@ -35,14 +34,12 @@ public class MainCameraController : MonoBehaviour
         }
     }
 
-    private void InitializeClient(MainCameraInit init)
-    {
-        focusedClientId = init.ClientId;
-        clientId = focusedClientId; // 이걸로 관전모드 체크
-    }
-
     private void UpdateCamera(IEnumerable<MainCamera> players)
     {
+        if (focusedClientId == null)
+        {
+            focusedClientId = ClientManager.Instance.ClientId;
+        }
 
         currentPlayers = players.ToList(); // players 리스트를 저장
 
@@ -69,7 +66,7 @@ public class MainCameraController : MonoBehaviour
 
     private bool ClientIsDead()
     {
-        return focusedClientId != clientId;
+        return focusedClientId != ClientManager.Instance.ClientId;
     }
 
     private void SwitchToNextPlayer()
@@ -95,7 +92,6 @@ public class MainCameraController : MonoBehaviour
 
     private void OnDestroy()
     {
-        EventBus<MainCameraEventType>.Unsubscribe<MainCameraInit>(MainCameraEventType.MainCameraInit, InitializeClient);
         EventBus<MainCameraEventType>.Unsubscribe<IEnumerable<MainCamera>>(MainCameraEventType.MainCameraState, UpdateCamera);
     }
 }

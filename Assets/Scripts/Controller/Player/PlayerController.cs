@@ -4,12 +4,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Dictionary<string, GameObject> playerObjects = new Dictionary<string, GameObject>();
-    private string clientId;
     private float PLAYER_Y;
 
     void Start()
     {
-        EventBus<PlayerEventType>.Subscribe<PlayerInit>(PlayerEventType.InitPlayer, InitializeClient);
         EventBus<PlayerEventType>.Subscribe<IEnumerable<Player>>(PlayerEventType.UpdatePlayerStates, UpdatePlayers);
         EventBus<PlayerEventType>.Subscribe<IEnumerable<PlayerDead>>(PlayerEventType.UpdatePlayeDeadrStates, UpdatePlayerDead);
 
@@ -18,21 +16,21 @@ public class PlayerController : MonoBehaviour
         PLAYER_Y = 0;
     }
 
-    private void InitializeClient(PlayerInit init)
-    {
-        clientId = init.ClientId;
-        Debug.Log($"Client initialized with ID: {clientId}");
-    }
-
     private void UpdatePlayers(IEnumerable<Player> players)
     {
         HashSet<string> activePlayerIds = new HashSet<string>();
+        List<Player> otherActivePlayers = new List<Player>();
 
         foreach (var player in players)
         {
             activePlayerIds.Add(player.id);
 
             // Debug.Log($"{player.X}{player.Y}");
+
+            if (player.id != ClientManager.Instance.ClientId)
+            {
+                otherActivePlayers.Add(player);
+            }
 
             if (!playerObjects.TryGetValue(player.id, out GameObject playerObject))
             {
@@ -42,7 +40,7 @@ public class PlayerController : MonoBehaviour
                     playerObject = Instantiate(playerPrefab, new Vector3(player.x, PLAYER_Y, player.y), Quaternion.identity);
 
                     // 내 플레이어면 태그를 Player로 설정
-                    if (player.id == clientId)
+                    if (player.id == ClientManager.Instance.ClientId)
                     {
                         playerObject.tag = "Player";
                         playerObject.name = "MyPlayer";
@@ -61,13 +59,37 @@ public class PlayerController : MonoBehaviour
             playerObject.transform.position = new Vector3(player.x, PLAYER_Y, player.y);
             playerObject.transform.rotation = Quaternion.Euler(0, -(player.angle - 180), 0);
 
-
             EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdatePlayerCountLabel, activePlayerIds.Count);
-            if (player.id == clientId)
+            if (player.id == ClientManager.Instance.ClientId)
                 EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateHpLabel, player.health);
         }
 
+
+        HandleActivePlayers(otherActivePlayers);
         RemoveInactivePlayers(activePlayerIds);
+    }
+
+    // 죽은애들 처리 추가 필요
+
+    private void HandleActivePlayers(List<Player> otherActivePlayers)
+    {
+        // audio 처리
+
+        // activePlayerIds;
+
+        // 대시
+
+        // 총알 나갈 때 
+
+        // 이동
+
+        // 죽음
+
+        // 힐
+
+        // get item
+
+        // 
     }
 
     private void RemoveInactivePlayers(HashSet<string> activePlayerIds)
@@ -87,7 +109,7 @@ public class PlayerController : MonoBehaviour
             if (playerObjects.TryGetValue(playerId, out GameObject player))
             {
                 // 내가 죽으면 GameOver 화면 띄우기
-                if (playerId == clientId)
+                if (playerId == ClientManager.Instance.ClientId)
                 {
                     AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dead);
                     AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameOver);
@@ -104,7 +126,7 @@ public class PlayerController : MonoBehaviour
     {
         foreach (var playerDead in playerDeads)
         {
-            if (playerDead.deadPlayerId == clientId)
+            if (playerDead.deadPlayerId == ClientManager.Instance.ClientId)
             {
                 Debug.Log($"Game Over: {playerDead.deadPlayerId}");
             }
@@ -113,7 +135,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
-        EventBus<PlayerEventType>.Unsubscribe<PlayerInit>(PlayerEventType.InitPlayer, InitializeClient);
         EventBus<PlayerEventType>.Unsubscribe<IEnumerable<Player>>(PlayerEventType.UpdatePlayerStates, UpdatePlayers);
         EventBus<PlayerEventType>.Unsubscribe<IEnumerable<PlayerDead>>(PlayerEventType.UpdatePlayeDeadrStates, UpdatePlayerDead);
     }
