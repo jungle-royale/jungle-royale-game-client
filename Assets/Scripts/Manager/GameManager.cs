@@ -57,8 +57,6 @@ public class GameManager : Singleton<GameManager>
         };
         InputManager.Instance.Move += (angle, isMoved) =>
         {
-            Debug.Log("Clicked: " + angle.ToString());
-
             SendChangeDirMessage(angle, isMoved);
 
             if (isMoved)
@@ -79,8 +77,6 @@ public class GameManager : Singleton<GameManager>
         };
         InputManager.Instance.Direction += (angle) => 
         {
-            // TODO: 네트워크 통신
-            Debug.Log("Angle" + angle.ToString());
             SendChangeAngleMessage(angle);
         };
     }
@@ -280,7 +276,6 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    
     private void SendChangeAngleMessage(float angle)
     {
         if (networkManager == null || !networkManager.IsOpen())

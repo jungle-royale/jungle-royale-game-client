@@ -65,7 +65,7 @@ public class MagicController : MonoBehaviour
         switch (type)
         {
             case MagicType.Fire:
-                path += "StoneMagic";
+                path += "FireMagic";
                 break;
             case MagicType.Stone:
                 path += "StoneMagic";
