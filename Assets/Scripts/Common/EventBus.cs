@@ -6,6 +6,19 @@ public static class EventBus<T> where T : Enum
 {
     private static readonly Dictionary<string, Delegate> events = new Dictionary<string, Delegate>();
 
+    public static void Subscribe(T eventType, Action listener)
+    {
+        string key = eventType.ToString(); // enum의 이름을 문자열로 가져옴
+        if (!events.ContainsKey(key))
+        {
+            events[key] = listener;
+        }
+        else
+        {
+            events[key] = Delegate.Combine(events[key], listener);
+        }
+    }
+
     public static void Subscribe<U>(T eventType, Action<U> listener)
     {
         string key = eventType.ToString(); // enum의 이름을 문자열로 가져옴

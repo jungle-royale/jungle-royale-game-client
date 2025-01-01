@@ -412,7 +412,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '# --th'
+  m_text: '# --'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -627,7 +627,7 @@ GameObject:
   - component: {fileID: 2593850661520744991}
   - component: {fileID: 7094849389545257051}
   - component: {fileID: 2644737431306337277}
-  - component: {fileID: 2357110114811934788}
+  - component: {fileID: 2053560467436617790}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -737,7 +737,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2357110114811934788
+--- !u!114 &2053560467436617790
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

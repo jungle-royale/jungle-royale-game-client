@@ -1,11 +1,10 @@
 public enum InGameGUIEventType
 {
-    CreateWaitingRoomCanvas,
-    CreateInGameCanvas,
-    CreateGameOverCanvas,
+    // Canvas 활성화
+    ActivateCanvas,
 
     // WaitingRoomCanvas Child
-
+    UpdateGameCountDownLabel,
 
     // InGameCanvas Child
     UpdatePingLabel, // Ping 값 업데이트
