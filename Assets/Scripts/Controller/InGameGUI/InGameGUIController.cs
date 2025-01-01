@@ -7,6 +7,8 @@ public class InGameGUIController : MonoBehaviour
     private GameObject waitingRoomCanvas;
     private GameObject inGameCanvas;
     private GameObject gameOverCanvas;
+    private GameObject gameEndCanvas;
+    private GameObject watchModeCanvas;
 
     // WaitingRoomCanvas Child
     private TextMeshProUGUI gameCountDownLabel;
@@ -37,6 +39,8 @@ public class InGameGUIController : MonoBehaviour
         waitingRoomCanvas = InstantiateCanvas("Prefabs/UI/WaitingRoomCanvas");
         inGameCanvas = InstantiateCanvas("Prefabs/UI/InGameCanvas");
         gameOverCanvas = InstantiateCanvas("Prefabs/UI/GameOverCanvas");
+        gameEndCanvas = InstantiateCanvas("Prefabs/UI/GameEndCanvas");
+        watchModeCanvas = InstantiateCanvas("Prefabs/UI/WatchModeCanvas");
 
         // 모든 캔버스 비활성화
         SetAllCanvasesInactive();
@@ -66,6 +70,8 @@ public class InGameGUIController : MonoBehaviour
         if (waitingRoomCanvas != null) waitingRoomCanvas.SetActive(false);
         if (inGameCanvas != null) inGameCanvas.SetActive(false);
         if (gameOverCanvas != null) gameOverCanvas.SetActive(false);
+        if (gameEndCanvas != null) gameEndCanvas.SetActive(false);
+        if (watchModeCanvas != null) watchModeCanvas.SetActive(false);
     }
 
     private void CacheCanvasComponents()
@@ -86,6 +92,16 @@ public class InGameGUIController : MonoBehaviour
         {
             // placementLabel = FindTextInCanvas(gameOverCanvas, "PlacementLabel");
             // rankLabel = FindTextInCanvas(gameOverCanvas, "RankLabel");
+        }
+
+        if (gameEndCanvas != null)
+        {
+
+        }
+
+        if (watchModeCanvas != null)
+        {
+
         }
     }
 
@@ -140,6 +156,12 @@ public class InGameGUIController : MonoBehaviour
                 break;
             case "GameOver":
                 gameOverCanvas?.SetActive(true);
+                break;
+            case "GameEnd":
+                gameEndCanvas?.SetActive(true);
+                break;
+            case "WatchMode":
+                watchModeCanvas?.SetActive(true);
                 break;
             default:
                 Debug.LogError($"Unknown game state: {gameState}");

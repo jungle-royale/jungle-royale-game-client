@@ -172,9 +172,16 @@ public class GameManager : Singleton<GameManager>
             // 게임 시작 했는데 플레이어가 혼자면
             if (_gameStart && gameState.PlayerState.Count == 1)
             {
-                // 승리
-
+                foreach (var player in gameState.PlayerState)
+                {
+                    if (player.Id == ClientManager.Instance.ClientId)
+                    {
+                        // 승리
+                        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameEnd");
+                    }
+                }
             }
+
             // Debug.Log($"PlayerState: {gameState.PlayerState.Count}");
             List<Player> playerStateList = new List<Player>();
             List<MainCamera> mainCameraPlayerStateList = new List<MainCamera>();

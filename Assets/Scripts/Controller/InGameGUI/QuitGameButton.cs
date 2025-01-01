@@ -4,16 +4,6 @@ using UnityEngine.UI;
 
 public class QuitGameButton : MonoBehaviour
 {
-    // private RedirectHandler redirectHandler;
-
-    // private void Awake()
-    // {
-    //     Debug.Log("Awake Quit Button");
-    //     redirectHandler = new RedirectHandler();
-
-
-    // }
-
     void Start()
     {
         // QuitButton GameObject를 찾음 (버튼이 있는 객체)
@@ -45,6 +35,5 @@ public class QuitGameButton : MonoBehaviour
         Debug.Log("Quit Button");
         new RedirectHandler().RedirectToHome();
     }
-
 
 }
