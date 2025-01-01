@@ -24,41 +24,44 @@ namespace Message {
     static MessageReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cg1tZXNzYWdlLnByb3RvEgdtZXNzYWdlIrUCCgdXcmFwcGVyEicKCWNoYW5n",
-            "ZURpchgBIAEoCzISLm1lc3NhZ2UuQ2hhbmdlRGlySAASIQoGZG9EYXNoGAIg",
-            "ASgLMg8ubWVzc2FnZS5Eb0Rhc2hIABItCgxjcmVhdGVCdWxsZXQYAyABKAsy",
-            "FS5tZXNzYWdlLkNyZWF0ZUJ1bGxldEgAEicKCWdhbWVTdGF0ZRgEIAEoCzIS",
-            "Lm1lc3NhZ2UuR2FtZVN0YXRlSAASJwoJZ2FtZUNvdW50GAUgASgLMhIubWVz",
-            "c2FnZS5HYW1lQ291bnRIABIlCghnYW1lSW5pdBgGIAEoCzIRLm1lc3NhZ2Uu",
-            "R2FtZUluaXRIABInCglnYW1lU3RhcnQYByABKAsyEi5tZXNzYWdlLkdhbWVT",
+            "Cg1tZXNzYWdlLnByb3RvEgdtZXNzYWdlIuICCgdXcmFwcGVyEisKC2NoYW5n",
+            "ZUFuZ2xlGAEgASgLMhQubWVzc2FnZS5DaGFuZ2VBbmdsZUgAEicKCWNoYW5n",
+            "ZURpchgCIAEoCzISLm1lc3NhZ2UuQ2hhbmdlRGlySAASIQoGZG9EYXNoGAMg",
+            "ASgLMg8ubWVzc2FnZS5Eb0Rhc2hIABItCgxjcmVhdGVCdWxsZXQYBCABKAsy",
+            "FS5tZXNzYWdlLkNyZWF0ZUJ1bGxldEgAEicKCWdhbWVTdGF0ZRgFIAEoCzIS",
+            "Lm1lc3NhZ2UuR2FtZVN0YXRlSAASJwoJZ2FtZUNvdW50GAYgASgLMhIubWVz",
+            "c2FnZS5HYW1lQ291bnRIABIlCghnYW1lSW5pdBgHIAEoCzIRLm1lc3NhZ2Uu",
+            "R2FtZUluaXRIABInCglnYW1lU3RhcnQYCCABKAsyEi5tZXNzYWdlLkdhbWVT",
             "dGFydEgAQg0KC01lc3NhZ2VUeXBlIhYKCEdhbWVJbml0EgoKAmlkGAEgASgJ",
             "IisKCUNoYW5nZURpchINCgVhbmdsZRgBIAEoAhIPCgdpc01vdmVkGAIgASgI",
-            "IpsCCglHYW1lU3RhdGUSKQoLcGxheWVyU3RhdGUYASADKAsyFC5tZXNzYWdl",
-            "LlBsYXllclN0YXRlEikKC2J1bGxldFN0YXRlGAIgAygLMhQubWVzc2FnZS5C",
-            "dWxsZXRTdGF0ZRItCg1oZWFsUGFja1N0YXRlGAMgAygLMhYubWVzc2FnZS5I",
-            "ZWFsUGFja1N0YXRlEi8KDm1hZ2ljSXRlbVN0YXRlGAQgAygLMhcubWVzc2Fn",
-            "ZS5NYWdpY0l0ZW1TdGF0ZRIxCg9wbGF5ZXJEZWFkU3RhdGUYBSADKAsyGC5t",
-            "ZXNzYWdlLlBsYXllckRlYWRTdGF0ZRIlCgl0aWxlU3RhdGUYBiADKAsyEi5t",
-            "ZXNzYWdlLlRpbGVTdGF0ZSJ3CgtQbGF5ZXJTdGF0ZRIKCgJpZBgBIAEoCRIJ",
-            "CgF4GAIgASgCEgkKAXkYAyABKAISDgoGaGVhbHRoGAQgASgFEhEKCW1hZ2lj",
-            "VHlwZRgFIAEoBRINCgVhbmdsZRgGIAEoAhIUCgxkYXNoQ29vbFRpbWUYByAB",
-            "KAUiHQoMQ3JlYXRlQnVsbGV0Eg0KBWFuZ2xlGAEgASgCIkkKC0J1bGxldFN0",
-            "YXRlEhAKCGJ1bGxldElkGAEgASgJEhIKCmJ1bGxldFR5cGUYAiABKAUSCQoB",
-            "eBgDIAEoAhIJCgF5GAQgASgCIhoKCUdhbWVDb3VudBINCgVjb3VudBgBIAEo",
-            "BSIWCgZEb0Rhc2gSDAoEZGFzaBgBIAEoCCIeCglHYW1lU3RhcnQSEQoJbWFw",
-            "TGVuZ3RoGAEgASgFIjUKDUhlYWxQYWNrU3RhdGUSDgoGaXRlbUlkGAEgASgJ",
-            "EgkKAXgYAiABKAISCQoBeRgDIAEoAiJJCg5NYWdpY0l0ZW1TdGF0ZRIOCgZp",
-            "dGVtSWQYASABKAkSEQoJbWFnaWNUeXBlGAIgASgFEgkKAXgYAyABKAISCQoB",
-            "eRgEIAEoAiJICg9QbGF5ZXJEZWFkU3RhdGUSEAoIa2lsbGVySWQYASABKAkS",
-            "DgoGZGVhZElkGAIgASgJEhMKC2R5aW5nU3RhdHVzGAMgASgFIjEKCVRpbGVT",
-            "dGF0ZRIOCgZ0aWxlSWQYASABKAUSCQoBeBgCIAEoAhIJCgF5GAMgASgCQgpa",
-            "CC9tZXNzYWdlYgZwcm90bzM="));
+            "IhwKC0NoYW5nZUFuZ2xlEg0KBWFuZ2xlGAEgASgCIpsCCglHYW1lU3RhdGUS",
+            "KQoLcGxheWVyU3RhdGUYASADKAsyFC5tZXNzYWdlLlBsYXllclN0YXRlEikK",
+            "C2J1bGxldFN0YXRlGAIgAygLMhQubWVzc2FnZS5CdWxsZXRTdGF0ZRItCg1o",
+            "ZWFsUGFja1N0YXRlGAMgAygLMhYubWVzc2FnZS5IZWFsUGFja1N0YXRlEi8K",
+            "Dm1hZ2ljSXRlbVN0YXRlGAQgAygLMhcubWVzc2FnZS5NYWdpY0l0ZW1TdGF0",
+            "ZRIxCg9wbGF5ZXJEZWFkU3RhdGUYBSADKAsyGC5tZXNzYWdlLlBsYXllckRl",
+            "YWRTdGF0ZRIlCgl0aWxlU3RhdGUYBiADKAsyEi5tZXNzYWdlLlRpbGVTdGF0",
+            "ZSJ3CgtQbGF5ZXJTdGF0ZRIKCgJpZBgBIAEoCRIJCgF4GAIgASgCEgkKAXkY",
+            "AyABKAISDgoGaGVhbHRoGAQgASgFEhEKCW1hZ2ljVHlwZRgFIAEoBRINCgVh",
+            "bmdsZRgGIAEoAhIUCgxkYXNoQ29vbFRpbWUYByABKAUiHQoMQ3JlYXRlQnVs",
+            "bGV0Eg0KBWFuZ2xlGAEgASgCIkkKC0J1bGxldFN0YXRlEhAKCGJ1bGxldElk",
+            "GAEgASgJEhIKCmJ1bGxldFR5cGUYAiABKAUSCQoBeBgDIAEoAhIJCgF5GAQg",
+            "ASgCIhoKCUdhbWVDb3VudBINCgVjb3VudBgBIAEoBSIWCgZEb0Rhc2gSDAoE",
+            "ZGFzaBgBIAEoCCIeCglHYW1lU3RhcnQSEQoJbWFwTGVuZ3RoGAEgASgFIjUK",
+            "DUhlYWxQYWNrU3RhdGUSDgoGaXRlbUlkGAEgASgJEgkKAXgYAiABKAISCQoB",
+            "eRgDIAEoAiJJCg5NYWdpY0l0ZW1TdGF0ZRIOCgZpdGVtSWQYASABKAkSEQoJ",
+            "bWFnaWNUeXBlGAIgASgFEgkKAXgYAyABKAISCQoBeRgEIAEoAiJICg9QbGF5",
+            "ZXJEZWFkU3RhdGUSEAoIa2lsbGVySWQYASABKAkSDgoGZGVhZElkGAIgASgJ",
+            "EhMKC2R5aW5nU3RhdHVzGAMgASgFIjEKCVRpbGVTdGF0ZRIOCgZ0aWxlSWQY",
+            "ASABKAUSCQoBeBgCIAEoAhIJCgF5GAMgASgCQgpaCC9tZXNzYWdlYgZwcm90",
+            "bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Message.Wrapper), global::Message.Wrapper.Parser, new[]{ "ChangeDir", "DoDash", "CreateBullet", "GameState", "GameCount", "GameInit", "GameStart" }, new[]{ "MessageType" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Message.Wrapper), global::Message.Wrapper.Parser, new[]{ "ChangeAngle", "ChangeDir", "DoDash", "CreateBullet", "GameState", "GameCount", "GameInit", "GameStart" }, new[]{ "MessageType" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameInit), global::Message.GameInit.Parser, new[]{ "Id" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.ChangeDir), global::Message.ChangeDir.Parser, new[]{ "Angle", "IsMoved" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Message.ChangeAngle), global::Message.ChangeAngle.Parser, new[]{ "Angle" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameState), global::Message.GameState.Parser, new[]{ "PlayerState", "BulletState", "HealPackState", "MagicItemState", "PlayerDeadState", "TileState" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.PlayerState), global::Message.PlayerState.Parser, new[]{ "Id", "X", "Y", "Health", "MagicType", "Angle", "DashCoolTime" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.CreateBullet), global::Message.CreateBullet.Parser, new[]{ "Angle" }, null, null, null, null),
@@ -112,6 +115,9 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public Wrapper(Wrapper other) : this() {
       switch (other.MessageTypeCase) {
+        case MessageTypeOneofCase.ChangeAngle:
+          ChangeAngle = other.ChangeAngle.Clone();
+          break;
         case MessageTypeOneofCase.ChangeDir:
           ChangeDir = other.ChangeDir.Clone();
           break;
@@ -144,8 +150,20 @@ namespace Message {
       return new Wrapper(this);
     }
 
+    /// <summary>Field number for the "changeAngle" field.</summary>
+    public const int ChangeAngleFieldNumber = 1;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Message.ChangeAngle ChangeAngle {
+      get { return messageTypeCase_ == MessageTypeOneofCase.ChangeAngle ? (global::Message.ChangeAngle) messageType_ : null; }
+      set {
+        messageType_ = value;
+        messageTypeCase_ = value == null ? MessageTypeOneofCase.None : MessageTypeOneofCase.ChangeAngle;
+      }
+    }
+
     /// <summary>Field number for the "changeDir" field.</summary>
-    public const int ChangeDirFieldNumber = 1;
+    public const int ChangeDirFieldNumber = 2;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::Message.ChangeDir ChangeDir {
@@ -157,7 +175,7 @@ namespace Message {
     }
 
     /// <summary>Field number for the "doDash" field.</summary>
-    public const int DoDashFieldNumber = 2;
+    public const int DoDashFieldNumber = 3;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::Message.DoDash DoDash {
@@ -169,7 +187,7 @@ namespace Message {
     }
 
     /// <summary>Field number for the "createBullet" field.</summary>
-    public const int CreateBulletFieldNumber = 3;
+    public const int CreateBulletFieldNumber = 4;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::Message.CreateBullet CreateBullet {
@@ -181,7 +199,7 @@ namespace Message {
     }
 
     /// <summary>Field number for the "gameState" field.</summary>
-    public const int GameStateFieldNumber = 4;
+    public const int GameStateFieldNumber = 5;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::Message.GameState GameState {
@@ -193,7 +211,7 @@ namespace Message {
     }
 
     /// <summary>Field number for the "gameCount" field.</summary>
-    public const int GameCountFieldNumber = 5;
+    public const int GameCountFieldNumber = 6;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::Message.GameCount GameCount {
@@ -205,7 +223,7 @@ namespace Message {
     }
 
     /// <summary>Field number for the "gameInit" field.</summary>
-    public const int GameInitFieldNumber = 6;
+    public const int GameInitFieldNumber = 7;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::Message.GameInit GameInit {
@@ -217,7 +235,7 @@ namespace Message {
     }
 
     /// <summary>Field number for the "gameStart" field.</summary>
-    public const int GameStartFieldNumber = 7;
+    public const int GameStartFieldNumber = 8;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::Message.GameStart GameStart {
@@ -232,13 +250,14 @@ namespace Message {
     /// <summary>Enum of possible cases for the "MessageType" oneof.</summary>
     public enum MessageTypeOneofCase {
       None = 0,
-      ChangeDir = 1,
-      DoDash = 2,
-      CreateBullet = 3,
-      GameState = 4,
-      GameCount = 5,
-      GameInit = 6,
-      GameStart = 7,
+      ChangeAngle = 1,
+      ChangeDir = 2,
+      DoDash = 3,
+      CreateBullet = 4,
+      GameState = 5,
+      GameCount = 6,
+      GameInit = 7,
+      GameStart = 8,
     }
     private MessageTypeOneofCase messageTypeCase_ = MessageTypeOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -269,6 +288,7 @@ namespace Message {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (!object.Equals(ChangeAngle, other.ChangeAngle)) return false;
       if (!object.Equals(ChangeDir, other.ChangeDir)) return false;
       if (!object.Equals(DoDash, other.DoDash)) return false;
       if (!object.Equals(CreateBullet, other.CreateBullet)) return false;
@@ -284,6 +304,7 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
+      if (messageTypeCase_ == MessageTypeOneofCase.ChangeAngle) hash ^= ChangeAngle.GetHashCode();
       if (messageTypeCase_ == MessageTypeOneofCase.ChangeDir) hash ^= ChangeDir.GetHashCode();
       if (messageTypeCase_ == MessageTypeOneofCase.DoDash) hash ^= DoDash.GetHashCode();
       if (messageTypeCase_ == MessageTypeOneofCase.CreateBullet) hash ^= CreateBullet.GetHashCode();
@@ -310,32 +331,36 @@ namespace Message {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (messageTypeCase_ == MessageTypeOneofCase.ChangeDir) {
+      if (messageTypeCase_ == MessageTypeOneofCase.ChangeAngle) {
         output.WriteRawTag(10);
+        output.WriteMessage(ChangeAngle);
+      }
+      if (messageTypeCase_ == MessageTypeOneofCase.ChangeDir) {
+        output.WriteRawTag(18);
         output.WriteMessage(ChangeDir);
       }
       if (messageTypeCase_ == MessageTypeOneofCase.DoDash) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteMessage(DoDash);
       }
       if (messageTypeCase_ == MessageTypeOneofCase.CreateBullet) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(34);
         output.WriteMessage(CreateBullet);
       }
       if (messageTypeCase_ == MessageTypeOneofCase.GameState) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(42);
         output.WriteMessage(GameState);
       }
       if (messageTypeCase_ == MessageTypeOneofCase.GameCount) {
-        output.WriteRawTag(42);
+        output.WriteRawTag(50);
         output.WriteMessage(GameCount);
       }
       if (messageTypeCase_ == MessageTypeOneofCase.GameInit) {
-        output.WriteRawTag(50);
+        output.WriteRawTag(58);
         output.WriteMessage(GameInit);
       }
       if (messageTypeCase_ == MessageTypeOneofCase.GameStart) {
-        output.WriteRawTag(58);
+        output.WriteRawTag(66);
         output.WriteMessage(GameStart);
       }
       if (_unknownFields != null) {
@@ -348,32 +373,36 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (messageTypeCase_ == MessageTypeOneofCase.ChangeDir) {
+      if (messageTypeCase_ == MessageTypeOneofCase.ChangeAngle) {
         output.WriteRawTag(10);
+        output.WriteMessage(ChangeAngle);
+      }
+      if (messageTypeCase_ == MessageTypeOneofCase.ChangeDir) {
+        output.WriteRawTag(18);
         output.WriteMessage(ChangeDir);
       }
       if (messageTypeCase_ == MessageTypeOneofCase.DoDash) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteMessage(DoDash);
       }
       if (messageTypeCase_ == MessageTypeOneofCase.CreateBullet) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(34);
         output.WriteMessage(CreateBullet);
       }
       if (messageTypeCase_ == MessageTypeOneofCase.GameState) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(42);
         output.WriteMessage(GameState);
       }
       if (messageTypeCase_ == MessageTypeOneofCase.GameCount) {
-        output.WriteRawTag(42);
+        output.WriteRawTag(50);
         output.WriteMessage(GameCount);
       }
       if (messageTypeCase_ == MessageTypeOneofCase.GameInit) {
-        output.WriteRawTag(50);
+        output.WriteRawTag(58);
         output.WriteMessage(GameInit);
       }
       if (messageTypeCase_ == MessageTypeOneofCase.GameStart) {
-        output.WriteRawTag(58);
+        output.WriteRawTag(66);
         output.WriteMessage(GameStart);
       }
       if (_unknownFields != null) {
@@ -386,6 +415,9 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
+      if (messageTypeCase_ == MessageTypeOneofCase.ChangeAngle) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(ChangeAngle);
+      }
       if (messageTypeCase_ == MessageTypeOneofCase.ChangeDir) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(ChangeDir);
       }
@@ -420,6 +452,12 @@ namespace Message {
         return;
       }
       switch (other.MessageTypeCase) {
+        case MessageTypeOneofCase.ChangeAngle:
+          if (ChangeAngle == null) {
+            ChangeAngle = new global::Message.ChangeAngle();
+          }
+          ChangeAngle.MergeFrom(other.ChangeAngle);
+          break;
         case MessageTypeOneofCase.ChangeDir:
           if (ChangeDir == null) {
             ChangeDir = new global::Message.ChangeDir();
@@ -484,6 +522,15 @@ namespace Message {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
+            global::Message.ChangeAngle subBuilder = new global::Message.ChangeAngle();
+            if (messageTypeCase_ == MessageTypeOneofCase.ChangeAngle) {
+              subBuilder.MergeFrom(ChangeAngle);
+            }
+            input.ReadMessage(subBuilder);
+            ChangeAngle = subBuilder;
+            break;
+          }
+          case 18: {
             global::Message.ChangeDir subBuilder = new global::Message.ChangeDir();
             if (messageTypeCase_ == MessageTypeOneofCase.ChangeDir) {
               subBuilder.MergeFrom(ChangeDir);
@@ -492,7 +539,7 @@ namespace Message {
             ChangeDir = subBuilder;
             break;
           }
-          case 18: {
+          case 26: {
             global::Message.DoDash subBuilder = new global::Message.DoDash();
             if (messageTypeCase_ == MessageTypeOneofCase.DoDash) {
               subBuilder.MergeFrom(DoDash);
@@ -501,7 +548,7 @@ namespace Message {
             DoDash = subBuilder;
             break;
           }
-          case 26: {
+          case 34: {
             global::Message.CreateBullet subBuilder = new global::Message.CreateBullet();
             if (messageTypeCase_ == MessageTypeOneofCase.CreateBullet) {
               subBuilder.MergeFrom(CreateBullet);
@@ -510,7 +557,7 @@ namespace Message {
             CreateBullet = subBuilder;
             break;
           }
-          case 34: {
+          case 42: {
             global::Message.GameState subBuilder = new global::Message.GameState();
             if (messageTypeCase_ == MessageTypeOneofCase.GameState) {
               subBuilder.MergeFrom(GameState);
@@ -519,7 +566,7 @@ namespace Message {
             GameState = subBuilder;
             break;
           }
-          case 42: {
+          case 50: {
             global::Message.GameCount subBuilder = new global::Message.GameCount();
             if (messageTypeCase_ == MessageTypeOneofCase.GameCount) {
               subBuilder.MergeFrom(GameCount);
@@ -528,7 +575,7 @@ namespace Message {
             GameCount = subBuilder;
             break;
           }
-          case 50: {
+          case 58: {
             global::Message.GameInit subBuilder = new global::Message.GameInit();
             if (messageTypeCase_ == MessageTypeOneofCase.GameInit) {
               subBuilder.MergeFrom(GameInit);
@@ -537,7 +584,7 @@ namespace Message {
             GameInit = subBuilder;
             break;
           }
-          case 58: {
+          case 66: {
             global::Message.GameStart subBuilder = new global::Message.GameStart();
             if (messageTypeCase_ == MessageTypeOneofCase.GameStart) {
               subBuilder.MergeFrom(GameStart);
@@ -566,6 +613,15 @@ namespace Message {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
+            global::Message.ChangeAngle subBuilder = new global::Message.ChangeAngle();
+            if (messageTypeCase_ == MessageTypeOneofCase.ChangeAngle) {
+              subBuilder.MergeFrom(ChangeAngle);
+            }
+            input.ReadMessage(subBuilder);
+            ChangeAngle = subBuilder;
+            break;
+          }
+          case 18: {
             global::Message.ChangeDir subBuilder = new global::Message.ChangeDir();
             if (messageTypeCase_ == MessageTypeOneofCase.ChangeDir) {
               subBuilder.MergeFrom(ChangeDir);
@@ -574,7 +630,7 @@ namespace Message {
             ChangeDir = subBuilder;
             break;
           }
-          case 18: {
+          case 26: {
             global::Message.DoDash subBuilder = new global::Message.DoDash();
             if (messageTypeCase_ == MessageTypeOneofCase.DoDash) {
               subBuilder.MergeFrom(DoDash);
@@ -583,7 +639,7 @@ namespace Message {
             DoDash = subBuilder;
             break;
           }
-          case 26: {
+          case 34: {
             global::Message.CreateBullet subBuilder = new global::Message.CreateBullet();
             if (messageTypeCase_ == MessageTypeOneofCase.CreateBullet) {
               subBuilder.MergeFrom(CreateBullet);
@@ -592,7 +648,7 @@ namespace Message {
             CreateBullet = subBuilder;
             break;
           }
-          case 34: {
+          case 42: {
             global::Message.GameState subBuilder = new global::Message.GameState();
             if (messageTypeCase_ == MessageTypeOneofCase.GameState) {
               subBuilder.MergeFrom(GameState);
@@ -601,7 +657,7 @@ namespace Message {
             GameState = subBuilder;
             break;
           }
-          case 42: {
+          case 50: {
             global::Message.GameCount subBuilder = new global::Message.GameCount();
             if (messageTypeCase_ == MessageTypeOneofCase.GameCount) {
               subBuilder.MergeFrom(GameCount);
@@ -610,7 +666,7 @@ namespace Message {
             GameCount = subBuilder;
             break;
           }
-          case 50: {
+          case 58: {
             global::Message.GameInit subBuilder = new global::Message.GameInit();
             if (messageTypeCase_ == MessageTypeOneofCase.GameInit) {
               subBuilder.MergeFrom(GameInit);
@@ -619,7 +675,7 @@ namespace Message {
             GameInit = subBuilder;
             break;
           }
-          case 58: {
+          case 66: {
             global::Message.GameStart subBuilder = new global::Message.GameStart();
             if (messageTypeCase_ == MessageTypeOneofCase.GameStart) {
               subBuilder.MergeFrom(GameStart);
@@ -1077,6 +1133,204 @@ namespace Message {
 
   }
 
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class ChangeAngle : pb::IMessage<ChangeAngle>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<ChangeAngle> _parser = new pb::MessageParser<ChangeAngle>(() => new ChangeAngle());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<ChangeAngle> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Message.MessageReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChangeAngle() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChangeAngle(ChangeAngle other) : this() {
+      angle_ = other.angle_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChangeAngle Clone() {
+      return new ChangeAngle(this);
+    }
+
+    /// <summary>Field number for the "angle" field.</summary>
+    public const int AngleFieldNumber = 1;
+    private float angle_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float Angle {
+      get { return angle_; }
+      set {
+        angle_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as ChangeAngle);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(ChangeAngle other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Angle, other.Angle)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Angle != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Angle);
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Angle != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(Angle);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Angle != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(Angle);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (Angle != 0F) {
+        size += 1 + 4;
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(ChangeAngle other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Angle != 0F) {
+        Angle = other.Angle;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 13: {
+            Angle = input.ReadFloat();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 13: {
+            Angle = input.ReadFloat();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
   /// <summary>
   /// server → client
   /// </summary>
@@ -1095,7 +1349,7 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Message.MessageReflection.Descriptor.MessageTypes[3]; }
+      get { return global::Message.MessageReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1412,7 +1666,7 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Message.MessageReflection.Descriptor.MessageTypes[4]; }
+      get { return global::Message.MessageReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1832,7 +2086,7 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Message.MessageReflection.Descriptor.MessageTypes[5]; }
+      get { return global::Message.MessageReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2030,7 +2284,7 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Message.MessageReflection.Descriptor.MessageTypes[6]; }
+      get { return global::Message.MessageReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2339,7 +2593,7 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Message.MessageReflection.Descriptor.MessageTypes[7]; }
+      get { return global::Message.MessageReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2537,7 +2791,7 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Message.MessageReflection.Descriptor.MessageTypes[8]; }
+      get { return global::Message.MessageReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2735,7 +2989,7 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Message.MessageReflection.Descriptor.MessageTypes[9]; }
+      get { return global::Message.MessageReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2933,7 +3187,7 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Message.MessageReflection.Descriptor.MessageTypes[10]; }
+      get { return global::Message.MessageReflection.Descriptor.MessageTypes[11]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3205,7 +3459,7 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Message.MessageReflection.Descriptor.MessageTypes[11]; }
+      get { return global::Message.MessageReflection.Descriptor.MessageTypes[12]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3514,7 +3768,7 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Message.MessageReflection.Descriptor.MessageTypes[12]; }
+      get { return global::Message.MessageReflection.Descriptor.MessageTypes[13]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3792,7 +4046,7 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Message.MessageReflection.Descriptor.MessageTypes[13]; }
+      get { return global::Message.MessageReflection.Descriptor.MessageTypes[14]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

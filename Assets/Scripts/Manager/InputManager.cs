@@ -19,7 +19,7 @@ public class InputManager : Singleton<InputManager>
     void Update()
     {
         HandleMove();
-        HandleShift();
+        HandleDash();
         HandleBullet();
     }
 
@@ -58,7 +58,7 @@ public class InputManager : Singleton<InputManager>
 
         if (player == null)
         {
-            Debug.LogError("Player tag에 해당하는 객체 없음");
+            // Debug.LogError("Player tag에 해당하는 객체 없음");
             return; // Player가 없으면 함수 종료
         }
 
@@ -95,7 +95,7 @@ public class InputManager : Singleton<InputManager>
         }
     }
 
-    private void HandleShift()
+    private void HandleDash()
     {
         bool dash = false;
 

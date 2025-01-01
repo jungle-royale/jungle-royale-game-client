@@ -103,8 +103,8 @@ public class GameManager : Singleton<GameManager>
                         break;
 
                     case Wrapper.MessageTypeOneofCase.GameCount:
-                        HandleGameCount(wrapper.GameCount);
                         Debug.Log($"game play in: {wrapper.GameCount.Count}");
+                        HandleGameCount(wrapper.GameCount);
                         break;
 
                     case Wrapper.MessageTypeOneofCase.GameInit:
@@ -137,9 +137,6 @@ public class GameManager : Singleton<GameManager>
 
     private void HandleGameInit(GameInit init)
     {
-        // WaitingRoom UI 생성
-        // EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.)
-
         EventBus<PlayerEventType>.Publish(PlayerEventType.InitPlayer, new PlayerInit(init.Id));
         EventBus<MainCameraEventType>.Publish(MainCameraEventType.MainCameraInit, new MainCameraInit(init.Id));
         InputManager.Instance.ConfigureClientId(init.Id);
@@ -153,7 +150,7 @@ public class GameManager : Singleton<GameManager>
     private void HandleGameStart(GameStart gameStart)
     {
         // Debug.Log(gameStart.MapLength);
-        // EventBus<MapEventType>.Publish(MapEventType.UpdateMapState, new Map(gameStart.MapLength, gameStart.MapLength));
+        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameStart");
     }
 
     private void HandleGameState(GameState gameState)
@@ -166,7 +163,7 @@ public class GameManager : Singleton<GameManager>
 
             foreach (var player in gameState.PlayerState)
             {
-                playerStateList.Add(new Player(player.Id, player.X, player.Y, player.Health, player.MagicType, player.Angle, player. DashCoolTime));
+                playerStateList.Add(new Player(player.Id, player.X, player.Y, player.Health, player.MagicType, player.Angle, player.DashCoolTime));
                 mainCameraPlayerStateList.Add(new MainCamera(player.Id, player.X, player.Y));
             }
             EventBus<PlayerEventType>.Publish(PlayerEventType.UpdatePlayerStates, playerStateList);
@@ -277,6 +274,7 @@ public class GameManager : Singleton<GameManager>
 
     private void SendDoDashMessage(bool dash)
     {
+        // Debug.Log("DoDash message 전송");
         if (networkManager == null || !networkManager.IsOpen())
         {
             Debug.LogError("WebSocket is not connected.");

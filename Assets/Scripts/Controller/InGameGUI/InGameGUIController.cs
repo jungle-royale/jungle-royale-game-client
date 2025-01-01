@@ -1,106 +1,154 @@
 using UnityEngine;
+using System.Collections.Generic;
 using TMPro;
 using System.Xml.Serialization;
+using System;
 
 public class InGameGUIController : MonoBehaviour
 {
+    private GameObject waitingRoomCanvas;
+    private GameObject inGameCanvas;
+    private GameObject gameOverCanvas;
+
     private TextMeshProUGUI pingLabel;
     private TextMeshProUGUI hpLabel;
     private TextMeshProUGUI playerCountLabel;
-    GameObject canvasObject;
 
     void Start()
     {
-        // Canvas 생성
-        CreateCanvas();
+        // 캔버스 생성 및 초기화
+        CreateCanvases();
 
-        // Label 생성
-        CreatePingLabel();
-        CreateHpLabel();
-        CreatePlayerCountLabel();
+        // 이벤트 구독
+        EventBus<InGameGUIEventType>.Subscribe<string>(InGameGUIEventType.ActivateCanvas, OnActivateCanvas);
 
         // UpdatePingLabel 이벤트 구독
         EventBus<InGameGUIEventType>.Subscribe<long>(InGameGUIEventType.UpdatePingLabel, UpdatePingUI);
         EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.UpdateHpLabel, UpdateHpUI);
         EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.UpdatePlayerCountLabel, UpdatePlayerCountUI);
+
+
+        // 초기 상태 설정 (Waiting Room 활성화)
+        OnActivateCanvas("GameWait");
     }
 
-    private void CreateCanvas()
+    private void CreateCanvases()
     {
-        canvasObject = new GameObject("GUICanvas");
-        Canvas canvas = canvasObject.AddComponent<Canvas>();
-        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        waitingRoomCanvas = InstantiateCanvas("Prefabs/UI/WaitingRoomCanvas");
+        inGameCanvas = InstantiateCanvas("Prefabs/UI/InGameCanvas");
+        gameOverCanvas = InstantiateCanvas("Prefabs/UI/GameOverCanvas");
+
+
+        // 초기 상태에서 모든 캔버스 비활성화
+        waitingRoomCanvas.SetActive(false);
+        inGameCanvas.SetActive(false);
+        gameOverCanvas.SetActive(false);
     }
 
-    private void CreatePingLabel()
+    private GameObject InstantiateCanvas(string prefabPath)
     {
-        // Ping Label 생성
-        GameObject labelObject = new GameObject("PingLabel");
-        labelObject.transform.SetParent(canvasObject.transform);
-
-        // TextMeshPro 설정
-        pingLabel = labelObject.AddComponent<TextMeshProUGUI>();
-        pingLabel.fontSize = 24;
-        pingLabel.alignment = TextAlignmentOptions.TopRight;
-        pingLabel.rectTransform.anchorMin = new Vector2(1, 1);
-        pingLabel.rectTransform.anchorMax = new Vector2(1, 1);
-        pingLabel.rectTransform.pivot = new Vector2(1, 1);
-        pingLabel.rectTransform.anchoredPosition = new Vector2(-10, -10);
-        pingLabel.text = "Ping: -- ms";
+        GameObject canvasPrefab = Resources.Load<GameObject>(prefabPath);
+        if (canvasPrefab != null)
+        {
+            GameObject canvasObject = Instantiate(canvasPrefab);
+            canvasObject.SetActive(false); // 기본적으로 비활성화
+            return canvasObject;
+        }
+        else
+        {
+            Debug.LogError($"Canvas Prefab at {prefabPath} could not be loaded.");
+            return null;
+        }
     }
 
-    private void CreateHpLabel()
+    private void OnActivateCanvas(string GameState)
     {
-        GameObject labelObject = new GameObject("HpLabel");
-        labelObject.transform.SetParent(canvasObject.transform);
 
-        // TextMeshPro 설정
-        hpLabel = labelObject.AddComponent<TextMeshProUGUI>();
-        hpLabel.fontSize = 24;
-        hpLabel.alignment = TextAlignmentOptions.TopRight;
-        hpLabel.rectTransform.anchorMin = new Vector2(1, 1);
-        hpLabel.rectTransform.anchorMax = new Vector2(1, 1);
-        hpLabel.rectTransform.pivot = new Vector2(1, 1);
-        hpLabel.rectTransform.anchoredPosition = new Vector2(-10, -60);
-        hpLabel.text = "HP: --";
+        // 모든 캔버스를 비활성화
+        waitingRoomCanvas.SetActive(false);
+        inGameCanvas.SetActive(false);
+        gameOverCanvas.SetActive(false);
+
+        if (GameState == "GameWait")
+        {
+            waitingRoomCanvas.SetActive(true);
+        }
+        else if (GameState == "GameStart")
+        {
+            inGameCanvas.SetActive(true);
+        }
+        else if (GameState == "GameOver")
+        {
+            gameOverCanvas.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("Null Canvas");
+        }
     }
 
-    private void CreatePlayerCountLabel()
+    private void CreateWaitingRoomCanvas()
     {
-        GameObject labelObject = new GameObject("PlayerCountLabel");
-        labelObject.transform.SetParent(canvasObject.transform);
+        GameObject canvasPrefab = Resources.Load<GameObject>("Prefabs/UI/InGameCanvas");
+        if (canvasPrefab != null)
+        {
+            GameObject canvasObject = Instantiate(canvasPrefab);
+        }
+        else
+        {
+            Debug.LogError("Canvas Prefab could not be loaded.");
+        }
+    }
 
-        // TextMeshPro 설정
-        playerCountLabel = labelObject.AddComponent<TextMeshProUGUI>();
-        playerCountLabel.fontSize = 24;
-        playerCountLabel.alignment = TextAlignmentOptions.TopRight;
-        playerCountLabel.rectTransform.anchorMin = new Vector2(1, 1);
-        playerCountLabel.rectTransform.anchorMax = new Vector2(1, 1);
-        playerCountLabel.rectTransform.pivot = new Vector2(1, 1);
-        playerCountLabel.rectTransform.anchoredPosition = new Vector2(-10, -120);
-        playerCountLabel.text = "Player Count: --";
+    private void CreateInGameCanvas()
+    {
+        GameObject canvasPrefab = Resources.Load<GameObject>("Prefabs/UI/InGameCanvas");
+        if (canvasPrefab != null)
+        {
+            GameObject canvasObject = Instantiate(canvasPrefab);
+        }
+        else
+        {
+            Debug.LogError("Canvas Prefab could not be loaded.");
+        }
+    }
+
+    private void CreateGameOverCanvas(Player player)
+    {
+        GameObject canvasPrefab = Resources.Load<GameObject>("Prefabs/UI/GameOverCanvas");
+        if (canvasPrefab != null)
+        {
+            GameObject canvasObject = Instantiate(canvasPrefab);
+        }
+        else
+        {
+            Debug.LogError("Canvas Prefab could not be loaded.");
+        }
     }
 
     private void UpdatePingUI(long ping)
     {
-        pingLabel.text = $"Ping: {ping} ms";
+        if (pingLabel != null)
+            pingLabel.text = $"Ping: {ping} ms";
         // Debug.Log($"Ping Updated in UI: {ping}");
     }
 
     private void UpdateHpUI(int hp)
     {
-        hpLabel.text = $"HP: {hp}";
+        if (hpLabel != null)
+            hpLabel.text = $"HP: {hp}";
         // Debug.Log($"HP Updated in UI: {hp}");
     }
 
     private void UpdatePlayerCountUI(int playerCount)
     {
-        playerCountLabel.text = $"Player Count : {playerCount}";
+        if (playerCountLabel != null)
+            playerCountLabel.text = $"Player Count : {playerCount}";
     }
 
     private void UpdateGameCountDownUI(int gameCountDown)
     {
-
+        playerCountLabel = waitingRoomCanvas.GetComponentInChildren<TextMeshProUGUI>();
     }
 
     private void OnDestroy()

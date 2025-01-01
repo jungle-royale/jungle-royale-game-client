@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     {
         EventBus<PlayerEventType>.Subscribe<PlayerInit>(PlayerEventType.InitPlayer, InitializeClient);
         EventBus<PlayerEventType>.Subscribe<IEnumerable<Player>>(PlayerEventType.UpdatePlayerStates, UpdatePlayers);
+        EventBus<PlayerEventType>.Subscribe<IEnumerable<PlayerDead>>(PlayerEventType.UpdatePlayeDeadrStates, UpdatePlayerDead);
 
         GameObject mapPrefab = Resources.Load<GameObject>("Prefabs/Map");
         // PLAYER_Y = mapPrefab.transform.localScale.y / 2;
@@ -58,7 +59,6 @@ public class PlayerController : MonoBehaviour
             }
 
             playerObject.transform.position = new Vector3(player.x, PLAYER_Y, player.y);
-            Debug.Log($"player Angle: {player.angle}");
             playerObject.transform.rotation = Quaternion.Euler(0, -(player.angle - 180), 0);
 
 
@@ -87,15 +87,33 @@ public class PlayerController : MonoBehaviour
         {
             if (playerObjects.TryGetValue(playerId, out GameObject player))
             {
+                // 내가 죽으면 GameOver 화면 띄우기
+                if (playerId == clientId)
+                {
+                    EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameOver");
+                }
+
                 Destroy(player);
                 playerObjects.Remove(playerId);
             }
         }
     }
 
+    private void UpdatePlayerDead(IEnumerable<PlayerDead> playerDeads)
+    {
+        foreach (var playerDead in playerDeads)
+        {
+            if (playerDead.deadPlayerId == clientId)
+            {
+                Debug.Log($"Game Over: {playerDead.deadPlayerId}");
+            }
+        }
+    }
+
     private void OnDestroy()
     {
-        EventBus<PlayerEventType>.Unsubscribe<IEnumerable<Player>>(PlayerEventType.UpdatePlayerStates, UpdatePlayers);
         EventBus<PlayerEventType>.Unsubscribe<PlayerInit>(PlayerEventType.InitPlayer, InitializeClient);
+        EventBus<PlayerEventType>.Unsubscribe<IEnumerable<Player>>(PlayerEventType.UpdatePlayerStates, UpdatePlayers);
+        EventBus<PlayerEventType>.Unsubscribe<IEnumerable<PlayerDead>>(PlayerEventType.UpdatePlayeDeadrStates, UpdatePlayerDead);
     }
 }

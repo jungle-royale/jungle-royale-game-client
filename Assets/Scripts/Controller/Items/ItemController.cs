@@ -11,7 +11,9 @@ public class ItemController : MonoBehaviour
     public enum ItemType
     {
         HealPack,
-        MagicItem
+        MagicItem,
+        StoneMagic,
+        FireMagic,
     }
 
     void Start()
@@ -46,13 +48,14 @@ public class ItemController : MonoBehaviour
 
             if (!targetDictionary.TryGetValue(item.ItemId, out GameObject itemObject))
             {
+
                 GameObject itemPrefab = LoadPrefab(itemType);
 
                 if (itemPrefab != null)
                 {
                     itemObject = Instantiate(itemPrefab, item.Position(), Quaternion.identity);
                     targetDictionary[item.ItemId] = itemObject;
-                    // Debug.Log($"{itemType} created with ID: {item.ItemId}");
+                    Debug.Log($"{itemType} created with ID: {item.ItemId}");
                 }
                 else
                 {
@@ -73,8 +76,8 @@ public class ItemController : MonoBehaviour
     {
         string path = itemType switch
         {
-            ItemType.HealPack => "Prefabs/HealPack",
-            ItemType.MagicItem => "Prefabs/MagicItem",
+            ItemType.HealPack => "Prefabs/Item_HealPack",
+            ItemType.MagicItem => "Prefabs/Item_StoneMagic",
             _ => null
         };
 
@@ -120,7 +123,7 @@ public class ItemController : MonoBehaviour
             {
                 Destroy(itemObject);
                 targetDictionary.Remove(itemId);
-                // Debug.Log($"Removed inactive {itemId}.");
+                Debug.Log($"Removed inactive {itemId}.");
             }
         }
     }
