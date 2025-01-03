@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using System;
 
-public class InGameGUIController : MonoBehaviour
+public class InGameGUIManager : MonoBehaviour
 {
     private GameObject waitingRoomCanvas;
     private GameObject inGameCanvas;

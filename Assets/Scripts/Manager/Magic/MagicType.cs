@@ -1,6 +1,6 @@
 public enum MagicType
 {
-    None = 0,
-    Stone,
+    None,
     Fire,
+    Stone,
 }

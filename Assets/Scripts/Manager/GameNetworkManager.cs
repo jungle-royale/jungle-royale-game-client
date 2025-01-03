@@ -10,9 +10,7 @@ using Google.Protobuf;
 
 public class GameNetworkManager : Singleton<GameNetworkManager>
 {
-
     private WebSocket websocket;
-
 
     private String host;
     private String urlString;
@@ -25,8 +23,9 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     public PlayerManager playerManager;
     public TileManager tileManager;
     public BulletManager bulletManager;
+    public MagicManager magicManager;
+    public HealPackManager healPackManager;
 
-    // public ItemManager itemManager;
 
     void Start()
     {
@@ -248,7 +247,6 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
         if (gameState.HealPackState != null)
         {
-            // Debug.Log($"HealPackState: {gameState.HealPackState}");
             List<HealPack> healpackStateList = new List<HealPack>();
 
             foreach (var healpackState in gameState.HealPackState)
@@ -256,12 +254,11 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                 healpackStateList.Add(new HealPack(healpackState.ItemId, healpackState.X, healpackState.Y));
             }
 
-            // EventBus<HealPackEventType>.Publish(HealPackEventType.UpdateHealPackStates, healpackStateList);
+            healPackManager.UpdateHealPackList(healpackStateList);
         }
 
         if (gameState.MagicItemState != null && gameState.MagicItemState.Count > 0)
         {
-            // Debug.Log($"MagicItemState: {gameState.MagicItemState}");
             List<Magic> magicitemStateList = new List<Magic>();
 
             foreach (var magicitemState in gameState.MagicItemState)
@@ -269,7 +266,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                 magicitemStateList.Add(new Magic(magicitemState.ItemId, magicitemState.MagicType, magicitemState.X, magicitemState.Y));
             }
 
-            // EventBus<MagicEventType>.Publish(MagicEventType.UpdateMagicStates, magicitemStateList);
+            magicManager.UpdateMagicList(magicitemStateList);
         }
 
         if (gameState.PlayerDeadState != null && gameState.PlayerDeadState.Count > 0)

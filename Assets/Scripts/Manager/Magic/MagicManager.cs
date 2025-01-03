@@ -3,25 +3,12 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-public class MagicController : MonoBehaviour
+public class MagicManager : MonoBehaviour
 {
     private Dictionary<string, GameObject> magicItemObjects = new Dictionary<string, GameObject>();
-
-    void Start()
+    
+    public void UpdateMagicList(List<Magic> items)
     {
-        // EventBus 구독 설정
-        EventBus<MagicEventType>.Subscribe<IEnumerable<Magic>>(MagicEventType.UpdateMagicStates, OnUpdateMagicItemStates);
-    }
-
-    private void OnUpdateMagicItemStates(IEnumerable<Magic> items)
-    {
-        // Debug.Log($"Updating MagicItems: {items?.Count() ?? 0} items.");
-        UpdateItems(items);
-    }
-
-    private void UpdateItems(IEnumerable<Magic> items)
-    {
-
         if (items == null || items.Count() == 0) return;
 
         HashSet<string> activeItemIds = new HashSet<string>();
@@ -114,9 +101,4 @@ public class MagicController : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
-    {
-        // EventBus 구독 해제
-        EventBus<MagicEventType>.Unsubscribe<IEnumerable<Magic>>(MagicEventType.UpdateMagicStates, OnUpdateMagicItemStates);
-    }
 }

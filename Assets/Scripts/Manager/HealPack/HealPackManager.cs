@@ -3,24 +3,11 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-public class ItemController : MonoBehaviour
+public class HealPackManager : MonoBehaviour
 {
     private Dictionary<string, GameObject> healPackObjects = new Dictionary<string, GameObject>();
 
-    void Start()
-    {
-        // EventBus 구독 설정
-        EventBus<HealPackEventType>.Subscribe<IEnumerable<HealPack>>(HealPackEventType.UpdateHealPackStates, OnUpdateHealPackStates);
-    }
-
-    private void OnUpdateHealPackStates(IEnumerable<HealPack> items)
-    {
-        // Debug.Log($"Updating HealPacks: {items?.Count() ?? 0} items.");
-        UpdateItems(items);
-    }
-
-
-    private void UpdateItems(IEnumerable<HealPack> items)
+    public void UpdateHealPackList(List<HealPack> items)
     {
         if (items == null || items.Count() == 0) return;
 
@@ -101,9 +88,4 @@ public class ItemController : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
-    {
-        // EventBus 구독 해제
-        EventBus<HealPackEventType>.Unsubscribe<IEnumerable<HealPack>>(HealPackEventType.UpdateHealPackStates, OnUpdateHealPackStates);
-    }
 }
