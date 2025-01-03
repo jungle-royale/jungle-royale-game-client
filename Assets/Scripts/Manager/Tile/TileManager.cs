@@ -2,17 +2,13 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class TileController : MonoBehaviour
+public class TileManager : MonoBehaviour
 {
     private Dictionary<string, GameObject> tileObjects = new Dictionary<string, GameObject>();
     const float TILE_Y = 0;
 
-    void Start()
-    {
-        EventBus<TileEventType>.Subscribe<IEnumerable<Tile>>(TileEventType.UpdateTileStates, UpdateTiles);
-    }
 
-    private void UpdateTiles(IEnumerable<Tile> tiles)
+    public void UpdateTiles(List<Tile> tiles)
     {
         HashSet<string> activeTileIds = new HashSet<string>();
 
@@ -64,8 +60,4 @@ public class TileController : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
-    {
-        EventBus<TileEventType>.Unsubscribe<IEnumerable<Tile>>(TileEventType.UpdateTileStates, UpdateTiles);
-    }
 }

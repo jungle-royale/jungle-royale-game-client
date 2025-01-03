@@ -8,7 +8,7 @@ using UnityEditor.PackageManager;
 using Message;
 using Google.Protobuf;
 
-public class GameNetworkManager : MonoBehaviour
+public class GameNetworkManager : Singleton<GameNetworkManager>
 {
 
     private WebSocket websocket;
@@ -20,26 +20,22 @@ public class GameNetworkManager : MonoBehaviour
 
     private int serverPort = 8000;
 
-    private bool _gameStart = false;
 
+    public GameStateManager gameStateManager;
     public PlayerManager playerManager;
+    public TileManager tileManager;
+
     // public BulletManager bulletManager;
     // public ItemManager itemManager;
-    // public GameStateManager gameStateManager;
 
     void Start()
     {
-
         InitializeAndConnect();
 
         if (Debug.isDebugBuild)
         {
             InvokeRepeating(nameof(SendHttpPing), 1f, 10f);
         }
-
-        // 웹소켓 연결
-        // webSocketClient.OnMessageReceived += OnDataReceived;
-        // webSocketClient.Connect("ws://your-server-address");
     }
 
     public void Update()
@@ -204,15 +200,7 @@ public class GameNetworkManager : MonoBehaviour
         {
             Debug.LogError($"Unexpected error: {ex.Message}");
         }
-
-        // 게임 상태 처리
-        // gameStateManager.ProcessGameState(serverData.gameState);
-
-        // 각 매니저에 데이터 전달
-        // bulletManager.UpdateBullets(serverData.bullets);
-        // itemManager.UpdateItems(serverData.items);
     }
-
 
     private void HandleGameInit(GameInit init)
     {
@@ -229,45 +217,21 @@ public class GameNetworkManager : MonoBehaviour
 
     private void HandleGameStart(GameStart gameStart)
     {
-        _gameStart = true;
-
-        // TODO: GameManager에게 전달
-        AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameStart);
-        // EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameStart");
-        AudioManager.Instance.PlayBGM("InGameBGM");
-
-        // Debug.Log(gameStart.MapLength);
+        gameStateManager.HandleGameStart(gameStart);
     }
 
     private void HandleGameState(GameState gameState)
     {
+        gameStateManager.HandleGameState(gameState);
+
         if (gameState.PlayerState != null)
         {
-
-            // 게임 시작 했는데 플레이어가 혼자면
-            if (_gameStart && gameState.PlayerState.Count == 1)
-            {
-                foreach (var player in gameState.PlayerState)
-                {
-                    if (player.Id == ClientManager.Instance.ClientId)
-                    {
-                        // TODO: GameManager에게 전달하도록 수정
-                        // EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameEnd");
-                    }
-                }
-            }
-
-            // Debug.Log($"PlayerState: {gameState.PlayerState.Count}");
             List<Player> playerStateList = new List<Player>();
-            List<MainCamera> mainCameraPlayerStateList = new List<MainCamera>();
 
             foreach (var player in gameState.PlayerState)
             {
                 playerStateList.Add(new Player(player.Id, player.X, player.Y, player.Health, player.MagicType, player.Angle, player.DashCoolTime));
-                mainCameraPlayerStateList.Add(new MainCamera(player.Id, player.X, player.Y));
             }
-            // EventBus<PlayerEventType>.Publish(PlayerEventType.UpdatePlayerStates, playerStateList);
-            // EventBus<MainCameraEventType>.Publish(MainCameraEventType.MainCameraState, mainCameraPlayerStateList);
             playerManager.UpdatePlayers(playerStateList);
         }
 
@@ -333,7 +297,7 @@ public class GameNetworkManager : MonoBehaviour
                 tileStateList.Add(new Tile(tileState.TileId, tileState.X, tileState.Y));
             }
 
-            // EventBus<TileEventType>.Publish(TileEventType.UpdateTileStates, tileStateList);
+            tileManager.UpdateTiles(tileStateList);
         }
     }
 

@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : Singleton<AudioManager>
 {
     // const float DEFAULT_BGM_VOL = 0.3f;
     // const float DEFAULT_SFX_VOL = 1.0f;
@@ -38,21 +38,6 @@ public class AudioManager : MonoBehaviour
     }
 
     // 싱글톤 인스턴스
-    private static AudioManager _instance;
-    public static AudioManager Instance
-    {
-        get
-        {
-            // _instance가 이미 생성되었다면 기존 객체를 반환하고, 생성되지 않았을 경우 새 객체를 생성
-            if (_instance == null)
-            {
-                var audioManagerObject = new GameObject("AudioManager");
-                _instance = audioManagerObject.AddComponent<AudioManager>();
-                DontDestroyOnLoad(audioManagerObject); // 씬 전환 시에도 유지
-            }
-            return _instance;
-        }
-    }
 
     // BGM과 효과음을 재생할 AudioSource
     private AudioSource bgmSource;
@@ -65,18 +50,6 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
-        // 싱글톤 인스턴스 설정
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (_instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         // AudioSource 초기화
         bgmSource = gameObject.AddComponent<AudioSource>();
         bgmSource.loop = true;
