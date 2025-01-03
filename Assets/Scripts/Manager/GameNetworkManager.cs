@@ -210,7 +210,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     {
         // TODO: GameManager에게 전달
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameCountDown, 1.0f);
-        // EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateGameCountDownLabel, count.Count);
+        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateGameCountDownLabel, count.Count);
     }
 
     private void HandleGameStart(GameStart gameStart)
