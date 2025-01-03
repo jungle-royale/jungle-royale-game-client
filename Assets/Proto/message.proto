@@ -9,29 +9,25 @@ message Wrapper {
         ChangeAngle changeAngle = 1;
         ChangeDir changeDir = 2;
         DoDash doDash = 3;
-        CreateBullet createBullet = 4;
+        ChangeBulletState changeBulletState = 4;
         GameState gameState = 5;
         GameCount gameCount = 6;
         GameInit gameInit = 7;
         GameStart gameStart = 8;
     }
 }
-
 // server → client : init message
 message GameInit {
     string id = 1;  // player id
 }
-
 // client → server : changing state
 message ChangeDir {
     float angle = 1;
     bool isMoved = 2;
 }
-
 message ChangeAngle {
     float angle = 1;
 }
-
 // server → client
 message GameState {
     repeated PlayerState playerState = 1;
@@ -41,7 +37,6 @@ message GameState {
     repeated PlayerDeadState playerDeadState = 5;
     repeated TileState tileState = 6;
 }
-
 message PlayerState {
     string id = 1;
     float x = 2;
@@ -51,43 +46,35 @@ message PlayerState {
     float angle = 6;
     int32 dashCoolTime = 7;
 }
-
-message CreateBullet {
-    float angle = 1;
+message ChangeBulletState {
+    bool isShooting = 1;
 }
-
 message BulletState {
     string bulletId = 1;
     int32 bulletType = 2;
     float x = 3;
     float y = 4;
 }
-
 message GameCount {
     int32 count = 1;
 }
-
 message DoDash {
     bool dash = 1;
 }
-
 message GameStart {
     int32 mapLength = 1;
 }
-
 message HealPackState {
     string itemId = 1;
     float x = 2;
     float y = 3;
 }
-
 message MagicItemState {
     string itemId = 1;
     int32 magicType = 2;
     float x = 3;
     float y = 4;
 }
-
 message PlayerDeadState {
     string killerId = 1;
     string deadId = 2;
@@ -96,11 +83,9 @@ message PlayerDeadState {
     // 2: stone
     // 3: fire
     // 4: fall
-
     int32 killNum = 4;
     int32 Placement = 5;
 }
-
 message TileState {
     string tileId = 1;
     float x = 2;
