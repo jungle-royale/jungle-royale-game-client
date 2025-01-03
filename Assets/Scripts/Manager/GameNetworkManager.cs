@@ -205,15 +205,10 @@ public class GameNetworkManager : MonoBehaviour
             Debug.LogError($"Unexpected error: {ex.Message}");
         }
 
-
-        // 서버 데이터 파싱
-        // ServerData serverData = JsonUtility.FromJson<ServerData>(jsonData);
-
         // 게임 상태 처리
         // gameStateManager.ProcessGameState(serverData.gameState);
 
         // 각 매니저에 데이터 전달
-        // playerManager.UpdatePlayers(serverData.players);
         // bulletManager.UpdateBullets(serverData.bullets);
         // itemManager.UpdateItems(serverData.items);
     }
@@ -342,6 +337,28 @@ public class GameNetworkManager : MonoBehaviour
         }
     }
 
+    public bool IsOpen()
+    {
+        return websocket != null && websocket.State == WebSocketState.Open;
+    }
+
+    public void Send(byte[] data)
+    {
+        if (!IsOpen())
+        {
+            Debug.LogWarning("WebSocket is not open. Cannot send data.");
+            return;
+        }
+
+        try
+        {
+            websocket.Send(data);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Failed to send data: {ex.Message}");
+        }
+    }
 
     private void SendHttpPing()
     {

@@ -13,8 +13,6 @@ using UnityEngine.Tilemaps;
 public class GameManager : Singleton<GameManager>
 {
 
-    private NetworkManager networkManager;
-
     private DateTime _sessionStartTime;
 
     private bool _gameStart = false;
@@ -24,9 +22,6 @@ public class GameManager : Singleton<GameManager>
     {
         _sessionStartTime = DateTime.Now;
         Debug.Log("게임 시작 : " + _sessionStartTime);
-
-        ConfigureInput();
-        ConfigureNetwork();
 
         GameObject mapPrefab = Resources.Load<GameObject>($"Prefabs/Map");
         GameObject playerPrefab = Resources.Load<GameObject>($"Prefabs/Player");
@@ -43,56 +38,13 @@ public class GameManager : Singleton<GameManager>
     private void OnApplicationQuit()
     {
         var _sessionEndTime = DateTime.Now;
-        networkManager.Close();
-
         Debug.Log("게임 종료 : " + DateTime.Now);
         Debug.Log("게임 플레이 시간 : " + _sessionEndTime.Subtract(_sessionStartTime));
     }
 
 
-    public void ConfigureInput()
-    {
-        InputManager.Instance.Dash += (dash) =>
-        {
-            SendDoDashMessage(dash);
-        };
-        InputManager.Instance.Move += (angle, isMoved) =>
-        {
-            SendChangeDirMessage(angle, isMoved);
-
-            if (isMoved)
-            {
-                // start audio
-                AudioManager.Instance.StartWalkingSound();
-            }
-            else
-            {
-                // stopch audio
-                AudioManager.Instance.StopWalkingSound();
-            }
-
-        };
-        InputManager.Instance.Bullet += (clientId, isShooting) =>
-        {
-            // SendCreateBulletMessage(clientId, x, y, angle);
-            SendChangeBulletStateMessage(clientId, isShooting);
-        };
-        InputManager.Instance.Direction += (angle) =>
-        {
-            SendChangeAngleMessage(angle);
-        };
-    }
-
     public void ConfigureNetwork()
     {
-        networkManager = FindObjectOfType<NetworkManager>();
-
-        if (networkManager == null)
-        {
-            Debug.LogError("NetworkManager not found in the scene!");
-            return;
-        }
-
         NetworkManager.OnOpen += () => { };
         NetworkManager.OnClose += (error) => { };
         NetworkManager.OnError += (closeCode) => { };
@@ -140,8 +92,6 @@ public class GameManager : Singleton<GameManager>
             }
         };
 
-        // WebSocket 연결 시도
-        networkManager.Connect();
     }
 
     private void HandleGameInit(GameInit init)
@@ -262,117 +212,8 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    private void SendChangeDirMessage(float angle, bool isMoved)
-    {
-        if (networkManager == null || !networkManager.IsOpen())
-        {
-            Debug.LogError("WebSocket is not connected.");
-            return;
-        }
-
-        // DirChange 메시지 생성
-        var changeDir = new ChangeDir
-        {
-            Angle = angle,
-            IsMoved = isMoved
-        };
-
-        // Wrapper 메시지 생성 및 DirChange 메시지 포함
-        var wrapper = new Wrapper
-        {
-            ChangeDir = changeDir
-        };
-
-        // Protobuf 직렬화
-        var data = wrapper.ToByteArray();
-
-        try
-        {
-            // WebSocket으로 메시지 전송
-            networkManager.Send(data);
-            // Debug.Log($"Sent movement: angle={angle}, isMoved={isMoved}");
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Failed to send movement: {ex.Message}");
-        }
-    }
-
-    private void SendChangeAngleMessage(float angle)
-    {
-        if (networkManager == null || !networkManager.IsOpen())
-        {
-            Debug.LogError("WebSocket is not connected.");
-            return;
-        }
-
-        // DirChange 메시지 생성
-        var changeAngle = new ChangeAngle
-        {
-            Angle = angle,
-        };
-
-        // Wrapper 메시지 생성 및 DirChange 메시지 포함
-        var wrapper = new Wrapper
-        {
-            ChangeAngle = changeAngle
-        };
-
-        // Protobuf 직렬화
-        var data = wrapper.ToByteArray();
-
-        try
-        {
-            // WebSocket으로 메시지 전송
-            networkManager.Send(data);
-            // Debug.Log($"Sent movement: angle={angle}, isMoved={isMoved}");
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Failed to send movement: {ex.Message}");
-        }
-    }
-
-
-    private void SendDoDashMessage(bool dash)
-    {
-        // Debug.Log("DoDash message 전송");
-        if (networkManager == null || !networkManager.IsOpen())
-        {
-            Debug.LogError("WebSocket is not connected.");
-            return;
-        }
-
-        var doDash = new DoDash
-        {
-            Dash = dash
-        };
-
-        var wrapper = new Wrapper
-        {
-            DoDash = doDash
-        };
-
-        var data = wrapper.ToByteArray();
-
-        try
-        {
-            networkManager.Send(data);
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Failed to send movement: {ex.Message}");
-        }
-    }
-
     private void SendChangeBulletStateMessage(string playerId, bool isShooting)
     {
-        if (networkManager == null || !networkManager.IsOpen())
-        {
-            Debug.LogError("WebSocket is not connected.");
-            return;
-        }
-
         try
         {
 
@@ -390,7 +231,7 @@ public class GameManager : Singleton<GameManager>
             var data = wrapper.ToByteArray();
 
             // WebSocket으로 메시지 전송
-            networkManager.Send(data);
+            // networkManager.Send(data);
 
             // Debug.Log($"Sent CreateBullet: PlayerId={playerId}, StartX={startX}, StartY={startY}, Angle={angle}");
         }
@@ -400,41 +241,5 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    // private void SendCreateBulletMessage(string playerId, float startX, float startY, float angle)
-    // {
-    //     if (networkManager == null || !networkManager.IsOpen())
-    //     {
-    //         Debug.LogError("WebSocket is not connected.");
-    //         return;
-    //     }
-
-    //     try
-    //     {
-
-    //         // CreateBullet 메시지 생성
-    //         var createBullet = new CreateBullet
-    //         {
-    //             Angle = angle
-    //         };
-
-    //         // Wrapper 메시지 생성 및 CreateBullet 메시지 포함
-    //         var wrapper = new Wrapper
-    //         {
-    //             CreateBullet = createBullet
-    //         };
-
-    //         // Protobuf 직렬화
-    //         var data = wrapper.ToByteArray();
-
-    //         // WebSocket으로 메시지 전송
-    //         networkManager.Send(data);
-
-    //         // Debug.Log($"Sent CreateBullet: PlayerId={playerId}, StartX={startX}, StartY={startY}, Angle={angle}");
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         Debug.LogError($"Failed to send CreateBullet message: {ex.Message}");
-    //     }
-    // }
 }
 
