@@ -16,7 +16,7 @@ public class AudioManager : Singleton<AudioManager>
 
     [Header("#SFX")]
     public AudioClip[] sfxClips;
-    public float sfxVoulme;
+    public float sfxVolume;
     public int channels; // 오디오 동시에 몇 개 플레이 할지
     AudioSource[] sfxPlayers;
     int channelIndex;
@@ -48,8 +48,21 @@ public class AudioManager : Singleton<AudioManager>
     // 오디오 클립 캐싱을 위한 딕셔너리
     private Dictionary<string, AudioClip> audioClips;
 
-    void Awake()
+    void Start()
     {
+        // 기본값 설정
+        if (channels <= 0)
+        {
+            channels = 10; // 기본 채널 개수
+            Debug.Log($"채널 개수가 0이어서 기본값 {channels}으로 설정됨");
+        }
+
+        if (sfxVolume <= 0 || sfxVolume > 1)
+        {
+            sfxVolume = 1.0f; // 기본 볼륨
+            Debug.Log($"SFX 볼륨이 잘못되어 기본값 {sfxVolume}으로 설정됨");
+        }
+
         // AudioSource 초기화
         bgmSource = gameObject.AddComponent<AudioSource>();
         bgmSource.loop = true;
@@ -83,24 +96,32 @@ public class AudioManager : Singleton<AudioManager>
         {
             sfxPlayers[i] = sfxObject.AddComponent<AudioSource>();
             sfxPlayers[i].playOnAwake = false;
-            sfxPlayers[i].volume = sfxVoulme;
+            sfxPlayers[i].volume = sfxVolume;
         }
     }
 
     public void PlaySfx(Sfx sfx, float? volume = null)
     {
-        float setVolume = volume ?? sfxVoulme; // 매개변수가 null이면 sfxVoulme 사용
+        float setVolume = volume ?? sfxVolume; // 매개변수가 null이면 sfxVolume 사용
 
         for (int i = 0; i < sfxPlayers.Length; i++)
         {
             int loopIndex = (i + channelIndex) % sfxPlayers.Length;
 
             if (sfxPlayers[loopIndex].isPlaying)
+            {
                 continue;
+            }
 
             channelIndex = loopIndex;
 
             sfxPlayers[loopIndex].clip = sfxClips[(int)sfx];
+            if (sfxPlayers[loopIndex].clip == null)
+            {
+                Debug.LogError($"{(Sfx)sfx} 클립 없음");
+                return;
+            }
+
             sfxPlayers[loopIndex].volume = Mathf.Clamp(setVolume, 0f, 1f); // 볼륨 설정 (0 ~ 1 사이로 제한)
             sfxPlayers[loopIndex].Play();
             break;
