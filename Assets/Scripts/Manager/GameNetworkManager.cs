@@ -161,7 +161,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         {
             var wrapper = Wrapper.Parser.ParseFrom(data);
 
-            Debug.Log("💩" + wrapper.ToString());
+            // Debug.Log("💩" + wrapper.ToString());
 
             ClientManager.Instance.SetState(wrapper);
 

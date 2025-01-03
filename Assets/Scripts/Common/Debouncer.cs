@@ -12,16 +12,16 @@ public class Debouncer
     {
         if (!isDebouncing)
         {
-            Debug.Log("됨 ????????");
+            // Debug.Log("됨 ????????");
             isDebouncing = true;
             action.Invoke(); // 액션 실행
             await Task.Delay(debounceTimeMs); // 지연
-            Debug.Log("되게 됨 ????????");
+            // Debug.Log("되게 됨 ????????");
             isDebouncing = false;
         }
         else
         {
-            Debug.Log("막힘 ????????");
+            // Debug.Log("막힘 ????????");
         }
     }
 }
