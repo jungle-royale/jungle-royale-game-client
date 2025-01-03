@@ -15,10 +15,12 @@ public class InputManager : Singleton<InputManager>
     public event Action<float, bool> Move;
     public event Action<float> Direction;
 
-    public event Action<string, float, float, float> Bullet;
+    public event Action<string, bool> Bullet;
 
 
-    private string previousMouseDirection = ""; // 이전 8방향 저장
+    // private string previousMouseDirection = ""; // 이전 8방향 저장
+    private int lastSendAngleTime = 0;
+    private bool lastClickState;  // 눌려있으면 true
 
     private Debouncer DashDebouncer = new Debouncer();
 
@@ -72,36 +74,42 @@ public class InputManager : Singleton<InputManager>
             return; // Player가 없으면 함수 종료
         }
 
-        if (Input.GetMouseButtonDown(0)) // 마우스 왼쪽 버튼 클릭
+        if (Input.GetMouseButton(0) && !lastClickState) // 마우스 왼쪽 버튼 클릭 눌려있는동안
         {
-            // 클릭한 위치 계산
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+            lastClickState = true;
+            Bullet?.Invoke(ClientId, true);
 
-            if (Physics.Raycast(ray, out hit))
-            {
-                Vector3 clickPosition = hit.point; // 클릭한 월드 좌표
-                Vector3 playerPosition = player.transform.position; // 플레이어 위치
+            // // 클릭한 위치 계산
+            // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            // RaycastHit hit;
 
-                // 클릭한 위치와 플레이어 위치 간 벡터 계산
-                Vector3 direction = (clickPosition - playerPosition).normalized;
-                direction.z = -direction.z; // Z축 반전 적용
+            // if (Physics.Raycast(ray, out hit))
+            // {
+            //     Vector3 clickPosition = hit.point; // 클릭한 월드 좌표
+            //     Vector3 playerPosition = player.transform.position; // 플레이어 위치
 
-                // Z축 기준 각도 계산 (Z축 중심으로 회전)
-                float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            //     // 클릭한 위치와 플레이어 위치 간 벡터 계산
+            //     Vector3 direction = (clickPosition - playerPosition).normalized;
+            //     direction.z = -direction.z; // Z축 반전 적용
 
-                // 각도를 0~360° 범위로 변환
-                if (angle < 0)
-                {
-                    angle += 360f;
-                }
+            //     // Z축 기준 각도 계산 (Z축 중심으로 회전)
+            //     float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+
+            //     // 각도를 0~360° 범위로 변환
+            //     if (angle < 0)
+            //     {
+            //         angle += 360f;
+            //     }
 
                 // Debug.Log($"click: {clickPosition}, player: {playerPosition}");
-                // Debug.Log($"direction: {direction}");
-                // Debug.Log($"angle: {angle}");
+            //     // Debug.Log($"direction: {direction}");
+            //     // Debug.Log($"angle: {angle}");
 
-                Bullet?.Invoke(ClientId, playerPosition.x, playerPosition.z, angle);
-            }
+            //     Bullet?.Invoke(ClientId, true);
+            // }
+        } else if (!Input.GetMouseButton(0) && lastClickState) {
+            lastClickState = false;
+            Bullet?.Invoke(ClientId, false);
         }
     }
 
@@ -157,15 +165,22 @@ public class InputManager : Singleton<InputManager>
                 angle += 360f;
             }
 
-            // 8방향 문자열로 변환
-            string currentMouseDirection = GetDirection(angle);
-
-            // 방향이 변경되었을 때만 이벤트 호출
-            if (currentMouseDirection != previousMouseDirection)
-            {
-                previousMouseDirection = currentMouseDirection;
+            // angle 전송
+            if (lastSendAngleTime <= 0) {
                 Direction?.Invoke(angle);
+                lastSendAngleTime = 6;  // 0.1초마다 angle 전송
             }
+            lastSendAngleTime--;
+
+            // // 8방향 문자열로 변환
+            // string currentMouseDirection = GetDirection(angle);
+
+            // // 방향이 변경되었을 때만 이벤트 호출
+            // if (currentMouseDirection != previousMouseDirection)
+            // {
+            //     previousMouseDirection = currentMouseDirection;
+            //     Direction?.Invoke(angle);
+            // }
         }
     }
 

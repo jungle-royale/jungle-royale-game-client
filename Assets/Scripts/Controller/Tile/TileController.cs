@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TileController : MonoBehaviour
 {
-    private Dictionary<int, GameObject> tileObjects = new Dictionary<int, GameObject>();
+    private Dictionary<string, GameObject> tileObjects = new Dictionary<string, GameObject>();
     const float TILE_Y = 0;
 
     void Start()
@@ -14,7 +14,7 @@ public class TileController : MonoBehaviour
 
     private void UpdateTiles(IEnumerable<Tile> tiles)
     {
-        HashSet<int> activeTileIds = new HashSet<int>();
+        HashSet<string> activeTileIds = new HashSet<string>();
 
         foreach (var tile in tiles)
         {
@@ -42,9 +42,9 @@ public class TileController : MonoBehaviour
         RemoveInactiveTiles(activeTileIds);
     }
 
-    private void RemoveInactiveTiles(HashSet<int> activeTileIds)
+    private void RemoveInactiveTiles(HashSet<string> activeTileIds)
     {
-        List<int> tilesToRemove = new List<int>();
+        List<string> tilesToRemove = new List<string>();
 
         foreach (var tileId in tileObjects.Keys)
         {
