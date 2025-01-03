@@ -72,9 +72,10 @@ public class GameManager : Singleton<GameManager>
             }
 
         };
-        InputManager.Instance.Bullet += (clientId, x, y, angle) =>
+        InputManager.Instance.Bullet += (clientId, isShooting) =>
         {
-            SendCreateBulletMessage(clientId, x, y, angle);
+            // SendCreateBulletMessage(clientId, x, y, angle);
+            SendChangeBulletStateMessage(clientId, isShooting);
         };
         InputManager.Instance.Direction += (angle) =>
         {
@@ -364,7 +365,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    private void SendCreateBulletMessage(string playerId, float startX, float startY, float angle)
+    private void SendChangeBulletStateMessage(string playerId, bool isShooting)
     {
         if (networkManager == null || !networkManager.IsOpen())
         {
@@ -375,16 +376,14 @@ public class GameManager : Singleton<GameManager>
         try
         {
 
-            // CreateBullet 메시지 생성
-            var createBullet = new CreateBullet
+            var changeBulletState = new ChangeBulletState
             {
-                Angle = angle
+                IsShooting = isShooting
             };
 
-            // Wrapper 메시지 생성 및 CreateBullet 메시지 포함
             var wrapper = new Wrapper
             {
-                CreateBullet = createBullet
+                ChangeBulletState = changeBulletState
             };
 
             // Protobuf 직렬화
@@ -400,5 +399,42 @@ public class GameManager : Singleton<GameManager>
             Debug.LogError($"Failed to send CreateBullet message: {ex.Message}");
         }
     }
+
+    // private void SendCreateBulletMessage(string playerId, float startX, float startY, float angle)
+    // {
+    //     if (networkManager == null || !networkManager.IsOpen())
+    //     {
+    //         Debug.LogError("WebSocket is not connected.");
+    //         return;
+    //     }
+
+    //     try
+    //     {
+
+    //         // CreateBullet 메시지 생성
+    //         var createBullet = new CreateBullet
+    //         {
+    //             Angle = angle
+    //         };
+
+    //         // Wrapper 메시지 생성 및 CreateBullet 메시지 포함
+    //         var wrapper = new Wrapper
+    //         {
+    //             CreateBullet = createBullet
+    //         };
+
+    //         // Protobuf 직렬화
+    //         var data = wrapper.ToByteArray();
+
+    //         // WebSocket으로 메시지 전송
+    //         networkManager.Send(data);
+
+    //         // Debug.Log($"Sent CreateBullet: PlayerId={playerId}, StartX={startX}, StartY={startY}, Angle={angle}");
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         Debug.LogError($"Failed to send CreateBullet message: {ex.Message}");
+    //     }
+    // }
 }
 
