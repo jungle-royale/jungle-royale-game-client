@@ -47,7 +47,7 @@ public class MagicManager : MonoBehaviour
     private GameObject LoadPrefab(MagicType type)
     {
 
-        string path = "Prefabs/Items_";
+        string path = "Prefabs/Item_";
 
         switch (type)
         {
