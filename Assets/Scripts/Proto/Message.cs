@@ -3830,12 +3830,6 @@ namespace Message {
     /// <summary>Field number for the "dyingStatus" field.</summary>
     public const int DyingStatusFieldNumber = 3;
     private int dyingStatus_;
-    /// <summary>
-    /// 1: snow
-    /// 2: stone
-    /// 3: fire
-    /// 4: fall
-    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int DyingStatus {
@@ -3848,6 +3842,12 @@ namespace Message {
     /// <summary>Field number for the "killNum" field.</summary>
     public const int KillNumFieldNumber = 4;
     private int killNum_;
+    /// <summary>
+    /// 1: snow
+    /// 2: stone
+    /// 3: fire
+    /// 4: fall
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int KillNum {
@@ -4424,4 +4424,3 @@ namespace Message {
 }
 
 #endregion Designer generated code
-

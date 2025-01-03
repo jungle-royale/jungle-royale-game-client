@@ -5,7 +5,8 @@ using UnityEngine.Networking;
 using NativeWebSocket;
 using System.Collections;
 using UnityEditor.PackageManager;
-
+using Message;
+using Google.Protobuf;
 
 public class GameNetworkManager : MonoBehaviour
 {
@@ -19,7 +20,9 @@ public class GameNetworkManager : MonoBehaviour
 
     private int serverPort = 8000;
 
-    // public PlayerManager playerManager;
+    private bool _gameStart = false;
+
+    public PlayerManager playerManager;
     // public BulletManager bulletManager;
     // public ItemManager itemManager;
     // public GameStateManager gameStateManager;
@@ -159,6 +162,50 @@ public class GameNetworkManager : MonoBehaviour
 
     private void OnMessage(byte[] data)
     {
+        try
+        {
+            var wrapper = Wrapper.Parser.ParseFrom(data);
+
+            Debug.Log("💩" + wrapper.ToString());
+
+            ClientManager.Instance.SetState(wrapper);
+
+            switch (wrapper.MessageTypeCase)
+            {
+                case Wrapper.MessageTypeOneofCase.GameState:
+                    // Debug.Log(wrapper.GameState);
+                    HandleGameState(wrapper.GameState);
+                    break;
+
+                case Wrapper.MessageTypeOneofCase.GameCount:
+                    Debug.Log($"game play in: {wrapper.GameCount.Count}");
+                    HandleGameCount(wrapper.GameCount);
+                    break;
+
+                case Wrapper.MessageTypeOneofCase.GameInit:
+                    HandleGameInit(wrapper.GameInit);
+                    break;
+
+                case Wrapper.MessageTypeOneofCase.GameStart:
+                    HandleGameStart(wrapper.GameStart);
+                    break;
+
+                default:
+                    Debug.Log($"Unknown message type received: {wrapper.MessageTypeCase}");
+                    break;
+            }
+        }
+        catch (InvalidProtocolBufferException ex)
+        {
+            Debug.LogError($"Protobuf parsing error: {ex.Message}");
+            Debug.Log($"Raw bytes: {BitConverter.ToString(data)}");
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Unexpected error: {ex.Message}");
+        }
+
+
         // 서버 데이터 파싱
         // ServerData serverData = JsonUtility.FromJson<ServerData>(jsonData);
 
@@ -169,6 +216,130 @@ public class GameNetworkManager : MonoBehaviour
         // playerManager.UpdatePlayers(serverData.players);
         // bulletManager.UpdateBullets(serverData.bullets);
         // itemManager.UpdateItems(serverData.items);
+    }
+
+
+    private void HandleGameInit(GameInit init)
+    {
+        ClientManager.Instance.SetClientId(init.Id);
+        InputManager.Instance.ConfigureClientId(init.Id);
+    }
+
+    private void HandleGameCount(GameCount count)
+    {
+        // TODO: GameManager에게 전달
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameCountDown, 1.0f);
+        // EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateGameCountDownLabel, count.Count);
+    }
+
+    private void HandleGameStart(GameStart gameStart)
+    {
+        _gameStart = true;
+
+        // TODO: GameManager에게 전달
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameStart);
+        // EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameStart");
+        AudioManager.Instance.PlayBGM("InGameBGM");
+
+        // Debug.Log(gameStart.MapLength);
+    }
+
+    private void HandleGameState(GameState gameState)
+    {
+        if (gameState.PlayerState != null)
+        {
+
+            // 게임 시작 했는데 플레이어가 혼자면
+            if (_gameStart && gameState.PlayerState.Count == 1)
+            {
+                foreach (var player in gameState.PlayerState)
+                {
+                    if (player.Id == ClientManager.Instance.ClientId)
+                    {
+                        // TODO: GameManager에게 전달하도록 수정
+                        // EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameEnd");
+                    }
+                }
+            }
+
+            // Debug.Log($"PlayerState: {gameState.PlayerState.Count}");
+            List<Player> playerStateList = new List<Player>();
+            List<MainCamera> mainCameraPlayerStateList = new List<MainCamera>();
+
+            foreach (var player in gameState.PlayerState)
+            {
+                playerStateList.Add(new Player(player.Id, player.X, player.Y, player.Health, player.MagicType, player.Angle, player.DashCoolTime));
+                mainCameraPlayerStateList.Add(new MainCamera(player.Id, player.X, player.Y));
+            }
+            // EventBus<PlayerEventType>.Publish(PlayerEventType.UpdatePlayerStates, playerStateList);
+            // EventBus<MainCameraEventType>.Publish(MainCameraEventType.MainCameraState, mainCameraPlayerStateList);
+            playerManager.UpdatePlayers(playerStateList);
+        }
+
+        if (gameState.BulletState != null)
+        {
+            List<Bullet> bulletStateList = new List<Bullet>();
+
+            foreach (var bulletState in gameState.BulletState)
+            {
+                bulletStateList.Add(new Bullet(bulletState.BulletId, bulletState.X, bulletState.Y));
+            }
+
+            // EventBus<BulletEventType>.Publish(BulletEventType.UpdateBulletStates, bulletStateList);
+        }
+
+        if (gameState.HealPackState != null)
+        {
+            // Debug.Log($"HealPackState: {gameState.HealPackState}");
+            List<HealPack> healpackStateList = new List<HealPack>();
+
+            foreach (var healpackState in gameState.HealPackState)
+            {
+                healpackStateList.Add(new HealPack(healpackState.ItemId, healpackState.X, healpackState.Y));
+            }
+
+            // EventBus<HealPackEventType>.Publish(HealPackEventType.UpdateHealPackStates, healpackStateList);
+        }
+
+        if (gameState.MagicItemState != null)
+        {
+            // Debug.Log($"MagicItemState: {gameState.MagicItemState}");
+            List<Magic> magicitemStateList = new List<Magic>();
+
+            foreach (var magicitemState in gameState.MagicItemState)
+            {
+                magicitemStateList.Add(new Magic(magicitemState.ItemId, magicitemState.MagicType, magicitemState.X, magicitemState.Y));
+            }
+
+            // EventBus<MagicEventType>.Publish(MagicEventType.UpdateMagicStates, magicitemStateList);
+        }
+
+        if (gameState.PlayerDeadState != null)
+        {
+            if (gameState.PlayerDeadState.Count > 0)
+            {
+                Debug.Log($"PlayerDeadState: {gameState.PlayerDeadState}");
+            }
+
+            List<PlayerDead> playerDeadStateList = new List<PlayerDead>();
+
+            foreach (var playerDeadState in gameState.PlayerDeadState)
+            {
+                playerDeadStateList.Add(new PlayerDead(playerDeadState.KillerId, playerDeadState.DeadId, playerDeadState.DyingStatus));
+            }
+        }
+
+        if (gameState.TileState != null)
+        {
+            List<Tile> tileStateList = new List<Tile>();
+
+            foreach (var tileState in gameState.TileState)
+            {
+                tileStateList.Add(new Tile(tileState.TileId, tileState.X, tileState.Y));
+            }
+
+            // EventBus<TileEventType>.Publish(TileEventType.UpdateTileStates, tileStateList);
+        }
     }
 
 
