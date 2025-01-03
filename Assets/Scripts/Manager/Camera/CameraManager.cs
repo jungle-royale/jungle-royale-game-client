@@ -4,7 +4,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerCameraHandler : MonoBehaviour
+public class CameraHandler : MonoBehaviour
 {
     private Camera mainCamera;
     private String focusedClientId = null;

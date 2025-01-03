@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public PlayerCameraHandler cameraHandler;
+    public CameraHandler cameraHandler;
 
     public GameObject playerPrefab; // 플레이어 프리팹
 

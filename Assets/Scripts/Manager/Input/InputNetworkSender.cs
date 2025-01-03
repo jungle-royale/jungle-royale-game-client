@@ -4,7 +4,7 @@ using Message;
 using Google.Protobuf;
 using System;
 
-public class PlayerNetworkSender : MonoBehaviour
+public class InputNetworkSender : MonoBehaviour
 {
     public GameNetworkManager gameNetworkManager;
 
@@ -86,6 +86,30 @@ public class PlayerNetworkSender : MonoBehaviour
         catch (Exception ex)
         {
             Debug.LogError($"Failed to send movement: {ex.Message}");
+        }
+    }
+    
+    public void SendChangeBulletStateMessage(string playerId, bool isShooting)
+    {
+        try
+        {
+            var changeBulletState = new ChangeBulletState
+            {
+                IsShooting = isShooting
+            };
+
+            var wrapper = new Wrapper
+            {
+                ChangeBulletState = changeBulletState
+            };
+
+            var data = wrapper.ToByteArray();
+
+            gameNetworkManager.Send(data);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Failed to send CreateBullet message: {ex.Message}");
         }
     }
 

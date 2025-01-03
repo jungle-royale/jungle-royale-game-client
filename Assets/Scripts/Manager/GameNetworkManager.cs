@@ -24,8 +24,8 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     public GameStateManager gameStateManager;
     public PlayerManager playerManager;
     public TileManager tileManager;
+    public BulletManager bulletManager;
 
-    // public BulletManager bulletManager;
     // public ItemManager itemManager;
 
     void Start()
@@ -205,7 +205,6 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     private void HandleGameInit(GameInit init)
     {
         ClientManager.Instance.SetClientId(init.Id);
-        InputManager.Instance.ConfigureClientId(init.Id);
     }
 
     private void HandleGameCount(GameCount count)
@@ -224,7 +223,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     {
         gameStateManager.HandleGameState(gameState);
 
-        if (gameState.PlayerState != null)
+        if (gameState.PlayerState != null && gameState.PlayerState.Count > 0)
         {
             List<Player> playerStateList = new List<Player>();
 
@@ -235,7 +234,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             playerManager.UpdatePlayers(playerStateList);
         }
 
-        if (gameState.BulletState != null)
+        if (gameState.BulletState != null && gameState.BulletState.Count > 0)
         {
             List<Bullet> bulletStateList = new List<Bullet>();
 
@@ -244,7 +243,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                 bulletStateList.Add(new Bullet(bulletState.BulletId, bulletState.X, bulletState.Y));
             }
 
-            // EventBus<BulletEventType>.Publish(BulletEventType.UpdateBulletStates, bulletStateList);
+            bulletManager.UpdateBullets(bulletStateList);
         }
 
         if (gameState.HealPackState != null)
@@ -260,7 +259,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             // EventBus<HealPackEventType>.Publish(HealPackEventType.UpdateHealPackStates, healpackStateList);
         }
 
-        if (gameState.MagicItemState != null)
+        if (gameState.MagicItemState != null && gameState.MagicItemState.Count > 0)
         {
             // Debug.Log($"MagicItemState: {gameState.MagicItemState}");
             List<Magic> magicitemStateList = new List<Magic>();
@@ -273,7 +272,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             // EventBus<MagicEventType>.Publish(MagicEventType.UpdateMagicStates, magicitemStateList);
         }
 
-        if (gameState.PlayerDeadState != null)
+        if (gameState.PlayerDeadState != null && gameState.PlayerDeadState.Count > 0)
         {
             if (gameState.PlayerDeadState.Count > 0)
             {
@@ -288,7 +287,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             }
         }
 
-        if (gameState.TileState != null)
+        if (gameState.TileState != null && gameState.TileState.Count > 0)
         {
             List<Tile> tileStateList = new List<Tile>();
 

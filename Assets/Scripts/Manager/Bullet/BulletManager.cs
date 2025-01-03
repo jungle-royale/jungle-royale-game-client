@@ -1,19 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletController : MonoBehaviour
+public class BulletManager : MonoBehaviour
 {
     private Dictionary<string, GameObject> bulletObjects = new Dictionary<string, GameObject>();
-    private float BULLET_Y;
+    private float BULLET_Y = 0.9f;
 
-    void Start()
-    {
-        EventBus<BulletEventType>.Subscribe<IEnumerable<Bullet>>(BulletEventType.UpdateBulletStates, UpdateBullets);
 
-        BULLET_Y = 0.9f;
-    }
-
-    private void UpdateBullets(IEnumerable<Bullet> bullets)
+    public void UpdateBullets(List<Bullet> bullets)
     {
         HashSet<string> activeBulletIds = new HashSet<string>();
 
@@ -65,8 +59,4 @@ public class BulletController : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
-    {
-        EventBus<BulletEventType>.Unsubscribe<IEnumerable<Bullet>>(BulletEventType.UpdateBulletStates, UpdateBullets);
-    }
 }
