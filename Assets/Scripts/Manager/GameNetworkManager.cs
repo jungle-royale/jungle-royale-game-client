@@ -25,6 +25,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     public BulletManager bulletManager;
     public MagicManager magicManager;
     public HealPackManager healPackManager;
+    public ChangingStateManager changingStateManager;
 
 
     void Start()
@@ -97,6 +98,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             urlString = $"ws://localhost:{serverPort}/room?roomId=test&clientId=test";
             host = $"localhost:{serverPort}";
         }
+
         Debug.Log($"Initializing WebSocket with URL: {urlString}");
         websocket = new WebSocket(urlString);
 
@@ -269,21 +271,6 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             magicManager.UpdateMagicList(magicitemStateList);
         }
 
-        if (gameState.PlayerDeadState != null && gameState.PlayerDeadState.Count > 0)
-        {
-            if (gameState.PlayerDeadState.Count > 0)
-            {
-                Debug.Log($"PlayerDeadState: {gameState.PlayerDeadState}");
-            }
-
-            List<PlayerDead> playerDeadStateList = new List<PlayerDead>();
-
-            foreach (var playerDeadState in gameState.PlayerDeadState)
-            {
-                playerDeadStateList.Add(new PlayerDead(playerDeadState.KillerId, playerDeadState.DeadId, playerDeadState.DyingStatus));
-            }
-        }
-
         if (gameState.TileState != null && gameState.TileState.Count > 0)
         {
             List<Tile> tileStateList = new List<Tile>();
@@ -294,6 +281,39 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             }
 
             tileManager.UpdateTiles(tileStateList);
+        }
+
+        if (gameState.ChangingState != null)
+        {
+            if (gameState.ChangingState.HeatBulletState != null && gameState.ChangingState.HeatBulletState.Count > 0)
+            {
+                List<HeatBulletState> HeatBulletStateList = new List<HeatBulletState>();
+
+                foreach (var HeatBulletState in gameState.ChangingState.HeatBulletState)
+                {
+                    HeatBulletStateList.Add(new HeatBulletState(HeatBulletState.BulletId, HeatBulletState.PlayerId));
+                }
+            }
+
+            if (gameState.ChangingState.GetItemState != null && gameState.ChangingState.GetItemState.Count > 0)
+            {
+                List<GetItemState> GetItemStateList = new List<GetItemState>();
+
+                foreach (var GetItemState in gameState.ChangingState.GetItemState)
+                {
+                    GetItemStateList.Add(new GetItemState(GetItemState.ItemId, GetItemState.PlayerId, GetItemState.ItemType));
+                }
+            }
+
+            if (gameState.ChangingState.PlayerDeadState != null && gameState.ChangingState.PlayerDeadState.Count > 0)
+            {
+                List<PlayerDeadState> PlayerDeadStateList = new List<PlayerDeadState>();
+
+                foreach (var PlayerDeadState in gameState.ChangingState.PlayerDeadState)
+                {
+                    PlayerDeadStateList.Add(new PlayerDeadState(PlayerDeadState.KillerId, PlayerDeadState.DeadId, PlayerDeadState.DyingStatus));
+                }
+            }
         }
     }
 

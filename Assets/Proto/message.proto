@@ -16,27 +16,32 @@ message Wrapper {
         GameStart gameStart = 8;
     }
 }
+
 // server → client : init message
 message GameInit {
     string id = 1;  // player id
 }
+
 // client → server : changing state
 message ChangeDir {
     float angle = 1;
     bool isMoved = 2;
 }
+
 message ChangeAngle {
     float angle = 1;
 }
+
 // server → client
 message GameState {
     repeated PlayerState playerState = 1;
     repeated BulletState bulletState = 2;
     repeated HealPackState healPackState = 3;
     repeated MagicItemState magicItemState = 4;
-    repeated PlayerDeadState playerDeadState = 5;
-    repeated TileState tileState = 6;
+    repeated TileState tileState = 5;
+    ChangingState changingState = 6;
 }
+
 message PlayerState {
     string id = 1;
     float x = 2;
@@ -46,35 +51,72 @@ message PlayerState {
     float angle = 6;
     int32 dashCoolTime = 7;
 }
+
 message ChangeBulletState {
     bool isShooting = 1;
 }
+
 message BulletState {
     string bulletId = 1;
     int32 bulletType = 2;
     float x = 3;
     float y = 4;
 }
+
 message GameCount {
     int32 count = 1;
 }
+
 message DoDash {
     bool dash = 1;
 }
+
 message GameStart {
     int32 mapLength = 1;
 }
+
 message HealPackState {
     string itemId = 1;
     float x = 2;
     float y = 3;
 }
+
 message MagicItemState {
     string itemId = 1;
     int32 magicType = 2;
     float x = 3;
     float y = 4;
 }
+
+message TileState {
+    string tileId = 1;
+    float x = 2;
+    float y = 3;
+    int32 tileState = 4;
+    // 0: tile normal
+    // 1: tile dangerous (tile fall in 5 sec)
+}
+
+message ChangingState {
+    repeated HeatBulletState heatBulletState = 1;
+    repeated GetItemState getItemState = 2;
+    repeated PlayerDeadState playerDeadState = 3;
+}
+
+message HeatBulletState {
+    string bulletId = 1;
+    string playerId = 2;
+}
+
+message GetItemState {
+    string itemId = 1;
+    string playerId = 2;
+    int32 itemType = 3;
+    // 1: healpack
+    // 2: stone magic
+    // 3: fire magic
+}
+
 message PlayerDeadState {
     string killerId = 1;
     string deadId = 2;
@@ -83,14 +125,7 @@ message PlayerDeadState {
     // 2: stone
     // 3: fire
     // 4: fall
+
     int32 killNum = 4;
     int32 Placement = 5;
-}
-message TileState {
-    string tileId = 1;
-    float x = 2;
-    float y = 3;
-    int32 tileState = 4;
-    // 0: tile normal
-    // 1: tile dangerous (tile fall in 5 sec)
 }
