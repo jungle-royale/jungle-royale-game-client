@@ -85,8 +85,8 @@ public class InputAdapter : MonoBehaviour
                 if (isDashButtonPressed)
                 {
                     isDashButtonPressed = false;
+                    return true;
                 }
-                return true;
             }
             return false;
         }
