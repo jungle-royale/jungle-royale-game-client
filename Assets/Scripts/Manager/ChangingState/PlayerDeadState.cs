@@ -1,12 +1,12 @@
 using Message;
 
-public class PlayerDead
+public class PlayerDeadState
 {
     public string killerId;
     public string deadPlayerId;
     public int dyingStatus;
 
-    public PlayerDead(string killerId, string deadPlayerId, int dyingStatus)
+    public PlayerDeadState(string killerId, string deadPlayerId, int dyingStatus)
     {
         this.killerId = killerId;
         this.deadPlayerId = deadPlayerId;
