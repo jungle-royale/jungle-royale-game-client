@@ -6,16 +6,59 @@ using NativeWebSocket;
 using System.Collections;
 using Message;
 using Google.Protobuf;
+using System.Collections.Specialized;
+using System.Web;
 
 public class GameNetworkManager : Singleton<GameNetworkManager>
 {
     private WebSocket websocket;
 
-    private String host;
-    private String urlString;
     private DateTime requestStartTime;
 
-    private int serverPort = 8000;
+    private string Host {
+        get {
+            if (Debug.isDebugBuild)
+            {
+                return "localhost:8000";
+            }
+            else
+            {
+                return "game-api.eternalsnowman.com:8080";
+            }
+        }
+    }
+
+    private string PathAndQuery {
+        get {
+            if (Debug.isDebugBuild)
+            {
+                return "/room?roomId=test&clientId=test";
+            }
+            else
+            {
+                var url = Application.absoluteURL;
+                try
+                {
+                    Uri uri = new Uri(url);
+                    NameValueCollection queryParameters = HttpUtility.ParseQueryString(uri.Query);
+                    string roomId = queryParameters["roomId"];
+                    string clientId = queryParameters["clientId"];
+                    return $"/room?roomId={roomId}clientId={clientId}";
+                }
+                catch (UriFormatException e)
+                {
+                    Debug.LogError($"Invalid URL format: {e.Message}");
+                    return "";
+                }
+            }
+        }
+    }
+
+    private string UrlString {
+        get {
+            return "ws://" + Host + PathAndQuery;
+        }
+    }
 
 
     public GameStateManager gameStateManager;
@@ -51,55 +94,8 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     }
     public async void InitializeAndConnect()
     {
-        Debug.Log($"💩 Init Network");
-
-        if (!Debug.isDebugBuild)
-        {
-
-            // TODO: 서버 배포 후에는 Host를 DomainName으로 바꿔야 함
-
-            var url = Application.absoluteURL;
-
-            Debug.LogError($"💩 Try: {url}");
-
-            try
-            {
-                Uri uri = new Uri(url);
-                host = uri.Host; // 호스트 영역 추출
-
-                // 포트를 8000으로 설정
-                UriBuilder uriBuilder = new UriBuilder(uri)
-                {
-                    Port = serverPort // 포트를 8000으로 설정
-                };
-
-                // URL 변경
-                url = uriBuilder.ToString();
-            }
-            catch (UriFormatException e)
-            {
-                Debug.LogError($"Invalid URL format: {e.Message}");
-            }
-
-            if (url.StartsWith("https://"))
-            {
-                url = url.Replace("https://", "wss://");
-            }
-            else if (url.StartsWith("http://"))
-            {
-                url = url.Replace("http://", "ws://");
-            }
-
-            urlString = url; // 실제 웹앱에서 넘어올 때에는 경로와 쿼리스트링이 같이 넘어온다.
-        }
-        else
-        {
-            urlString = $"ws://localhost:{serverPort}/room?roomId=test&clientId=test";
-            host = $"localhost:{serverPort}";
-        }
-
-        Debug.Log($"Initializing WebSocket with URL: {urlString}");
-        websocket = new WebSocket(urlString);
+        Debug.Log($"Initializing WebSocket with URL: {UrlString}");
+        websocket = new WebSocket(UrlString);
 
         websocket.OnOpen += onOpen;
         websocket.OnMessage += OnMessage;
@@ -143,7 +139,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
     private void onOpen()
     {
-        Debug.Log($"Connection open! : {urlString}");
+        Debug.Log($"Connection open! : {UrlString}");
     }
 
     private void OnError(string errorMsg)
@@ -347,7 +343,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         // 요청 시작 시간 기록
         requestStartTime = DateTime.Now;
 
-        using (UnityWebRequest request = UnityWebRequest.Get("http://" + host + "/ping"))
+        using (UnityWebRequest request = UnityWebRequest.Get("http://" + Host + "/ping"))
         {
             yield return request.SendWebRequest(); // 요청 보내기
 
