@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, 'Build'), {
 }));
 
 // WebGL 빌드 폴더를 정적 파일로 서빙
-const buildPath = path.join(__dirname, 'Builds/WebGL');
+const buildPath = path.join(__dirname, 'Builds');
 app.use(express.static(buildPath));
 
 // 모든 요청을 index.html로 라우팅

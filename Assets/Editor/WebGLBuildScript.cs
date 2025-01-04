@@ -4,7 +4,7 @@ public class WebGLBuildScript
 {
     public static void BuildWebGL()
     {
-        string buildPath = "Builds/WebGL"; // WebGL 빌드 결과를 저장할 경로
+        string buildPath = "Builds"; // WebGL 빌드 결과를 저장할 경로
 
         // 빌드 옵션 설정
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions

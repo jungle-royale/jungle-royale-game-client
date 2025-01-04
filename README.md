@@ -14,6 +14,16 @@
 - Native WebSockets (1.1.4 ver) [링크](https://github.com/endel/NativeWebSocket.git#upm)  
 - NuGetForUnity (4.2.0 ver) [링크](https://github.com/GlitchEnzo/NuGetForUnity.git?path=/src/NuGetForUnity)
 
+
+# 🚀 빌드
+- 빌드
+	- sh bulid.sh를 실행하거나, 유니티 에디터에서 build and run
+	- 유니티 에디터에서 빌드하는 경우, 파일 경로를 server.js로 설정. 기존 Builds를 대체.
+- 빌드 설정
+	- WEbGLTemplate이 CustomTemplate으로 설정
+		- index.html 파일 확인!
+- 실행
+	- server/server.js를 실행
     
 ---
 

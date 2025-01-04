@@ -6,6 +6,9 @@ public class InputManager : MonoBehaviour
     public InputNetworkSender networkSender; // 서버로 입력 정보를 보내는 클래스 참조
     public CameraHandler cameraHandler;
 
+    public InputAdapter input;
+    
+
     // 이동
     private Vector2 lastDirection = Vector2.zero; // 이전 프레임의 방향
     private bool wasMoved = false;                // 이전 프레임의 이동 상태
@@ -37,7 +40,7 @@ public class InputManager : MonoBehaviour
 
     private void HandleTab()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (input.GetTab())
         {
             cameraHandler.SwitchToNextPlayer();
         }
@@ -46,8 +49,8 @@ public class InputManager : MonoBehaviour
     private void HandleMove()
     {
         // WASD 입력 벡터 계산
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
+        float x = input.GetAxisX();
+        float y = input.GetAxisY();
         Vector2 inputDirection = new Vector2(x, y);
 
 
@@ -93,7 +96,7 @@ public class InputManager : MonoBehaviour
             snowSlashEffect = player.transform.Find("SnowSlashEffect").gameObject;
         }
 
-        if (Input.GetMouseButton(0) && !lastClickState) // 마우스 왼쪽 버튼 클릭 눌려있는 동안
+        if (input.GetMouseLeftButton() && !lastClickState) // 마우스 왼쪽 버튼 클릭 눌려있는동안
         {
             lastClickState = true;
             networkSender.SendChangeBulletStateMessage(ClientId, true);
@@ -104,7 +107,7 @@ public class InputManager : MonoBehaviour
                 snowSlashEffect.SetActive(true);
             }
         }
-        else if (!Input.GetMouseButton(0) && lastClickState)
+        else if (!input.GetMouseLeftButton() && lastClickState)
         {
             lastClickState = false;
             networkSender.SendChangeBulletStateMessage(ClientId, false);
@@ -121,7 +124,7 @@ public class InputManager : MonoBehaviour
     {
         bool dash = false;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (input.GetSpace())
         {
             if (ClientManager.Instance.CanDoDash())
             {
@@ -137,46 +140,13 @@ public class InputManager : MonoBehaviour
 
     void HandleDirection()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-
-        if (player == null)
+        if (lastSendAngleTime <= 0)
         {
-            // Debug.LogError("Player tag에 해당하는 객체 없음");
-            return;
+            float angle = input.GetCurrentPlayerAngle();
+            networkSender.SendChangeAngleMessage(angle);
+            lastSendAngleTime = 6; // 0.1초마다 angle 전송
         }
-
-        Vector3 playerPosition = player.transform.position;
-
-        // 현재 마우스 위치를 월드 좌표로 변환
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Plane plane = new Plane(Vector3.up, playerPosition); // Y축 평면 사용
-        if (plane.Raycast(ray, out float enter))
-        {
-            Vector3 mouseWorldPosition = ray.GetPoint(enter);
-
-            // 방향 벡터 계산
-            Vector3 direction = (mouseWorldPosition - playerPosition).normalized;
-
-            // 방향 각도 계산
-            float angle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
-
-            // Unity의 좌표계에서는 W = 90°, S = -90°이므로 보정
-            angle += 90f;
-
-            // 각도를 0~360 범위로 변환
-            if (angle < 0)
-            {
-                angle += 360f;
-            }
-
-            // angle 전송
-            if (lastSendAngleTime <= 0)
-            {
-                networkSender.SendChangeAngleMessage(angle);
-                lastSendAngleTime = 6;  // 0.1초마다 angle 전송
-            }
-            lastSendAngleTime--;
-        }
+        lastSendAngleTime--;
     }
 
     private float CalculateAngle(Vector2 inputDirection)

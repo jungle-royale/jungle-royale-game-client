@@ -106,7 +106,7 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
-        if (!currentPlayerDead && !existingIds.Contains(currentPlayerId))
+        if (!currentPlayerDead && !existingIds.Contains(currentPlayerId)) 
         {
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dead, 1.0f);
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameOver, 0.7f);
