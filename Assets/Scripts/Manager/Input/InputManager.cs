@@ -23,6 +23,8 @@ public class InputManager : MonoBehaviour
 
     private Debouncer DashDebouncer = new Debouncer();
 
+    // 이펙트
+    private GameObject snowSlashEffect; // SnowSlashEffect를 참조
 
     void Update()
     {
@@ -83,19 +85,35 @@ public class InputManager : MonoBehaviour
 
         if (player == null)
         {
-            // Debug.LogError("Player tag에 해당하는 객체 없음");
+            Debug.LogError("Player tag에 해당하는 객체 없음");
             return; // Player가 없으면 함수 종료
         }
+        else
+        {
+            snowSlashEffect = player.transform.Find("SnowSlashEffect").gameObject;
+        }
 
-        if (Input.GetMouseButton(0) && !lastClickState) // 마우스 왼쪽 버튼 클릭 눌려있는동안
+        if (Input.GetMouseButton(0) && !lastClickState) // 마우스 왼쪽 버튼 클릭 눌려있는 동안
         {
             lastClickState = true;
             networkSender.SendChangeBulletStateMessage(ClientId, true);
+
+            // SnowSlashEffect 활성화
+            if (!snowSlashEffect.activeSelf)
+            {
+                snowSlashEffect.SetActive(true);
+            }
         }
         else if (!Input.GetMouseButton(0) && lastClickState)
         {
             lastClickState = false;
             networkSender.SendChangeBulletStateMessage(ClientId, false);
+
+            // SnowSlashEffect 비활성화
+            if (snowSlashEffect.activeSelf)
+            {
+                snowSlashEffect.SetActive(false);
+            }
         }
     }
 
@@ -182,5 +200,4 @@ public class InputManager : MonoBehaviour
 
         return angle;
     }
-
 }

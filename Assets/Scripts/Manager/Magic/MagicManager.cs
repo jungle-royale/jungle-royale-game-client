@@ -6,7 +6,7 @@ using UnityEngine;
 public class MagicManager : MonoBehaviour
 {
     private Dictionary<string, GameObject> magicItemObjects = new Dictionary<string, GameObject>();
-    
+
     public void UpdateMagicList(List<Magic> items)
     {
         if (items == null || items.Count() == 0) return;

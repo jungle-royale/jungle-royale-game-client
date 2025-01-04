@@ -48,7 +48,7 @@ public static class EventBus<T> where T : Enum
     public static void Publish<U>(T eventType, U eventData)
     {
         string key = eventType.ToString(); // enum의 이름을 문자열로 가져옴
-        Debug.Log($"{key}: PUblish");
+        // Debug.Log($"{key}: PUblish");
         if (events.ContainsKey(key) && events[key] is Action<U> callback)
         {
             callback.Invoke(eventData);
