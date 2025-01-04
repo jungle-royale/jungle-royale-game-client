@@ -7,6 +7,9 @@ public class TileManager : MonoBehaviour
     private Dictionary<string, GameObject> tileObjects = new Dictionary<string, GameObject>();
     const float TILE_Y = 0;
 
+    private const float blinkSpeed = 1.5f;
+
+    private Color baseColor = new Color(142 / 255f, 183 / 255f, 180 / 255f);
 
     public void UpdateTiles(List<Tile> tiles)
     {
@@ -16,15 +19,13 @@ public class TileManager : MonoBehaviour
         {
             activeTileIds.Add(tile.tileId);
 
-            if (!tileObjects.TryGetValue(tile.tileId, out GameObject tileObejct))
+            if (!tileObjects.TryGetValue(tile.tileId, out GameObject tileObject))
             {
                 GameObject tilePrefab = Resources.Load<GameObject>("Prefabs/Tile");
                 if (tilePrefab != null)
                 {
-                    tileObejct = Instantiate(tilePrefab, tile.Position(), Quaternion.identity);
-                    tileObejct.transform.localScale = tile.Scale();
-
-                    tileObjects[tile.tileId] = tileObejct;
+                    tileObject = Instantiate(tilePrefab, tile.Position(), Quaternion.identity);
+                    tileObjects[tile.tileId] = tileObject;
                 }
                 else
                 {
@@ -33,9 +34,20 @@ public class TileManager : MonoBehaviour
                 }
             }
 
-            tileObejct.transform.position = tile.Position();
+            UpdateTile(tile, tileObject);
         }
         RemoveInactiveTiles(activeTileIds);
+    }
+
+    private void UpdateTile(Tile tile, GameObject tileObject)
+    {
+        tileObject.transform.localScale = tile.Scale();
+        tileObject.transform.position = tile.Position();
+        if(tile.warning == 1) {
+            float t = Mathf.PingPong(Time.time * blinkSpeed, 1f); // 0~1 사이의 값 반복
+            tileObject.GetComponent<Renderer>().material.color = Color.Lerp(baseColor, Color.magenta, t
+            );
+        }
     }
 
     private void RemoveInactiveTiles(HashSet<string> activeTileIds)

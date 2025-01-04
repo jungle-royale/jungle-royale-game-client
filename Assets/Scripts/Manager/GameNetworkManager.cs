@@ -290,7 +290,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
             foreach (var tileState in gameState.TileState)
             {
-                tileStateList.Add(new Tile(tileState.TileId, tileState.X, tileState.Y));
+                tileStateList.Add(new Tile(tileState.TileId, tileState.X, tileState.Y, tileState.TileState_));
             }
 
             tileManager.UpdateTiles(tileStateList);

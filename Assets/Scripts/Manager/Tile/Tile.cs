@@ -13,12 +13,16 @@ public class Tile
     const float TILE_PIVOT = TILE_SCALE / 2;
     const float TILE_HEIGHT = 10f;
 
-    public Tile(string tileId, float x, float y)
+    public int warning = 0;
+
+    public Tile(string tileId, float x, float y, int warning)
     {
         this.tileId = tileId;
         this.X = x;
         this.Y = y;
+        this.warning = warning;
     }
+
 
     public Vector3 Position()
     {
