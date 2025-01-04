@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Networking;
 using NativeWebSocket;
 using System.Collections;
-using UnityEditor.PackageManager;
 using Message;
 using Google.Protobuf;
 
@@ -162,8 +161,6 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         try
         {
             var wrapper = Wrapper.Parser.ParseFrom(data);
-
-            // Debug.Log("💩" + wrapper.ToString());
 
             ClientManager.Instance.SetState(wrapper);
 

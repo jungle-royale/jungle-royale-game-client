@@ -4,4 +4,9 @@ mergeInto(LibraryManager.library, {
         var url = UTF8ToString(urlPtr);
         window.location.href = url; // 리다이렉트 수행
     },
+    IsMobileDevice: function() {
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        // 모바일인지 여부를 확인
+        return /android|iPad|iPhone|iPod/i.test(userAgent) ? 1 : 0;
+    }
 });
