@@ -14,7 +14,7 @@ public class WebGLBuildScript
             }, // 빌드할 씬 경로
             locationPathName = buildPath,
             target = BuildTarget.WebGL,
-            options = BuildOptions.CleanBuildCache
+            options = BuildOptions.None
         };
 
         // 빌드 실행
