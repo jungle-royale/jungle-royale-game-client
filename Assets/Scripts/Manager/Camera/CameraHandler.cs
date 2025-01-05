@@ -58,7 +58,8 @@ public class CameraHandler : MonoBehaviour
 
     public void SwitchToNextPlayer()
     {
-        if (!ClientIsDead()) {
+        if (!ClientIsDead())
+        {
             return;
         }
         if (currentPlayers.Count == 0) return;
