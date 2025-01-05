@@ -88,7 +88,7 @@ public class InputManager : MonoBehaviour
 
         if (player == null)
         {
-            Debug.LogError("Player tag에 해당하는 객체 없음");
+            // Debug.LogError("Player tag에 해당하는 객체 없음");
             return; // Player가 없으면 함수 종료
         }
         else
