@@ -60,7 +60,7 @@ public class InputNetworkSender : MonoBehaviour
             Debug.LogError($"Failed to send movement: {ex.Message}");
         }
     }
-    
+
     public void SendChangeDirMessage(float angle, bool isMoved)
     {
         // DirChange 메시지 생성

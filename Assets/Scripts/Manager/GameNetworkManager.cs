@@ -15,8 +15,10 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
     private DateTime requestStartTime;
 
-    private string Host {
-        get {
+    private string Host
+    {
+        get
+        {
             if (Debug.isDebugBuild)
             {
                 return "localhost:8000";
@@ -28,8 +30,10 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         }
     }
 
-    private string PathAndQuery {
-        get {
+    private string PathAndQuery
+    {
+        get
+        {
             if (Debug.isDebugBuild)
             {
                 return "/room?roomId=test&clientId=test";
@@ -54,8 +58,10 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         }
     }
 
-    private string UrlString {
-        get {
+    private string UrlString
+    {
+        get
+        {
             return "ws://" + Host + PathAndQuery;
         }
     }
