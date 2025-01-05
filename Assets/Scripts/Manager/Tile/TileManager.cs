@@ -44,10 +44,42 @@ public class TileManager : MonoBehaviour
         // tileObject.transform.localScale = tile.Scale();
         tileObject.transform.position = tile.Position();
 
+        Debug.Log($"TileId: {tile.tileId}, IsWaring: {tile.warning}");
         if (tile.warning == 1)
         {
             float t = Mathf.PingPong(Time.time * blinkSpeed, 1f); // 0~1 사이의 값 반복
-            tileObject.GetComponent<Renderer>().material.color = Color.Lerp(baseColor, Color.magenta, t);
+            UpdateGroundColors(tileObject, t);
+        }
+    }
+
+    private void UpdateGroundColors(GameObject tileObject, float lerpFactor)
+    {
+        Transform groundsTransform = tileObject.transform.Find("Grounds");
+        if (groundsTransform != null)
+        {
+            foreach (Transform child in groundsTransform)
+            {
+                Renderer renderer = child.GetComponent<Renderer>();
+                if (renderer != null)
+                {
+                    // 기존 Material을 복사하여 독립적인 Material 생성
+                    if (!renderer.material.name.Contains("(Instance)")) // 이미 인스턴스화된 Material인지 확인
+                    {
+                        renderer.material = new Material(renderer.material);
+                    }
+
+                    // 인스턴스화된 Material의 색상 변경
+                    renderer.material.color = Color.Lerp(baseColor, Color.magenta, lerpFactor);
+                }
+                else
+                {
+                    Debug.LogWarning($"Renderer not found on child: {child.name}");
+                }
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Grounds 오브젝트 없음");
         }
     }
 

@@ -10,7 +10,7 @@ public class Tile
     public float X;
     public float Y;
     const float TILE_SCALE = 1f;
-    const float TILE_PIVOT = TILE_SCALE / 2;
+    const float TILE_PIVOT = 10f;
     const float TILE_HEIGHT = 10f;
 
     public int warning = 0;

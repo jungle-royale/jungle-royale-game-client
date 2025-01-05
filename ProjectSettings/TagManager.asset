@@ -11,6 +11,7 @@ TagManager:
   - PlacementLabel
   - RankLabel
   - GameCountDownLabel
+  - Grounds
   layers:
   - Default
   - TransparentFX
