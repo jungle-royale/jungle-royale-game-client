@@ -236,7 +236,6 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
         if (gameState.BulletState != null && gameState.BulletState.Count > 0)
         {
-            Debug.Log($"BulletState: {gameState.BulletState}");
             List<Bullet> bulletStateList = new List<Bullet>();
 
             foreach (var bulletState in gameState.BulletState)
@@ -285,9 +284,13 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
         if (gameState.ChangingState != null)
         {
+            List<HeatBulletState> HeatBulletStateList = new List<HeatBulletState>();
+            List<GetItemState> GetItemStateList = new List<GetItemState>();
+            List<PlayerDeadState> PlayerDeadStateList = new List<PlayerDeadState>();
+
             if (gameState.ChangingState.HeatBulletState != null && gameState.ChangingState.HeatBulletState.Count > 0)
             {
-                List<HeatBulletState> HeatBulletStateList = new List<HeatBulletState>();
+                Debug.Log($"HeatBulletState: {gameState.ChangingState.HeatBulletState}");
 
                 foreach (var HeatBulletState in gameState.ChangingState.HeatBulletState)
                 {
@@ -297,7 +300,6 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
             if (gameState.ChangingState.GetItemState != null && gameState.ChangingState.GetItemState.Count > 0)
             {
-                List<GetItemState> GetItemStateList = new List<GetItemState>();
 
                 foreach (var GetItemState in gameState.ChangingState.GetItemState)
                 {
@@ -307,13 +309,14 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
             if (gameState.ChangingState.PlayerDeadState != null && gameState.ChangingState.PlayerDeadState.Count > 0)
             {
-                List<PlayerDeadState> PlayerDeadStateList = new List<PlayerDeadState>();
 
                 foreach (var PlayerDeadState in gameState.ChangingState.PlayerDeadState)
                 {
                     PlayerDeadStateList.Add(new PlayerDeadState(PlayerDeadState.KillerId, PlayerDeadState.DeadId, PlayerDeadState.DyingStatus));
                 }
             }
+
+            changingStateManager.UpdateState(HeatBulletStateList, GetItemStateList, PlayerDeadStateList);
         }
     }
 

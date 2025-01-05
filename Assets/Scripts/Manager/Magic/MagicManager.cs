@@ -27,7 +27,7 @@ public class MagicManager : MonoBehaviour
                 {
                     itemObject = Instantiate(itemPrefab, item.Position(), Quaternion.identity);
                     targetDictionary[item.ItemId] = itemObject;
-                    Debug.Log($"Magic {item.MagicType} created with ID: {item.ItemId}");
+                    // Debug.Log($"Magic {item.MagicType} created with ID: {item.ItemId}");
                 }
                 else
                 {

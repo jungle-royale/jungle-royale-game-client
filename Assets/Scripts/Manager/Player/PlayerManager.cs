@@ -24,6 +24,7 @@ public class PlayerManager : MonoBehaviour
     public void UpdatePlayers(List<Player> playerDataList)
     {
         cameraHandler.UpdateCamera(playerDataList);
+
         int activePlayerNumber = 0;
 
         foreach (var data in playerDataList)
@@ -53,13 +54,12 @@ public class PlayerManager : MonoBehaviour
                     CreateOtherPlayer(data);
                 }
             }
-            EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateHpLabel, data.health);
         }
 
         // 제거할 플레이어 처리
         RemoveDisconnectedPlayers(playerDataList);
 
-        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdatePlayerCountLabel, activePlayerNumber);
+        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdatePlayerCountLabel, activePlayerNumber + 1);
     }
 
     private void CreateCurrentPlayer(Player data)
@@ -85,6 +85,7 @@ public class PlayerManager : MonoBehaviour
         // }
         currentPlayer.transform.position = serverPosition;
         currentPlayer.transform.rotation = Quaternion.Euler(0, -(serverData.angle - 180), 0);
+        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateHpLabel, serverData.health);
     }
 
     private void UpdatePlayer(GameObject player, Player data)
@@ -106,7 +107,7 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
-        if (!currentPlayerDead && !existingIds.Contains(currentPlayerId)) 
+        if (!currentPlayerDead && !existingIds.Contains(currentPlayerId))
         {
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dead, 1.0f);
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameOver, 0.7f);
@@ -120,6 +121,21 @@ public class PlayerManager : MonoBehaviour
             Destroy(otherPlayers[key]);
             otherPlayers.Remove(key);
         }
+    }
+
+    public GameObject GetPlayerById(string playerId)
+    {
+        if (playerId == currentPlayerId)
+        {
+            return currentPlayer;
+        }
+
+        if (otherPlayers.ContainsKey(playerId))
+        {
+            return otherPlayers[playerId];
+        }
+
+        return null;
     }
 
 }
