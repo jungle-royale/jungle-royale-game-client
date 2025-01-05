@@ -12,6 +12,8 @@ TagManager:
   - RankLabel
   - GameCountDownLabel
   - Grounds
+  - FpsLabel
+  - MainCanvas
   layers:
   - Default
   - TransparentFX

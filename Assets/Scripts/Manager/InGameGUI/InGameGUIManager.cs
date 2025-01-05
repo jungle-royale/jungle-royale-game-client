@@ -4,17 +4,26 @@ using System;
 
 public class InGameGUIManager : MonoBehaviour
 {
+    // FPS 계산
+    public float updateInterval = 0.5f;
+    private float timeSinceLastUpdate = 0.0f;
+    private float deltaTime = 0.0f;
+
     private GameObject waitingRoomCanvas;
     private GameObject inGameCanvas;
     private GameObject gameOverCanvas;
     private GameObject gameEndCanvas;
     private GameObject watchModeCanvas;
 
+    // MainCanvas
+    private TextMeshProUGUI pingLabel;
+    private TextMeshProUGUI fpsLabel;
+
+
     // WaitingRoomCanvas Child
     private TextMeshProUGUI gameCountDownLabel;
 
     // InGameCanvas Child
-    private TextMeshProUGUI pingLabel;
     private TextMeshProUGUI hpLabel;
     private TextMeshProUGUI playerCountLabel;
 
@@ -32,6 +41,11 @@ public class InGameGUIManager : MonoBehaviour
 
         // 초기 상태 설정 (Waiting Room 활성화)
         OnActivateCanvas("GameWait");
+    }
+
+    void Update()
+    {
+        UpdateFpsUI();
     }
 
     private void CreateCanvases()
@@ -76,6 +90,12 @@ public class InGameGUIManager : MonoBehaviour
 
     private void CacheCanvasComponents()
     {
+        if (GameObject.FindWithTag("MainCanvas") != null)
+        {
+            pingLabel = FindLabelByTag("PingLabel");
+            fpsLabel = FindLabelByTag("FpsLabel");
+        }
+
         if (waitingRoomCanvas != null)
         {
             gameCountDownLabel = FindTextInCanvas(waitingRoomCanvas, "GameCountDownLabel");
@@ -83,7 +103,6 @@ public class InGameGUIManager : MonoBehaviour
 
         if (inGameCanvas != null)
         {
-            pingLabel = FindTextInCanvas(inGameCanvas, "PingLabel");
             hpLabel = FindTextInCanvas(inGameCanvas, "HpLabel");
             playerCountLabel = FindTextInCanvas(inGameCanvas, "PlayerCountLabel");
         }
@@ -103,6 +122,25 @@ public class InGameGUIManager : MonoBehaviour
         {
 
         }
+    }
+
+    private TextMeshProUGUI FindLabelByTag(string tag)
+    {
+        GameObject labelObject = GameObject.FindWithTag(tag);
+        if (labelObject == null)
+        {
+            Debug.LogError($"'{tag}' 태그를 가진 객체를 찾을 수 없습니다.");
+            return null;
+        }
+
+        TextMeshProUGUI label = labelObject.GetComponent<TextMeshProUGUI>();
+        if (label == null)
+        {
+            Debug.LogError($"'{tag}' 태그를 가진 객체에 TextMeshProUGUI 컴포넌트가 없습니다.");
+            return null;
+        }
+
+        return label;
     }
 
     private TextMeshProUGUI FindTextInCanvas(GameObject canvas, string childName)
@@ -183,9 +221,31 @@ public class InGameGUIManager : MonoBehaviour
 
     private void UpdatePingUI(long ping)
     {
-        if (inGameCanvas != null && inGameCanvas.activeSelf && pingLabel != null)
+        if (pingLabel != null)
         {
             pingLabel.text = $"Ping: {ping} ms";
+        }
+    }
+
+    private void UpdateFpsUI()
+    {
+        // 경과 시간 누적
+        timeSinceLastUpdate += Time.unscaledDeltaTime;
+        deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+
+        // 설정한 업데이트 간격이 지났을 때만 FPS 계산 및 표시
+        if (timeSinceLastUpdate >= updateInterval)
+        {
+            int fps = Mathf.CeilToInt(1.0f / deltaTime);
+
+            // FPS 값을 화면에 표시
+            if (fpsLabel != null)
+            {
+                fpsLabel.text = $"FPS: {fps} ms";
+            }
+
+            // 경과 시간 초기화
+            timeSinceLastUpdate = 0.0f;
         }
     }
 

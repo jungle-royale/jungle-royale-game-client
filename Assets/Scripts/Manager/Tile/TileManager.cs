@@ -44,7 +44,7 @@ public class TileManager : MonoBehaviour
         // tileObject.transform.localScale = tile.Scale();
         tileObject.transform.position = tile.Position();
 
-        Debug.Log($"TileId: {tile.tileId}, IsWaring: {tile.warning}");
+        // Debug.Log($"TileId: {tile.tileId}, IsWaring: {tile.warning}");
         if (tile.warning == 1)
         {
             float t = Mathf.PingPong(Time.time * blinkSpeed, 1f); // 0~1 사이의 값 반복
