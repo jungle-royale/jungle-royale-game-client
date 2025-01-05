@@ -41,7 +41,7 @@ public class TileManager : MonoBehaviour
 
     private void UpdateTile(Tile tile, GameObject tileObject)
     {
-        tileObject.transform.localScale = tile.Scale();
+        // tileObject.transform.localScale = tile.Scale();
         tileObject.transform.position = tile.Position();
 
         if (tile.warning == 1)
