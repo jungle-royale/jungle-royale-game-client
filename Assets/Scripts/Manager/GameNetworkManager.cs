@@ -284,7 +284,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
         if (gameState.ChangingState != null)
         {
-            List<HeatBulletState> HeatBulletStateList = new List<HeatBulletState>();
+            List<HitBulletState> HeatBulletStateList = new List<HitBulletState>();
             List<GetItemState> GetItemStateList = new List<GetItemState>();
             List<PlayerDeadState> PlayerDeadStateList = new List<PlayerDeadState>();
 
@@ -294,7 +294,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
                 foreach (var HeatBulletState in gameState.ChangingState.HeatBulletState)
                 {
-                    HeatBulletStateList.Add(new HeatBulletState(HeatBulletState.BulletId, HeatBulletState.PlayerId));
+                    HeatBulletStateList.Add(new HitBulletState(HeatBulletState.BulletId, HeatBulletState.PlayerId));
                 }
             }
 

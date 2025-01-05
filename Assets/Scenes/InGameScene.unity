@@ -362,8 +362,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: df0a6bf736223469d9e0d6466fda4a24, type: 3}
   - {fileID: 8300000, guid: 47ec0478366334123972f01b328d683c, type: 3}
   - {fileID: 8300000, guid: 95262b9d2ec65449eaddd1c6c4a7a1b6, type: 3}
-  sfxVolume: 0
-  channels: 0
+  - {fileID: 8300000, guid: 428fc1ae8509948d684a85551266df8d, type: 3}
+  - {fileID: 8300000, guid: e7268fe34dc6a4214b7e2c6ce3d3cf1c, type: 3}
+  - {fileID: 8300000, guid: 57224cd9e9478471db0d30f16d9a46fe, type: 3}
+  - {fileID: 8300000, guid: faae8aa518d4c473f838c099f34dd5a3, type: 3}
+  sfxVolume: 0.8
+  channels: 20
 --- !u!1001 &118620857
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2903,7 +2907,7 @@ MonoBehaviour:
   bulletManager: {fileID: 1225028721}
   magicManager: {fileID: 188048889}
   healPackManager: {fileID: 685006996}
-  changingStateManager: {fileID: 0}
+  changingStateManager: {fileID: 637825967}
 --- !u!4 &2065378469
 Transform:
   m_ObjectHideFlags: 0

@@ -1,11 +1,11 @@
 using Message;
 
-public class HeatBulletState
+public class HitBulletState
 {
     public string bulletId;
     public string PlayerId;
 
-    public HeatBulletState(string bulletId, string PlayerId)
+    public HitBulletState(string bulletId, string PlayerId)
     {
         this.bulletId = bulletId;
         this.PlayerId = PlayerId;

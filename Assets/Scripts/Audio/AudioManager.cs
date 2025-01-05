@@ -9,6 +9,7 @@ public class AudioManager : Singleton<AudioManager>
     // const float DEFAULT_SFX_VOL = 1.0f;
 
     private DateTime walkingStartTime;
+    private bool hasPlayed = false;
 
     [Header("#BGM")]
     public AudioClip bgmClip;
@@ -35,7 +36,11 @@ public class AudioManager : Singleton<AudioManager>
         ShootNormal,
         ShootStone,
         Walk,
-        Win
+        Win,
+        Hit01,
+        Hit02,
+        Hit03,
+        Hit04,
     }
 
     // 싱글톤 인스턴스
@@ -54,7 +59,7 @@ public class AudioManager : Singleton<AudioManager>
         // 기본값 설정
         if (channels <= 0)
         {
-            channels = 10; // 기본 채널 개수
+            channels = 20; // 기본 채널 개수
             Debug.Log($"채널 개수가 0이어서 기본값 {channels}으로 설정됨");
         }
 
@@ -127,6 +132,33 @@ public class AudioManager : Singleton<AudioManager>
             sfxPlayers[loopIndex].Play();
             break;
         }
+    }
+
+    public void PlayHitSfx(float? volume = null)
+    {
+        // Hit01~Hit04의 범위를 지정
+        int hitStartIndex = (int)Sfx.Hit01;
+        int hitEndIndex = (int)Sfx.Hit04;
+
+        // 랜덤한 Sfx 인덱스 선택
+        int randomIndex = UnityEngine.Random.Range(hitStartIndex, hitEndIndex + 1);
+        Sfx randomHitSfx = (Sfx)randomIndex;
+
+        // 선택된 Sfx 재생
+        PlaySfx(randomHitSfx, volume);
+    }
+
+    public void PlayOnceSfx(Sfx sfx, float? volume = null)
+    {
+        if (hasPlayed)
+        {
+            return; // 이미 재생되었으면 종료
+        }
+
+        hasPlayed = true; // 재생 상태로 설정
+
+        // 효과음 재생
+        PlaySfx(sfx, volume);
     }
 
     // 오디오 클립을 Resources 폴더에서 로드하여 딕셔너리에 저장
