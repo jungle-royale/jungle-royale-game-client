@@ -21,7 +21,7 @@ public class TileManager : MonoBehaviour
 
             if (!tileObjects.TryGetValue(tile.tileId, out GameObject tileObject))
             {
-                GameObject tilePrefab = Resources.Load<GameObject>("Prefabs/Tile");
+                GameObject tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile01");
                 if (tilePrefab != null)
                 {
                     tileObject = Instantiate(tilePrefab, tile.Position(), Quaternion.identity);

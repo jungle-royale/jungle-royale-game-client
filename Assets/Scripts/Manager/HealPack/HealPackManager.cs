@@ -46,7 +46,7 @@ public class HealPackManager : MonoBehaviour
 
     private GameObject LoadPrefab()
     {
-        string path = "Prefabs/Item_HealPack";
+        string path = "Prefabs/Items/Item_HealPack";
 
         if (string.IsNullOrEmpty(path))
         {

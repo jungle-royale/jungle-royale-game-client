@@ -36,11 +36,11 @@ public class InGameGUIManager : MonoBehaviour
 
     private void CreateCanvases()
     {
-        waitingRoomCanvas = InstantiateCanvas("Prefabs/UI/WaitingRoomCanvas");
-        inGameCanvas = InstantiateCanvas("Prefabs/UI/InGameCanvas");
-        gameOverCanvas = InstantiateCanvas("Prefabs/UI/GameOverCanvas");
-        gameEndCanvas = InstantiateCanvas("Prefabs/UI/GameEndCanvas");
-        watchModeCanvas = InstantiateCanvas("Prefabs/UI/WatchModeCanvas");
+        waitingRoomCanvas = InstantiateCanvas("Prefabs/UIs/WaitingRoomCanvas");
+        inGameCanvas = InstantiateCanvas("Prefabs/UIs/InGameCanvas");
+        gameOverCanvas = InstantiateCanvas("Prefabs/UIs/GameOverCanvas");
+        gameEndCanvas = InstantiateCanvas("Prefabs/UIs/GameEndCanvas");
+        watchModeCanvas = InstantiateCanvas("Prefabs/UIs/WatchModeCanvas");
 
         // 모든 캔버스 비활성화
         SetAllCanvasesInactive();

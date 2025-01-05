@@ -230,6 +230,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
         if (gameState.BulletState != null && gameState.BulletState.Count > 0)
         {
+            Debug.Log($"BulletState: {gameState.BulletState}");
             List<Bullet> bulletStateList = new List<Bullet>();
 
             foreach (var bulletState in gameState.BulletState)
