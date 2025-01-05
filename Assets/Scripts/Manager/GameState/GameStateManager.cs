@@ -61,6 +61,7 @@ public class GameStateManager : Singleton<GameStateManager>
                     if (player.Id == ClientManager.Instance.ClientId)
                     {
                         // 승리
+                        AudioManager.Instance.PlayOnceSfx(AudioManager.Sfx.Win, 1.0f);
                         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameEnd");
                     }
                 }

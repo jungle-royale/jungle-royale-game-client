@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ChangingStateManager : MonoBehaviour
@@ -17,23 +18,23 @@ public class ChangingStateManager : MonoBehaviour
 
     public void UpdateState
     (
-        List<HeatBulletState> HeatBulletStateList,
+        List<HitBulletState> HitBulletStateList,
         List<GetItemState> GetItemStateList,
         List<PlayerDeadState> PlayerDeadStateList
     )
     {
-        if (HeatBulletStateList != null && HeatBulletStateList.Count > 0)
+        if (HitBulletStateList != null && HitBulletStateList.Count > 0)
         {
-            foreach (var state in HeatBulletStateList)
+            foreach (var state in HitBulletStateList)
             {
-                HandleHeatBulletState(state);
+                HandleHitBulletState(state);
             }
         }
 
         // 다른 상태 (GetItemState, PlayerDeadState 등) 처리 로직 추가 가능
     }
 
-    private void HandleHeatBulletState(HeatBulletState state)
+    private void HandleHitBulletState(HitBulletState state)
     {
         if (playerManager == null)
         {
@@ -48,6 +49,8 @@ public class ChangingStateManager : MonoBehaviour
             Debug.LogWarning($"Player with ID {state.PlayerId} not found.");
             return;
         }
+
+        AudioManager.Instance.PlayHitSfx(0.7f);
 
         // SnowHitEffect(부모 객체) 찾기
         Transform effectTransform = player.transform.Find("SnowHitEffect");
