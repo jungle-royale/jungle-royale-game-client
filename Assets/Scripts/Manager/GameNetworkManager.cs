@@ -15,13 +15,31 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
     private DateTime requestStartTime;
 
+    public GameStateManager gameStateManager;
+    public PlayerManager playerManager;
+    public TileManager tileManager;
+    public BulletManager bulletManager;
+    public MagicManager magicManager;
+    public HealPackManager healPackManager;
+    public ChangingStateManager changingStateManager;
+
     private string Host
     {
         get
         {
-            if (Debug.isDebugBuild)
+            if (IsDebug())
             {
-                return "localhost:8000";
+                try
+                {
+                    var url = Application.absoluteURL;
+                    Uri uri = new Uri(url);
+                    return $"{uri.Host}:8000";
+                }
+                catch (UriFormatException e)
+                {
+                    Debug.LogError($"Invalid URL format: {e.Message}");
+                    return "";
+                }
             }
             else
             {
@@ -30,11 +48,12 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         }
     }
 
+
     private string PathAndQuery
     {
         get
         {
-            if (Debug.isDebugBuild)
+            if (IsDebug())
             {
                 return "/room?roomId=test&clientId=test";
             }
@@ -47,7 +66,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                     NameValueCollection queryParameters = HttpUtility.ParseQueryString(uri.Query);
                     string roomId = queryParameters["roomId"];
                     string clientId = queryParameters["clientId"];
-                    return $"/room?roomId={roomId}clientId={clientId}";
+                    return $"/room?roomId={roomId}&clientId={clientId}";
                 }
                 catch (UriFormatException e)
                 {
@@ -66,14 +85,10 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         }
     }
 
-
-    public GameStateManager gameStateManager;
-    public PlayerManager playerManager;
-    public TileManager tileManager;
-    public BulletManager bulletManager;
-    public MagicManager magicManager;
-    public HealPackManager healPackManager;
-    public ChangingStateManager changingStateManager;
+    private bool IsDebug()
+    {
+        return Debug.isDebugBuild || !Application.absoluteURL.Contains("eternalsnowman.com");
+    }
 
 
     void Start()
