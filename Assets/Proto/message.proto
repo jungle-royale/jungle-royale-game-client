@@ -20,6 +20,7 @@ message Wrapper {
 // server → client : init message
 message GameInit {
     string id = 1;  // player id
+    int32 minPlayerNum = 2;
 }
 
 // client → server : changing state
@@ -92,20 +93,25 @@ message TileState {
     string tileId = 1;
     float x = 2;
     float y = 3;
-    int32 tileState = 4;
+    int32 tileType = 4;
+    int32 tileState = 5;
     // 0: tile normal
     // 1: tile dangerous (tile fall in 5 sec)
 }
 
 message ChangingState {
-    repeated HeatBulletState heatBulletState = 1;
+    repeated HitBulletState hitBulletState = 1;
     repeated GetItemState getItemState = 2;
     repeated PlayerDeadState playerDeadState = 3;
 }
 
-message HeatBulletState {
-    string bulletId = 1;
-    string playerId = 2;
+message HitBulletState {
+    int32 objectType = 1;
+    // 0: player
+    // 4: environment object
+
+    string bulletId = 2;
+    string objectId = 3;
 }
 
 message GetItemState {

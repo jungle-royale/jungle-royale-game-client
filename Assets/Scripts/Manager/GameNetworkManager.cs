@@ -299,17 +299,20 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
         if (gameState.ChangingState != null)
         {
-            List<HitBulletState> HeatBulletStateList = new List<HitBulletState>();
+            List<HitBulletState> HitBulletStateList = new List<HitBulletState>();
             List<GetItemState> GetItemStateList = new List<GetItemState>();
             List<PlayerDeadState> PlayerDeadStateList = new List<PlayerDeadState>();
 
-            if (gameState.ChangingState.HeatBulletState != null && gameState.ChangingState.HeatBulletState.Count > 0)
+            if (gameState.ChangingState.HitBulletState != null && gameState.ChangingState.HitBulletState.Count > 0)
             {
-                Debug.Log($"HeatBulletState: {gameState.ChangingState.HeatBulletState}");
+                Debug.Log($"HitBulletState: {gameState.ChangingState.HitBulletState}");
 
-                foreach (var HeatBulletState in gameState.ChangingState.HeatBulletState)
+                foreach (var HitBulletState in gameState.ChangingState.HitBulletState)
                 {
-                    HeatBulletStateList.Add(new HitBulletState(HeatBulletState.BulletId, HeatBulletState.PlayerId));
+                    if (HitBulletState.ObjectType == 0) // player
+                        HitBulletStateList.Add(new HitBulletState(HitBulletState.BulletId, HitBulletState.ObjectId));
+                    
+                    else if(HitBulletState.ObjectType == 4); // environment object
                 }
             }
 
@@ -331,7 +334,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                 }
             }
 
-            changingStateManager.UpdateState(HeatBulletStateList, GetItemStateList, PlayerDeadStateList);
+            changingStateManager.UpdateState(HitBulletStateList, GetItemStateList, PlayerDeadStateList);
         }
     }
 
