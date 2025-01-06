@@ -9,13 +9,14 @@ TagManager:
   - HpLabel
   - PlayerCountLabel
   - PlacementLabel
-  - RankLabel
   - GameCountDownLabel
   - Grounds
   - FpsLabel
   - MainCanvas
   - FxTemporaire
   - MiniMapCamera
+  - KillCountLabel
+  - PointLabel
   layers:
   - Default
   - TransparentFX
