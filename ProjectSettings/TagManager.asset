@@ -14,6 +14,8 @@ TagManager:
   - Grounds
   - FpsLabel
   - MainCanvas
+  - FxTemporaire
+  - MiniMapCamera
   layers:
   - Default
   - TransparentFX
@@ -21,8 +23,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Mark
+  - Grounds
   - 
   - 
   - 
