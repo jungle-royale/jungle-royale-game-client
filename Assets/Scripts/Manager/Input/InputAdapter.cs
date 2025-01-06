@@ -37,6 +37,24 @@ public class InputAdapter : MonoBehaviour
                 isWatchingButtonPressed = true; // 버튼 눌림 상태 설정
             });
         }
+
+        if (isMobile)
+        {
+            EventBus<InputButtonEventType>.Subscribe(InputButtonEventType.PlayerDead, SetNextButton);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (isMobile)
+        {
+            EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.PlayerDead, SetNextButton);
+        }
+    }
+
+    private void SetNextButton()
+    {
+        watchingButton.GameObject().SetActive(true);
     }
 
     public float GetAxisX()
