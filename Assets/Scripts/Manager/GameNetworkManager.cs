@@ -257,8 +257,6 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
             if (gameState.ChangingState.HitBulletState != null && gameState.ChangingState.HitBulletState.Count > 0)
             {
-                Debug.Log($"HeatBulletState: {gameState.ChangingState.HitBulletState}");
-
                 foreach (var HitBulletState in gameState.ChangingState.HitBulletState)
                 {
                     HitBulletStateList.Add(new HitBulletState(HitBulletState.ObjectType, HitBulletState.BulletId, HitBulletState.ObjectId, HitBulletState.X, HitBulletState.Y));

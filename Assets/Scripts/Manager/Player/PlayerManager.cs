@@ -140,31 +140,17 @@ public class PlayerManager : MonoBehaviour
         var previousPosition = player.transform.position;
         Vector3 movementDirection = currentPosition - previousPosition;
 
-        if (serverData.isMoved)
+        Animator animator = player.GetComponent<Animator>();
+        if (animator == null)
         {
-            if (!movePlayers.Contains(serverData.id))
-            {
-                movePlayers.Add(serverData.id);
-            }
+            Debug.LogWarning($"Animator not found on player: {player.name}");
+            return;
         }
-        else
-        {
-            if (movePlayers.Contains(serverData.id))
-            {
-                movePlayers.Remove(serverData.id);
-            }
-        }
-
+     
         if (serverData.isDashing)
         {
-            // if (!dashPlayers.Contains(serverData.id))
-            // {
-            //     dashPlayers.Add(serverData.id);
-
-            // }
             if (movementDirection != Vector3.zero)
             {
-                Debug.Log($"🍎 {movementDirection.normalized}");
                 Quaternion tiltRotation = Quaternion.LookRotation(movementDirection.normalized); // 이동 방향을 기준으로 회전
                                                                                                     // Y축 기울이기 (Roll 추가)
                 Quaternion tilt = Quaternion.Euler(
@@ -183,8 +169,30 @@ public class PlayerManager : MonoBehaviour
             player.transform.rotation = uprightRotation;
         }
 
+        if (serverData.isMoved)
+        {
+            if (!movePlayers.Contains(serverData.id))
+            {
+                movePlayers.Add(serverData.id);
+                animator.SetBool("isMoving", true);
+                Debug.Log("moving true");
+            }
+        }
+        else
+        {
+            if (movePlayers.Contains(serverData.id))
+            {
+                movePlayers.Remove(serverData.id);
+                animator.SetBool("isMoving", false);
+                Debug.Log("moving false");
+            }
+        }
+
         // 현재 위치 조정
-        player.transform.position = serverData.NewPosition(PLAYER_Y);
+        var newPosition = player.transform.position;
+        newPosition.x = serverData.x;
+        newPosition.z = serverData.y;
+        player.transform.position = newPosition;
     }
 
     private void RemoveDisconnectedPlayers(List<Player> playerDataList)
