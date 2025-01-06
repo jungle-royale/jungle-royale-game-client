@@ -67,11 +67,26 @@ public class PlayerManager : MonoBehaviour
         currentPlayer = Instantiate(playerPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity);
         currentPlayer.tag = "Player";
         currentPlayer.name = "MyPlayer";
+
+        // 플레이어의 HealthBar 초기화
+        HealthBar healthBarComponent = currentPlayer.GetComponentInChildren<HealthBar>();
+        if (healthBarComponent != null)
+        {
+            healthBarComponent.SetMaxHealth(data.health);
+        }
     }
 
     private void CreateOtherPlayer(Player data)
     {
         GameObject newPlayer = Instantiate(playerPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity);
+
+        // 플레이어의 HealthBar 초기화
+        HealthBar healthBarComponent = newPlayer.GetComponentInChildren<HealthBar>();
+        if (healthBarComponent != null)
+        {
+            healthBarComponent.SetMaxHealth(data.health);
+        }
+
         otherPlayers[data.id] = newPlayer;
     }
 
@@ -85,6 +100,14 @@ public class PlayerManager : MonoBehaviour
         // }
         currentPlayer.transform.position = serverPosition;
         currentPlayer.transform.rotation = Quaternion.Euler(0, -(serverData.angle - 180), 0);
+
+        // HealthBar 업데이트
+        HealthBar healthBarComponent = currentPlayer.GetComponentInChildren<HealthBar>();
+        if (healthBarComponent != null)
+        {
+            healthBarComponent.SetHealth(serverData.health);
+        }
+
         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateHpLabel, serverData.health);
     }
 
@@ -92,6 +115,13 @@ public class PlayerManager : MonoBehaviour
     {
         player.transform.position = new Vector3(data.x, PLAYER_Y, data.y);
         player.transform.rotation = Quaternion.Euler(0, -(data.angle - 180), 0);
+
+        // HealthBar 업데이트
+        HealthBar healthBarComponent = player.GetComponentInChildren<HealthBar>();
+        if (healthBarComponent != null)
+        {
+            healthBarComponent.SetHealth(data.health);
+        }
     }
 
     private void RemoveDisconnectedPlayers(List<Player> playerDataList)
