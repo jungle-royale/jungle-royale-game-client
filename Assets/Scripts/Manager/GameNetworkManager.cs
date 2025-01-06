@@ -23,67 +23,12 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     public HealPackManager healPackManager;
     public ChangingStateManager changingStateManager;
 
-    private string Host
-    {
-        get
-        {
-            if (IsDebug())
-            {
-                try
-                {
-                    var url = Application.absoluteURL;
-                    Uri uri = new Uri(url);
-                    return $"{uri.Host}:8000";
-                }
-                catch (UriFormatException e)
-                {
-                    Debug.LogError($"Invalid URL format: {e.Message}");
-                    return "";
-                }
-            }
-            else
-            {
-                return "game-api.eternalsnowman.com:8080";
-            }
-        }
-    }
+    private string Host;
 
-
-    private string PathAndQuery
-    {
-        get
-        {
-            if (IsDebug())
-            {
-                return "/room?roomId=test&clientId=test";
-            }
-            else
-            {
-                var url = Application.absoluteURL;
-                try
-                {
-                    Uri uri = new Uri(url);
-                    NameValueCollection queryParameters = HttpUtility.ParseQueryString(uri.Query);
-                    string roomId = queryParameters["roomId"];
-                    string clientId = queryParameters["clientId"];
-                    return $"/room?roomId={roomId}&clientId={clientId}";
-                }
-                catch (UriFormatException e)
-                {
-                    Debug.LogError($"Invalid URL format: {e.Message}");
-                    return "";
-                }
-            }
-        }
-    }
-
-    private string UrlString
-    {
-        get
-        {
-            return "ws://" + Host + PathAndQuery;
-        }
-    }
+    private string PathAndQuery;
+    
+    private string UrlString;
+    
 
     private bool IsDebug()
     {
@@ -93,6 +38,10 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
     void Start()
     {
+        Host = GetHost();
+        PathAndQuery = GetSocketPathAndQuery();
+        UrlString = "ws://" + Host + PathAndQuery;
+
         InitializeAndConnect();
 
         if (Debug.isDebugBuild)
@@ -386,6 +335,53 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             else
             {
                 Debug.LogError($"HTTP Ping failed: {request.error}");
+            }
+        }
+    }
+
+    private string GetHost()
+    {
+        if (IsDebug())
+        {
+            try
+            {
+                var url = Application.absoluteURL;
+                Uri uri = new Uri(url);
+                return $"{uri.Host}:8000";
+            }
+            catch (UriFormatException e)
+            {
+                Debug.LogError($"Invalid URL format: {e.Message}");
+                return "localhost:8000";
+            }
+        }
+        else
+        {
+            return "game-api.eternalsnowman.com:8080";
+        }
+    }
+
+    private string GetSocketPathAndQuery()
+    {
+        if (IsDebug())
+        {
+            return "/room?roomId=test&clientId=test";
+        }
+        else
+        {
+            var url = Application.absoluteURL;
+            try
+            {
+                Uri uri = new Uri(url);
+                NameValueCollection queryParameters = HttpUtility.ParseQueryString(uri.Query);
+                string roomId = queryParameters["roomId"];
+                string clientId = queryParameters["clientId"];
+                return $"/room?roomId={roomId}&clientId={clientId}";
+            }
+            catch (UriFormatException e)
+            {
+                Debug.LogError($"Invalid URL format: {e.Message}");
+                return "";
             }
         }
     }
