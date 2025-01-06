@@ -15,6 +15,9 @@ public class InputAdapter : MonoBehaviour
 
     public bool isMobile;
 
+    private float lastJoystickAngle = 0f; // 이전 각도 저장 변수
+
+
     void Start()
     {
         isMobile = new DeviceCheck().IsMobile();
@@ -110,13 +113,14 @@ public class InputAdapter : MonoBehaviour
         // 조이스틱의 방향값 가져오기
         Vector2 direction = aimJoystick.Direction;
 
-        // 조이스틱 입력이 없을 경우 (0, 0), 기본 각도 반환
+        // 조이스틱 입력이 없을 경우 (0, 0)
         if (direction == Vector2.zero)
         {
-            return 0f;
+            // 조이스틱에서 손을 뗀 상태 -> 이전 각도 반환
+            return lastJoystickAngle;
         }
 
-        // 방향 각도 계산
+        // 조이스틱이 움직이고 있는 경우 -> 방향 각도 계산
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         // Unity 좌표계에 맞게 보정 (위쪽이 0도, 오른쪽이 90도)
@@ -127,6 +131,9 @@ public class InputAdapter : MonoBehaviour
         {
             angle += 360f;
         }
+
+        // 마지막 각도 갱신
+        lastJoystickAngle = angle;
 
         return angle;
     }
@@ -169,6 +176,6 @@ public class InputAdapter : MonoBehaviour
         return 0;
     }
 
-  
+
 
 }
