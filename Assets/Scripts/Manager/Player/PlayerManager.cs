@@ -5,7 +5,8 @@ public class PlayerManager : MonoBehaviour
 {
     public CameraHandler cameraHandler;
 
-    public GameObject playerPrefab; // 플레이어 프리팹
+    public GameObject currentPlayerPrefab; // 내 플레이어 프리팹
+    public GameObject otherPlayerPrefab;   // 다른 플레이어 프리팹
 
     private bool currentPlayerDead = false;
 
@@ -64,7 +65,7 @@ public class PlayerManager : MonoBehaviour
 
     private void CreateCurrentPlayer(Player data)
     {
-        currentPlayer = Instantiate(playerPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity);
+        currentPlayer = Instantiate(currentPlayerPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity);
         currentPlayer.tag = "Player";
         currentPlayer.name = "MyPlayer";
 
@@ -78,7 +79,7 @@ public class PlayerManager : MonoBehaviour
 
     private void CreateOtherPlayer(Player data)
     {
-        GameObject newPlayer = Instantiate(playerPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity);
+        GameObject newPlayer = Instantiate(otherPlayerPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity);
 
         // 플레이어의 HealthBar 초기화
         HealthBar healthBarComponent = newPlayer.GetComponentInChildren<HealthBar>();

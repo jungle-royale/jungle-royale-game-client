@@ -46,7 +46,7 @@ public class ChangingStateManager : MonoBehaviour
         GameObject player = playerManager.GetPlayerById(state.PlayerId);
         if (player == null)
         {
-            Debug.LogWarning($"Player with ID {state.PlayerId} not found.");
+            Debug.LogWarning($"[BulletId: {state.bulletId}] Player with ID {state.PlayerId} not found.");
             return;
         }
 
