@@ -27,6 +27,17 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(buildPath, 'index.html'));
 });
 
+// 에러 핸들링 미들웨어
+app.use((err, req, res, next) => {
+  if (err instanceof URIError) {
+      console.error('Invalid URI:', req.originalUrl);
+      res.status(400).send('Bad Request: Invalid URI');
+  } else {
+      console.error('Unexpected Error:', err);
+      res.status(500).send('Internal Server Error');
+  }
+});
+
 app.listen(PORT, () => {
     console.log(`WebGL server running at http://localhost:${PORT}/room?roomId=test&clientId=test`);
 });
