@@ -101,10 +101,9 @@
         // Add the loading screen to the document
         document.body.appendChild(loadingScreen);
 
-        // Remove the loading screen after 6 seconds
         setTimeout(() => {
             document.body.removeChild(loadingScreen);
-        }, 6000); // Mobile loading time consideration
+        }, 10000); // Mobile loading time consideration
       }
 
       // Shows a temporary message banner/ribbon for a few seconds, or
