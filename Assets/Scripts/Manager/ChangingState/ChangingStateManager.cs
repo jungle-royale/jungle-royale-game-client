@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Message;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -23,30 +24,30 @@ public class ChangingStateManager : MonoBehaviour
         List<PlayerDeadState> PlayerDeadStateList
     )
     {
-        if (HitBulletStateList != null && HitBulletStateList.Count > 0)
+        foreach (var state in HitBulletStateList)
         {
-            foreach (var state in HitBulletStateList)
+            if (state.IsPlayer())
             {
-                HandleHitBulletState(state);
+                HandlePlayerHitBulletState(state);
+            }
+            else
+            {
+                HandleObjectHitBulletState(state);
             }
         }
 
         // 다른 상태 (GetItemState, PlayerDeadState 등) 처리 로직 추가 가능
     }
 
-    private void HandleHitBulletState(HitBulletState state)
+    private void HandlePlayerHitBulletState(HitBulletState state)
     {
-        if (playerManager == null)
-        {
-            Debug.LogWarning("PlayerManager is not initialized.");
-            return;
-        }
+        // TODO: 여기서 카메라 range check
 
         // PlayerManager에서 플레이어 객체 가져오기
-        GameObject player = playerManager.GetPlayerById(state.PlayerId);
+        GameObject player = playerManager.GetPlayerById(state.ObjectId);
         if (player == null)
         {
-            Debug.LogWarning($"[BulletId: {state.bulletId}] Player with ID {state.PlayerId} not found.");
+            Debug.LogWarning($"Player with ID {state.ObjectId} not found.");
             return;
         }
 
@@ -56,7 +57,7 @@ public class ChangingStateManager : MonoBehaviour
         Transform effectTransform = player.transform.Find("SnowHitEffect");
         if (effectTransform == null)
         {
-            Debug.LogWarning($"SnowHitEffect not found on player {state.PlayerId}.");
+            Debug.LogWarning($"SnowHitEffect not found on player {state.ObjectId}.");
             return;
         }
 
@@ -68,5 +69,11 @@ public class ChangingStateManager : MonoBehaviour
         {
             particleSystem.Play();
         }
+    }
+
+    private void HandleObjectHitBulletState(HitBulletState state)
+    {
+
+       
     }
 }

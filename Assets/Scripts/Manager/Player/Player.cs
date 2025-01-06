@@ -1,4 +1,6 @@
+using System;
 using Message;
+using UnityEngine;
 
 public class Player
 {
@@ -9,9 +11,20 @@ public class Player
     public int magicType;
     public float angle;
     public int dashCoolTime;
+    public bool isMoved;
+    public bool isDashing;
 
-    public Player(string playerId, float x, float y, int health, int magictype, float angle, int dashCoolTime)
-    {
+    public Player(
+        string playerId, 
+        float x, 
+        float y, 
+        int health, 
+        int magictype, 
+        float angle, 
+        int dashCoolTime,
+        bool isMoved,
+        bool isDashing
+    ) {
         this.id = playerId;
         this.x = x;
         this.y = y;
@@ -19,8 +32,14 @@ public class Player
         this.magicType = magictype;
         this.angle = angle;
         this.dashCoolTime = dashCoolTime;
+        this.isMoved = isMoved;
+        this.isDashing = isDashing;
     }
 
+    public Vector3 NewPosition(float playerY)
+    {
+        return new Vector3(x, playerY, y);
+    }
 
     // 대시
 
@@ -40,5 +59,4 @@ public class Player
 
     // get item
 
-    // 
 }

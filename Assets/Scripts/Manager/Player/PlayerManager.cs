@@ -12,6 +12,10 @@ public class PlayerManager : MonoBehaviour
 
     private GameObject currentPlayer; // 현재 플레이어 객체
     private Dictionary<string, GameObject> otherPlayers = new Dictionary<string, GameObject>();
+
+    private HashSet<string> movePlayers = new HashSet<string>();
+    private HashSet<string> dashPlayers = new HashSet<string>();
+
     private string currentPlayerId
     {
         get
@@ -21,6 +25,21 @@ public class PlayerManager : MonoBehaviour
     }
 
     private float PLAYER_Y;
+
+    public GameObject GetPlayerById(string playerId)
+    {
+        if (playerId == currentPlayerId)
+        {
+            return currentPlayer;
+        }
+
+        if (otherPlayers.ContainsKey(playerId))
+        {
+            return otherPlayers[playerId];
+        }
+
+        return null;
+    }
 
     public void UpdatePlayers(List<Player> playerDataList)
     {
@@ -93,15 +112,6 @@ public class PlayerManager : MonoBehaviour
 
     private void ValidateCurrentPlayer(Player serverData)
     {
-        // 서버 데이터와 현재 입력 상태 비교 및 조정
-        Vector3 serverPosition = new Vector3(serverData.x, PLAYER_Y, serverData.y);
-        // if (Vector3.Distance(currentPlayer.transform.position, serverPosition) > 0.1f)
-        // {
-        //     currentPlayer.transform.position = serverPosition;
-        // }
-        currentPlayer.transform.position = serverPosition;
-        currentPlayer.transform.rotation = Quaternion.Euler(0, -(serverData.angle - 180), 0);
-
         // HealthBar 업데이트
         HealthBar healthBarComponent = currentPlayer.GetComponentInChildren<HealthBar>();
         if (healthBarComponent != null)
@@ -109,20 +119,72 @@ public class PlayerManager : MonoBehaviour
             healthBarComponent.SetHealth(serverData.health);
         }
 
+        UpdatePlayerMoveState(currentPlayer, serverData);
         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateHpLabel, serverData.health);
     }
 
-    private void UpdatePlayer(GameObject player, Player data)
+    private void UpdatePlayer(GameObject player, Player serverData)
     {
-        player.transform.position = new Vector3(data.x, PLAYER_Y, data.y);
-        player.transform.rotation = Quaternion.Euler(0, -(data.angle - 180), 0);
-
         // HealthBar 업데이트
         HealthBar healthBarComponent = player.GetComponentInChildren<HealthBar>();
         if (healthBarComponent != null)
         {
-            healthBarComponent.SetHealth(data.health);
+            healthBarComponent.SetHealth(serverData.health);
         }
+        UpdatePlayerMoveState(player, serverData);
+    }
+
+    private void UpdatePlayerMoveState(GameObject player, Player serverData)
+    {
+        var currentPosition = serverData.NewPosition(PLAYER_Y);
+        var previousPosition = player.transform.position;
+        Vector3 movementDirection = currentPosition - previousPosition;
+
+        if (serverData.isMoved)
+        {
+            if (!movePlayers.Contains(serverData.id))
+            {
+                movePlayers.Add(serverData.id);
+            }
+        }
+        else
+        {
+            if (movePlayers.Contains(serverData.id))
+            {
+                movePlayers.Remove(serverData.id);
+            }
+        }
+
+        if (serverData.isDashing)
+        {
+            // if (!dashPlayers.Contains(serverData.id))
+            // {
+            //     dashPlayers.Add(serverData.id);
+
+            // }
+            if (movementDirection != Vector3.zero)
+            {
+                Debug.Log($"🍎 {movementDirection.normalized}");
+                Quaternion tiltRotation = Quaternion.LookRotation(movementDirection.normalized); // 이동 방향을 기준으로 회전
+                                                                                                    // Y축 기울이기 (Roll 추가)
+                Quaternion tilt = Quaternion.Euler(
+                    tiltRotation.eulerAngles.x + 10,               // 상하 기울임 유지
+                    tiltRotation.eulerAngles.y,
+                    tiltRotation.eulerAngles.z
+                );
+
+                player.transform.rotation = tilt;
+            }
+        }
+        else
+        {
+            dashPlayers.Remove(serverData.id);
+            Quaternion uprightRotation = Quaternion.Euler(0, -(serverData.angle - 180), 0);
+            player.transform.rotation = uprightRotation;
+        }
+
+        // 현재 위치 조정
+        player.transform.position = serverData.NewPosition(PLAYER_Y);
     }
 
     private void RemoveDisconnectedPlayers(List<Player> playerDataList)
@@ -142,6 +204,9 @@ public class PlayerManager : MonoBehaviour
         {
             currentPlayerDead = true;
             Destroy(currentPlayer);
+            movePlayers.Remove(currentPlayerId);
+            dashPlayers.Remove(currentPlayerId);
+
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dead, 1.0f);
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameOver, 0.7f);
             EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameOver");
@@ -152,22 +217,8 @@ public class PlayerManager : MonoBehaviour
         {
             Destroy(otherPlayers[key]);
             otherPlayers.Remove(key);
+            movePlayers.Remove(key);
+            dashPlayers.Remove(key);
         }
     }
-
-    public GameObject GetPlayerById(string playerId)
-    {
-        if (playerId == currentPlayerId)
-        {
-            return currentPlayer;
-        }
-
-        if (otherPlayers.ContainsKey(playerId))
-        {
-            return otherPlayers[playerId];
-        }
-
-        return null;
-    }
-
 }
