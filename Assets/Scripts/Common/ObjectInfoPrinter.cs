@@ -2,13 +2,16 @@ using UnityEngine;
 
 public class ObjectInfoPrinter : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject prefab;
     // Resources 폴더 내 프리팹 경로
     private string prefabPath = "Prefabs/Tile/Tile01";
 
     void Start()
     {
         // 프리팹 로드
-        GameObject prefab = Resources.Load<GameObject>(prefabPath);
+        if (prefab == null)
+            prefab = Resources.Load<GameObject>(prefabPath);
 
         if (prefab == null)
         {

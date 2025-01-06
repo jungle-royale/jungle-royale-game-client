@@ -52,7 +52,6 @@ public class GameStateManager : Singleton<GameStateManager>
     {
         if (gameState.PlayerState != null)
         {
-
             // 게임 시작 했는데 플레이어가 혼자면
             if (_gameStart && gameState.PlayerState.Count == 1)
             {
@@ -63,6 +62,10 @@ public class GameStateManager : Singleton<GameStateManager>
                         // 승리
                         AudioManager.Instance.PlayOnceSfx(AudioManager.Sfx.Win, 1.0f);
                         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameEnd");
+                    }
+                    else
+                    {
+                        
                     }
                 }
             }
