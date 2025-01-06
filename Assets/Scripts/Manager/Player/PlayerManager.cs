@@ -109,11 +109,12 @@ public class PlayerManager : MonoBehaviour
 
         if (!currentPlayerDead && !existingIds.Contains(currentPlayerId))
         {
+            currentPlayerDead = true;
+            Destroy(currentPlayer);
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dead, 1.0f);
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameOver, 0.7f);
             EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameOver");
-            Destroy(currentPlayer);
-            currentPlayerDead = true;
+            EventBus<InputButtonEventType>.Publish(InputButtonEventType.PlayerDead);
         }
 
         foreach (var key in keysToRemove)
