@@ -9,18 +9,20 @@ public class Tile
     public string tileId;
     public float X;
     public float Y;
+    public int tileType;
     const float TILE_SCALE = 1f;
     const float TILE_PIVOT = 10f;
     const float TILE_HEIGHT = 10f;
 
     public int warning = 0;
 
-    public Tile(string tileId, float x, float y, int warning)
+    public Tile(string tileId, float x, float y, int warning, int tileType)
     {
         this.tileId = tileId;
         this.X = x;
         this.Y = y;
         this.warning = warning;
+        this.tileType = tileType;
     }
 
 

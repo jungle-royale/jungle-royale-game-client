@@ -41,29 +41,31 @@ namespace Message {
             "AyADKAsyFi5tZXNzYWdlLkhlYWxQYWNrU3RhdGUSLwoObWFnaWNJdGVtU3Rh",
             "dGUYBCADKAsyFy5tZXNzYWdlLk1hZ2ljSXRlbVN0YXRlEiUKCXRpbGVTdGF0",
             "ZRgFIAMoCzISLm1lc3NhZ2UuVGlsZVN0YXRlEi0KDWNoYW5naW5nU3RhdGUY",
-            "BiABKAsyFi5tZXNzYWdlLkNoYW5naW5nU3RhdGUidwoLUGxheWVyU3RhdGUS",
-            "CgoCaWQYASABKAkSCQoBeBgCIAEoAhIJCgF5GAMgASgCEg4KBmhlYWx0aBgE",
-            "IAEoBRIRCgltYWdpY1R5cGUYBSABKAUSDQoFYW5nbGUYBiABKAISFAoMZGFz",
-            "aENvb2xUaW1lGAcgASgFIicKEUNoYW5nZUJ1bGxldFN0YXRlEhIKCmlzU2hv",
-            "b3RpbmcYASABKAgiSQoLQnVsbGV0U3RhdGUSEAoIYnVsbGV0SWQYASABKAkS",
-            "EgoKYnVsbGV0VHlwZRgCIAEoBRIJCgF4GAMgASgCEgkKAXkYBCABKAIiGgoJ",
-            "R2FtZUNvdW50Eg0KBWNvdW50GAEgASgFIhYKBkRvRGFzaBIMCgRkYXNoGAEg",
-            "ASgIIh4KCUdhbWVTdGFydBIRCgltYXBMZW5ndGgYASABKAUiNQoNSGVhbFBh",
-            "Y2tTdGF0ZRIOCgZpdGVtSWQYASABKAkSCQoBeBgCIAEoAhIJCgF5GAMgASgC",
-            "IkkKDk1hZ2ljSXRlbVN0YXRlEg4KBml0ZW1JZBgBIAEoCRIRCgltYWdpY1R5",
-            "cGUYAiABKAUSCQoBeBgDIAEoAhIJCgF5GAQgASgCIlYKCVRpbGVTdGF0ZRIO",
-            "CgZ0aWxlSWQYASABKAkSCQoBeBgCIAEoAhIJCgF5GAMgASgCEhAKCHRpbGVU",
-            "eXBlGAQgASgFEhEKCXRpbGVTdGF0ZRgFIAEoBSKgAQoNQ2hhbmdpbmdTdGF0",
-            "ZRIvCg5oaXRCdWxsZXRTdGF0ZRgBIAMoCzIXLm1lc3NhZ2UuSGl0QnVsbGV0",
-            "U3RhdGUSKwoMZ2V0SXRlbVN0YXRlGAIgAygLMhUubWVzc2FnZS5HZXRJdGVt",
-            "U3RhdGUSMQoPcGxheWVyRGVhZFN0YXRlGAMgAygLMhgubWVzc2FnZS5QbGF5",
-            "ZXJEZWFkU3RhdGUiSAoOSGl0QnVsbGV0U3RhdGUSEgoKb2JqZWN0VHlwZRgB",
-            "IAEoBRIQCghidWxsZXRJZBgCIAEoCRIQCghvYmplY3RJZBgDIAEoCSJCCgxH",
-            "ZXRJdGVtU3RhdGUSDgoGaXRlbUlkGAEgASgJEhAKCHBsYXllcklkGAIgASgJ",
-            "EhAKCGl0ZW1UeXBlGAMgASgFImwKD1BsYXllckRlYWRTdGF0ZRIQCghraWxs",
-            "ZXJJZBgBIAEoCRIOCgZkZWFkSWQYAiABKAkSEwoLZHlpbmdTdGF0dXMYAyAB",
-            "KAUSDwoHa2lsbE51bRgEIAEoBRIRCglQbGFjZW1lbnQYBSABKAVCCloIL21l",
-            "c3NhZ2ViBnByb3RvMw=="));
+            "BiABKAsyFi5tZXNzYWdlLkNoYW5naW5nU3RhdGUimwEKC1BsYXllclN0YXRl",
+            "EgoKAmlkGAEgASgJEgkKAXgYAiABKAISCQoBeRgDIAEoAhIOCgZoZWFsdGgY",
+            "BCABKAUSEQoJbWFnaWNUeXBlGAUgASgFEg0KBWFuZ2xlGAYgASgCEhQKDGRh",
+            "c2hDb29sVGltZRgHIAEoBRIPCgdpc01vdmVkGAggASgIEhEKCWlzRGFzaGlu",
+            "ZxgJIAEoCCInChFDaGFuZ2VCdWxsZXRTdGF0ZRISCgppc1Nob290aW5nGAEg",
+            "ASgIIkkKC0J1bGxldFN0YXRlEhAKCGJ1bGxldElkGAEgASgJEhIKCmJ1bGxl",
+            "dFR5cGUYAiABKAUSCQoBeBgDIAEoAhIJCgF5GAQgASgCIhoKCUdhbWVDb3Vu",
+            "dBINCgVjb3VudBgBIAEoBSIWCgZEb0Rhc2gSDAoEZGFzaBgBIAEoCCIeCglH",
+            "YW1lU3RhcnQSEQoJbWFwTGVuZ3RoGAEgASgFIjUKDUhlYWxQYWNrU3RhdGUS",
+            "DgoGaXRlbUlkGAEgASgJEgkKAXgYAiABKAISCQoBeRgDIAEoAiJJCg5NYWdp",
+            "Y0l0ZW1TdGF0ZRIOCgZpdGVtSWQYASABKAkSEQoJbWFnaWNUeXBlGAIgASgF",
+            "EgkKAXgYAyABKAISCQoBeRgEIAEoAiJWCglUaWxlU3RhdGUSDgoGdGlsZUlk",
+            "GAEgASgJEgkKAXgYAiABKAISCQoBeRgDIAEoAhIQCgh0aWxlVHlwZRgEIAEo",
+            "BRIRCgl0aWxlU3RhdGUYBSABKAUioAEKDUNoYW5naW5nU3RhdGUSLwoOaGl0",
+            "QnVsbGV0U3RhdGUYASADKAsyFy5tZXNzYWdlLkhpdEJ1bGxldFN0YXRlEisK",
+            "DGdldEl0ZW1TdGF0ZRgCIAMoCzIVLm1lc3NhZ2UuR2V0SXRlbVN0YXRlEjEK",
+            "D3BsYXllckRlYWRTdGF0ZRgDIAMoCzIYLm1lc3NhZ2UuUGxheWVyRGVhZFN0",
+            "YXRlIl4KDkhpdEJ1bGxldFN0YXRlEhIKCm9iamVjdFR5cGUYASABKAUSEAoI",
+            "YnVsbGV0SWQYAiABKAkSEAoIb2JqZWN0SWQYAyABKAkSCQoBeBgEIAEoAhIJ",
+            "CgF5GAUgASgCIlgKDEdldEl0ZW1TdGF0ZRIOCgZpdGVtSWQYASABKAkSEAoI",
+            "cGxheWVySWQYAiABKAkSEAoIaXRlbVR5cGUYAyABKAUSCQoBeBgEIAEoAhIJ",
+            "CgF5GAUgASgCImwKD1BsYXllckRlYWRTdGF0ZRIQCghraWxsZXJJZBgBIAEo",
+            "CRIOCgZkZWFkSWQYAiABKAkSEwoLZHlpbmdTdGF0dXMYAyABKAUSDwoHa2ls",
+            "bE51bRgEIAEoBRIRCglQbGFjZW1lbnQYBSABKAVCCloIL21lc3NhZ2ViBnBy",
+            "b3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -72,7 +74,7 @@ namespace Message {
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.ChangeDir), global::Message.ChangeDir.Parser, new[]{ "Angle", "IsMoved" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.ChangeAngle), global::Message.ChangeAngle.Parser, new[]{ "Angle" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameState), global::Message.GameState.Parser, new[]{ "PlayerState", "BulletState", "HealPackState", "MagicItemState", "TileState", "ChangingState" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Message.PlayerState), global::Message.PlayerState.Parser, new[]{ "Id", "X", "Y", "Health", "MagicType", "Angle", "DashCoolTime" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Message.PlayerState), global::Message.PlayerState.Parser, new[]{ "Id", "X", "Y", "Health", "MagicType", "Angle", "DashCoolTime", "IsMoved", "IsDashing" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.ChangeBulletState), global::Message.ChangeBulletState.Parser, new[]{ "IsShooting" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.BulletState), global::Message.BulletState.Parser, new[]{ "BulletId", "BulletType", "X", "Y" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameCount), global::Message.GameCount.Parser, new[]{ "Count" }, null, null, null, null),
@@ -82,8 +84,8 @@ namespace Message {
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.MagicItemState), global::Message.MagicItemState.Parser, new[]{ "ItemId", "MagicType", "X", "Y" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.TileState), global::Message.TileState.Parser, new[]{ "TileId", "X", "Y", "TileType", "TileState_" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.ChangingState), global::Message.ChangingState.Parser, new[]{ "HitBulletState", "GetItemState", "PlayerDeadState" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Message.HitBulletState), global::Message.HitBulletState.Parser, new[]{ "ObjectType", "BulletId", "ObjectId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Message.GetItemState), global::Message.GetItemState.Parser, new[]{ "ItemId", "PlayerId", "ItemType" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Message.HitBulletState), global::Message.HitBulletState.Parser, new[]{ "ObjectType", "BulletId", "ObjectId", "X", "Y" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Message.GetItemState), global::Message.GetItemState.Parser, new[]{ "ItemId", "PlayerId", "ItemType", "X", "Y" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.PlayerDeadState), global::Message.PlayerDeadState.Parser, new[]{ "KillerId", "DeadId", "DyingStatus", "KillNum", "Placement" }, null, null, null, null)
           }));
     }
@@ -1762,6 +1764,8 @@ namespace Message {
       magicType_ = other.magicType_;
       angle_ = other.angle_;
       dashCoolTime_ = other.dashCoolTime_;
+      isMoved_ = other.isMoved_;
+      isDashing_ = other.isDashing_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1855,6 +1859,30 @@ namespace Message {
       }
     }
 
+    /// <summary>Field number for the "isMoved" field.</summary>
+    public const int IsMovedFieldNumber = 8;
+    private bool isMoved_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool IsMoved {
+      get { return isMoved_; }
+      set {
+        isMoved_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "isDashing" field.</summary>
+    public const int IsDashingFieldNumber = 9;
+    private bool isDashing_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool IsDashing {
+      get { return isDashing_; }
+      set {
+        isDashing_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1877,6 +1905,8 @@ namespace Message {
       if (MagicType != other.MagicType) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Angle, other.Angle)) return false;
       if (DashCoolTime != other.DashCoolTime) return false;
+      if (IsMoved != other.IsMoved) return false;
+      if (IsDashing != other.IsDashing) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1891,6 +1921,8 @@ namespace Message {
       if (MagicType != 0) hash ^= MagicType.GetHashCode();
       if (Angle != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Angle);
       if (DashCoolTime != 0) hash ^= DashCoolTime.GetHashCode();
+      if (IsMoved != false) hash ^= IsMoved.GetHashCode();
+      if (IsDashing != false) hash ^= IsDashing.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1937,6 +1969,14 @@ namespace Message {
         output.WriteRawTag(56);
         output.WriteInt32(DashCoolTime);
       }
+      if (IsMoved != false) {
+        output.WriteRawTag(64);
+        output.WriteBool(IsMoved);
+      }
+      if (IsDashing != false) {
+        output.WriteRawTag(72);
+        output.WriteBool(IsDashing);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1975,6 +2015,14 @@ namespace Message {
         output.WriteRawTag(56);
         output.WriteInt32(DashCoolTime);
       }
+      if (IsMoved != false) {
+        output.WriteRawTag(64);
+        output.WriteBool(IsMoved);
+      }
+      if (IsDashing != false) {
+        output.WriteRawTag(72);
+        output.WriteBool(IsDashing);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -2005,6 +2053,12 @@ namespace Message {
       }
       if (DashCoolTime != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(DashCoolTime);
+      }
+      if (IsMoved != false) {
+        size += 1 + 1;
+      }
+      if (IsDashing != false) {
+        size += 1 + 1;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -2038,6 +2092,12 @@ namespace Message {
       }
       if (other.DashCoolTime != 0) {
         DashCoolTime = other.DashCoolTime;
+      }
+      if (other.IsMoved != false) {
+        IsMoved = other.IsMoved;
+      }
+      if (other.IsDashing != false) {
+        IsDashing = other.IsDashing;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2086,6 +2146,14 @@ namespace Message {
             DashCoolTime = input.ReadInt32();
             break;
           }
+          case 64: {
+            IsMoved = input.ReadBool();
+            break;
+          }
+          case 72: {
+            IsDashing = input.ReadBool();
+            break;
+          }
         }
       }
     #endif
@@ -2131,6 +2199,14 @@ namespace Message {
           }
           case 56: {
             DashCoolTime = input.ReadInt32();
+            break;
+          }
+          case 64: {
+            IsMoved = input.ReadBool();
+            break;
+          }
+          case 72: {
+            IsDashing = input.ReadBool();
             break;
           }
         }
@@ -4449,6 +4525,8 @@ namespace Message {
       objectType_ = other.objectType_;
       bulletId_ = other.bulletId_;
       objectId_ = other.objectId_;
+      x_ = other.x_;
+      y_ = other.y_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -4498,6 +4576,30 @@ namespace Message {
       }
     }
 
+    /// <summary>Field number for the "x" field.</summary>
+    public const int XFieldNumber = 4;
+    private float x_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float X {
+      get { return x_; }
+      set {
+        x_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "y" field.</summary>
+    public const int YFieldNumber = 5;
+    private float y_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float Y {
+      get { return y_; }
+      set {
+        y_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -4516,6 +4618,8 @@ namespace Message {
       if (ObjectType != other.ObjectType) return false;
       if (BulletId != other.BulletId) return false;
       if (ObjectId != other.ObjectId) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(X, other.X)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Y, other.Y)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -4526,6 +4630,8 @@ namespace Message {
       if (ObjectType != 0) hash ^= ObjectType.GetHashCode();
       if (BulletId.Length != 0) hash ^= BulletId.GetHashCode();
       if (ObjectId.Length != 0) hash ^= ObjectId.GetHashCode();
+      if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
+      if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -4556,6 +4662,14 @@ namespace Message {
         output.WriteRawTag(26);
         output.WriteString(ObjectId);
       }
+      if (X != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(X);
+      }
+      if (Y != 0F) {
+        output.WriteRawTag(45);
+        output.WriteFloat(Y);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -4578,6 +4692,14 @@ namespace Message {
         output.WriteRawTag(26);
         output.WriteString(ObjectId);
       }
+      if (X != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(X);
+      }
+      if (Y != 0F) {
+        output.WriteRawTag(45);
+        output.WriteFloat(Y);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -4596,6 +4718,12 @@ namespace Message {
       }
       if (ObjectId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(ObjectId);
+      }
+      if (X != 0F) {
+        size += 1 + 4;
+      }
+      if (Y != 0F) {
+        size += 1 + 4;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -4617,6 +4745,12 @@ namespace Message {
       }
       if (other.ObjectId.Length != 0) {
         ObjectId = other.ObjectId;
+      }
+      if (other.X != 0F) {
+        X = other.X;
+      }
+      if (other.Y != 0F) {
+        Y = other.Y;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -4649,6 +4783,14 @@ namespace Message {
             ObjectId = input.ReadString();
             break;
           }
+          case 37: {
+            X = input.ReadFloat();
+            break;
+          }
+          case 45: {
+            Y = input.ReadFloat();
+            break;
+          }
         }
       }
     #endif
@@ -4678,6 +4820,14 @@ namespace Message {
           }
           case 26: {
             ObjectId = input.ReadString();
+            break;
+          }
+          case 37: {
+            X = input.ReadFloat();
+            break;
+          }
+          case 45: {
+            Y = input.ReadFloat();
             break;
           }
         }
@@ -4725,6 +4875,8 @@ namespace Message {
       itemId_ = other.itemId_;
       playerId_ = other.playerId_;
       itemType_ = other.itemType_;
+      x_ = other.x_;
+      y_ = other.y_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -4775,6 +4927,30 @@ namespace Message {
       }
     }
 
+    /// <summary>Field number for the "x" field.</summary>
+    public const int XFieldNumber = 4;
+    private float x_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float X {
+      get { return x_; }
+      set {
+        x_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "y" field.</summary>
+    public const int YFieldNumber = 5;
+    private float y_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float Y {
+      get { return y_; }
+      set {
+        y_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -4793,6 +4969,8 @@ namespace Message {
       if (ItemId != other.ItemId) return false;
       if (PlayerId != other.PlayerId) return false;
       if (ItemType != other.ItemType) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(X, other.X)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Y, other.Y)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -4803,6 +4981,8 @@ namespace Message {
       if (ItemId.Length != 0) hash ^= ItemId.GetHashCode();
       if (PlayerId.Length != 0) hash ^= PlayerId.GetHashCode();
       if (ItemType != 0) hash ^= ItemType.GetHashCode();
+      if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
+      if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -4833,6 +5013,14 @@ namespace Message {
         output.WriteRawTag(24);
         output.WriteInt32(ItemType);
       }
+      if (X != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(X);
+      }
+      if (Y != 0F) {
+        output.WriteRawTag(45);
+        output.WriteFloat(Y);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -4855,6 +5043,14 @@ namespace Message {
         output.WriteRawTag(24);
         output.WriteInt32(ItemType);
       }
+      if (X != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(X);
+      }
+      if (Y != 0F) {
+        output.WriteRawTag(45);
+        output.WriteFloat(Y);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -4873,6 +5069,12 @@ namespace Message {
       }
       if (ItemType != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(ItemType);
+      }
+      if (X != 0F) {
+        size += 1 + 4;
+      }
+      if (Y != 0F) {
+        size += 1 + 4;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -4894,6 +5096,12 @@ namespace Message {
       }
       if (other.ItemType != 0) {
         ItemType = other.ItemType;
+      }
+      if (other.X != 0F) {
+        X = other.X;
+      }
+      if (other.Y != 0F) {
+        Y = other.Y;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -4926,6 +5134,14 @@ namespace Message {
             ItemType = input.ReadInt32();
             break;
           }
+          case 37: {
+            X = input.ReadFloat();
+            break;
+          }
+          case 45: {
+            Y = input.ReadFloat();
+            break;
+          }
         }
       }
     #endif
@@ -4955,6 +5171,14 @@ namespace Message {
           }
           case 24: {
             ItemType = input.ReadInt32();
+            break;
+          }
+          case 37: {
+            X = input.ReadFloat();
+            break;
+          }
+          case 45: {
+            Y = input.ReadFloat();
             break;
           }
         }

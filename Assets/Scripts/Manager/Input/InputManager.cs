@@ -65,6 +65,8 @@ public class InputManager : MonoBehaviour
         {
             networkSender.SendChangeDirMessage(angle, isMoved);
 
+            Debug.Log($"🍎 {isMoved}");
+
             if (isMoved)
             {
                 // start audio
@@ -72,6 +74,7 @@ public class InputManager : MonoBehaviour
             }
             else
             {
+                Debug.Log(isMoved);
                 // stopch audio
                 AudioManager.Instance.StopWalkingSound();
             }

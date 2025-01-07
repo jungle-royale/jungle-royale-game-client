@@ -2,13 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Message;
-using Google.Protobuf;
-using Unity.VisualScripting;
 using System;
-using System.Data.Common;
-using System.Linq.Expressions;
-using TMPro;
-using UnityEngine.Tilemaps;
 
 public class GameStateManager : Singleton<GameStateManager>
 {
@@ -69,35 +63,6 @@ public class GameStateManager : Singleton<GameStateManager>
                     }
                 }
             }
-        }
-    }
-
-    private void SendChangeBulletStateMessage(string playerId, bool isShooting)
-    {
-        try
-        {
-
-            var changeBulletState = new ChangeBulletState
-            {
-                IsShooting = isShooting
-            };
-
-            var wrapper = new Wrapper
-            {
-                ChangeBulletState = changeBulletState
-            };
-
-            // Protobuf 직렬화
-            var data = wrapper.ToByteArray();
-
-            // WebSocket으로 메시지 전송
-            // networkManager.Send(data);
-
-            // Debug.Log($"Sent CreateBullet: PlayerId={playerId}, StartX={startX}, StartY={startY}, Angle={angle}");
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Failed to send CreateBullet message: {ex.Message}");
         }
     }
 

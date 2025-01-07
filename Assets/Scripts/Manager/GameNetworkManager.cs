@@ -193,7 +193,10 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
             foreach (var player in gameState.PlayerState)
             {
-                playerStateList.Add(new Player(player.Id, player.X, player.Y, player.Health, player.MagicType, player.Angle, player.DashCoolTime));
+                Player newPlayer = new Player(
+                    player.Id, player.X, player.Y, player.Health, player.MagicType, player.Angle, player.DashCoolTime, player.IsMoved, player.IsDashing
+                );
+                playerStateList.Add(newPlayer);
             }
             playerManager.UpdatePlayers(playerStateList);
         }
@@ -240,7 +243,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
             foreach (var tileState in gameState.TileState)
             {
-                tileStateList.Add(new Tile(tileState.TileId, tileState.X, tileState.Y, tileState.TileState_));
+                tileStateList.Add(new Tile(tileState.TileId, tileState.X, tileState.Y, tileState.TileState_, tileState.TileType));
             }
 
             tileManager.UpdateTiles(tileStateList);
@@ -254,14 +257,9 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
             if (gameState.ChangingState.HitBulletState != null && gameState.ChangingState.HitBulletState.Count > 0)
             {
-                Debug.Log($"HitBulletState: {gameState.ChangingState.HitBulletState}");
-
                 foreach (var HitBulletState in gameState.ChangingState.HitBulletState)
                 {
-                    if (HitBulletState.ObjectType == 0) // player
-                        HitBulletStateList.Add(new HitBulletState(HitBulletState.BulletId, HitBulletState.ObjectId));
-                    
-                    else if(HitBulletState.ObjectType == 4); // environment object
+                    HitBulletStateList.Add(new HitBulletState(HitBulletState.ObjectType, HitBulletState.BulletId, HitBulletState.ObjectId, HitBulletState.X, HitBulletState.Y));
                 }
             }
 
