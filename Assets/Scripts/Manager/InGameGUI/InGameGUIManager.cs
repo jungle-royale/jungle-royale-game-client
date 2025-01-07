@@ -106,7 +106,8 @@ public class InGameGUIManager : MonoBehaviour
         if (inGameCanvas != null)
         {
             hpLabel = FindTextInCanvas(inGameCanvas, "HpLabel");
-            playerCountLabel = FindTextInCanvas(inGameCanvas, "PlayerCountLabel");
+            // playerCountLabel = FindTextInCanvas(inGameCanvas, "PlayerCountLabel");
+            playerCountLabel = FindLabelByTag("PlayerCountLabel");
         }
 
         if (gameOverCanvas != null)
@@ -275,7 +276,8 @@ public class InGameGUIManager : MonoBehaviour
     {
         if (inGameCanvas != null && inGameCanvas.activeSelf && playerCountLabel != null)
         {
-            playerCountLabel.text = $"Player Count: {playerCount}";
+            // 숫자를 세 자리로 포맷하여 문자열로 변환
+            playerCountLabel.text = playerCount.ToString("D3");
         }
     }
 }
