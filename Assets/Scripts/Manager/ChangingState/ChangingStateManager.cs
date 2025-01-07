@@ -37,6 +37,13 @@ public class ChangingStateManager : MonoBehaviour
         }
 
         // 다른 상태 (GetItemState, PlayerDeadState 등) 처리 로직 추가 가능
+        if (GetItemStateList != null && GetItemStateList.Count > 0)
+        {
+            foreach (var state in GetItemStateList)
+            {
+                HandleGetItemState(state);
+            }
+        }
     }
 
     private void HandlePlayerHitBulletState(HitBulletState state)
@@ -71,9 +78,43 @@ public class ChangingStateManager : MonoBehaviour
         }
     }
 
+
     private void HandleObjectHitBulletState(HitBulletState state)
     {
 
-       
+
+    }
+
+    private void HandleGetItemState(GetItemState state)
+    {
+        if (playerManager == null)
+        {
+            Debug.LogWarning("PlayerManager is not initialized.");
+            return;
+        }
+
+        GameObject player = playerManager.GetPlayerById(state.playerId);
+        if (player == null)
+        {
+            Debug.LogWarning($"Player with ID {state.playerId} not found.");
+            return;
+        }
+
+        if (state.itemType == 1) // healpack
+        {
+            AudioManager.Instance.PlaySfx(AudioManager.Sfx.Heal, 0.7f);
+        }
+        else if (state.itemType == 2) // stone magic
+        {
+
+        }
+        else if (state.itemType == 3)
+        {
+
+        }
+        else
+        {
+            Debug.Log($"itemType {state.itemType} 없음");
+        }
     }
 }

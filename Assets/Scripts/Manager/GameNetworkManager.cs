@@ -26,9 +26,9 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     private string Host;
 
     private string PathAndQuery;
-    
+
     private string UrlString;
-    
+
 
     private bool IsDebug()
     {
