@@ -8,6 +8,9 @@ public class TileManager : MonoBehaviour
     private Dictionary<string, GameObject> tileObjects = new Dictionary<string, GameObject>();
 
     private Debouncer debouncer = new Debouncer();
+
+    private WebGLHapticManager HaptickManager = new WebGLHapticManager();
+
     const float TILE_Y = 0;
 
     private const float blinkSpeed = 1.5f;
@@ -101,12 +104,10 @@ public class TileManager : MonoBehaviour
         bool isOnTile = playerPosition.x >= tileMinX && playerPosition.x <= tileMaxX &&
                         playerPosition.z >= tileMinZ && playerPosition.z <= tileMaxZ;
 
-        Debug.Log($"{tileScale.x},{tileScale.z} : {tilePosition.x},{tilePosition.y},{tilePosition.z} : {playerPosition.x},{playerPosition.y},{playerPosition.z} : {isOnTile}");
-
         if (isOnTile)
         {
             debouncer.Debounce(200, () => {
-                new WebGLHapticManager().TriggerHaptic(200);
+                HaptickManager.TriggerHaptic(200);
             });
         }
     }

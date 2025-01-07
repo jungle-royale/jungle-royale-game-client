@@ -6,6 +6,7 @@ using UnityEngine;
 public class ChangingStateManager : MonoBehaviour
 {
     public PlayerManager playerManager;
+    private WebGLHapticManager HaptickManager = new WebGLHapticManager();
 
     private void Awake()
     {
@@ -78,6 +79,11 @@ public class ChangingStateManager : MonoBehaviour
         {
             Debug.LogWarning($"Player with ID {state.ObjectId} not found.");
             return;
+        }
+
+        if (state.ObjectId == ClientManager.Instance.ClientId)
+        {
+            HaptickManager.TriggerHaptic(100);
         }
 
         AudioManager.Instance.PlayHitSfx(0.7f);
