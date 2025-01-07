@@ -19,6 +19,11 @@ public class InputAdapter : MonoBehaviour
     {
         isMobile = new DeviceCheck().IsMobile();
 
+        // 모바일에서는 조이스틱 활성화
+        moveJoystick.GameObject().SetActive(isMobile);
+        aimJoystick.GameObject().SetActive(isMobile);
+        dashButton.GameObject().SetActive(isMobile);
+
         // 대시 버튼의 클릭 이벤트 등록
         if (dashButton != null)
         {
@@ -27,6 +32,13 @@ public class InputAdapter : MonoBehaviour
                 isDashButtonPressed = true; // 버튼 눌림 상태 설정
             });
         }
+    }
+
+    public void DeactivateButton()
+    {
+        moveJoystick.GameObject().SetActive(false);
+        aimJoystick.GameObject().SetActive(false);
+        dashButton.GameObject().SetActive(false);
     }
   
     public float GetAxisX()

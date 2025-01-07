@@ -8,5 +8,12 @@ mergeInto(LibraryManager.library, {
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
         // 모바일인지 여부를 확인
         return /android|iPad|iPhone|iPod/i.test(userAgent) ? 1 : 0;
+    },
+    Vibrate: function(duration) {
+        if (navigator.vibrate) {
+            navigator.vibrate(duration); // 진동을 요청 (ms 단위)
+        } else {
+            console.log("Vibration API not supported on this device.");
+        }
     }
 });

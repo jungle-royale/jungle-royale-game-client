@@ -4,12 +4,25 @@ using UnityEngine;
 
 public class TileManager : MonoBehaviour
 {
+    public PlayerManager playerManager;
     private Dictionary<string, GameObject> tileObjects = new Dictionary<string, GameObject>();
+
+    private Debouncer debouncer = new Debouncer();
     const float TILE_Y = 0;
 
     private const float blinkSpeed = 1.5f;
 
     private Color baseColor = new Color(142 / 255f, 183 / 255f, 180 / 255f);
+
+    private void Awake()
+    {
+        // PlayerManager를 찾거나 연결
+        playerManager = FindObjectOfType<PlayerManager>();
+        if (playerManager == null)
+        {
+            Debug.LogError("PlayerManager not found in the scene.");
+        }
+    }
 
     public void UpdateTiles(List<Tile> tiles)
     {
@@ -48,6 +61,53 @@ public class TileManager : MonoBehaviour
         {
             float t = Mathf.PingPong(Time.time * blinkSpeed, 1f); // 0~1 사이의 값 반복
             UpdateGroundColors(tileObject, t);
+            UpdatePlayerHaptick(tileObject);
+        }
+    }
+
+    private void UpdatePlayerHaptick(GameObject tileObject)
+    {
+        // PlayerManager에서 플레이어 객체 가져오기
+        GameObject player = playerManager.GetPlayerById(ClientManager.Instance.ClientId);
+        if (player == null)
+        {
+            return;
+        }
+
+        // "Ground"라는 이름의 자식 객체 찾기
+        Transform groundTransform = tileObject.transform.Find("Grounds/Ground");
+
+        if (groundTransform != null)
+        {
+            // Ground의 Scale 가져오기
+            Vector3 groundScale = groundTransform.localScale;
+            Debug.Log("Ground Scale: " + groundScale);
+        }
+        else
+        {
+            Debug.LogError("Ground object not found under the tileObject!");
+        }
+
+        Vector3 playerPosition = player.transform.position;
+
+        Vector3 tilePosition = tileObject.transform.position;
+        Vector3 tileScale = groundTransform.localScale;
+
+        float tileMinX = tilePosition.x - (tileScale.x / 2f);
+        float tileMaxX = tilePosition.x + (tileScale.x / 2f);
+        float tileMinZ = tilePosition.z - (tileScale.z / 2f);
+        float tileMaxZ = tilePosition.z + (tileScale.z / 2f);
+
+        bool isOnTile = playerPosition.x >= tileMinX && playerPosition.x <= tileMaxX &&
+                        playerPosition.z >= tileMinZ && playerPosition.z <= tileMaxZ;
+
+        Debug.Log($"{tileScale.x},{tileScale.z} : {tilePosition.x},{tilePosition.y},{tilePosition.z} : {playerPosition.x},{playerPosition.y},{playerPosition.z} : {isOnTile}");
+
+        if (isOnTile)
+        {
+            debouncer.Debounce(200, () => {
+                new WebGLHapticManager().TriggerHaptic(200);
+            });
         }
     }
 

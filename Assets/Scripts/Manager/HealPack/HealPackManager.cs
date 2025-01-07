@@ -27,7 +27,6 @@ public class HealPackManager : MonoBehaviour
                 {
                     itemObject = Instantiate(itemPrefab, item.Position(), Quaternion.identity);
                     targetDictionary[item.ItemId] = itemObject;
-                    Debug.Log($"HealPack created with ID: {item.ItemId}");
                 }
                 else
                 {

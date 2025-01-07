@@ -59,6 +59,7 @@ public class InputManager : MonoBehaviour
     private void HandlePlayerDead()
     {
         EndGame = true;
+        input.DeactivateButton();
     }
 
     private void HandleTab()
@@ -114,7 +115,6 @@ public class InputManager : MonoBehaviour
 
         if (player == null)
         {
-            // Debug.LogError("Player tag에 해당하는 객체 없음");
             return; // Player가 없으면 함수 종료
         }
         else
