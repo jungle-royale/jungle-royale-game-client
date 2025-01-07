@@ -26,9 +26,6 @@ public class InputManager : MonoBehaviour
 
     private Debouncer DashDebouncer = new Debouncer();
 
-    // 이펙트
-    private GameObject snowSlashEffect; // SnowSlashEffect를 참조
-
     private bool EndGame = false;
 
     void Start()
@@ -99,38 +96,15 @@ public class InputManager : MonoBehaviour
 
     private void HandleBullet()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-
-        if (player == null)
-        {
-            return; // Player가 없으면 함수 종료
-        }
-        else
-        {
-            snowSlashEffect = player.transform.Find("SnowSlashEffect").gameObject;
-        }
-
         if (input.GetMouseLeftButton() && !lastClickState) // 마우스 왼쪽 버튼 클릭 눌려있는동안
         {
             lastClickState = true;
             networkSender.SendChangeBulletStateMessage(ClientId, true);
-
-            // SnowSlashEffect 활성화
-            if (!snowSlashEffect.activeSelf)
-            {
-                snowSlashEffect.SetActive(true);
-            }
         }
         else if (!input.GetMouseLeftButton() && lastClickState)
         {
             lastClickState = false;
             networkSender.SendChangeBulletStateMessage(ClientId, false);
-
-            // SnowSlashEffect 비활성화
-            if (snowSlashEffect.activeSelf)
-            {
-                snowSlashEffect.SetActive(false);
-            }
         }
     }
 

@@ -54,6 +54,8 @@ message PlayerState {
     int32 dashCoolTime = 7;
     bool isMoved = 8;
     bool isDashing = 9;
+    bool isBurn = 10;
+    bool isShooting = 11;
 }
 
 message ChangeBulletState {

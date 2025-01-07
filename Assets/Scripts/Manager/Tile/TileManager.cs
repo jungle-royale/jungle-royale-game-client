@@ -37,7 +37,31 @@ public class TileManager : MonoBehaviour
 
             if (!tileObjects.TryGetValue(tile.tileId, out GameObject tileObject))
             {
-                GameObject tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile01");
+                GameObject tilePrefab = null;
+
+                // type에 따라 프리팹 배치 (switch 문 사용)
+                switch (tile.tileType)
+                {
+                    case 0:
+                        tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile00");
+                        break;
+
+                    case 1:
+                        tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile01");
+                        break;
+
+                    case 2:
+                        tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile02");
+                        break;
+                    case 3:
+                        tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile03");
+                        break;
+
+                    default:
+                        Debug.LogError($"Unknown tile type: {tile.tileType}");
+                        break;
+                }
+
                 if (tilePrefab != null)
                 {
                     tileObject = Instantiate(tilePrefab, tile.Position(), Quaternion.identity);
@@ -106,7 +130,8 @@ public class TileManager : MonoBehaviour
 
         if (isOnTile)
         {
-            debouncer.Debounce(200, () => {
+            debouncer.Debounce(200, () =>
+            {
                 HaptickManager.TriggerHaptic(200);
             });
         }

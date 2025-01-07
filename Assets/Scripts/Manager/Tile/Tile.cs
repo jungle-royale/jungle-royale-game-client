@@ -21,8 +21,8 @@ public class Tile
         this.tileId = tileId;
         this.X = x;
         this.Y = y;
-        this.warning = warning;
         this.tileType = tileType;
+        this.warning = warning;
     }
 
 

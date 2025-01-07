@@ -1485,7 +1485,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 77253732}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: JoystickSetterExample, Assembly-CSharp
         m_MethodName: SnapY
         m_Mode: 0
         m_Arguments:
@@ -3663,7 +3663,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 77253732}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: JoystickSetterExample, Assembly-CSharp
         m_MethodName: SnapX
         m_Mode: 0
         m_Arguments:
