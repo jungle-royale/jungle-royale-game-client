@@ -4,7 +4,7 @@ using System;
 public class InputManager : MonoBehaviour
 {
     public InputNetworkSender networkSender; // 서버로 입력 정보를 보내는 클래스 참조
-    public CameraHandler cameraHandler;
+    public CameraManager cameraHandler;
 
     public InputAdapter input;
 

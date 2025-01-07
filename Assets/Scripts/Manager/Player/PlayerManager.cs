@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public CameraHandler cameraHandler;
-
     public GameObject currentPlayerPrefab; // 내 플레이어 프리팹
     public GameObject otherPlayerPrefab;   // 다른 플레이어 프리팹
 
@@ -43,8 +41,6 @@ public class PlayerManager : MonoBehaviour
 
     public void UpdatePlayers(List<Player> playerDataList)
     {
-        cameraHandler.UpdateCamera(playerDataList);
-
         int activePlayerNumber = 0;
 
         foreach (var data in playerDataList)

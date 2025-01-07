@@ -4,7 +4,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class CameraHandler : MonoBehaviour
+public class CameraManager : MonoBehaviour
 {
     private Camera mainCamera;
     private Camera miniMapCamera;
@@ -57,19 +57,21 @@ public class CameraHandler : MonoBehaviour
             }
         }
 
+        UpdateMainCamera(player);
+        UpdateMiniMapCamera(player);
+    }
+
+    private void UpdateMainCamera(Player player)
+    {
+        if (mainCamera == null) return;
         // 카메라 위치 및 회전 설정
         mainCamera.transform.position = new Vector3(player.x, 0 + CAMERA_OFFSET_Y, player.y - CAMERA_OFFSET_Z);
         mainCamera.transform.rotation = Quaternion.Euler(CAMERA_ROTATION_X, 0, 0);
-
-        // MiniMapCamera 위치 업데이트
-        // UpdateMiniMapCamera(player);
-        miniMapCamera.transform.position = new Vector3(player.x, MINI_MAP_OFFSET_Y, player.y);
     }
 
     private void UpdateMiniMapCamera(Player player)
     {
         if (miniMapCamera == null) return;
-
         // MiniMapCamera는 플레이어 위치 위로 고정된 높이에서 따라다님
         miniMapCamera.transform.position = new Vector3(player.x, MINI_MAP_OFFSET_Y, player.y);
     }
