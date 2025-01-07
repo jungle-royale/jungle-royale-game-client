@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Billboard : MonoBehaviour
 {
     public Transform cam;
+    const float HPBAR_Y = 1.7f; // 고정할 Y축 위치
 
     void Start()
     {
@@ -25,6 +25,12 @@ public class Billboard : MonoBehaviour
     {
         if (cam != null)
         {
+            // 부모 객체의 위치 가져오기 (플레이어 위치)
+            Vector3 parentPosition = transform.parent.position;
+
+            // 고정된 Y축 값과 부모의 X, Z 값을 사용해 위치 설정
+            transform.position = new Vector3(parentPosition.x, HPBAR_Y, parentPosition.z);
+
             // 카메라를 바라보도록 회전
             transform.LookAt(transform.position + cam.forward);
         }

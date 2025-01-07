@@ -249,6 +249,11 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             tileManager.UpdateTiles(tileStateList);
         }
 
+        if (gameState.LastSec >= 0)
+        {
+            EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateTimerLabel, gameState.LastSec);
+        }
+
         if (gameState.ChangingState != null)
         {
             List<HitBulletState> HitBulletStateList = new List<HitBulletState>();

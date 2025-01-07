@@ -7,7 +7,7 @@ public class InputManager : MonoBehaviour
     public CameraHandler cameraHandler;
 
     public InputAdapter input;
-    
+
 
     // 이동
     private Vector2 lastDirection = Vector2.zero; // 이전 프레임의 방향
@@ -65,7 +65,7 @@ public class InputManager : MonoBehaviour
         {
             networkSender.SendChangeDirMessage(angle, isMoved);
 
-            Debug.Log($"🍎 {isMoved}");
+            // Debug.Log($"🍎 {isMoved}");
 
             if (isMoved)
             {

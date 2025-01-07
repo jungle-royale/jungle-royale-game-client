@@ -659,6 +659,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4414040733044798399, guid: df2d79d5dd3334ce99d11e8174878245,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6831633214278489879, guid: df2d79d5dd3334ce99d11e8174878245,
+        type: 3}
+      propertyPath: fixedYPosition
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7623479863435578230, guid: df2d79d5dd3334ce99d11e8174878245,
         type: 3}
       propertyPath: m_Pivot.x
@@ -742,7 +752,7 @@ PrefabInstance:
     - target: {fileID: 7623479863435578230, guid: df2d79d5dd3334ce99d11e8174878245,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7623479863435578230, guid: df2d79d5dd3334ce99d11e8174878245,
         type: 3}

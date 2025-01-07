@@ -17,6 +17,7 @@ TagManager:
   - MiniMapCamera
   - KillCountLabel
   - PointLabel
+  - TimerLabel
   layers:
   - Default
   - TransparentFX
