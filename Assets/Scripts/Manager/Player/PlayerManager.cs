@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public CameraHandler cameraHandler;
-
     public GameObject currentPlayerPrefab; // 내 플레이어 프리팹
     public GameObject otherPlayerPrefab;   // 다른 플레이어 프리팹
 
@@ -43,8 +41,6 @@ public class PlayerManager : MonoBehaviour
 
     public void UpdatePlayers(List<Player> playerDataList)
     {
-        cameraHandler.UpdateCamera(playerDataList);
-
         int activePlayerNumber = 0;
 
         foreach (var data in playerDataList)
@@ -154,9 +150,9 @@ public class PlayerManager : MonoBehaviour
                 Quaternion tiltRotation = Quaternion.LookRotation(movementDirection.normalized); // 이동 방향을 기준으로 회전
                                                                                                     // Y축 기울이기 (Roll 추가)
                 Quaternion tilt = Quaternion.Euler(
-                    tiltRotation.eulerAngles.x + 10,               // 상하 기울임 유지
+                    10,               // 상하 기울임 유지
                     tiltRotation.eulerAngles.y,
-                    tiltRotation.eulerAngles.z
+                    0
                 );
 
                 player.transform.rotation = tilt;
@@ -207,18 +203,14 @@ public class PlayerManager : MonoBehaviour
                 keysToRemove.Add(key);
             }
         }
-
+        
+        // ChangingState로 이동하기
         if (!currentPlayerDead && !existingIds.Contains(currentPlayerId))
         {
             currentPlayerDead = true;
             Destroy(currentPlayer);
             movePlayers.Remove(currentPlayerId);
             dashPlayers.Remove(currentPlayerId);
-
-            AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dead, 1.0f);
-            AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameOver, 0.7f);
-            EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameOver");
-            EventBus<InputButtonEventType>.Publish(InputButtonEventType.PlayerDead);
         }
 
         foreach (var key in keysToRemove)

@@ -4,7 +4,7 @@ using System;
 public class InputManager : MonoBehaviour
 {
     public InputNetworkSender networkSender; // 서버로 입력 정보를 보내는 클래스 참조
-    public CameraHandler cameraHandler;
+    public CameraManager cameraHandler;
 
     public InputAdapter input;
 
@@ -29,13 +29,37 @@ public class InputManager : MonoBehaviour
     // 이펙트
     private GameObject snowSlashEffect; // SnowSlashEffect를 참조
 
+    private bool EndGame = false;
+
+    void Start()
+    {
+        EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.PlayerDead, HandlePlayerDead);
+    }
+
+    private void OnDestroy()
+    {
+        EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.PlayerDead, HandlePlayerDead);
+    }
+
     void Update()
     {
-        HandleBullet();
-        HandleMove();
-        HandleDash();
-        HandleDirection();
-        HandleTab();
+        if (EndGame)
+        {
+            HandleTab();
+        }
+        else
+        {
+            HandleBullet();
+            HandleMove();
+            HandleDash();
+            HandleDirection();
+        }
+    }
+
+    private void HandlePlayerDead()
+    {
+        EndGame = true;
+        input.DeactivateButton();
     }
 
     private void HandleTab()
@@ -91,7 +115,6 @@ public class InputManager : MonoBehaviour
 
         if (player == null)
         {
-            // Debug.LogError("Player tag에 해당하는 객체 없음");
             return; // Player가 없으면 함수 종료
         }
         else

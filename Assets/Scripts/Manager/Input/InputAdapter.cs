@@ -8,19 +8,21 @@ public class InputAdapter : MonoBehaviour
     public VariableJoystick aimJoystick;
 
     public Button dashButton;
-    public Button watchingButton;
 
     private bool isDashButtonPressed; // 대시 버튼 눌림 상태
-    private bool isWatchingButtonPressed; // 대시 버튼 눌림 상태
 
     public bool isMobile;
 
     private float lastJoystickAngle = 0f; // 이전 각도 저장 변수
 
-
     void Start()
     {
         isMobile = new DeviceCheck().IsMobile();
+
+        // 모바일에서는 조이스틱 활성화
+        moveJoystick.GameObject().SetActive(isMobile);
+        aimJoystick.GameObject().SetActive(isMobile);
+        dashButton.GameObject().SetActive(isMobile);
 
         // 대시 버튼의 클릭 이벤트 등록
         if (dashButton != null)
@@ -30,33 +32,15 @@ public class InputAdapter : MonoBehaviour
                 isDashButtonPressed = true; // 버튼 눌림 상태 설정
             });
         }
-        if (watchingButton != null)
-        {
-            watchingButton.onClick.AddListener(() =>
-            {
-                isWatchingButtonPressed = true; // 버튼 눌림 상태 설정
-            });
-        }
-
-        if (isMobile)
-        {
-            EventBus<InputButtonEventType>.Subscribe(InputButtonEventType.PlayerDead, SetNextButton);
-        }
     }
 
-    private void OnDestroy()
+    public void DeactivateButton()
     {
-        if (isMobile)
-        {
-            EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.PlayerDead, SetNextButton);
-        }
+        moveJoystick.GameObject().SetActive(false);
+        aimJoystick.GameObject().SetActive(false);
+        dashButton.GameObject().SetActive(false);
     }
-
-    private void SetNextButton()
-    {
-        watchingButton.GameObject().SetActive(true);
-    }
-
+  
     public float GetAxisX()
     {
         if (isMobile)
@@ -85,15 +69,6 @@ public class InputAdapter : MonoBehaviour
     }
     public bool GetTab()
     {
-        if (isMobile)
-        {
-            if (isWatchingButtonPressed)
-            {
-                isWatchingButtonPressed = false;
-                return true;
-            }
-            return false;
-        }
         return Input.GetKeyDown(KeyCode.Tab);
     }
 
@@ -193,7 +168,6 @@ public class InputAdapter : MonoBehaviour
         }
         return 0;
     }
-
 
 
 }

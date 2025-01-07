@@ -15,13 +15,14 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
     private DateTime requestStartTime;
 
+    public ChangingStateManager changingStateManager;
     public GameStateManager gameStateManager;
-    public PlayerManager playerManager;
     public TileManager tileManager;
     public BulletManager bulletManager;
     public MagicManager magicManager;
     public HealPackManager healPackManager;
-    public ChangingStateManager changingStateManager;
+    public PlayerManager playerManager;
+    public CameraManager cameraManager;
 
     private string Host;
 
@@ -187,18 +188,39 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     {
         gameStateManager.HandleGameState(gameState);
 
-        if (gameState.PlayerState != null && gameState.PlayerState.Count > 0)
+        if (gameState.ChangingState != null)
         {
-            List<Player> playerStateList = new List<Player>();
+            List<HitBulletState> HitBulletStateList = new List<HitBulletState>();
+            List<GetItemState> GetItemStateList = new List<GetItemState>();
+            List<PlayerDeadState> PlayerDeadStateList = new List<PlayerDeadState>();
 
-            foreach (var player in gameState.PlayerState)
+            if (gameState.ChangingState.HitBulletState != null && gameState.ChangingState.HitBulletState.Count > 0)
             {
-                Player newPlayer = new Player(
-                    player.Id, player.X, player.Y, player.Health, player.MagicType, player.Angle, player.DashCoolTime, player.IsMoved, player.IsDashing
-                );
-                playerStateList.Add(newPlayer);
+                foreach (var HitBulletState in gameState.ChangingState.HitBulletState)
+                {
+                    HitBulletStateList.Add(new HitBulletState(HitBulletState.ObjectType, HitBulletState.BulletId, HitBulletState.ObjectId, HitBulletState.X, HitBulletState.Y));
+                }
             }
-            playerManager.UpdatePlayers(playerStateList);
+
+            if (gameState.ChangingState.GetItemState != null && gameState.ChangingState.GetItemState.Count > 0)
+            {
+
+                foreach (var GetItemState in gameState.ChangingState.GetItemState)
+                {
+                    GetItemStateList.Add(new GetItemState(GetItemState.ItemId, GetItemState.PlayerId, GetItemState.ItemType));
+                }
+            }
+
+            if (gameState.ChangingState.PlayerDeadState != null && gameState.ChangingState.PlayerDeadState.Count > 0)
+            {
+
+                foreach (var PlayerDeadState in gameState.ChangingState.PlayerDeadState)
+                {
+                    PlayerDeadStateList.Add(new PlayerDeadState(PlayerDeadState.KillerId, PlayerDeadState.DeadId, PlayerDeadState.DyingStatus));
+                }
+            }
+
+            changingStateManager.UpdateState(HitBulletStateList, GetItemStateList, PlayerDeadStateList);
         }
 
         if (gameState.BulletState != null && gameState.BulletState.Count > 0)
@@ -254,40 +276,21 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateTimerLabel, gameState.LastSec);
         }
 
-        if (gameState.ChangingState != null)
+        if (gameState.PlayerState != null && gameState.PlayerState.Count > 0)
         {
-            List<HitBulletState> HitBulletStateList = new List<HitBulletState>();
-            List<GetItemState> GetItemStateList = new List<GetItemState>();
-            List<PlayerDeadState> PlayerDeadStateList = new List<PlayerDeadState>();
+            List<Player> playerStateList = new List<Player>();
 
-            if (gameState.ChangingState.HitBulletState != null && gameState.ChangingState.HitBulletState.Count > 0)
+            foreach (var player in gameState.PlayerState)
             {
-                foreach (var HitBulletState in gameState.ChangingState.HitBulletState)
-                {
-                    HitBulletStateList.Add(new HitBulletState(HitBulletState.ObjectType, HitBulletState.BulletId, HitBulletState.ObjectId, HitBulletState.X, HitBulletState.Y));
-                }
+                Player newPlayer = new Player(
+                    player.Id, player.X, player.Y, player.Health, player.MagicType, player.Angle, player.DashCoolTime, player.IsMoved, player.IsDashing
+                );
+                playerStateList.Add(newPlayer);
             }
-
-            if (gameState.ChangingState.GetItemState != null && gameState.ChangingState.GetItemState.Count > 0)
-            {
-
-                foreach (var GetItemState in gameState.ChangingState.GetItemState)
-                {
-                    GetItemStateList.Add(new GetItemState(GetItemState.ItemId, GetItemState.PlayerId, GetItemState.ItemType));
-                }
-            }
-
-            if (gameState.ChangingState.PlayerDeadState != null && gameState.ChangingState.PlayerDeadState.Count > 0)
-            {
-
-                foreach (var PlayerDeadState in gameState.ChangingState.PlayerDeadState)
-                {
-                    PlayerDeadStateList.Add(new PlayerDeadState(PlayerDeadState.KillerId, PlayerDeadState.DeadId, PlayerDeadState.DyingStatus));
-                }
-            }
-
-            changingStateManager.UpdateState(HitBulletStateList, GetItemStateList, PlayerDeadStateList);
+            playerManager.UpdatePlayers(playerStateList);
+            cameraManager.UpdateCamera(playerStateList);
         }
+
     }
 
     public bool IsOpen()
