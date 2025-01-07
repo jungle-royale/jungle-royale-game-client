@@ -91,18 +91,6 @@ public class InputManager : MonoBehaviour
 
             // Debug.Log($"🍎 {isMoved}");
 
-            if (isMoved)
-            {
-                // start audio
-                AudioManager.Instance.StartWalkingSound();
-            }
-            else
-            {
-                Debug.Log(isMoved);
-                // stopch audio
-                AudioManager.Instance.StopWalkingSound();
-            }
-
             // 상태 업데이트
             lastDirection = inputDirection;
             wasMoved = isMoved;
@@ -152,13 +140,6 @@ public class InputManager : MonoBehaviour
 
         if (input.GetSpace())
         {
-            if (ClientManager.Instance.CanDoDash())
-            {
-                DashDebouncer.Debounce(300, () =>
-                {
-                    AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dash);
-                });
-            }
             dash = true;
             networkSender.SendDoDash(dash);
         }

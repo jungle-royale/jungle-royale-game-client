@@ -9,6 +9,12 @@ public class BulletManager : MonoBehaviour
 
     public void UpdateBullets(List<Bullet> bullets)
     {
+        // camera 비교해서 update할 아이들만
+        
+        // 애초에 state 받는곳에서 없애버려도..? - 구조상 서버에서 안주면 없다 처리 하니까!
+        // 죽었다는 charging state에서 처리하면 되고
+        // 어차피 current player는 포함될 거고
+
         HashSet<string> activeBulletIds = new HashSet<string>();
 
         foreach (var bullet in bullets)
@@ -39,26 +45,20 @@ public class BulletManager : MonoBehaviour
 
     private void RemoveInactiveBullets(HashSet<string> activeBulletIds)
     {
-        // Debug.Log("총알 삭제!");
         List<string> bulletsToRemove = new List<string>();
 
         foreach (var bulletId in bulletObjects.Keys)
         {
-            // Debug.Log("총알 삭제!2");
-            // Debug.Log($"BulletId: {bulletId}");
             if (!activeBulletIds.Contains(bulletId))
             {
-                // Debug.Log("총알 삭제!3");
                 bulletsToRemove.Add(bulletId);
             }
         }
 
         foreach (var bulletId in bulletsToRemove)
         {
-            // Debug.Log("총알 삭제!4");
             if (bulletObjects.TryGetValue(bulletId, out GameObject bullet))
             {
-                // Debug.Log("총알 삭제!5");
                 Destroy(bullet);
                 bulletObjects.Remove(bulletId);
             }
