@@ -1,18 +1,22 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public GameObject currentPlayerPrefab; // 내 플레이어 프리팹
-    public GameObject otherPlayerPrefab;   // 다른 플레이어 프리팹
-
+    public GameObject playerPrefab; // 내 플레이어 프리팹
+    // public GameObject otherPlayerPrefab;   // 다른 플레이어 프리팹
     private bool currentPlayerDead = false;
+
+    // 이펙트
+    private GameObject shootingEffect;
 
     private GameObject currentPlayer; // 현재 플레이어 객체
     private Dictionary<string, GameObject> otherPlayers = new Dictionary<string, GameObject>();
 
     private HashSet<string> movePlayers = new HashSet<string>();
     private HashSet<string> dashPlayers = new HashSet<string>();
+    private HashSet<string> shootingPlayers = new HashSet<string>();
 
     private string currentPlayerId
     {
@@ -82,7 +86,7 @@ public class PlayerManager : MonoBehaviour
 
     private void CreateCurrentPlayer(Player data)
     {
-        currentPlayer = Instantiate(currentPlayerPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity);
+        currentPlayer = Instantiate(playerPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity);
         currentPlayer.tag = "Player";
         currentPlayer.name = "MyPlayer";
 
@@ -96,7 +100,7 @@ public class PlayerManager : MonoBehaviour
 
     private void CreateOtherPlayer(Player data)
     {
-        GameObject newPlayer = Instantiate(otherPlayerPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity);
+        GameObject newPlayer = Instantiate(playerPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity);
 
         // 플레이어의 HealthBar 초기화
         HealthBar healthBarComponent = newPlayer.GetComponentInChildren<HealthBar>();
@@ -118,6 +122,7 @@ public class PlayerManager : MonoBehaviour
         }
 
         UpdatePlayerMoveState(currentPlayer, serverData);
+        UpdatePlayerShootState(currentPlayer, serverData);
         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateHpLabel, serverData.health);
     }
 
@@ -130,6 +135,7 @@ public class PlayerManager : MonoBehaviour
             healthBarComponent.SetHealth(serverData.health);
         }
         UpdatePlayerMoveState(player, serverData);
+        UpdatePlayerShootState(player, serverData);
     }
 
     private void UpdatePlayerMoveState(GameObject player, Player serverData)
@@ -144,7 +150,7 @@ public class PlayerManager : MonoBehaviour
             Debug.LogWarning($"Animator not found on player: {player.name}");
             return;
         }
-     
+
         if (serverData.isDashing)
         {
             if (!dashPlayers.Contains(serverData.id))
@@ -203,6 +209,47 @@ public class PlayerManager : MonoBehaviour
         player.transform.position = newPosition;
     }
 
+    private void UpdatePlayerShootState(GameObject player, Player serverData)
+    {
+        shootingEffect = player.transform.Find("ShootingIce").gameObject;
+        if (shootingEffect == null)
+        {
+            Debug.LogError("shootingIce 이펙트 없음");
+        }
+
+        if (serverData.isShooting)
+        {
+            if (dashPlayers.Contains(serverData.id))
+            {
+                shootingEffect.SetActive(false);
+                shootingPlayers.Remove(serverData.id);
+            }
+            else
+            {
+                if (!shootingPlayers.Contains(serverData.id))
+                {
+                    Debug.Log("isShooting True");
+                    shootingPlayers.Add(serverData.id);
+                    shootingEffect.SetActive(true);
+                }
+            }
+        }
+        else
+        {
+            if (shootingPlayers.Contains(serverData.id))
+            {
+                Debug.Log("isShooting False");
+                shootingPlayers.Remove(serverData.id);
+
+                // Shooting Effect 비활성화
+                if (shootingEffect.activeSelf)
+                {
+                    shootingEffect.SetActive(false);
+                }
+            }
+        }
+    }
+
     private void RemoveDisconnectedPlayers(List<Player> playerDataList)
     {
         var existingIds = new HashSet<string>(playerDataList.ConvertAll(p => p.id));
@@ -215,7 +262,7 @@ public class PlayerManager : MonoBehaviour
                 keysToRemove.Add(key);
             }
         }
-        
+
         foreach (var key in keysToRemove)
         {
             Destroy(otherPlayers[key]);

@@ -42,30 +42,31 @@ namespace Message {
             "dGUYBCADKAsyFy5tZXNzYWdlLk1hZ2ljSXRlbVN0YXRlEiUKCXRpbGVTdGF0",
             "ZRgFIAMoCzISLm1lc3NhZ2UuVGlsZVN0YXRlEg8KB2xhc3RTZWMYBiABKAUS",
             "LQoNY2hhbmdpbmdTdGF0ZRgHIAEoCzIWLm1lc3NhZ2UuQ2hhbmdpbmdTdGF0",
-            "ZSKbAQoLUGxheWVyU3RhdGUSCgoCaWQYASABKAkSCQoBeBgCIAEoAhIJCgF5",
+            "ZSK/AQoLUGxheWVyU3RhdGUSCgoCaWQYASABKAkSCQoBeBgCIAEoAhIJCgF5",
             "GAMgASgCEg4KBmhlYWx0aBgEIAEoBRIRCgltYWdpY1R5cGUYBSABKAUSDQoF",
             "YW5nbGUYBiABKAISFAoMZGFzaENvb2xUaW1lGAcgASgFEg8KB2lzTW92ZWQY",
-            "CCABKAgSEQoJaXNEYXNoaW5nGAkgASgIIicKEUNoYW5nZUJ1bGxldFN0YXRl",
-            "EhIKCmlzU2hvb3RpbmcYASABKAgiSQoLQnVsbGV0U3RhdGUSEAoIYnVsbGV0",
-            "SWQYASABKAkSEgoKYnVsbGV0VHlwZRgCIAEoBRIJCgF4GAMgASgCEgkKAXkY",
-            "BCABKAIiGgoJR2FtZUNvdW50Eg0KBWNvdW50GAEgASgFIhYKBkRvRGFzaBIM",
-            "CgRkYXNoGAEgASgIIh4KCUdhbWVTdGFydBIRCgltYXBMZW5ndGgYASABKAUi",
-            "NQoNSGVhbFBhY2tTdGF0ZRIOCgZpdGVtSWQYASABKAkSCQoBeBgCIAEoAhIJ",
-            "CgF5GAMgASgCIkkKDk1hZ2ljSXRlbVN0YXRlEg4KBml0ZW1JZBgBIAEoCRIR",
-            "CgltYWdpY1R5cGUYAiABKAUSCQoBeBgDIAEoAhIJCgF5GAQgASgCIlYKCVRp",
-            "bGVTdGF0ZRIOCgZ0aWxlSWQYASABKAkSCQoBeBgCIAEoAhIJCgF5GAMgASgC",
-            "EhAKCHRpbGVUeXBlGAQgASgFEhEKCXRpbGVTdGF0ZRgFIAEoBSKgAQoNQ2hh",
-            "bmdpbmdTdGF0ZRIvCg5oaXRCdWxsZXRTdGF0ZRgBIAMoCzIXLm1lc3NhZ2Uu",
-            "SGl0QnVsbGV0U3RhdGUSKwoMZ2V0SXRlbVN0YXRlGAIgAygLMhUubWVzc2Fn",
-            "ZS5HZXRJdGVtU3RhdGUSMQoPcGxheWVyRGVhZFN0YXRlGAMgAygLMhgubWVz",
-            "c2FnZS5QbGF5ZXJEZWFkU3RhdGUicgoOSGl0QnVsbGV0U3RhdGUSEgoKb2Jq",
-            "ZWN0VHlwZRgBIAEoBRIQCghidWxsZXRJZBgCIAEoCRIQCghvYmplY3RJZBgD",
-            "IAEoCRIJCgF4GAQgASgCEgkKAXkYBSABKAISEgoKYnVsbGV0VHlwZRgGIAEo",
-            "BSJYCgxHZXRJdGVtU3RhdGUSDgoGaXRlbUlkGAEgASgJEhAKCHBsYXllcklk",
-            "GAIgASgJEhAKCGl0ZW1UeXBlGAMgASgFEgkKAXgYBCABKAISCQoBeRgFIAEo",
-            "AiJsCg9QbGF5ZXJEZWFkU3RhdGUSEAoIa2lsbGVySWQYASABKAkSDgoGZGVh",
-            "ZElkGAIgASgJEhMKC2R5aW5nU3RhdHVzGAMgASgFEg8KB2tpbGxOdW0YBCAB",
-            "KAUSEQoJUGxhY2VtZW50GAUgASgFQgpaCC9tZXNzYWdlYgZwcm90bzM="));
+            "CCABKAgSEQoJaXNEYXNoaW5nGAkgASgIEg4KBmlzQnVybhgKIAEoCBISCgpp",
+            "c1Nob290aW5nGAsgASgIIicKEUNoYW5nZUJ1bGxldFN0YXRlEhIKCmlzU2hv",
+            "b3RpbmcYASABKAgiSQoLQnVsbGV0U3RhdGUSEAoIYnVsbGV0SWQYASABKAkS",
+            "EgoKYnVsbGV0VHlwZRgCIAEoBRIJCgF4GAMgASgCEgkKAXkYBCABKAIiGgoJ",
+            "R2FtZUNvdW50Eg0KBWNvdW50GAEgASgFIhYKBkRvRGFzaBIMCgRkYXNoGAEg",
+            "ASgIIh4KCUdhbWVTdGFydBIRCgltYXBMZW5ndGgYASABKAUiNQoNSGVhbFBh",
+            "Y2tTdGF0ZRIOCgZpdGVtSWQYASABKAkSCQoBeBgCIAEoAhIJCgF5GAMgASgC",
+            "IkkKDk1hZ2ljSXRlbVN0YXRlEg4KBml0ZW1JZBgBIAEoCRIRCgltYWdpY1R5",
+            "cGUYAiABKAUSCQoBeBgDIAEoAhIJCgF5GAQgASgCIlYKCVRpbGVTdGF0ZRIO",
+            "CgZ0aWxlSWQYASABKAkSCQoBeBgCIAEoAhIJCgF5GAMgASgCEhAKCHRpbGVU",
+            "eXBlGAQgASgFEhEKCXRpbGVTdGF0ZRgFIAEoBSKgAQoNQ2hhbmdpbmdTdGF0",
+            "ZRIvCg5oaXRCdWxsZXRTdGF0ZRgBIAMoCzIXLm1lc3NhZ2UuSGl0QnVsbGV0",
+            "U3RhdGUSKwoMZ2V0SXRlbVN0YXRlGAIgAygLMhUubWVzc2FnZS5HZXRJdGVt",
+            "U3RhdGUSMQoPcGxheWVyRGVhZFN0YXRlGAMgAygLMhgubWVzc2FnZS5QbGF5",
+            "ZXJEZWFkU3RhdGUicgoOSGl0QnVsbGV0U3RhdGUSEgoKb2JqZWN0VHlwZRgB",
+            "IAEoBRIQCghidWxsZXRJZBgCIAEoCRIQCghvYmplY3RJZBgDIAEoCRIJCgF4",
+            "GAQgASgCEgkKAXkYBSABKAISEgoKYnVsbGV0VHlwZRgGIAEoBSJYCgxHZXRJ",
+            "dGVtU3RhdGUSDgoGaXRlbUlkGAEgASgJEhAKCHBsYXllcklkGAIgASgJEhAK",
+            "CGl0ZW1UeXBlGAMgASgFEgkKAXgYBCABKAISCQoBeRgFIAEoAiJsCg9QbGF5",
+            "ZXJEZWFkU3RhdGUSEAoIa2lsbGVySWQYASABKAkSDgoGZGVhZElkGAIgASgJ",
+            "EhMKC2R5aW5nU3RhdHVzGAMgASgFEg8KB2tpbGxOdW0YBCABKAUSEQoJUGxh",
+            "Y2VtZW50GAUgASgFQgpaCC9tZXNzYWdlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -74,7 +75,7 @@ namespace Message {
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.ChangeDir), global::Message.ChangeDir.Parser, new[]{ "Angle", "IsMoved" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.ChangeAngle), global::Message.ChangeAngle.Parser, new[]{ "Angle" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameState), global::Message.GameState.Parser, new[]{ "PlayerState", "BulletState", "HealPackState", "MagicItemState", "TileState", "LastSec", "ChangingState" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Message.PlayerState), global::Message.PlayerState.Parser, new[]{ "Id", "X", "Y", "Health", "MagicType", "Angle", "DashCoolTime", "IsMoved", "IsDashing" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Message.PlayerState), global::Message.PlayerState.Parser, new[]{ "Id", "X", "Y", "Health", "MagicType", "Angle", "DashCoolTime", "IsMoved", "IsDashing", "IsBurn", "IsShooting" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.ChangeBulletState), global::Message.ChangeBulletState.Parser, new[]{ "IsShooting" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.BulletState), global::Message.BulletState.Parser, new[]{ "BulletId", "BulletType", "X", "Y" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameCount), global::Message.GameCount.Parser, new[]{ "Count" }, null, null, null, null),
@@ -1803,6 +1804,8 @@ namespace Message {
       dashCoolTime_ = other.dashCoolTime_;
       isMoved_ = other.isMoved_;
       isDashing_ = other.isDashing_;
+      isBurn_ = other.isBurn_;
+      isShooting_ = other.isShooting_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1920,6 +1923,30 @@ namespace Message {
       }
     }
 
+    /// <summary>Field number for the "isBurn" field.</summary>
+    public const int IsBurnFieldNumber = 10;
+    private bool isBurn_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool IsBurn {
+      get { return isBurn_; }
+      set {
+        isBurn_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "isShooting" field.</summary>
+    public const int IsShootingFieldNumber = 11;
+    private bool isShooting_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool IsShooting {
+      get { return isShooting_; }
+      set {
+        isShooting_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1944,6 +1971,8 @@ namespace Message {
       if (DashCoolTime != other.DashCoolTime) return false;
       if (IsMoved != other.IsMoved) return false;
       if (IsDashing != other.IsDashing) return false;
+      if (IsBurn != other.IsBurn) return false;
+      if (IsShooting != other.IsShooting) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1960,6 +1989,8 @@ namespace Message {
       if (DashCoolTime != 0) hash ^= DashCoolTime.GetHashCode();
       if (IsMoved != false) hash ^= IsMoved.GetHashCode();
       if (IsDashing != false) hash ^= IsDashing.GetHashCode();
+      if (IsBurn != false) hash ^= IsBurn.GetHashCode();
+      if (IsShooting != false) hash ^= IsShooting.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2014,6 +2045,14 @@ namespace Message {
         output.WriteRawTag(72);
         output.WriteBool(IsDashing);
       }
+      if (IsBurn != false) {
+        output.WriteRawTag(80);
+        output.WriteBool(IsBurn);
+      }
+      if (IsShooting != false) {
+        output.WriteRawTag(88);
+        output.WriteBool(IsShooting);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -2060,6 +2099,14 @@ namespace Message {
         output.WriteRawTag(72);
         output.WriteBool(IsDashing);
       }
+      if (IsBurn != false) {
+        output.WriteRawTag(80);
+        output.WriteBool(IsBurn);
+      }
+      if (IsShooting != false) {
+        output.WriteRawTag(88);
+        output.WriteBool(IsShooting);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -2095,6 +2142,12 @@ namespace Message {
         size += 1 + 1;
       }
       if (IsDashing != false) {
+        size += 1 + 1;
+      }
+      if (IsBurn != false) {
+        size += 1 + 1;
+      }
+      if (IsShooting != false) {
         size += 1 + 1;
       }
       if (_unknownFields != null) {
@@ -2135,6 +2188,12 @@ namespace Message {
       }
       if (other.IsDashing != false) {
         IsDashing = other.IsDashing;
+      }
+      if (other.IsBurn != false) {
+        IsBurn = other.IsBurn;
+      }
+      if (other.IsShooting != false) {
+        IsShooting = other.IsShooting;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2191,6 +2250,14 @@ namespace Message {
             IsDashing = input.ReadBool();
             break;
           }
+          case 80: {
+            IsBurn = input.ReadBool();
+            break;
+          }
+          case 88: {
+            IsShooting = input.ReadBool();
+            break;
+          }
         }
       }
     #endif
@@ -2244,6 +2311,14 @@ namespace Message {
           }
           case 72: {
             IsDashing = input.ReadBool();
+            break;
+          }
+          case 80: {
+            IsBurn = input.ReadBool();
+            break;
+          }
+          case 88: {
+            IsShooting = input.ReadBool();
             break;
           }
         }

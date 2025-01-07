@@ -13,18 +13,21 @@ public class Player
     public int dashCoolTime;
     public bool isMoved;
     public bool isDashing;
+    public bool isShooting;
 
     public Player(
-        string playerId, 
-        float x, 
-        float y, 
-        int health, 
-        int magictype, 
-        float angle, 
+        string playerId,
+        float x,
+        float y,
+        int health,
+        int magictype,
+        float angle,
         int dashCoolTime,
         bool isMoved,
-        bool isDashing
-    ) {
+        bool isDashing,
+        bool isShooting
+    )
+    {
         this.id = playerId;
         this.x = x;
         this.y = y;
@@ -34,6 +37,7 @@ public class Player
         this.dashCoolTime = dashCoolTime;
         this.isMoved = isMoved;
         this.isDashing = isDashing;
+        this.isShooting = isShooting;
     }
 
     public Vector3 NewPosition(float playerY)

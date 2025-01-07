@@ -53,6 +53,9 @@ public class TileManager : MonoBehaviour
                     case 2:
                         tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile02");
                         break;
+                    case 3:
+                        tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile03");
+                        break;
 
                     default:
                         Debug.LogError($"Unknown tile type: {tile.tileType}");
