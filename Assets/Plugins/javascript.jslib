@@ -15,5 +15,15 @@ mergeInto(LibraryManager.library, {
         } else {
             console.log("Vibration API not supported on this device.");
         }
+    },
+    RemoveLoadingScreen: function() {
+        // Assets/WebGLTemplates/index.html에서 custom-loading-screen id 가진 tag 삭제
+        var loadingScreen = document.getElementById('custom-loading-screen');
+        if (loadingScreen) {
+            document.body.removeChild(loadingScreen);
+            console.log(`Element with custom-loading-screen removed.`);
+        } else {
+            console.log(`No element found with id '${id}'.`);
+        }
     }
 });

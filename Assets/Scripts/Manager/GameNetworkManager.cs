@@ -170,6 +170,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     private void HandleGameInit(GameInit init)
     {
         ClientManager.Instance.SetClientId(init.Id);
+        new LoadingScreenRemover().Remove();
     }
 
     private void HandleGameCount(GameCount count)
