@@ -6,6 +6,7 @@ public class ObjectInfoPrinter : MonoBehaviour
     private GameObject prefab;
     // Resources 폴더 내 프리팹 경로
     private string prefabPath = "Prefabs/Tile/Tile01";
+    const int PIVOT = 10;
 
     void Start()
     {
@@ -29,7 +30,7 @@ public class ObjectInfoPrinter : MonoBehaviour
                 Vector3 capsulePosition = child.localPosition; // 로컬 좌표
                 bool isShorterThanBulletY = capsuleCollider.height < 0.8;
 
-                Debug.Log($"[Capsule] 오브젝트 이름: {child.name}, X: {capsulePosition.x}, Z: {capsulePosition.z}, Radius: {capsuleCollider.radius}, Shorter Than BulletY: {isShorterThanBulletY}");
+                Debug.Log($"[Capsule] 오브젝트 이름: {child.name}, X: {capsulePosition.x + PIVOT}, Z: {capsulePosition.z + PIVOT}, Radius: {capsuleCollider.radius}, Shorter Than BulletY: {isShorterThanBulletY}");
             }
 
             // Box Collider를 가진 경우 처리
@@ -46,7 +47,7 @@ public class ObjectInfoPrinter : MonoBehaviour
 
                 bool isShorterThanBulletY = size.y < 0.8;
 
-                Debug.Log($"[Box] 오브젝트 이름: {child.name}, X: {bottomLeftCorner.x}, Z: {bottomLeftCorner.z}), Width: {size.x}, Length: {size.z}, Shorter Than BulletY: {isShorterThanBulletY}");
+                Debug.Log($"[Box] 오브젝트 이름: {child.name}, X: {bottomLeftCorner.x + PIVOT}, Z: {bottomLeftCorner.z + PIVOT}), Width: {size.x}, Length: {size.z}, Shorter Than BulletY: {isShorterThanBulletY}");
             }
         }
     }
