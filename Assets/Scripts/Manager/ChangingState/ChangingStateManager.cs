@@ -36,12 +36,35 @@ public class ChangingStateManager : MonoBehaviour
             }
         }
 
-        if (GetItemStateList != null && GetItemStateList.Count > 0)
+        foreach (var state in GetItemStateList)
         {
-            foreach (var state in GetItemStateList)
-            {
-                HandleGetItemState(state);
-            }
+            HandleGetItemState(state);
+        }
+
+        foreach (var deadState in PlayerDeadStateList)
+        {
+            HandlePlayerDeadState(deadState);
+        }
+    }
+
+    private void HandlePlayerDeadState(PlayerDeadState state)
+    {
+        // TODO: 여기서 카메라 range check
+
+        // 나 인 경우
+        if (state.deadPlayerId == ClientManager.Instance.ClientId)
+        {
+            AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dead, 1.0f); // dead sound가 두 개여야 할 듯
+            AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameOver, 0.7f);
+            EventBus<InputButtonEventType>.Publish(InputButtonEventType.PlayerDead);
+
+            // TODO: 죽음 애니메이션 처리 후 호출
+            EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameOver");
+        }
+        // 다른 사람인 경우
+        else 
+        {
+            AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dead, 1.0f);
         }
     }
 
@@ -86,6 +109,8 @@ public class ChangingStateManager : MonoBehaviour
 
     private void HandleGetItemState(GetItemState state)
     {
+        // TODO: 여기서 카메라 range check
+
         if (playerManager == null)
         {
             Debug.LogWarning("PlayerManager is not initialized.");

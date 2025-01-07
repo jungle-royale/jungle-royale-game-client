@@ -29,13 +29,36 @@ public class InputManager : MonoBehaviour
     // 이펙트
     private GameObject snowSlashEffect; // SnowSlashEffect를 참조
 
+    private bool EndGame = false;
+
+    void Start()
+    {
+        EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.PlayerDead, HandlePlayerDead);
+    }
+
+    private void OnDestroy()
+    {
+        EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.PlayerDead, HandlePlayerDead);
+    }
+
     void Update()
     {
-        HandleBullet();
-        HandleMove();
-        HandleDash();
-        HandleDirection();
-        HandleTab();
+        if (EndGame)
+        {
+            HandleTab();
+        }
+        else
+        {
+            HandleBullet();
+            HandleMove();
+            HandleDash();
+            HandleDirection();
+        }
+    }
+
+    private void HandlePlayerDead()
+    {
+        EndGame = true;
     }
 
     private void HandleTab()

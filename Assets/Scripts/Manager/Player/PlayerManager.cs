@@ -203,18 +203,14 @@ public class PlayerManager : MonoBehaviour
                 keysToRemove.Add(key);
             }
         }
-
+        
+        // ChangingState로 이동하기
         if (!currentPlayerDead && !existingIds.Contains(currentPlayerId))
         {
             currentPlayerDead = true;
             Destroy(currentPlayer);
             movePlayers.Remove(currentPlayerId);
             dashPlayers.Remove(currentPlayerId);
-
-            AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dead, 1.0f);
-            AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameOver, 0.7f);
-            EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameOver");
-            EventBus<InputButtonEventType>.Publish(InputButtonEventType.PlayerDead);
         }
 
         foreach (var key in keysToRemove)

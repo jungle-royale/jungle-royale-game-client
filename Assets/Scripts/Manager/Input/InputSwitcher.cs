@@ -6,7 +6,6 @@ public class InputSwitcher : MonoBehaviour
     public GameObject aimJoystickUI;
 
     public GameObject dashButton;
-    public GameObject watchingButton;
 
 
     private bool isMobile;
@@ -19,7 +18,6 @@ public class InputSwitcher : MonoBehaviour
         moveJoystickUI.SetActive(isMobile);
         aimJoystickUI.SetActive(isMobile);
         dashButton.SetActive(isMobile);
-        watchingButton.SetActive(false); // 항상 처음에는 비활성화
 
         // 데스크톱에서는 키보드 + 마우스 활성화
         if (!isMobile)

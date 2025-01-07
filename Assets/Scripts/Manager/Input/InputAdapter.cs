@@ -8,15 +8,12 @@ public class InputAdapter : MonoBehaviour
     public VariableJoystick aimJoystick;
 
     public Button dashButton;
-    public Button watchingButton;
 
     private bool isDashButtonPressed; // 대시 버튼 눌림 상태
-    private bool isWatchingButtonPressed; // 대시 버튼 눌림 상태
 
     public bool isMobile;
 
     private float lastJoystickAngle = 0f; // 이전 각도 저장 변수
-
 
     void Start()
     {
@@ -30,33 +27,8 @@ public class InputAdapter : MonoBehaviour
                 isDashButtonPressed = true; // 버튼 눌림 상태 설정
             });
         }
-        if (watchingButton != null)
-        {
-            watchingButton.onClick.AddListener(() =>
-            {
-                isWatchingButtonPressed = true; // 버튼 눌림 상태 설정
-            });
-        }
-
-        if (isMobile)
-        {
-            EventBus<InputButtonEventType>.Subscribe(InputButtonEventType.PlayerDead, SetNextButton);
-        }
     }
-
-    private void OnDestroy()
-    {
-        if (isMobile)
-        {
-            EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.PlayerDead, SetNextButton);
-        }
-    }
-
-    private void SetNextButton()
-    {
-        watchingButton.GameObject().SetActive(true);
-    }
-
+  
     public float GetAxisX()
     {
         if (isMobile)
@@ -85,15 +57,6 @@ public class InputAdapter : MonoBehaviour
     }
     public bool GetTab()
     {
-        if (isMobile)
-        {
-            if (isWatchingButtonPressed)
-            {
-                isWatchingButtonPressed = false;
-                return true;
-            }
-            return false;
-        }
         return Input.GetKeyDown(KeyCode.Tab);
     }
 
@@ -193,7 +156,6 @@ public class InputAdapter : MonoBehaviour
         }
         return 0;
     }
-
 
 
 }

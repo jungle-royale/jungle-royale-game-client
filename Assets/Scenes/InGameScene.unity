@@ -168,24 +168,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &79777560 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5599981369612050004, guid: 49469e6df2fc54b73998ad5af972789b,
-    type: 3}
-  m_PrefabInstance: {fileID: 1264077438}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &79777562 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7162798810376668230, guid: 49469e6df2fc54b73998ad5af972789b,
-    type: 3}
-  m_PrefabInstance: {fileID: 1264077438}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79777560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &90047273
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,7 +1534,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5599981369612050004, guid: 49469e6df2fc54b73998ad5af972789b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49469e6df2fc54b73998ad5af972789b, type: 3}
@@ -1924,7 +1907,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84ff20fd917e2476ab1e6f0018980500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraHandler: {fileID: 68227891}
   currentPlayerPrefab: {fileID: 5031271093718040153, guid: 335e3aeefc55a4eceb81249798660e84,
     type: 3}
   otherPlayerPrefab: {fileID: 5031271093718040153, guid: 186aeda9b10ed4fd1a8a9fa37dc06fed,
@@ -2022,7 +2004,7 @@ MonoBehaviour:
   moveJoystick: {fileID: 1821184551}
   aimJoystick: {fileID: 1158158505}
   dashButton: {fileID: 1475217301}
-  watchingButton: {fileID: 79777562}
+  watchingButton: {fileID: 0}
   isMobile: 0
 --- !u!114 &2022446136
 MonoBehaviour:
@@ -2069,13 +2051,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80f51afa4dcf14650ba432c9b67af333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changingStateManager: {fileID: 637825967}
   gameStateManager: {fileID: 560998249}
-  playerManager: {fileID: 1981735298}
   tileManager: {fileID: 1974305325}
   bulletManager: {fileID: 1225028721}
   magicManager: {fileID: 188048889}
   healPackManager: {fileID: 685006996}
-  changingStateManager: {fileID: 637825967}
+  playerManager: {fileID: 1981735298}
+  cameraManager: {fileID: 68227891}
 --- !u!4 &2065378469
 Transform:
   m_ObjectHideFlags: 0
