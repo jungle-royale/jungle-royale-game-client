@@ -59,7 +59,7 @@ public class GameStateManager : Singleton<GameStateManager>
                     }
                     else
                     {
-                        
+                        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameOver");
                     }
                 }
             }

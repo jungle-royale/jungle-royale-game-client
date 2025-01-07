@@ -18,6 +18,7 @@ public class InGameGUIManager : MonoBehaviour
     // MainCanvas
     private TextMeshProUGUI pingLabel;
     private TextMeshProUGUI fpsLabel;
+    private TextMeshProUGUI timerLabel;
 
 
     // WaitingRoomCanvas Child
@@ -94,6 +95,7 @@ public class InGameGUIManager : MonoBehaviour
         {
             pingLabel = FindLabelByTag("PingLabel");
             fpsLabel = FindLabelByTag("FpsLabel");
+            timerLabel = FindLabelByTag("TimerLabel");
         }
 
         if (waitingRoomCanvas != null)
@@ -168,6 +170,7 @@ public class InGameGUIManager : MonoBehaviour
         EventBus<InGameGUIEventType>.Subscribe<long>(InGameGUIEventType.UpdatePingLabel, UpdatePingUI);
         EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.UpdateHpLabel, UpdateHpUI);
         EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.UpdatePlayerCountLabel, UpdatePlayerCountUI);
+        EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.UpdateTimerLabel, UpdateTimerUI);
     }
 
     private void OnDestroy()
@@ -178,6 +181,7 @@ public class InGameGUIManager : MonoBehaviour
         EventBus<InGameGUIEventType>.Unsubscribe<long>(InGameGUIEventType.UpdatePingLabel, UpdatePingUI);
         EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.UpdateHpLabel, UpdateHpUI);
         EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.UpdatePlayerCountLabel, UpdatePlayerCountUI);
+        EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.UpdateTimerLabel, UpdateTimerUI);
     }
 
     private void OnActivateCanvas(string gameState)
@@ -224,6 +228,16 @@ public class InGameGUIManager : MonoBehaviour
         if (pingLabel != null)
         {
             pingLabel.text = $"Ping: {ping} ms";
+        }
+    }
+
+    private void UpdateTimerUI(int sec)
+    {
+        if (timerLabel != null)
+        {
+            int min = sec / 60;
+            int remainingSec = sec % 60;
+            timerLabel.text = $"{min:D2}:{remainingSec:D2}";
         }
     }
 

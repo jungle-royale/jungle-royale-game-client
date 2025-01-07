@@ -552,7 +552,7 @@ GameObject:
   - component: {fileID: 8508572054828486975}
   - component: {fileID: 4299089886079943296}
   m_Layer: 5
-  m_Name: HUD
+  m_Name: Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1082,7 +1082,7 @@ GameObject:
   - component: {fileID: 2182295044918399157}
   m_Layer: 5
   m_Name: TimerLabel
-  m_TagString: Untagged
+  m_TagString: TimerLabel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

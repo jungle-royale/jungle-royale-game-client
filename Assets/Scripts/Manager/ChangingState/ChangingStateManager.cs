@@ -36,7 +36,6 @@ public class ChangingStateManager : MonoBehaviour
             }
         }
 
-        // 다른 상태 (GetItemState, PlayerDeadState 등) 처리 로직 추가 가능
         if (GetItemStateList != null && GetItemStateList.Count > 0)
         {
             foreach (var state in GetItemStateList)
@@ -100,21 +99,42 @@ public class ChangingStateManager : MonoBehaviour
             return;
         }
 
-        if (state.itemType == 1) // healpack
+        if (state.itemType == 0) // healpack
         {
-            AudioManager.Instance.PlaySfx(AudioManager.Sfx.Heal, 0.7f);
+            PlayHealEffectWithSfx(player);
         }
-        else if (state.itemType == 2) // stone magic
+        else if (state.itemType == 1) // stone magic
         {
 
         }
-        else if (state.itemType == 3)
+        else if (state.itemType == 2) // fire magic
         {
 
         }
         else
         {
             Debug.Log($"itemType {state.itemType} 없음");
+        }
+    }
+
+    private void PlayHealEffectWithSfx(GameObject player)
+    {
+        AudioManager.Instance.PlaySfx(AudioManager.Sfx.Heal, 0.7f);
+
+        Transform healEffectTransform = player.transform.Find("HealEffect");
+        if (healEffectTransform == null)
+        {
+            Debug.LogWarning("HealEffect not found.");
+            return;
+        }
+
+        // 자식 파티클 시스템 모두 가져오기
+        ParticleSystem[] childParticleSystems = healEffectTransform.GetComponentsInChildren<ParticleSystem>();
+
+        // 각 파티클 시스템 재생
+        foreach (var particleSystem in childParticleSystems)
+        {
+            particleSystem.Play();
         }
     }
 }
