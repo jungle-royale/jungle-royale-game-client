@@ -41,6 +41,9 @@ public class PlayerManager : MonoBehaviour
 
     public void UpdatePlayers(List<Player> playerDataList)
     {
+
+        // 카메라 비교해서 update할 아이들만 update하기
+
         int activePlayerNumber = 0;
 
         foreach (var data in playerDataList)
@@ -74,7 +77,6 @@ public class PlayerManager : MonoBehaviour
 
         // 제거할 플레이어 처리
         RemoveDisconnectedPlayers(playerDataList);
-
         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdatePlayerCountLabel, activePlayerNumber + 1);
     }
 
@@ -145,10 +147,15 @@ public class PlayerManager : MonoBehaviour
      
         if (serverData.isDashing)
         {
+            if (!dashPlayers.Contains(serverData.id))
+            {
+                dashPlayers.Add(serverData.id);
+                AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dash);
+            }
             if (movementDirection != Vector3.zero)
             {
                 Quaternion tiltRotation = Quaternion.LookRotation(movementDirection.normalized); // 이동 방향을 기준으로 회전
-                                                                                                    // Y축 기울이기 (Roll 추가)
+                                                                                                 // Y축 기울이기 (Roll 추가)
                 Quaternion tilt = Quaternion.Euler(
                     10,               // 상하 기울임 유지
                     tiltRotation.eulerAngles.y,
@@ -156,11 +163,16 @@ public class PlayerManager : MonoBehaviour
                 );
 
                 player.transform.rotation = tilt;
+
+                Debug.Log($"Dash Dash {serverData.id}");
             }
         }
         else
         {
-            dashPlayers.Remove(serverData.id);
+            if (dashPlayers.Contains(serverData.id))
+            {
+                dashPlayers.Remove(serverData.id);
+            }
             Quaternion uprightRotation = Quaternion.Euler(0, -(serverData.angle - 180), 0);
             player.transform.rotation = uprightRotation;
         }
@@ -204,21 +216,20 @@ public class PlayerManager : MonoBehaviour
             }
         }
         
-        // ChangingState로 이동하기
-        if (!currentPlayerDead && !existingIds.Contains(currentPlayerId))
-        {
-            currentPlayerDead = true;
-            Destroy(currentPlayer);
-            movePlayers.Remove(currentPlayerId);
-            dashPlayers.Remove(currentPlayerId);
-        }
-
         foreach (var key in keysToRemove)
         {
             Destroy(otherPlayers[key]);
             otherPlayers.Remove(key);
             movePlayers.Remove(key);
             dashPlayers.Remove(key);
+        }
+
+        if (!currentPlayerDead && !existingIds.Contains(currentPlayerId))
+        {
+            currentPlayerDead = true;
+            Destroy(currentPlayer);
+            movePlayers.Remove(currentPlayerId);
+            dashPlayers.Remove(currentPlayerId);
         }
     }
 }

@@ -76,7 +76,6 @@ public class CameraManager : MonoBehaviour
         miniMapCamera.transform.position = new Vector3(player.x, MINI_MAP_OFFSET_Y, player.y);
     }
 
-
     private bool ClientIsDead()
     {
         return focusedClientId != ClientManager.Instance.ClientId;
