@@ -154,9 +154,9 @@ public class PlayerManager : MonoBehaviour
                 Quaternion tiltRotation = Quaternion.LookRotation(movementDirection.normalized); // 이동 방향을 기준으로 회전
                                                                                                     // Y축 기울이기 (Roll 추가)
                 Quaternion tilt = Quaternion.Euler(
-                    tiltRotation.eulerAngles.x + 10,               // 상하 기울임 유지
+                    10,               // 상하 기울임 유지
                     tiltRotation.eulerAngles.y,
-                    tiltRotation.eulerAngles.z
+                    0
                 );
 
                 player.transform.rotation = tilt;
