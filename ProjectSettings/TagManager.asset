@@ -18,6 +18,10 @@ TagManager:
   - KillCountLabel
   - PointLabel
   - TimerLabel
+  - TotalPlayerLabel
+  - Description_Mobile
+  - Description_PC
+  - MinPlayerLabel
   layers:
   - Default
   - TransparentFX

@@ -47,7 +47,6 @@ public class PlayerManager : MonoBehaviour
     {
 
         // 카메라 비교해서 update할 아이들만 update하기
-
         int activePlayerNumber = 0;
 
         foreach (var data in playerDataList)
@@ -81,7 +80,7 @@ public class PlayerManager : MonoBehaviour
 
         // 제거할 플레이어 처리
         RemoveDisconnectedPlayers(playerDataList);
-        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdatePlayerCountLabel, activePlayerNumber + 1);
+        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdatePlayerCountLabel, playerDataList.Count);
     }
 
     private void CreateCurrentPlayer(Player data)

@@ -64,6 +64,7 @@ public class GameStateManager : Singleton<GameStateManager>
 
                 if (playerId == ClientManager.Instance.ClientId)
                 {
+
                     // 승리
                     Debug.Log("승리");
                     AudioManager.Instance.PlayOnceSfx(AudioManager.Sfx.Win, 1.0f);
@@ -75,7 +76,16 @@ public class GameStateManager : Singleton<GameStateManager>
                     // TODO: 다른 사람이 1등했을 때에는 다른 화면 보여줘야?
                     EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameEnd");
                 }
-            } 
+
+                StateUIDTO stateData = new StateUIDTO
+                {
+                    placement = ClientManager.Instance.placement,
+                    totalPlayer = ClientManager.Instance.totalPlayerNum,
+                    killCount = ClientManager.Instance.killCount,
+                    // point = 500
+                };
+                EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateStateLabel, stateData);
+            }
         }
     }
 
