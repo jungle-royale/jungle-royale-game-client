@@ -84,7 +84,7 @@ public class ChangingStateManager : MonoBehaviour
             EventBus<InputButtonEventType>.Publish(InputButtonEventType.StopPlay);
         }
         // 다른 사람인 경우
-        
+
         // 2. 공통 처리
 
         // dead sound가 falling이랑 육지에서 죽을 때랑 다르거나, 공통된 소리를 쓸 수 있게 해야 함
@@ -93,6 +93,7 @@ public class ChangingStateManager : MonoBehaviour
         if (state.IsWinner())
         {
             // 승리 애니메이션
+            return;
         }
 
         if (state.IsFall())
@@ -110,7 +111,7 @@ public class ChangingStateManager : MonoBehaviour
     private void UpdateFallDead(string deadPlayerId)
     {
         GameObject player = playerManager.GetPlayerById(deadPlayerId);
-        
+
     }
 
     private void HandlePlayerHitBulletState(HitBulletState state)
@@ -188,6 +189,8 @@ public class ChangingStateManager : MonoBehaviour
         {
             particleSystem.Play();
         }
+
+        Destroy(objectEffect, 1); // 1초 후 파괴
     }
 
     private void HandleGetItemState(GetItemState state)
@@ -207,37 +210,39 @@ public class ChangingStateManager : MonoBehaviour
             return;
         }
 
-        if (state.itemType == 0) // healpack
-        {
-            PlayHealEffectWithSfx(player);
-        }
-        else if (state.itemType == 1) // stone magic
-        {
-
-        }
-        else if (state.itemType == 2) // fire magic
-        {
-
-        }
-        else
-        {
-            Debug.Log($"itemType {state.itemType} 없음");
-        }
+        PlayGetItemEffectWithSfx(player, state.itemType);
     }
 
-    private void PlayHealEffectWithSfx(GameObject player)
+    private void PlayGetItemEffectWithSfx(GameObject player, int itemType)
     {
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.Heal, 0.7f);
 
-        Transform healEffectTransform = player.transform.Find("HealEffect");
-        if (healEffectTransform == null)
+        Transform getItemEffect = null;
+
+        switch (itemType)
         {
-            Debug.LogWarning("HealEffect not found.");
+            case 0:
+                getItemEffect = player.transform.Find("HealEffect");
+                break;
+            case 1:
+                getItemEffect = player.transform.Find("GetItem_Stone");
+                break;
+            case 2:
+                getItemEffect = player.transform.Find("GetItem_Fire");
+                break;
+            default:
+                Debug.LogError("getItem Type이 올바르지 않음");
+                break;
+        }
+
+        if (getItemEffect == null)
+        {
+            Debug.LogWarning("GetItem 이펙트 없음");
             return;
         }
 
         // 자식 파티클 시스템 모두 가져오기
-        ParticleSystem[] childParticleSystems = healEffectTransform.GetComponentsInChildren<ParticleSystem>();
+        ParticleSystem[] childParticleSystems = getItemEffect.GetComponentsInChildren<ParticleSystem>();
 
         // 각 파티클 시스템 재생
         foreach (var particleSystem in childParticleSystems)

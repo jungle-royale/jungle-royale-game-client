@@ -151,6 +151,14 @@ public class PlayerManager : MonoBehaviour
             return;
         }
 
+        // DustTrail 파티클 시스템 가져오기
+        var dustTrail = player.transform.Find("DustTrail").gameObject;
+
+        if (dustTrail == null)
+        {
+            Debug.LogWarning($"DustTrail ParticleSystem not found on player: {player.name}");
+        }
+
         if (serverData.isDashing)
         {
             if (!dashPlayers.Contains(serverData.id))
@@ -170,6 +178,13 @@ public class PlayerManager : MonoBehaviour
 
                 player.transform.rotation = tilt;
             }
+
+            // DustTrail 파티클 활성화
+            if (dustTrail != null)
+            {
+                Debug.Log("대쉬 이펙트 활성화");
+                dustTrail.SetActive(true);
+            }
         }
         else
         {
@@ -179,6 +194,13 @@ public class PlayerManager : MonoBehaviour
             }
             Quaternion uprightRotation = Quaternion.Euler(0, -(serverData.angle - 180), 0);
             player.transform.rotation = uprightRotation;
+
+            // DustTrail 파티클 비활성화
+            if (dustTrail != null)
+            {
+                Debug.Log("대쉬 이펙트 비활성화");
+                dustTrail.SetActive(false);
+            }
         }
 
         if (serverData.isMoved)
@@ -209,10 +231,25 @@ public class PlayerManager : MonoBehaviour
 
     private void UpdatePlayerShootState(GameObject player, Player serverData)
     {
-        shootingEffect = player.transform.Find("ShootingIce").gameObject;
+        switch (serverData.magicType)
+        {
+            case 0:
+                shootingEffect = player.transform.Find("ShootingIce").gameObject;
+                break;
+            case 1:
+                shootingEffect = player.transform.Find("ShootingStone").gameObject;
+                break;
+            case 2:
+                shootingEffect = player.transform.Find("ShootingFire").gameObject;
+                break;
+            default:
+                Debug.Log($"{serverData.magicType}에 해당하는 Player의 MagicType 없음");
+                break;
+        }
+
         if (shootingEffect == null)
         {
-            Debug.LogError("shootingIce 이펙트 없음");
+            Debug.LogError("Shooting 이펙트 없음");
         }
 
         if (serverData.isShooting)
