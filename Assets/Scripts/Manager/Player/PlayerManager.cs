@@ -259,7 +259,6 @@ public class PlayerManager : MonoBehaviour
             {
                 if (!shootingPlayers.Contains(serverData.id))
                 {
-                    Debug.Log("isShooting True");
                     shootingPlayers.Add(serverData.id);
                     shootingEffect.SetActive(true);
                 }
@@ -269,7 +268,6 @@ public class PlayerManager : MonoBehaviour
         {
             if (shootingPlayers.Contains(serverData.id))
             {
-                Debug.Log("isShooting False");
                 shootingPlayers.Remove(serverData.id);
 
                 // Shooting Effect 비활성화

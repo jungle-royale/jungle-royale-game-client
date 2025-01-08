@@ -152,6 +152,10 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                     HandleGameStart(wrapper.GameStart);
                     break;
 
+                case Wrapper.MessageTypeOneofCase.GameReconnect:
+                    HandleGameReconnect(wrapper.GameReconnect);
+                    break;
+
                 default:
                     Debug.Log($"Unknown message type received: {wrapper.MessageTypeCase}");
                     break;
@@ -185,6 +189,14 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     {
         gameStateManager.HandleGameStart(gameStart);
         tileManager.DeleteReadyTile();
+    }
+
+    private void HandleGameReconnect(GameReconnect gameReconnect)
+    {
+        ClientManager.Instance.SetClientId(gameReconnect.Id);
+        // TODO: 리커넥션 추가
+        // gameReconnect.MinPlayerNum;
+        // gameReconnect.TotalPlayerNum;
     }
 
     private void HandleGameState(GameState gameState)
