@@ -187,8 +187,6 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
     private void HandleGameState(GameState gameState)
     {
-        gameStateManager.HandleGameState(gameState);
-
         if (gameState.ChangingState != null)
         {
             List<HitBulletState> HitBulletStateList = new List<HitBulletState>();
@@ -217,11 +215,14 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
                 foreach (var PlayerDeadState in gameState.ChangingState.PlayerDeadState)
                 {
-                    PlayerDeadStateList.Add(new PlayerDeadState(PlayerDeadState.KillerId, PlayerDeadState.DeadId, PlayerDeadState.DyingStatus));
+                    PlayerDeadStateList.Add(new PlayerDeadState(
+                        PlayerDeadState.KillerId, PlayerDeadState.DeadId, PlayerDeadState.DyingStatus, PlayerDeadState.KillNum, PlayerDeadState.Placement
+                    ));
                 }
             }
 
             changingStateManager.UpdateState(HitBulletStateList, GetItemStateList, PlayerDeadStateList);
+            gameStateManager.HandleGameEndState(PlayerDeadStateList);
         }
 
         if (gameState.BulletState != null && gameState.BulletState.Count > 0)

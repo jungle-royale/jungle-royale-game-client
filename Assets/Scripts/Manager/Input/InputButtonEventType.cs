@@ -1,4 +1,5 @@
 public enum InputButtonEventType
 {
-    PlayerDead,
+    StopPlay,
+    ActivateTabKey,
 }

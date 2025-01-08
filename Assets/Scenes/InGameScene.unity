@@ -622,6 +622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0aaee4958f3543cbbead16fd18adcfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraManager: {fileID: 68227891}
 --- !u!1 &637825966
 GameObject:
   m_ObjectHideFlags: 0
@@ -1656,7 +1657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db7bca3f510244ac3a56e531f9c50ff7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerManager: {fileID: 0}
+  playerManager: {fileID: 1981735298}
 --- !u!1 &1981735297
 GameObject:
   m_ObjectHideFlags: 0
@@ -1687,6 +1688,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 5031271093718040153, guid: 335e3aeefc55a4eceb81249798660e84,
+    type: 3}
+  otherPlayerPrefab: {fileID: 5031271093718040153, guid: 186aeda9b10ed4fd1a8a9fa37dc06fed,
     type: 3}
 --- !u!4 &1981735299
 Transform:
@@ -1764,7 +1767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   networkSender: {fileID: 2022446132}
-  cameraHandler: {fileID: 68227891}
+  cameraManager: {fileID: 68227891}
   input: {fileID: 2022446135}
 --- !u!114 &2022446135
 MonoBehaviour:

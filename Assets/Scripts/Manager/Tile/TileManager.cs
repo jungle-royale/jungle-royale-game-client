@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TileManager : MonoBehaviour
@@ -81,8 +82,9 @@ public class TileManager : MonoBehaviour
 
     private void UpdateTile(Tile tile, GameObject tileObject)
     {
-        // tileObject.transform.localScale = tile.Scale();
-        tileObject.transform.position = tile.Position();
+        var NewPosition = tile.Position();
+        NewPosition.y = tileObject.transform.position.y;
+        tileObject.transform.position = NewPosition;
 
         if (tile.warning == 1)
         {
@@ -108,7 +110,6 @@ public class TileManager : MonoBehaviour
         {
             // Ground의 Scale 가져오기
             Vector3 groundScale = groundTransform.localScale;
-            Debug.Log("Ground Scale: " + groundScale);
         }
         else
         {
@@ -180,12 +181,20 @@ public class TileManager : MonoBehaviour
             }
         }
 
+        // 애니메이션 실행
+        // 애니메이션 끝나면 event에서 destroy 처리
+
         foreach (var tileId in tilesToRemove)
         {
-            if (tileObjects.TryGetValue(tileId, out GameObject player))
+            if (tileObjects.TryGetValue(tileId, out GameObject tileObject))
             {
-                Destroy(player);
                 tileObjects.Remove(tileId);
+                Animator animator = tileObject.GetComponent<Animator>();
+                if (animator == null)
+                {
+                    return;
+                }
+                animator.SetTrigger("bye");
             }
         }
     }
