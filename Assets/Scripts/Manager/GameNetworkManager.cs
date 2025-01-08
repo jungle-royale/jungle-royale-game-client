@@ -199,7 +199,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             {
                 foreach (var HitBulletState in gameState.ChangingState.HitBulletState)
                 {
-                    HitBulletStateList.Add(new HitBulletState(HitBulletState.ObjectType, HitBulletState.BulletId, HitBulletState.ObjectId, HitBulletState.X, HitBulletState.Y));
+                    HitBulletStateList.Add(new HitBulletState(HitBulletState.ObjectType, HitBulletState.BulletId, HitBulletState.ObjectId, HitBulletState.X, HitBulletState.Y, HitBulletState.BulletType));
                 }
             }
 

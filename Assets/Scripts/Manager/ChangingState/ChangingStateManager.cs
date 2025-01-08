@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Data.Common;
+using System.Resources;
 using Message;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -6,7 +8,10 @@ using UnityEngine;
 public class ChangingStateManager : MonoBehaviour
 {
     public PlayerManager playerManager;
+    public BulletManager bulletManager;
     private WebGLHapticManager HaptickManager = new WebGLHapticManager();
+
+    private float BULLET_Y = 0.9f;
 
     private void Awake()
     {
@@ -14,7 +19,13 @@ public class ChangingStateManager : MonoBehaviour
         playerManager = FindObjectOfType<PlayerManager>();
         if (playerManager == null)
         {
-            Debug.LogError("PlayerManager not found in the scene.");
+            Debug.LogError("PlayerManager 없음");
+        }
+
+        bulletManager = FindObjectOfType<BulletManager>();
+        if (bulletManager == null)
+        {
+            Debug.LogError("BulletManager 없음");
         }
     }
 
@@ -63,7 +74,7 @@ public class ChangingStateManager : MonoBehaviour
             EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameOver");
         }
         // 다른 사람인 경우
-        else 
+        else
         {
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dead, 1.0f);
         }
@@ -88,16 +99,32 @@ public class ChangingStateManager : MonoBehaviour
 
         AudioManager.Instance.PlayHitSfx(0.7f);
 
-        // SnowHitEffect(부모 객체) 찾기
-        Transform effectTransform = player.transform.Find("SnowHitEffect");
-        if (effectTransform == null)
+        // 타입별 이펙트 재생
+        Transform playerEffect = null;
+
+        switch (state.BulletType)
         {
-            Debug.LogWarning($"SnowHitEffect not found on player {state.ObjectId}.");
+            case 0:
+                playerEffect = player.transform.Find("HitSnow");
+                break;
+            case 1:
+                playerEffect = player.transform.Find("HitStone");
+                break;
+            case 2:
+                playerEffect = player.transform.Find("HitFire");
+                break;
+            default:
+                break;
+        }
+
+        if (playerEffect == null)
+        {
+            Debug.LogWarning($"Effect not found on player {state.ObjectId}.");
             return;
         }
 
         // 자식 파티클 시스템 모두 가져오기
-        ParticleSystem[] childParticleSystems = effectTransform.GetComponentsInChildren<ParticleSystem>();
+        ParticleSystem[] childParticleSystems = playerEffect.GetComponentsInChildren<ParticleSystem>();
 
         // 각 파티클 시스템 재생
         foreach (var particleSystem in childParticleSystems)
@@ -110,7 +137,24 @@ public class ChangingStateManager : MonoBehaviour
     private void HandleObjectHitBulletState(HitBulletState state)
     {
 
+        AudioManager.Instance.PlayHitSfx(0.7f);
 
+        GameObject objectEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/HitNormal");
+        GameObject objectEffect = Instantiate(objectEffectPrefab, new Vector3(state.X, BULLET_Y, state.Y), Quaternion.identity);
+
+        if (objectEffect == null)
+        {
+            Debug.LogWarning($"Effect not found on player {state.ObjectId}.");
+            return;
+        }
+
+        ParticleSystem[] childParticleSystems = objectEffect.GetComponentsInChildren<ParticleSystem>();
+
+        // 각 파티클 시스템 재생
+        foreach (var particleSystem in childParticleSystems)
+        {
+            particleSystem.Play();
+        }
     }
 
     private void HandleGetItemState(GetItemState state)
