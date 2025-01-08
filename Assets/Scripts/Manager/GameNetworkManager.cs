@@ -201,6 +201,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         // TODO: 리커넥션 추가
         // gameReconnect.MinPlayerNum;
         // gameReconnect.TotalPlayerNum;
+        new LoadingScreenRemover().Remove();
     }
 
     private void HandleGameState(GameState gameState)
