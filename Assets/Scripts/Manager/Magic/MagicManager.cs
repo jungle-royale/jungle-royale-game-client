@@ -58,7 +58,7 @@ public class MagicManager : MonoBehaviour
                 path += "StoneMagic";
                 break;
             default:
-                path += "StoneMagic";
+                Debug.LogError($"{type}에 해당하는 매직 타입 없음");
                 break;
         };
 
