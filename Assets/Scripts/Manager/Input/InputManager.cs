@@ -26,23 +26,30 @@ public class InputManager : MonoBehaviour
 
     private Debouncer DashDebouncer = new Debouncer();
 
+    private bool IsConnected = false;
     private bool EndGame = false;
     private bool IsActivateTab = false;
 
     void Start()
     {
+        EventBus<InputButtonEventType>.Subscribe(InputButtonEventType.CompleteConnect, CompleteConnection);
         EventBus<InputButtonEventType>.Subscribe(InputButtonEventType.StopPlay, StopPlay);
         EventBus<InputButtonEventType>.Subscribe(InputButtonEventType.ActivateTabKey, ActivateTabKey);
     }
 
     private void OnDestroy()
     {
+        EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.CompleteConnect, CompleteConnection);
         EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.StopPlay, StopPlay);
         EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.ActivateTabKey, ActivateTabKey);
     }
 
     void Update()
     {
+        if (!IsConnected)
+        {
+            return;
+        }
         if (IsActivateTab)
         {
             HandleTab();
@@ -54,6 +61,11 @@ public class InputManager : MonoBehaviour
             HandleDash();
             HandleDirection();
         }
+    }
+
+    private void CompleteConnection()
+    {
+        IsConnected = true;
     }
 
     private void StopPlay()
