@@ -112,6 +112,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     private void onOpen()
     {
         Debug.Log($"Connection open! : {UrlString}");
+        EventBus<InputButtonEventType>.Publish(InputButtonEventType.CompleteConnect);
     }
 
     private void OnError(string errorMsg)
