@@ -198,9 +198,8 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     private void HandleGameReconnect(GameReconnect gameReconnect)
     {
         ClientManager.Instance.SetClientId(gameReconnect.Id);
-        // TODO: 리커넥션 추가
-        // gameReconnect.MinPlayerNum;
-        // gameReconnect.TotalPlayerNum;
+        gameReconnect.MinPlayerNum = ClientManager.Instance.minPlayerNum;
+        gameReconnect.MinPlayerNum = ClientManager.Instance.totalPlayerNum;
         new LoadingScreenRemover().Remove();
     }
 

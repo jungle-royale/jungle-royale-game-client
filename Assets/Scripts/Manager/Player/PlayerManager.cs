@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     public GameObject playerPrefab; // 내 플레이어 프리팹
+    public GameObject currentPlayerMarkPrefab; // 내 플레이어 프리팹
+    public GameObject otherPlayerMarkPrefab; // 내 플레이어 프리팹
     // public GameObject otherPlayerPrefab;   // 다른 플레이어 프리팹
     private bool currentPlayerDead = false;
 
@@ -12,7 +14,9 @@ public class PlayerManager : MonoBehaviour
     private GameObject shootingEffect;
 
     private GameObject currentPlayer; // 현재 플레이어 객체
+    private GameObject currentPlayerMark;
     private Dictionary<string, GameObject> otherPlayers = new Dictionary<string, GameObject>();
+    private Dictionary<string, GameObject> otherPlayersMark = new Dictionary<string, GameObject>();
 
     private HashSet<string> movePlayers = new HashSet<string>();
     private HashSet<string> dashPlayers = new HashSet<string>();
@@ -86,6 +90,8 @@ public class PlayerManager : MonoBehaviour
     private void CreateCurrentPlayer(Player data)
     {
         currentPlayer = Instantiate(playerPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity);
+        currentPlayerMark = Instantiate(currentPlayerMarkPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity); // 내 플레이어 마크
+
         currentPlayer.tag = "Player";
         currentPlayer.name = ClientManager.Instance.CurrentPlayerName;
 
@@ -100,6 +106,7 @@ public class PlayerManager : MonoBehaviour
     private void CreateOtherPlayer(Player data)
     {
         GameObject newPlayer = Instantiate(playerPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity);
+        GameObject newPlayerMark = Instantiate(otherPlayerMarkPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity); // 다른 플레이어 마크
 
         // 플레이어의 HealthBar 초기화
         HealthBar healthBarComponent = newPlayer.GetComponentInChildren<HealthBar>();
@@ -109,6 +116,7 @@ public class PlayerManager : MonoBehaviour
         }
 
         otherPlayers[data.id] = newPlayer;
+        otherPlayersMark[data.id] = newPlayerMark;
     }
 
     private void ValidateCurrentPlayer(Player serverData)
@@ -122,6 +130,7 @@ public class PlayerManager : MonoBehaviour
 
         UpdatePlayerMoveState(currentPlayer, serverData);
         UpdatePlayerShootState(currentPlayer, serverData);
+        UpdatePlayerMark(serverData);
         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateHpLabel, serverData.health);
     }
 
@@ -135,6 +144,23 @@ public class PlayerManager : MonoBehaviour
         }
         UpdatePlayerMoveState(player, serverData);
         UpdatePlayerShootState(player, serverData);
+        UpdateOtherPlayersMark(serverData);
+    }
+
+    private void UpdatePlayerMark(Player serverData)
+    {
+        // Mark 위치 업데이트
+        currentPlayerMark.transform.position = serverData.NewPosition(PLAYER_Y);
+    }
+
+    private void UpdateOtherPlayersMark(Player serverData)
+    {
+        var otherPlayerMark = otherPlayersMark[serverData.id];
+
+        if (otherPlayerMark != null)
+        {
+            otherPlayerMark.transform.position = serverData.NewPosition(PLAYER_Y);
+        }
     }
 
     private void UpdatePlayerMoveState(GameObject player, Player serverData)
@@ -142,6 +168,7 @@ public class PlayerManager : MonoBehaviour
         var currentPosition = serverData.NewPosition(PLAYER_Y);
         var previousPosition = player.transform.position;
         Vector3 movementDirection = currentPosition - previousPosition;
+
 
         Animator animator = player.GetComponent<Animator>();
         if (animator == null)
@@ -293,7 +320,7 @@ public class PlayerManager : MonoBehaviour
 
         foreach (var key in keysToRemove)
         {
-            // Destroy(otherPlayers[key]);
+            Destroy(otherPlayersMark[key]);
             otherPlayers.Remove(key);
             movePlayers.Remove(key);
             dashPlayers.Remove(key);
@@ -301,8 +328,8 @@ public class PlayerManager : MonoBehaviour
 
         if (!currentPlayerDead && !existingIds.Contains(currentPlayerId))
         {
+            Destroy(currentPlayerMark);
             currentPlayerDead = true;
-            // Destroy(currentPlayer);
             movePlayers.Remove(currentPlayerId);
             dashPlayers.Remove(currentPlayerId);
         }

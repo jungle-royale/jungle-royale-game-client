@@ -172,6 +172,12 @@ public class InGameGUIManager : MonoBehaviour
 
     private void OnActivateCanvas(string gameState)
     {
+
+        if (IsAlreadyGameEnd())
+        {
+            return;
+        }
+
         SetAllCanvasesInactive();
 
         switch (gameState)
@@ -222,6 +228,11 @@ public class InGameGUIManager : MonoBehaviour
         }
 
         CacheCanvasComponents();
+    }
+
+    private bool IsAlreadyGameEnd()
+    {
+        return gameWinCanvas?.activeSelf == true || gameEndCanvas?.activeSelf == true;
     }
 
     private void UpdateMinPlayerUI(int minPlayerNum)
