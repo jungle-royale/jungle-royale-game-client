@@ -5,6 +5,7 @@ public class PlayerDeadState
     public string killerId;
     public string deadPlayerId;
     public int dyingStatus;
+    // 0: 안죽음
     // 1: snow
     // 2: stone
     // 3: fire
@@ -48,6 +49,11 @@ public class PlayerDeadState
     }
 
     public bool IsWinner()
+    {
+        return placement == 1;
+    }
+
+    public bool IsEndGame()
     {
         return placement == 1;
     }

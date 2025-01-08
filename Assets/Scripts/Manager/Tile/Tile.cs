@@ -28,9 +28,6 @@ public class Tile
 
     public Vector3 Position()
     {
-        Debug.Log("---------------------------------------------");
-        Debug.Log($"{this.X}, {this.Y}");
-        Debug.Log($"{this.X + TILE_PIVOT}, {this.Y + TILE_PIVOT}");
         return new Vector3(this.X + TILE_PIVOT, -(TILE_HEIGHT / 2), this.Y + TILE_PIVOT);
     }
 

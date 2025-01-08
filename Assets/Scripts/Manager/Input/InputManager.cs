@@ -31,13 +31,13 @@ public class InputManager : MonoBehaviour
 
     void Start()
     {
-        EventBus<InputButtonEventType>.Subscribe(InputButtonEventType.StopPlay, HandlePlayerDead);
+        EventBus<InputButtonEventType>.Subscribe(InputButtonEventType.StopPlay, StopPlay);
         EventBus<InputButtonEventType>.Subscribe(InputButtonEventType.ActivateTabKey, ActivateTabKey);
     }
 
     private void OnDestroy()
     {
-        EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.StopPlay, HandlePlayerDead);
+        EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.StopPlay, StopPlay);
         EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.ActivateTabKey, ActivateTabKey);
     }
 
@@ -56,10 +56,14 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    private void HandlePlayerDead()
+    private void StopPlay()
     {
         EndGame = true;
         input.DeactivateButton();
+
+        // 죽었을 때, 종료 시, 키 정리(쏘던 거 멈춤)를 위해 서버에 데이터 보냄
+        networkSender.SendChangeBulletStateMessage(ClientId, false);
+        networkSender.SendChangeDirMessage(0, false);
     }
 
     private void ActivateTabKey()

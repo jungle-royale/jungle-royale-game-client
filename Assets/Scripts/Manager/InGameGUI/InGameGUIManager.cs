@@ -57,7 +57,7 @@ public class InGameGUIManager : MonoBehaviour
         gameOverCanvas = InstantiateCanvas("Prefabs/UIs/GameOverCanvas");
         gameEndCanvas = InstantiateCanvas("Prefabs/UIs/GameEndCanvas");
         watchModeCanvas = InstantiateCanvas("Prefabs/UIs/WatchModeCanvas");
-        gameWinCanvas = InstantiateCanvas("Prefabs/UIs/GameEndCanvas");
+        gameWinCanvas = InstantiateCanvas("Prefabs/UIs/GameEndCanvas"); // TODO: WinCanvas로 수정해야 함
 
         // 모든 캔버스 비활성화
         SetAllCanvasesInactive();
@@ -226,7 +226,7 @@ public class InGameGUIManager : MonoBehaviour
     {
         if (waitingRoomCanvas != null && waitingRoomCanvas.activeSelf && gameCountDownLabel != null)
         {
-            gameCountDownLabel.text = $"Game Start In {gameCountDown}";
+            gameCountDownLabel.text = $"Game Start In {gameCountDown - 1}";
         }
         else
         {

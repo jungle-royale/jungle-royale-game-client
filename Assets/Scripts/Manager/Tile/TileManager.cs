@@ -188,14 +188,12 @@ public class TileManager : MonoBehaviour
         {
             if (tileObjects.TryGetValue(tileId, out GameObject tileObject))
             {
-                // Destroy(tileObject);
+                tileObjects.Remove(tileId);
                 Animator animator = tileObject.GetComponent<Animator>();
                 if (animator == null)
                 {
                     return;
                 }
-
-                tileObjects.Remove(tileId);
                 animator.SetTrigger("bye");
             }
         }
