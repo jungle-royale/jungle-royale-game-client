@@ -24,4 +24,11 @@ public class RedirectHandler
         string url = "http://eternalsnowman.com";
         new RedirectHandler().RedirectTo(url);
     }
+
+    public void RedirectToFailure(int code)
+    {
+        string url = $"http://eternalsnowman.com/failure?code={code}";
+        new RedirectHandler().RedirectTo(url);
+    }
+
 }

@@ -79,6 +79,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         }
         catch (Exception ex)
         {
+            new RedirectHandler().RedirectToFailure(1);
             Debug.LogError($"Failed to connect WebSocket: {ex.Message}");
         }
     }
