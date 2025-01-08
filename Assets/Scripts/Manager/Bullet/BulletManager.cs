@@ -10,7 +10,7 @@ public class BulletManager : MonoBehaviour
     public void UpdateBullets(List<Bullet> bullets)
     {
         // camera 비교해서 update할 아이들만
-        
+
         // 애초에 state 받는곳에서 없애버려도..? - 구조상 서버에서 안주면 없다 처리 하니까!
         // 죽었다는 charging state에서 처리하면 되고
         // 어차피 current player는 포함될 거고
@@ -62,6 +62,19 @@ public class BulletManager : MonoBehaviour
                 Destroy(bullet);
                 bulletObjects.Remove(bulletId);
             }
+        }
+    }
+
+    public GameObject GetBulletById(string bulletId)
+    {
+        if (bulletObjects.ContainsKey(bulletId))
+        {
+            return bulletObjects[bulletId];
+        }
+        else
+        {
+            Debug.LogError($"{bulletId}에 해당하는 Bullet 없음");
+            return null;
         }
     }
 

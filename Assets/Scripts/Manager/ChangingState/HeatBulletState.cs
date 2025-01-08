@@ -1,4 +1,6 @@
+using System;
 using Message;
+using UnityEngine;
 
 public class HitBulletState
 {
@@ -7,14 +9,16 @@ public class HitBulletState
     public string ObjectId;
     public float X;
     public float Y;
+    public int BulletType;
 
-    public HitBulletState(int objectType, string bulletId, string ObjectId, float x, float y)
+    public HitBulletState(int objectType, string bulletId, string ObjectId, float x, float y, int bulletType)
     {
         this.ObjectType = objectType;
         this.BulletId = bulletId;
         this.ObjectId = ObjectId;
         this.X = x;
         this.Y = y;
+        this.BulletType = bulletType;
     }
 
     public override string ToString()
@@ -24,6 +28,7 @@ public class HitBulletState
 
     public bool IsPlayer()
     {
+        // Debug.Log($"ObjectType: {this.ObjectType}");
         return ObjectType == 0;
     }
 }
