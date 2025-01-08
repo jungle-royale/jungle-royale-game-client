@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TileManager : MonoBehaviour
@@ -25,6 +26,44 @@ public class TileManager : MonoBehaviour
         {
             Debug.LogError("PlayerManager not found in the scene.");
         }
+    }
+
+    void Start()
+    {
+        Invoke("ExecuteAfterDelay", 3f);
+    }
+
+    void ExecuteAfterDelay()
+    {
+        // Debug.Log("3초 뒤에 실행!");
+
+        // foreach (var (k, tileObject) in tileObjects)
+        // {
+        //     Animator tileanimator = tileObject.GetComponent<Animator>();
+        //     if (tileanimator == null)
+        //     {
+        //         return;
+        //     }
+        //     tileanimator.SetTrigger("bye");
+        // }
+
+        // Invoke("B", 1.0f);
+    }
+
+    void B() 
+    {
+        // PlayerManager에서 플레이어 객체 가져오기
+        GameObject player = playerManager.GetPlayerById(ClientManager.Instance.ClientId);
+        if (player == null)
+        {
+            return;
+        }
+        Animator a = player.GetComponent<Animator>();
+        if (a == null)
+        {
+            return;
+        }
+        a.SetTrigger("bye");
     }
 
     public void UpdateTiles(List<Tile> tiles)
@@ -81,8 +120,10 @@ public class TileManager : MonoBehaviour
 
     private void UpdateTile(Tile tile, GameObject tileObject)
     {
-        // tileObject.transform.localScale = tile.Scale();
-        tileObject.transform.position = tile.Position();
+        var NewPosition = tileObject.transform.position;
+        NewPosition.x = tile.X;
+        NewPosition.z = tile.Y;
+        tileObject.transform.position = NewPosition;
 
         if (tile.warning == 1)
         {

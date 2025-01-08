@@ -30,12 +30,12 @@ public class InputManager : MonoBehaviour
 
     void Start()
     {
-        EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.PlayerDead, HandlePlayerDead);
+        EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.StopPlay, HandlePlayerDead);
     }
 
     private void OnDestroy()
     {
-        EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.PlayerDead, HandlePlayerDead);
+        EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.StopPlay, HandlePlayerDead);
     }
 
     void Update()

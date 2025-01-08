@@ -88,7 +88,7 @@ public class PlayerManager : MonoBehaviour
     {
         currentPlayer = Instantiate(playerPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity);
         currentPlayer.tag = "Player";
-        currentPlayer.name = "MyPlayer";
+        currentPlayer.name = ClientManager.Instance.CurrentPlayerName;
 
         // 플레이어의 HealthBar 초기화
         HealthBar healthBarComponent = currentPlayer.GetComponentInChildren<HealthBar>();
@@ -169,8 +169,6 @@ public class PlayerManager : MonoBehaviour
                 );
 
                 player.transform.rotation = tilt;
-
-                Debug.Log($"Dash Dash {serverData.id}");
             }
         }
         else

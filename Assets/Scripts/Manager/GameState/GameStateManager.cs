@@ -35,7 +35,6 @@ public class GameStateManager : Singleton<GameStateManager>
 
     public void HandleGameStart(GameStart gameStart)
     {
-        // Debug.Log(gameStart.MapLength);
         _gameStart = true;
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameStart);
         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameStart");
@@ -46,11 +45,19 @@ public class GameStateManager : Singleton<GameStateManager>
     {
         if (gameState.PlayerState != null)
         {
-            // 게임 시작 했는데 플레이어가 혼자면
+            // 게임 시작한 후에, player가 한 명 남았을 때 게임 종료 처리
             if (_gameStart && gameState.PlayerState.Count == 1)
             {
                 foreach (var player in gameState.PlayerState)
                 {
+
+                    // 모든 키를 막는다.
+                    EventBus<InputButtonEventType>.Publish(InputButtonEventType.StopPlay);
+
+                    // camera를 승리자로 옮긴다. -> camera state 업데이트 할 때 자동으로 옮겨질 것
+
+                    // TODO: 승리 애니메이션, 파티클 추가
+
                     if (player.Id == ClientManager.Instance.ClientId)
                     {
                         // 승리
@@ -59,6 +66,7 @@ public class GameStateManager : Singleton<GameStateManager>
                     }
                     else
                     {
+                        // TODO: 다른 사람이 1등했을 때에는 다른 화면 보여줘야?
                         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameOver");
                     }
                 }

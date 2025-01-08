@@ -63,21 +63,50 @@ public class ChangingStateManager : MonoBehaviour
     {
         // TODO: 여기서 카메라 range check
 
-        // 나 인 경우
+        // falling인 경우 애니메이션과 다른 이유로 죽었을 때 애니메이션 분리
+        // 애니메이션에서 
+
+        GameObject player = playerManager.GetPlayerById(state.deadPlayerId);
+        if (player == null)
+        {
+            return;
+        }
+        Animator animator = player.GetComponent<Animator>();
+        if (animator == null)
+        {
+            Debug.LogWarning($"Animator not found on player: {player.name}");
+            return;
+        }
+
+        // 1. 나 처리
+
+        // - PlayerDead 이벤트를 발행하여 키를 막음
         if (state.deadPlayerId == ClientManager.Instance.ClientId)
         {
-            AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dead, 1.0f); // dead sound가 두 개여야 할 듯
-            AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameOver, 0.7f);
-            EventBus<InputButtonEventType>.Publish(InputButtonEventType.PlayerDead);
-
-            // TODO: 죽음 애니메이션 처리 후 호출
-            EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameOver");
+            EventBus<InputButtonEventType>.Publish(InputButtonEventType.StopPlay);
         }
         // 다른 사람인 경우
-        else
+        
+        // 2. 공통 처리
+
+        // dead sound가 falling이랑 육지에서 죽을 때랑 다르거나, 공통된 소리를 쓸 수 있게 해야 함
+        if (state.IsFall())
         {
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dead, 1.0f);
+            animator.SetTrigger("byeSnowman");
+        } 
+        else 
+        {
+            AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dead, 1.0f);
+            animator.SetTrigger("byeSnowman");
         }
+
+    }
+
+    private void UpdateFallDead(string deadPlayerId)
+    {
+        GameObject player = playerManager.GetPlayerById(deadPlayerId);
+        
     }
 
     private void HandlePlayerHitBulletState(HitBulletState state)

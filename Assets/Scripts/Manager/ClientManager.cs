@@ -10,6 +10,11 @@ using UnityEngine.Timeline;
 public class ClientManager : Singleton<ClientManager>
 {
     public string ClientId { get; private set; }
+    public string CurrentPlayerName {
+        get {
+            return "MyPlayer";
+        }
+    }
     public float X;
     public float Y;
     public int Hp;
