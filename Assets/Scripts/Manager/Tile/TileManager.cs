@@ -199,4 +199,18 @@ public class TileManager : MonoBehaviour
         }
     }
 
+    public void DeleteReadyTile()
+    {
+        List<string> keys = new List<string>(tileObjects.Keys);
+
+        foreach (var key in keys)
+        {
+            if (tileObjects.TryGetValue(key, out GameObject tileObject))
+            {
+                tileObjects.Remove(key);
+                Destroy(tileObject);
+            }
+        }
+    }
+
 }
