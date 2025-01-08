@@ -184,6 +184,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     private void HandleGameStart(GameStart gameStart)
     {
         gameStateManager.HandleGameStart(gameStart);
+        tileManager.DeleteReadyTile();
     }
 
     private void HandleGameState(GameState gameState)

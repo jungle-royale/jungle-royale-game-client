@@ -182,7 +182,6 @@ public class PlayerManager : MonoBehaviour
             // DustTrail 파티클 활성화
             if (dustTrail != null)
             {
-                Debug.Log("대쉬 이펙트 활성화");
                 dustTrail.SetActive(true);
             }
         }
@@ -198,7 +197,6 @@ public class PlayerManager : MonoBehaviour
             // DustTrail 파티클 비활성화
             if (dustTrail != null)
             {
-                Debug.Log("대쉬 이펙트 비활성화");
                 dustTrail.SetActive(false);
             }
         }
@@ -209,7 +207,6 @@ public class PlayerManager : MonoBehaviour
             {
                 movePlayers.Add(serverData.id);
                 animator.SetBool("isMoving", true);
-                Debug.Log("moving true");
             }
         }
         else
@@ -218,7 +215,6 @@ public class PlayerManager : MonoBehaviour
             {
                 movePlayers.Remove(serverData.id);
                 animator.SetBool("isMoving", false);
-                Debug.Log("moving false");
             }
         }
 

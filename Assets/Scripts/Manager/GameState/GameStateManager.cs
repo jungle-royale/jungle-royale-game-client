@@ -10,7 +10,6 @@ public class GameStateManager : Singleton<GameStateManager>
     private DateTime _sessionStartTime;
     public CameraManager cameraManager;
 
-
     void Start()
     {
         _sessionStartTime = DateTime.Now;
