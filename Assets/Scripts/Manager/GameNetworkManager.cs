@@ -79,8 +79,8 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         }
         catch (Exception ex)
         {
-            new RedirectHandler().RedirectToFailure(1);
             Debug.LogError($"Failed to connect WebSocket: {ex.Message}");
+            new RedirectHandler().RedirectToFailure(1);
         }
     }
 
@@ -307,6 +307,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         if (!IsOpen())
         {
             Debug.LogWarning("WebSocket is not open. Cannot send data.");
+            new RedirectHandler().RedirectToFailure(1);
             return;
         }
 
