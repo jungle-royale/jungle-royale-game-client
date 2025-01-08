@@ -32,44 +32,42 @@ namespace Message {
             "dGUYBSABKAsyEi5tZXNzYWdlLkdhbWVTdGF0ZUgAEicKCWdhbWVDb3VudBgG",
             "IAEoCzISLm1lc3NhZ2UuR2FtZUNvdW50SAASJQoIZ2FtZUluaXQYByABKAsy",
             "ES5tZXNzYWdlLkdhbWVJbml0SAASJwoJZ2FtZVN0YXJ0GAggASgLMhIubWVz",
-            "c2FnZS5HYW1lU3RhcnRIABIvCg1nYW1lUmVjb25uZWN0GAkgASgLMhYubWVz",
-            "c2FnZS5HYW1lUmVjb25uZWN0SABCDQoLTWVzc2FnZVR5cGUiLAoIR2FtZUlu",
-            "aXQSCgoCaWQYASABKAkSFAoMbWluUGxheWVyTnVtGAIgASgFIisKCUNoYW5n",
-            "ZURpchINCgVhbmdsZRgBIAEoAhIPCgdpc01vdmVkGAIgASgIIhwKC0NoYW5n",
-            "ZUFuZ2xlEg0KBWFuZ2xlGAEgASgCIkkKDUdhbWVSZWNvbm5lY3QSCgoCaWQY",
-            "ASABKAkSFAoMbWluUGxheWVyTnVtGAIgASgFEhYKDnRvdGFsUGxheWVyTnVt",
-            "GAMgASgFIqgCCglHYW1lU3RhdGUSKQoLcGxheWVyU3RhdGUYASADKAsyFC5t",
-            "ZXNzYWdlLlBsYXllclN0YXRlEikKC2J1bGxldFN0YXRlGAIgAygLMhQubWVz",
-            "c2FnZS5CdWxsZXRTdGF0ZRItCg1oZWFsUGFja1N0YXRlGAMgAygLMhYubWVz",
-            "c2FnZS5IZWFsUGFja1N0YXRlEi8KDm1hZ2ljSXRlbVN0YXRlGAQgAygLMhcu",
-            "bWVzc2FnZS5NYWdpY0l0ZW1TdGF0ZRIlCgl0aWxlU3RhdGUYBSADKAsyEi5t",
-            "ZXNzYWdlLlRpbGVTdGF0ZRIPCgdsYXN0U2VjGAYgASgFEi0KDWNoYW5naW5n",
-            "U3RhdGUYByABKAsyFi5tZXNzYWdlLkNoYW5naW5nU3RhdGUivwEKC1BsYXll",
-            "clN0YXRlEgoKAmlkGAEgASgJEgkKAXgYAiABKAISCQoBeRgDIAEoAhIOCgZo",
-            "ZWFsdGgYBCABKAUSEQoJbWFnaWNUeXBlGAUgASgFEg0KBWFuZ2xlGAYgASgC",
-            "EhQKDGRhc2hDb29sVGltZRgHIAEoBRIPCgdpc01vdmVkGAggASgIEhEKCWlz",
-            "RGFzaGluZxgJIAEoCBIOCgZpc0J1cm4YCiABKAgSEgoKaXNTaG9vdGluZxgL",
-            "IAEoCCInChFDaGFuZ2VCdWxsZXRTdGF0ZRISCgppc1Nob290aW5nGAEgASgI",
-            "IkkKC0J1bGxldFN0YXRlEhAKCGJ1bGxldElkGAEgASgJEhIKCmJ1bGxldFR5",
-            "cGUYAiABKAUSCQoBeBgDIAEoAhIJCgF5GAQgASgCIhoKCUdhbWVDb3VudBIN",
-            "CgVjb3VudBgBIAEoBSIWCgZEb0Rhc2gSDAoEZGFzaBgBIAEoCCI2CglHYW1l",
-            "U3RhcnQSEQoJbWFwTGVuZ3RoGAEgASgFEhYKDnRvdGFsUGxheWVyTnVtGAIg",
-            "ASgFIjUKDUhlYWxQYWNrU3RhdGUSDgoGaXRlbUlkGAEgASgJEgkKAXgYAiAB",
-            "KAISCQoBeRgDIAEoAiJJCg5NYWdpY0l0ZW1TdGF0ZRIOCgZpdGVtSWQYASAB",
-            "KAkSEQoJbWFnaWNUeXBlGAIgASgFEgkKAXgYAyABKAISCQoBeRgEIAEoAiJW",
-            "CglUaWxlU3RhdGUSDgoGdGlsZUlkGAEgASgJEgkKAXgYAiABKAISCQoBeRgD",
-            "IAEoAhIQCgh0aWxlVHlwZRgEIAEoBRIRCgl0aWxlU3RhdGUYBSABKAUioAEK",
-            "DUNoYW5naW5nU3RhdGUSLwoOaGl0QnVsbGV0U3RhdGUYASADKAsyFy5tZXNz",
-            "YWdlLkhpdEJ1bGxldFN0YXRlEisKDGdldEl0ZW1TdGF0ZRgCIAMoCzIVLm1l",
-            "c3NhZ2UuR2V0SXRlbVN0YXRlEjEKD3BsYXllckRlYWRTdGF0ZRgDIAMoCzIY",
-            "Lm1lc3NhZ2UuUGxheWVyRGVhZFN0YXRlInIKDkhpdEJ1bGxldFN0YXRlEhIK",
-            "Cm9iamVjdFR5cGUYASABKAUSEAoIYnVsbGV0SWQYAiABKAkSEAoIb2JqZWN0",
-            "SWQYAyABKAkSCQoBeBgEIAEoAhIJCgF5GAUgASgCEhIKCmJ1bGxldFR5cGUY",
-            "BiABKAUiWAoMR2V0SXRlbVN0YXRlEg4KBml0ZW1JZBgBIAEoCRIQCghwbGF5",
-            "ZXJJZBgCIAEoCRIQCghpdGVtVHlwZRgDIAEoBRIJCgF4GAQgASgCEgkKAXkY",
-            "BSABKAIibAoPUGxheWVyRGVhZFN0YXRlEhAKCGtpbGxlcklkGAEgASgJEg4K",
-            "BmRlYWRJZBgCIAEoCRITCgtkeWluZ1N0YXR1cxgDIAEoBRIPCgdraWxsTnVt",
-            "GAQgASgFEhEKCVBsYWNlbWVudBgFIAEoBUIKWggvbWVzc2FnZWIGcHJvdG8z"));
+            "c2FnZS5HYW1lU3RhcnRIAEINCgtNZXNzYWdlVHlwZSIsCghHYW1lSW5pdBIK",
+            "CgJpZBgBIAEoCRIUCgxtaW5QbGF5ZXJOdW0YAiABKAUiKwoJQ2hhbmdlRGly",
+            "Eg0KBWFuZ2xlGAEgASgCEg8KB2lzTW92ZWQYAiABKAgiHAoLQ2hhbmdlQW5n",
+            "bGUSDQoFYW5nbGUYASABKAIiqAIKCUdhbWVTdGF0ZRIpCgtwbGF5ZXJTdGF0",
+            "ZRgBIAMoCzIULm1lc3NhZ2UuUGxheWVyU3RhdGUSKQoLYnVsbGV0U3RhdGUY",
+            "AiADKAsyFC5tZXNzYWdlLkJ1bGxldFN0YXRlEi0KDWhlYWxQYWNrU3RhdGUY",
+            "AyADKAsyFi5tZXNzYWdlLkhlYWxQYWNrU3RhdGUSLwoObWFnaWNJdGVtU3Rh",
+            "dGUYBCADKAsyFy5tZXNzYWdlLk1hZ2ljSXRlbVN0YXRlEiUKCXRpbGVTdGF0",
+            "ZRgFIAMoCzISLm1lc3NhZ2UuVGlsZVN0YXRlEg8KB2xhc3RTZWMYBiABKAUS",
+            "LQoNY2hhbmdpbmdTdGF0ZRgHIAEoCzIWLm1lc3NhZ2UuQ2hhbmdpbmdTdGF0",
+            "ZSK/AQoLUGxheWVyU3RhdGUSCgoCaWQYASABKAkSCQoBeBgCIAEoAhIJCgF5",
+            "GAMgASgCEg4KBmhlYWx0aBgEIAEoBRIRCgltYWdpY1R5cGUYBSABKAUSDQoF",
+            "YW5nbGUYBiABKAISFAoMZGFzaENvb2xUaW1lGAcgASgFEg8KB2lzTW92ZWQY",
+            "CCABKAgSEQoJaXNEYXNoaW5nGAkgASgIEg4KBmlzQnVybhgKIAEoCBISCgpp",
+            "c1Nob290aW5nGAsgASgIIicKEUNoYW5nZUJ1bGxldFN0YXRlEhIKCmlzU2hv",
+            "b3RpbmcYASABKAgiSQoLQnVsbGV0U3RhdGUSEAoIYnVsbGV0SWQYASABKAkS",
+            "EgoKYnVsbGV0VHlwZRgCIAEoBRIJCgF4GAMgASgCEgkKAXkYBCABKAIiGgoJ",
+            "R2FtZUNvdW50Eg0KBWNvdW50GAEgASgFIhYKBkRvRGFzaBIMCgRkYXNoGAEg",
+            "ASgIIjYKCUdhbWVTdGFydBIRCgltYXBMZW5ndGgYASABKAUSFgoOdG90YWxQ",
+            "bGF5ZXJOdW0YAiABKAUiNQoNSGVhbFBhY2tTdGF0ZRIOCgZpdGVtSWQYASAB",
+            "KAkSCQoBeBgCIAEoAhIJCgF5GAMgASgCIkkKDk1hZ2ljSXRlbVN0YXRlEg4K",
+            "Bml0ZW1JZBgBIAEoCRIRCgltYWdpY1R5cGUYAiABKAUSCQoBeBgDIAEoAhIJ",
+            "CgF5GAQgASgCIlYKCVRpbGVTdGF0ZRIOCgZ0aWxlSWQYASABKAkSCQoBeBgC",
+            "IAEoAhIJCgF5GAMgASgCEhAKCHRpbGVUeXBlGAQgASgFEhEKCXRpbGVTdGF0",
+            "ZRgFIAEoBSKgAQoNQ2hhbmdpbmdTdGF0ZRIvCg5oaXRCdWxsZXRTdGF0ZRgB",
+            "IAMoCzIXLm1lc3NhZ2UuSGl0QnVsbGV0U3RhdGUSKwoMZ2V0SXRlbVN0YXRl",
+            "GAIgAygLMhUubWVzc2FnZS5HZXRJdGVtU3RhdGUSMQoPcGxheWVyRGVhZFN0",
+            "YXRlGAMgAygLMhgubWVzc2FnZS5QbGF5ZXJEZWFkU3RhdGUicgoOSGl0QnVs",
+            "bGV0U3RhdGUSEgoKb2JqZWN0VHlwZRgBIAEoBRIQCghidWxsZXRJZBgCIAEo",
+            "CRIQCghvYmplY3RJZBgDIAEoCRIJCgF4GAQgASgCEgkKAXkYBSABKAISEgoK",
+            "YnVsbGV0VHlwZRgGIAEoBSJYCgxHZXRJdGVtU3RhdGUSDgoGaXRlbUlkGAEg",
+            "ASgJEhAKCHBsYXllcklkGAIgASgJEhAKCGl0ZW1UeXBlGAMgASgFEgkKAXgY",
+            "BCABKAISCQoBeRgFIAEoAiJsCg9QbGF5ZXJEZWFkU3RhdGUSEAoIa2lsbGVy",
+            "SWQYASABKAkSDgoGZGVhZElkGAIgASgJEhMKC2R5aW5nU3RhdHVzGAMgASgF",
+            "Eg8KB2tpbGxOdW0YBCABKAUSEQoJUGxhY2VtZW50GAUgASgFQgpaCC9tZXNz",
+            "YWdlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -84,6 +82,7 @@ namespace Message {
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.BulletState), global::Message.BulletState.Parser, new[]{ "BulletId", "BulletType", "X", "Y" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameCount), global::Message.GameCount.Parser, new[]{ "Count" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.DoDash), global::Message.DoDash.Parser, new[]{ "Dash" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameStart), global::Message.GameStart.Parser, new[]{ "MapLength", "TotalPlayerNum" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameStart), global::Message.GameStart.Parser, new[]{ "MapLength", "TotalPlayerNum" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.HealPackState), global::Message.HealPackState.Parser, new[]{ "ItemId", "X", "Y" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.MagicItemState), global::Message.MagicItemState.Parser, new[]{ "ItemId", "MagicType", "X", "Y" }, null, null, null, null),
@@ -2926,6 +2925,11 @@ namespace Message {
     /// 1: stone
     /// 2: fire
     /// </summary>
+    /// <summary>
+    /// 0: snow
+    /// 1: stone
+    /// 2: fire
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int BulletType {
@@ -3605,6 +3609,7 @@ namespace Message {
     public GameStart(GameStart other) : this() {
       mapLength_ = other.mapLength_;
       totalPlayerNum_ = other.totalPlayerNum_;
+      totalPlayerNum_ = other.totalPlayerNum_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -3638,6 +3643,18 @@ namespace Message {
       }
     }
 
+    /// <summary>Field number for the "totalPlayerNum" field.</summary>
+    public const int TotalPlayerNumFieldNumber = 2;
+    private int totalPlayerNum_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int TotalPlayerNum {
+      get { return totalPlayerNum_; }
+      set {
+        totalPlayerNum_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -3655,6 +3672,7 @@ namespace Message {
       }
       if (MapLength != other.MapLength) return false;
       if (TotalPlayerNum != other.TotalPlayerNum) return false;
+      if (TotalPlayerNum != other.TotalPlayerNum) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -3663,6 +3681,7 @@ namespace Message {
     public override int GetHashCode() {
       int hash = 1;
       if (MapLength != 0) hash ^= MapLength.GetHashCode();
+      if (TotalPlayerNum != 0) hash ^= TotalPlayerNum.GetHashCode();
       if (TotalPlayerNum != 0) hash ^= TotalPlayerNum.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -3690,6 +3709,10 @@ namespace Message {
         output.WriteRawTag(16);
         output.WriteInt32(TotalPlayerNum);
       }
+      if (TotalPlayerNum != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(TotalPlayerNum);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -3703,6 +3726,10 @@ namespace Message {
       if (MapLength != 0) {
         output.WriteRawTag(8);
         output.WriteInt32(MapLength);
+      }
+      if (TotalPlayerNum != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(TotalPlayerNum);
       }
       if (TotalPlayerNum != 0) {
         output.WriteRawTag(16);
@@ -3724,6 +3751,9 @@ namespace Message {
       if (TotalPlayerNum != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(TotalPlayerNum);
       }
+      if (TotalPlayerNum != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(TotalPlayerNum);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -3738,6 +3768,9 @@ namespace Message {
       }
       if (other.MapLength != 0) {
         MapLength = other.MapLength;
+      }
+      if (other.TotalPlayerNum != 0) {
+        TotalPlayerNum = other.TotalPlayerNum;
       }
       if (other.TotalPlayerNum != 0) {
         TotalPlayerNum = other.TotalPlayerNum;
@@ -3769,6 +3802,10 @@ namespace Message {
             TotalPlayerNum = input.ReadInt32();
             break;
           }
+          case 16: {
+            TotalPlayerNum = input.ReadInt32();
+            break;
+          }
         }
       }
     #endif
@@ -3790,6 +3827,10 @@ namespace Message {
             break;
           case 8: {
             MapLength = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            TotalPlayerNum = input.ReadInt32();
             break;
           }
           case 16: {
@@ -5090,6 +5131,11 @@ namespace Message {
     /// <summary>Field number for the "bulletType" field.</summary>
     public const int BulletTypeFieldNumber = 6;
     private int bulletType_;
+    /// <summary>
+    /// 0: snow
+    /// 1: stone
+    /// 2: fire
+    /// </summary>
     /// <summary>
     /// 0: snow
     /// 1: stone

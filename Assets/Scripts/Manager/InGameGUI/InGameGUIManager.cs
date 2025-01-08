@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System;
+using System.Collections.Generic;
 
 public class InGameGUIManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class InGameGUIManager : MonoBehaviour
     private float timeSinceLastUpdate = 0.0f;
     private float deltaTime = 0.0f;
 
+    private GameObject mainCanvas;
     private GameObject waitingRoomCanvas;
     private GameObject inGameCanvas;
     private GameObject gameOverCanvas;
@@ -17,21 +19,27 @@ public class InGameGUIManager : MonoBehaviour
     private GameObject gameWinCanvas;
 
     // MainCanvas
-    private TextMeshProUGUI pingLabel;
-    private TextMeshProUGUI fpsLabel;
-    private TextMeshProUGUI timerLabel;
-
+    [Header("MainCanvas Label")]
+    public List<TextMeshProUGUI> pingLabel;
+    public List<TextMeshProUGUI> fpsLabel;
+    public List<TextMeshProUGUI> timerLabel;
+    public List<TextMeshProUGUI> playerCountLabel;
 
     // WaitingRoomCanvas Child
-    private TextMeshProUGUI gameCountDownLabel;
+    [Header("WaitingRoomCanvas Label")]
+    public List<TextMeshProUGUI> gameCountDownLabel;
+    public List<TextMeshProUGUI> minPlayerLabel;
 
     // InGameCanvas Child
-    private TextMeshProUGUI hpLabel;
-    private TextMeshProUGUI playerCountLabel;
+    [Header("InGameCanvas Label")]
+    public List<TextMeshProUGUI> hpLabel;
 
-    // GameOverCanvas Child
-    private TextMeshProUGUI placementLabel;
-    private TextMeshProUGUI rankLabel;
+    // State Canvas
+    [Header("State Canvas Label")]
+    public List<TextMeshProUGUI> placementLabel;
+    public List<TextMeshProUGUI> totalPlayerLabel;
+    public List<TextMeshProUGUI> killCountLabel;
+    public List<TextMeshProUGUI> pointLabel;
 
     void Start()
     {
@@ -57,7 +65,7 @@ public class InGameGUIManager : MonoBehaviour
         gameOverCanvas = InstantiateCanvas("Prefabs/UIs/GameOverCanvas");
         gameEndCanvas = InstantiateCanvas("Prefabs/UIs/GameEndCanvas");
         watchModeCanvas = InstantiateCanvas("Prefabs/UIs/WatchModeCanvas");
-        gameWinCanvas = InstantiateCanvas("Prefabs/UIs/GameEndCanvas"); // TODO: WinCanvas로 수정해야 함
+        gameWinCanvas = InstantiateCanvas("Prefabs/UIs/GameWinCanvas");
 
         // 모든 캔버스 비활성화
         SetAllCanvasesInactive();
@@ -94,87 +102,60 @@ public class InGameGUIManager : MonoBehaviour
 
     private void CacheCanvasComponents()
     {
-        if (GameObject.FindWithTag("MainCanvas") != null)
-        {
-            pingLabel = FindLabelByTag("PingLabel");
-            fpsLabel = FindLabelByTag("FpsLabel");
-            timerLabel = FindLabelByTag("TimerLabel");
-        }
+        pingLabel = FindLabelsByTag("PingLabel");
+        fpsLabel = FindLabelsByTag("FpsLabel");
+        timerLabel = FindLabelsByTag("TimerLabel");
+        playerCountLabel = FindLabelsByTag("PlayerCountLabel");
 
-        if (waitingRoomCanvas != null)
-        {
-            gameCountDownLabel = FindTextInCanvas(waitingRoomCanvas, "GameCountDownLabel");
-        }
+        gameCountDownLabel = FindLabelsByTag("GameCountDownLabel");
+        minPlayerLabel = FindLabelsByTag("MinPlayerLabel");
 
-        if (inGameCanvas != null)
-        {
-            hpLabel = FindTextInCanvas(inGameCanvas, "HpLabel");
-            // playerCountLabel = FindTextInCanvas(inGameCanvas, "PlayerCountLabel");
-            playerCountLabel = FindLabelByTag("PlayerCountLabel");
-        }
+        hpLabel = FindLabelsByTag("HpLabel");
 
-        if (gameOverCanvas != null)
-        {
-            // placementLabel = FindTextInCanvas(gameOverCanvas, "PlacementLabel");
-            // rankLabel = FindTextInCanvas(gameOverCanvas, "RankLabel");
-        }
+        placementLabel = FindLabelsByTag("PlacementLabel");
+        totalPlayerLabel = FindLabelsByTag("TotalPlayerLabel");
+        killCountLabel = FindLabelsByTag("KillCountLabel");
 
-        if (gameEndCanvas != null)
-        {
-
-        }
-
-        if (watchModeCanvas != null)
-        {
-
-        }
     }
 
-    private TextMeshProUGUI FindLabelByTag(string tag)
+    private List<TextMeshProUGUI> FindLabelsByTag(string tag)
     {
-        GameObject labelObject = GameObject.FindWithTag(tag);
-        if (labelObject == null)
+        // 태그를 가진 모든 객체를 찾습니다.
+        GameObject[] labelObjects = GameObject.FindGameObjectsWithTag(tag);
+        if (labelObjects == null || labelObjects.Length == 0)
         {
             Debug.LogError($"'{tag}' 태그를 가진 객체를 찾을 수 없습니다.");
-            return null;
+            return new List<TextMeshProUGUI>(); // 빈 리스트 반환
         }
 
-        TextMeshProUGUI label = labelObject.GetComponent<TextMeshProUGUI>();
-        if (label == null)
+        // TextMeshProUGUI 컴포넌트를 가진 객체를 리스트로 저장
+        List<TextMeshProUGUI> labels = new List<TextMeshProUGUI>();
+        foreach (GameObject obj in labelObjects)
         {
-            Debug.LogError($"'{tag}' 태그를 가진 객체에 TextMeshProUGUI 컴포넌트가 없습니다.");
-            return null;
+            TextMeshProUGUI label = obj.GetComponent<TextMeshProUGUI>();
+            if (label != null)
+            {
+                labels.Add(label);
+            }
+            else
+            {
+                Debug.LogWarning($"'{obj.name}' 객체에 TextMeshProUGUI 컴포넌트가 없습니다.");
+            }
         }
 
-        return label;
-    }
-
-    private TextMeshProUGUI FindTextInCanvas(GameObject canvas, string childName)
-    {
-        Transform childTransform = canvas.transform.Find(childName);
-        if (childTransform == null)
-        {
-            Debug.LogError($"'{childName}' 이름을 가진 객체를 {canvas.name}에서 찾을 수 없습니다.");
-            return null;
-        }
-
-        TextMeshProUGUI label = childTransform.GetComponent<TextMeshProUGUI>();
-        if (label == null)
-        {
-            Debug.LogError($"'{childName}'에 TextMeshProUGUI 컴포넌트가 없습니다.");
-        }
-
-        return label;
+        return labels;
     }
 
     private void SubscribeToEvents()
     {
         EventBus<InGameGUIEventType>.Subscribe<string>(InGameGUIEventType.ActivateCanvas, OnActivateCanvas);
+        EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.UpdateMinPlayerLabel, UpdateMinPlayerUI);
         EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.UpdateGameCountDownLabel, UpdateGameCountDownUI);
         EventBus<InGameGUIEventType>.Subscribe<long>(InGameGUIEventType.UpdatePingLabel, UpdatePingUI);
         EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.UpdateHpLabel, UpdateHpUI);
         EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.UpdatePlayerCountLabel, UpdatePlayerCountUI);
         EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.UpdateTimerLabel, UpdateTimerUI);
+        EventBus<InGameGUIEventType>.Subscribe<StateUIDTO>(InGameGUIEventType.UpdateStateLabel, UpdateStateUI);
     }
 
     private void OnDestroy()
@@ -186,6 +167,7 @@ public class InGameGUIManager : MonoBehaviour
         EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.UpdateHpLabel, UpdateHpUI);
         EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.UpdatePlayerCountLabel, UpdatePlayerCountUI);
         EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.UpdateTimerLabel, UpdateTimerUI);
+        EventBus<InGameGUIEventType>.Unsubscribe<StateUIDTO>(InGameGUIEventType.UpdateStateLabel, UpdateStateUI);
     }
 
     private void OnActivateCanvas(string gameState)
@@ -196,6 +178,24 @@ public class InGameGUIManager : MonoBehaviour
         {
             case "GameWait":
                 waitingRoomCanvas?.SetActive(true);
+
+                if (waitingRoomCanvas != null)
+                {
+                    // 자식 객체 찾기
+                    Transform mobileDesc = waitingRoomCanvas.transform.Find("Description_Mobile");
+                    Transform pcDesc = waitingRoomCanvas.transform.Find("Description_PC");
+
+                    if (new DeviceCheck().IsMobile())
+                    {
+                        if (mobileDesc != null) mobileDesc.gameObject.SetActive(true);
+                        if (pcDesc != null) pcDesc.gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        if (mobileDesc != null) mobileDesc.gameObject.SetActive(false);
+                        if (pcDesc != null) pcDesc.gameObject.SetActive(true);
+                    }
+                }
                 break;
             case "GameStart":
                 inGameCanvas?.SetActive(true);
@@ -220,13 +220,35 @@ public class InGameGUIManager : MonoBehaviour
                 Debug.LogError($"Unknown game state: {gameState}");
                 break;
         }
+
+        CacheCanvasComponents();
+    }
+
+    private void UpdateMinPlayerUI(int minPlayerNum)
+    {
+        if (minPlayerLabel != null)
+        {
+            foreach (var label in minPlayerLabel) // minPlayerLabel 리스트 순회
+            {
+                label.text = $"/{minPlayerNum:D3}";
+            }
+        }
     }
 
     private void UpdateGameCountDownUI(int gameCountDown)
     {
-        if (waitingRoomCanvas != null && waitingRoomCanvas.activeSelf && gameCountDownLabel != null)
+        if (gameCountDown <= 0)
         {
-            gameCountDownLabel.text = $"Game Start In {gameCountDown - 1}";
+            return;
+        }
+
+        if (gameCountDownLabel != null)
+        {
+            foreach (var label in gameCountDownLabel) // gameCountDownLabel 리스트 순회
+            {
+                gameCountDown -= 1;
+                label.text = $"{gameCountDown:D2}";
+            }
         }
         else
         {
@@ -238,7 +260,10 @@ public class InGameGUIManager : MonoBehaviour
     {
         if (pingLabel != null)
         {
-            pingLabel.text = $"Ping: {ping} ms";
+            foreach (var label in pingLabel) // pingLabel 리스트 순회
+            {
+                label.text = $"Ping: {ping} ms";
+            }
         }
     }
 
@@ -246,9 +271,12 @@ public class InGameGUIManager : MonoBehaviour
     {
         if (timerLabel != null)
         {
-            int min = sec / 60;
-            int remainingSec = sec % 60;
-            timerLabel.text = $"{min:D2}:{remainingSec:D2}";
+            foreach (var label in timerLabel) // timerLabel 리스트 순회
+            {
+                int min = sec / 60;
+                int remainingSec = sec % 60;
+                label.text = $"{min:D2}:{remainingSec:D2}";
+            }
         }
     }
 
@@ -263,10 +291,12 @@ public class InGameGUIManager : MonoBehaviour
         {
             int fps = Mathf.CeilToInt(1.0f / deltaTime);
 
-            // FPS 값을 화면에 표시
             if (fpsLabel != null)
             {
-                fpsLabel.text = $"FPS: {fps} ms";
+                foreach (var label in fpsLabel) // fpsLabel 리스트 순회
+                {
+                    label.text = $"FPS: {fps} ms";
+                }
             }
 
             // 경과 시간 초기화
@@ -276,18 +306,58 @@ public class InGameGUIManager : MonoBehaviour
 
     private void UpdateHpUI(int hp)
     {
-        if (inGameCanvas != null && inGameCanvas.activeSelf && hpLabel != null)
+        if (hpLabel != null)
         {
-            hpLabel.text = $"HP: {hp}";
+            foreach (var label in hpLabel) // hpLabel 리스트 순회
+            {
+                label.text = $"HP {hp:D3}";
+            }
         }
     }
 
     private void UpdatePlayerCountUI(int playerCount)
     {
-        if (inGameCanvas != null && inGameCanvas.activeSelf && playerCountLabel != null)
+        if (playerCountLabel != null)
         {
-            // 숫자를 세 자리로 포맷하여 문자열로 변환
-            playerCountLabel.text = playerCount.ToString("D3");
+            foreach (var label in playerCountLabel) // playerCountLabel 리스트 순회
+            {
+                label.text = $"{playerCount:D3}";
+            }
         }
+    }
+
+    private void UpdateStateUI(StateUIDTO stateData)
+    {
+        if (placementLabel != null)
+        {
+            foreach (var label in placementLabel) // placementLabel 리스트 순회
+            {
+                label.text = $"{stateData.placement:D3}";
+            }
+        }
+
+        if (totalPlayerLabel != null)
+        {
+            foreach (var label in totalPlayerLabel) // totalPlayerLabel 리스트 순회
+            {
+                label.text = $"/{stateData.totalPlayer:D3}";
+            }
+        }
+
+        if (killCountLabel != null)
+        {
+            foreach (var label in killCountLabel) // killCountLabel 리스트 순회
+            {
+                label.text = $"{stateData.killCount:D2}";
+            }
+        }
+
+        // if (pointLabel != null)
+        // {
+        //     foreach (var label in pointLabel) // pointLabel 리스트 순회
+        //     {
+        //         // label.text = stateData.point.ToString("D3");
+        //     }
+        // }
     }
 }

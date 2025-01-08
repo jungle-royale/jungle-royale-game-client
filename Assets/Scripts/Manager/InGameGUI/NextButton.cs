@@ -32,7 +32,7 @@ public class NextButton : MonoBehaviour
 
     public void WatchNext()
     {
-        Debug.Log("Next Button");
+        // Debug.Log("Next Button");
         CameraManager cameraManager = GameObject.FindFirstObjectByType<CameraManager>();
         if (cameraManager == null)
         {

@@ -34,6 +34,7 @@ public class WatchGameButton : MonoBehaviour
     {
         Debug.Log("Watch Button");
         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "WatchMode");
+        EventBus<InputButtonEventType>.Publish(InputButtonEventType.ActivateTabKey);
     }
 
 }

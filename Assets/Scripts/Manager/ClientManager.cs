@@ -10,8 +10,10 @@ using UnityEngine.Timeline;
 public class ClientManager : Singleton<ClientManager>
 {
     public string ClientId { get; private set; }
-    public string CurrentPlayerName {
-        get {
+    public string CurrentPlayerName
+    {
+        get
+        {
             return "MyPlayer";
         }
     }
@@ -22,9 +24,28 @@ public class ClientManager : Singleton<ClientManager>
     public float Angle;
     public int DashCoolTime;
 
+    public int minPlayerNum;
+    public int totalPlayerNum;
+
+    // DeadState Datat
+    public int placement;
+    public int playerCount;
+    public int killCount;
+
     public void SetClientId(string clientId)
     {
         this.ClientId = clientId;
+    }
+
+    public void SetMinPlayerNumber(int minPlayerNum)
+    {
+        this.minPlayerNum = minPlayerNum;
+    }
+
+    public void SetTotalPlayerNumber(int totalPlayerNum)
+    {
+        Debug.Log("총 플레이어 수 세팅!!!");
+        this.totalPlayerNum = totalPlayerNum;
     }
 
     public bool CanDoDash()
@@ -36,6 +57,13 @@ public class ClientManager : Singleton<ClientManager>
     {
         switch (wrapper.MessageTypeCase)
         {
+            case Wrapper.MessageTypeOneofCase.GameStart:
+                if (wrapper.GameStart != null)
+                {
+                    totalPlayerNum = wrapper.GameStart.TotalPlayerNum;
+                }
+                break;
+
             case Wrapper.MessageTypeOneofCase.GameState:
                 if (wrapper.GameState.PlayerState != null)
                 {
@@ -63,7 +91,20 @@ public class ClientManager : Singleton<ClientManager>
                         }
                     }
                 }
+
+                if (wrapper.GameState.ChangingState.PlayerDeadState != null)
+                {
+                    foreach (var player in wrapper.GameState.ChangingState.PlayerDeadState)
+                    {
+                        if (player.DeadId == ClientId)
+                        {
+                            placement = player.Placement;
+                            playerCount = player.KillNum;
+                        }
+                    }
+                }
                 break;
+
             default:
                 break;
         }

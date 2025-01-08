@@ -106,6 +106,8 @@ public class ChangingStateManager : MonoBehaviour
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dead, 1.0f);
             animator.SetTrigger("byeSnowman");
         }
+
+        
     }
 
     private void UpdateFallDead(string deadPlayerId)

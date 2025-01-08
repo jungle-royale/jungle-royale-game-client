@@ -175,6 +175,8 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     private void HandleGameInit(GameInit init)
     {
         ClientManager.Instance.SetClientId(init.Id);
+        ClientManager.Instance.SetMinPlayerNumber(init.MinPlayerNum);
+        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateMinPlayerLabel, init.MinPlayerNum);
         new LoadingScreenRemover().Remove();
     }
 
@@ -188,6 +190,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     private void HandleGameStart(GameStart gameStart)
     {
         gameStateManager.HandleGameStart(gameStart);
+        ClientManager.Instance.SetTotalPlayerNumber(gameStart.TotalPlayerNum);
         tileManager.DeleteReadyTile();
     }
 
