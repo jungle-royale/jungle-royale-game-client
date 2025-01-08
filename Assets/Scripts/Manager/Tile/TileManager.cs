@@ -28,44 +28,6 @@ public class TileManager : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        Invoke("ExecuteAfterDelay", 3f);
-    }
-
-    void ExecuteAfterDelay()
-    {
-        // Debug.Log("3초 뒤에 실행!");
-
-        // foreach (var (k, tileObject) in tileObjects)
-        // {
-        //     Animator tileanimator = tileObject.GetComponent<Animator>();
-        //     if (tileanimator == null)
-        //     {
-        //         return;
-        //     }
-        //     tileanimator.SetTrigger("bye");
-        // }
-
-        // Invoke("B", 1.0f);
-    }
-
-    void B() 
-    {
-        // PlayerManager에서 플레이어 객체 가져오기
-        GameObject player = playerManager.GetPlayerById(ClientManager.Instance.ClientId);
-        if (player == null)
-        {
-            return;
-        }
-        Animator a = player.GetComponent<Animator>();
-        if (a == null)
-        {
-            return;
-        }
-        a.SetTrigger("bye");
-    }
-
     public void UpdateTiles(List<Tile> tiles)
     {
         HashSet<string> activeTileIds = new HashSet<string>();
@@ -120,9 +82,8 @@ public class TileManager : MonoBehaviour
 
     private void UpdateTile(Tile tile, GameObject tileObject)
     {
-        var NewPosition = tileObject.transform.position;
-        NewPosition.x = tile.X;
-        NewPosition.z = tile.Y;
+        var NewPosition = tile.Position();
+        NewPosition.y = tileObject.transform.position.y;
         tileObject.transform.position = NewPosition;
 
         if (tile.warning == 1)
@@ -149,7 +110,6 @@ public class TileManager : MonoBehaviour
         {
             // Ground의 Scale 가져오기
             Vector3 groundScale = groundTransform.localScale;
-            Debug.Log("Ground Scale: " + groundScale);
         }
         else
         {
@@ -221,12 +181,22 @@ public class TileManager : MonoBehaviour
             }
         }
 
+        // 애니메이션 실행
+        // 애니메이션 끝나면 event에서 destroy 처리
+
         foreach (var tileId in tilesToRemove)
         {
-            if (tileObjects.TryGetValue(tileId, out GameObject player))
+            if (tileObjects.TryGetValue(tileId, out GameObject tileObject))
             {
-                Destroy(player);
+                // Destroy(tileObject);
+                Animator animator = tileObject.GetComponent<Animator>();
+                if (animator == null)
+                {
+                    return;
+                }
+
                 tileObjects.Remove(tileId);
+                animator.SetTrigger("bye");
             }
         }
     }

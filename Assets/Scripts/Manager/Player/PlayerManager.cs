@@ -263,7 +263,7 @@ public class PlayerManager : MonoBehaviour
 
         foreach (var key in keysToRemove)
         {
-            Destroy(otherPlayers[key]);
+            // Destroy(otherPlayers[key]);
             otherPlayers.Remove(key);
             movePlayers.Remove(key);
             dashPlayers.Remove(key);
@@ -272,9 +272,11 @@ public class PlayerManager : MonoBehaviour
         if (!currentPlayerDead && !existingIds.Contains(currentPlayerId))
         {
             currentPlayerDead = true;
-            Destroy(currentPlayer);
+            // Destroy(currentPlayer);
             movePlayers.Remove(currentPlayerId);
             dashPlayers.Remove(currentPlayerId);
         }
     }
+
+    // private 
 }

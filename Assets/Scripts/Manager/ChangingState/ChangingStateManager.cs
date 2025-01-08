@@ -69,12 +69,15 @@ public class ChangingStateManager : MonoBehaviour
         GameObject player = playerManager.GetPlayerById(state.deadPlayerId);
         if (player == null)
         {
+            Debug.Log("💩 no player");
             return;
         }
+
         Animator animator = player.GetComponent<Animator>();
         if (animator == null)
         {
-            Debug.LogWarning($"Animator not found on player: {player.name}");
+            Debug.LogWarning($"🍎 Animator not found on player: {player.name}");
+            Debug.Log($"🍎 Animator not found on player: {player.name}");
             return;
         }
 
@@ -83,6 +86,7 @@ public class ChangingStateManager : MonoBehaviour
         // - PlayerDead 이벤트를 발행하여 키를 막음
         if (state.deadPlayerId == ClientManager.Instance.ClientId)
         {
+            Debug.Log("🍎 stop key");
             EventBus<InputButtonEventType>.Publish(InputButtonEventType.StopPlay);
         }
         // 다른 사람인 경우
@@ -92,11 +96,13 @@ public class ChangingStateManager : MonoBehaviour
         // dead sound가 falling이랑 육지에서 죽을 때랑 다르거나, 공통된 소리를 쓸 수 있게 해야 함
         if (state.IsFall())
         {
+            Debug.Log("🍎 fall");
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dead, 1.0f);
             animator.SetTrigger("byeSnowman");
         } 
         else 
         {
+            Debug.Log("🍎 not fall");
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dead, 1.0f);
             animator.SetTrigger("byeSnowman");
         }

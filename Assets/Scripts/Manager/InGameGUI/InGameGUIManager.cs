@@ -14,6 +14,7 @@ public class InGameGUIManager : MonoBehaviour
     private GameObject gameOverCanvas;
     private GameObject gameEndCanvas;
     private GameObject watchModeCanvas;
+    private GameObject gameWinCanvas;
 
     // MainCanvas
     private TextMeshProUGUI pingLabel;
@@ -56,6 +57,7 @@ public class InGameGUIManager : MonoBehaviour
         gameOverCanvas = InstantiateCanvas("Prefabs/UIs/GameOverCanvas");
         gameEndCanvas = InstantiateCanvas("Prefabs/UIs/GameEndCanvas");
         watchModeCanvas = InstantiateCanvas("Prefabs/UIs/WatchModeCanvas");
+        gameWinCanvas = InstantiateCanvas("Prefabs/UIs/GameEndCanvas");
 
         // 모든 캔버스 비활성화
         SetAllCanvasesInactive();
@@ -87,6 +89,7 @@ public class InGameGUIManager : MonoBehaviour
         if (gameOverCanvas != null) gameOverCanvas.SetActive(false);
         if (gameEndCanvas != null) gameEndCanvas.SetActive(false);
         if (watchModeCanvas != null) watchModeCanvas.SetActive(false);
+        if (gameWinCanvas != null) gameWinCanvas.SetActive(false);
     }
 
     private void CacheCanvasComponents()
@@ -200,11 +203,18 @@ public class InGameGUIManager : MonoBehaviour
             case "GameOver":
                 gameOverCanvas?.SetActive(true);
                 break;
-            case "GameEnd":
-                gameEndCanvas?.SetActive(true);
-                break;
             case "WatchMode":
                 watchModeCanvas?.SetActive(true);
+                break;
+            case "GameWin":
+                gameOverCanvas?.SetActive(false);
+                watchModeCanvas?.SetActive(false);
+                gameWinCanvas?.SetActive(true);
+                break;
+            case "GameEnd":
+                gameOverCanvas?.SetActive(false);
+                watchModeCanvas?.SetActive(false);
+                gameEndCanvas?.SetActive(true);
                 break;
             default:
                 Debug.LogError($"Unknown game state: {gameState}");

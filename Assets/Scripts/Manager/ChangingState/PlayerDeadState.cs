@@ -10,11 +10,16 @@ public class PlayerDeadState
     // 3: fire
     // 4: fall
 
-    public PlayerDeadState(string killerId, string deadPlayerId, int dyingStatus)
+    public int killNum;
+    public int placement; // rank
+
+    public PlayerDeadState(string killerId, string deadPlayerId, int dyingStatus, int killNum, int placement)
     {
         this.killerId = killerId;
         this.deadPlayerId = deadPlayerId;
         this.dyingStatus = dyingStatus;
+        this.killNum = killNum;
+        this.placement = placement;
     }
 
     public override string ToString()
@@ -40,5 +45,10 @@ public class PlayerDeadState
     public bool IsFall()
     {
         return dyingStatus == 4;
+    }
+
+    public bool IsWinner()
+    {
+        return placement == 1;
     }
 }

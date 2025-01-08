@@ -8,8 +8,8 @@ public class GameStateManager : Singleton<GameStateManager>
 {
 
     private DateTime _sessionStartTime;
+    public CameraManager cameraManager;
 
-    private bool _gameStart = false;
 
     void Start()
     {
@@ -35,40 +35,41 @@ public class GameStateManager : Singleton<GameStateManager>
 
     public void HandleGameStart(GameStart gameStart)
     {
-        _gameStart = true;
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameStart);
         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameStart");
         AudioManager.Instance.PlayBGM("InGameBGM");
     }
 
-    public void HandleGameState(GameState gameState)
+    public void HandleGameEndState(List<PlayerDeadState> playerDeadStateList)
     {
-        if (gameState.PlayerState != null)
+        foreach (var deadPlayerState in playerDeadStateList)
         {
-            // 게임 시작한 후에, player가 한 명 남았을 때 게임 종료 처리
-            if (_gameStart && gameState.PlayerState.Count == 1)
+            if (deadPlayerState.IsWinner())
             {
-                foreach (var player in gameState.PlayerState)
+
+                string playerId = deadPlayerState.deadPlayerId;
+
+                Debug.Log($"🍎 게임 종료 {playerId}");
+                // TODO: 한 번만 처리하도록 수정
+
+                // 모든 키를 막는다.
+                EventBus<InputButtonEventType>.Publish(InputButtonEventType.StopPlay);
+
+                // camera를 승리자로 옮긴다.
+                cameraManager.SetFocusedClient(playerId);
+
+                // TODO: 승리 애니메이션, 파티클 추가
+
+                if (playerId == ClientManager.Instance.ClientId)
                 {
-
-                    // 모든 키를 막는다.
-                    EventBus<InputButtonEventType>.Publish(InputButtonEventType.StopPlay);
-
-                    // camera를 승리자로 옮긴다. -> camera state 업데이트 할 때 자동으로 옮겨질 것
-
-                    // TODO: 승리 애니메이션, 파티클 추가
-
-                    if (player.Id == ClientManager.Instance.ClientId)
-                    {
-                        // 승리
-                        AudioManager.Instance.PlayOnceSfx(AudioManager.Sfx.Win, 1.0f);
-                        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameEnd");
-                    }
-                    else
-                    {
-                        // TODO: 다른 사람이 1등했을 때에는 다른 화면 보여줘야?
-                        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameOver");
-                    }
+                    // 승리
+                    AudioManager.Instance.PlayOnceSfx(AudioManager.Sfx.Win, 1.0f);
+                    EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameWin");
+                }
+                else
+                {
+                    // TODO: 다른 사람이 1등했을 때에는 다른 화면 보여줘야?
+                    EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameEnd");
                 }
             }
         }

@@ -14132,6 +14132,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4996168079501908164}
+  - component: {fileID: 7898499649995706970}
+  - component: {fileID: -2497158528421570039}
   m_Layer: 0
   m_Name: Tile02
   m_TagString: Untagged
@@ -14165,6 +14167,39 @@ Transform:
   - {fileID: 5974373179772832952}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &7898499649995706970
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8799750189531825581}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 602e2015558314308a441a4dba70c55b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-2497158528421570039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8799750189531825581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ff23a829953144fd8919a643e8d5af9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9125541369375668751
 GameObject:
   m_ObjectHideFlags: 0

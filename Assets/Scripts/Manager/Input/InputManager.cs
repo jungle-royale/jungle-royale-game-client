@@ -4,7 +4,7 @@ using System;
 public class InputManager : MonoBehaviour
 {
     public InputNetworkSender networkSender; // 서버로 입력 정보를 보내는 클래스 참조
-    public CameraManager cameraHandler;
+    public CameraManager cameraManager;
 
     public InputAdapter input;
 
@@ -27,24 +27,27 @@ public class InputManager : MonoBehaviour
     private Debouncer DashDebouncer = new Debouncer();
 
     private bool EndGame = false;
+    private bool IsActivateTab = false;
 
     void Start()
     {
-        EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.StopPlay, HandlePlayerDead);
+        EventBus<InputButtonEventType>.Subscribe(InputButtonEventType.StopPlay, HandlePlayerDead);
+        EventBus<InputButtonEventType>.Subscribe(InputButtonEventType.ActivateTabKey, ActivateTabKey);
     }
 
     private void OnDestroy()
     {
         EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.StopPlay, HandlePlayerDead);
+        EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.ActivateTabKey, ActivateTabKey);
     }
 
     void Update()
     {
-        if (EndGame)
+        if (IsActivateTab)
         {
             HandleTab();
         }
-        else
+        if (!EndGame)
         {
             HandleBullet();
             HandleMove();
@@ -59,11 +62,17 @@ public class InputManager : MonoBehaviour
         input.DeactivateButton();
     }
 
+    private void ActivateTabKey()
+    {
+        IsActivateTab = true;
+    }
+
+
     private void HandleTab()
     {
         if (input.GetTab())
         {
-            cameraHandler.SwitchToNextPlayer();
+            cameraManager.SwitchToNextPlayer(); // TODO: next button에도 추가
         }
     }
 
