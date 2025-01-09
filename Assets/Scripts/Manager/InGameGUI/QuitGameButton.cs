@@ -1,39 +1,27 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class QuitGameButton : MonoBehaviour
 {
-    void Start()
+    private void OnEnable()
     {
-        // QuitButton GameObject를 찾음 (버튼이 있는 객체)
-        GameObject quitButtonObject = GameObject.Find("QuitButton");
+        // 현재 활성화된 Canvas의 자식에서 QuitButton을 찾음
+        Button[] quitButtons = GetComponentsInChildren<Button>(true);
 
-        if (quitButtonObject != null)
+        foreach (Button quitButton in quitButtons)
         {
-            // Button 컴포넌트를 가져옴
-            Button quitButton = quitButtonObject.GetComponent<Button>();
-
-            if (quitButton != null)
+            if (quitButton.name == "QuitButton")
             {
-                // OnClick 이벤트에 메서드 추가
-                quitButton.onClick.AddListener(() => RedirectToURL());
+                // 기존 리스너를 제거하고 새로 추가
+                quitButton.onClick.RemoveAllListeners();
+                quitButton.onClick.AddListener(RedirectToURL);
             }
-            else
-            {
-                Debug.LogError("Button component is missing on QuitButton GameObject.");
-            }
-        }
-        else
-        {
-            Debug.LogError("QuitButton GameObject not found.");
         }
     }
 
-    public void RedirectToURL()
+    private void RedirectToURL()
     {
-        Debug.Log("Quit Button");
+        Debug.Log("Quit Button Clicked");
         new RedirectHandler().RedirectToHome();
     }
-
 }
