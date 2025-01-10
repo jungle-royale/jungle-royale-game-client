@@ -13,9 +13,7 @@ public class TileManager : MonoBehaviour
     private WebGLHapticManager HaptickManager = new WebGLHapticManager();
 
     const float TILE_Y = 0;
-
     private const float blinkSpeed = 1.5f;
-
     private Color baseColor = new Color(142 / 255f, 183 / 255f, 180 / 255f);
 
     private void Awake()
@@ -40,7 +38,18 @@ public class TileManager : MonoBehaviour
             {
                 GameObject tilePrefab = null;
 
-                // type에 따라 프리팹 배치 (switch 문 사용)
+#if UNITY_EDITOR
+                tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile00");
+#else
+            // 빌드된 환경에서 실행 중일 때
+            if (Debug.isDebugBuild)
+            {
+                Debug.Log("[TileManager.cs] Development Build에서 실행 중");
+                tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile00");
+            }
+            else
+            {
+                // Release Build에서 실행 중
                 switch (tile.tileType)
                 {
                     case 0:
@@ -54,6 +63,7 @@ public class TileManager : MonoBehaviour
                     case 2:
                         tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile02");
                         break;
+
                     case 3:
                         tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile03");
                         break;
@@ -62,7 +72,8 @@ public class TileManager : MonoBehaviour
                         Debug.LogError($"Unknown tile type: {tile.tileType}");
                         break;
                 }
-
+            }
+#endif
                 if (tilePrefab != null)
                 {
                     tileObject = Instantiate(tilePrefab, tile.Position(), Quaternion.identity);
@@ -212,5 +223,4 @@ public class TileManager : MonoBehaviour
             }
         }
     }
-
 }
