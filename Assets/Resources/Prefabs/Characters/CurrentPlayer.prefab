@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 8635015719302812812}
   - component: {fileID: 1195984329777143379}
   - component: {fileID: 1705473466216642649}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RW_LP_CP_Character_SnowManMesh.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
