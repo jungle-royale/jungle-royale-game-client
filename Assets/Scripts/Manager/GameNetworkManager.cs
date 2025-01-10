@@ -29,6 +29,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     private string PathAndQuery;
 
     private string UrlString;
+    private string PingUrlString;
 
 
     private bool IsDebug()
@@ -42,13 +43,16 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         Host = GetHost();
         PathAndQuery = GetSocketPathAndQuery();
         UrlString = "ws://" + Host + PathAndQuery;
+        PingUrlString = "http://" + Host + "/ping";
+
+        Debug.Log("------------");
+        Debug.Log(UrlString);
+        Debug.Log(PingUrlString);
+        Debug.Log("------------");
 
         InitializeAndConnect();
 
-        if (Debug.isDebugBuild)
-        {
-            InvokeRepeating(nameof(SendHttpPing), 1f, 10f);
-        }
+        InvokeRepeating(nameof(SendHttpPing), 1f, 10f);
     }
 
     public void Update()
@@ -347,7 +351,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         // 요청 시작 시간 기록
         requestStartTime = DateTime.Now;
 
-        using (UnityWebRequest request = UnityWebRequest.Get("http://" + Host + "/ping"))
+        using (UnityWebRequest request = UnityWebRequest.Get(PingUrlString))
         {
             yield return request.SendWebRequest(); // 요청 보내기
 
@@ -365,6 +369,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             else
             {
                 Debug.LogError($"HTTP Ping failed: {request.error}");
+                Debug.LogError($"Response Code: {request.responseCode}");
             }
         }
     }
