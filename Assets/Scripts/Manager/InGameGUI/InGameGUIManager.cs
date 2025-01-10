@@ -124,7 +124,7 @@ public class InGameGUIManager : MonoBehaviour
         GameObject[] labelObjects = GameObject.FindGameObjectsWithTag(tag);
         if (labelObjects == null || labelObjects.Length == 0)
         {
-            Debug.LogError($"'{tag}' 태그를 가진 객체를 찾을 수 없습니다.");
+            Debug.Log($"'{tag}' 태그를 가진 객체를 찾을 수 없습니다.");
             return new List<TextMeshProUGUI>(); // 빈 리스트 반환
         }
 
@@ -139,7 +139,7 @@ public class InGameGUIManager : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning($"'{obj.name}' 객체에 TextMeshProUGUI 컴포넌트가 없습니다.");
+                Debug.Log($"'{obj.name}' 객체에 TextMeshProUGUI 컴포넌트가 없습니다.");
             }
         }
 
@@ -306,7 +306,7 @@ public class InGameGUIManager : MonoBehaviour
             {
                 foreach (var label in fpsLabel) // fpsLabel 리스트 순회
                 {
-                    label.text = $"FPS: {fps} ms";
+                    label.text = $"FPS: {fps}";
                 }
             }
 
