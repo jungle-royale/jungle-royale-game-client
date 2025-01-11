@@ -15,9 +15,10 @@ public class TileManager : MonoBehaviour
 
     const float TILE_Y = 0;
     private const float blinkSpeed = 1.5f;
+
+    public Color warningColor = new Color(255 / 255f, 130 / 255f, 130 / 255f); // 세미빨강
     private Color baseColor = new Color(1f, 1f, 1f); // 흰색
 
-    public Color warningColor;
 
     private void Awake()
     {
@@ -27,6 +28,15 @@ public class TileManager : MonoBehaviour
         {
             Debug.LogError("PlayerManager not found in the scene.");
         }
+
+        // CameraManager를 찾거나 연결
+        cameraManager = FindObjectOfType<CameraManager>();
+        if (cameraManager == null)
+        {
+            Debug.LogError("CameraManager not found in the scene.");
+        }
+
+        warningColor = new Color(255 / 255f, 130 / 255f, 130 / 255f); // 세미빨강
     }
 
     public void UpdateTiles(List<Tile> tiles)
@@ -104,7 +114,7 @@ public class TileManager : MonoBehaviour
             float t = Mathf.PingPong(Time.time * blinkSpeed, 1f); // 0~1 사이의 값 반복
             UpdateGroundColors(tileObject, t);
             UpdatePlayerHaptick(tileObject);
-        } 
+        }
     }
 
     private void UpdatePlayerHaptick(GameObject tileObject)
@@ -150,7 +160,9 @@ public class TileManager : MonoBehaviour
             });
 
             cameraManager.StartCameraShake(1.0f, 0.2f); // 1초, 0.2강도
-        } else {
+        }
+        else
+        {
             cameraManager.StopCameraShake();
         }
     }
@@ -169,9 +181,6 @@ public class TileManager : MonoBehaviour
                 {
                     renderer.material = new Material(renderer.material);
                 }
-
-                if (warningColor == null)
-                    warningColor = new Color(255f, 130f, 130f); // 세미빨강
 
                 renderer.material.color = Color.Lerp(baseColor, warningColor, lerpFactor);
             }

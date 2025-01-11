@@ -1672,6 +1672,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerManager: {fileID: 1981735298}
+  cameraManager: {fileID: 68227891}
+  warningColor: {r: 1, g: 0.50980395, b: 0.50980395, a: 1}
 --- !u!1 &1981735297
 GameObject:
   m_ObjectHideFlags: 0
