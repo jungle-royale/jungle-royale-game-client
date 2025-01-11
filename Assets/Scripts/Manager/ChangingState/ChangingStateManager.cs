@@ -110,7 +110,7 @@ public class ChangingStateManager : MonoBehaviour
         
     }
 
-    private void UpdateFallDead(string deadPlayerId)
+    private void UpdateFallDead(int deadPlayerId)
     {
         GameObject player = playerManager.GetPlayerById(deadPlayerId);
 

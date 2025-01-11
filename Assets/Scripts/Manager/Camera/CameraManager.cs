@@ -8,7 +8,7 @@ public class CameraManager : MonoBehaviour
 {
     private Camera mainCamera;
     private Camera miniMapCamera;
-    private String focusedClientId = null;
+    private int focusedClientId = -1;
 
     private const float CAMERA_ROTATION_X = 40f;
     private const float CAMERA_OFFSET_Y = 10f;
@@ -34,14 +34,14 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    public void SetFocusedClient(string id)
+    public void SetFocusedClient(int id)
     {
         focusedClientId = id;
     }
 
     public void UpdateCamera(List<Player> players)
     {
-        if (focusedClientId == null)
+        if (focusedClientId == -1)
         {
             focusedClientId = ClientManager.Instance.ClientId;
         }

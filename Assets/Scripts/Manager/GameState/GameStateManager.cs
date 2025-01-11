@@ -50,7 +50,7 @@ public class GameStateManager : Singleton<GameStateManager>
             if (deadPlayerState.IsEndGame()) // dead에 1등이 왔다는건, 게임이 종료되었다는 것
             {
 
-                string playerId = deadPlayerState.deadPlayerId;
+                int playerId = deadPlayerState.deadPlayerId;
 
                 Debug.Log($"🍎 게임 종료, 1등은 {playerId}");
 

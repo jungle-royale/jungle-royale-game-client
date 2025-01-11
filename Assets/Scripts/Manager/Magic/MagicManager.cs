@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class MagicManager : MonoBehaviour
 {
-    private Dictionary<string, GameObject> magicItemObjects = new Dictionary<string, GameObject>();
+    private Dictionary<int, GameObject> magicItemObjects = new Dictionary<int, GameObject>();
 
     public void UpdateMagicList(List<Magic> items)
     {
         if (items == null || items.Count() == 0) return;
 
-        HashSet<string> activeItemIds = new HashSet<string>();
-        Dictionary<string, GameObject> targetDictionary = magicItemObjects;
+        HashSet<int> activeItemIds = new HashSet<int>();
+        Dictionary<int, GameObject> targetDictionary = magicItemObjects;
 
         foreach (var item in items)
         {
@@ -77,9 +77,9 @@ public class MagicManager : MonoBehaviour
     }
 
 
-    private void RemoveInactiveItems(HashSet<string> activeItemIds, Dictionary<string, GameObject> targetDictionary)
+    private void RemoveInactiveItems(HashSet<int> activeItemIds, Dictionary<int, GameObject> targetDictionary)
     {
-        List<string> itemsToRemove = new List<string>();
+        List<int> itemsToRemove = new List<int>();
 
         foreach (var itemId in targetDictionary.Keys)
         {

@@ -2,8 +2,8 @@ using Message;
 
 public class PlayerDeadState
 {
-    public string killerId;
-    public string deadPlayerId;
+    public int killerId;
+    public int deadPlayerId;
     public int dyingStatus;
     // 0: 안죽음
     // 1: snow
@@ -14,7 +14,7 @@ public class PlayerDeadState
     public int killNum;
     public int placement; // rank
 
-    public PlayerDeadState(string killerId, string deadPlayerId, int dyingStatus, int killNum, int placement)
+    public PlayerDeadState(int killerId, int deadPlayerId, int dyingStatus, int killNum, int placement)
     {
         this.killerId = killerId;
         this.deadPlayerId = deadPlayerId;

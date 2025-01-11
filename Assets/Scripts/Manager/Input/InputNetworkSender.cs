@@ -89,7 +89,7 @@ public class InputNetworkSender : MonoBehaviour
         }
     }
     
-    public void SendChangeBulletStateMessage(string playerId, bool isShooting)
+    public void SendChangeBulletStateMessage(int playerId, bool isShooting)
     {
         try
         {

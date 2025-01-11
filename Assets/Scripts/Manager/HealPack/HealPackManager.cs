@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class HealPackManager : MonoBehaviour
 {
-    private Dictionary<string, GameObject> healPackObjects = new Dictionary<string, GameObject>();
+    private Dictionary<int, GameObject> healPackObjects = new Dictionary<int, GameObject>();
 
     public void UpdateHealPackList(List<HealPack> items)
     {
         if (items == null || items.Count() == 0) return;
 
-        HashSet<string> activeItemIds = new HashSet<string>();
-        Dictionary<string, GameObject> targetDictionary = healPackObjects;
+        HashSet<int> activeItemIds = new HashSet<int>();
+        Dictionary<int, GameObject> targetDictionary = healPackObjects;
 
         foreach (var item in items)
         {
@@ -63,9 +63,9 @@ public class HealPackManager : MonoBehaviour
 
 
 
-    private void RemoveInactiveItems(HashSet<string> activeItemIds, Dictionary<string, GameObject> targetDictionary)
+    private void RemoveInactiveItems(HashSet<int> activeItemIds, Dictionary<int, GameObject> targetDictionary)
     {
-        List<string> itemsToRemove = new List<string>();
+        List<int> itemsToRemove = new List<int>();
 
         foreach (var itemId in targetDictionary.Keys)
         {

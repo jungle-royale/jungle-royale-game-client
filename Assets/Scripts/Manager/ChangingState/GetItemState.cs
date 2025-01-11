@@ -2,12 +2,12 @@ using Message;
 
 public class GetItemState
 {
-    public string itemId;
-    public string playerId;
+    public int itemId;
+    public int playerId;
 
     public int itemType;
 
-    public GetItemState(string itemId, string playerId, int itemType)
+    public GetItemState(int itemId, int playerId, int itemType)
     {
         this.itemId = itemId;
         this.playerId = playerId;

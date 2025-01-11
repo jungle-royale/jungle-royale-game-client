@@ -6,7 +6,7 @@ using UnityEngine;
 public class TileManager : MonoBehaviour
 {
     public PlayerManager playerManager;
-    private Dictionary<string, GameObject> tileObjects = new Dictionary<string, GameObject>();
+    private Dictionary<int, GameObject> tileObjects = new Dictionary<int, GameObject>();
 
     private Debouncer debouncer = new Debouncer();
 
@@ -28,7 +28,7 @@ public class TileManager : MonoBehaviour
 
     public void UpdateTiles(List<Tile> tiles)
     {
-        HashSet<string> activeTileIds = new HashSet<string>();
+        HashSet<int> activeTileIds = new HashSet<int>();
 
         foreach (var tile in tiles)
         {
@@ -180,9 +180,9 @@ public class TileManager : MonoBehaviour
         }
     }
 
-    private void RemoveInactiveTiles(HashSet<string> activeTileIds)
+    private void RemoveInactiveTiles(HashSet<int> activeTileIds)
     {
-        List<string> tilesToRemove = new List<string>();
+        List<int> tilesToRemove = new List<int>();
 
         foreach (var tileId in tileObjects.Keys)
         {
@@ -212,7 +212,7 @@ public class TileManager : MonoBehaviour
 
     public void DeleteReadyTile()
     {
-        List<string> keys = new List<string>(tileObjects.Keys);
+        List<int> keys = new List<int>(tileObjects.Keys);
 
         foreach (var key in keys)
         {

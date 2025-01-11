@@ -9,7 +9,7 @@ using UnityEngine.Timeline;
 
 public class ClientManager : Singleton<ClientManager>
 {
-    public string ClientId { get; private set; }
+    public int ClientId { get; private set; }
     public string CurrentPlayerName
     {
         get
@@ -32,7 +32,7 @@ public class ClientManager : Singleton<ClientManager>
     public int playerCount;
     public int killCount;
 
-    public void SetClientId(string clientId)
+    public void SetClientId(int clientId)
     {
         this.ClientId = clientId;
     }

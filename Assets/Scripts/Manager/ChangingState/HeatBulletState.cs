@@ -5,13 +5,13 @@ using UnityEngine;
 public class HitBulletState
 {
     public int ObjectType; // 0: Player, 4: environment object
-    public string BulletId;
-    public string ObjectId;
+    public int BulletId;
+    public int ObjectId;
     public float X;
     public float Y;
     public int BulletType;
 
-    public HitBulletState(int objectType, string bulletId, string ObjectId, float x, float y, int bulletType)
+    public HitBulletState(int objectType, int bulletId, int ObjectId, float x, float y, int bulletType)
     {
         this.ObjectType = objectType;
         this.BulletId = bulletId;

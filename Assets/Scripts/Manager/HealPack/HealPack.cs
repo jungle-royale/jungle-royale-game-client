@@ -4,12 +4,12 @@ using UnityEngine;
 public class HealPack
 {
 
-    public string ItemId { get; private set; }
+    public int ItemId { get; private set; }
     public float X { get; private set; }
     public float Y { get; private set; }
 
 
-    public HealPack(string itemId, float x, float y)
+    public HealPack(int itemId, float x, float y)
     {
         this.ItemId = itemId;
         this.X = x;

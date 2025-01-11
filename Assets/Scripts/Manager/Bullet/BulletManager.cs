@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BulletManager : MonoBehaviour
 {
-    private Dictionary<string, GameObject> bulletObjects = new Dictionary<string, GameObject>();
+    private Dictionary<int, GameObject> bulletObjects = new Dictionary<int, GameObject>();
     private float BULLET_Y = 0.9f;
 
 
@@ -15,7 +15,7 @@ public class BulletManager : MonoBehaviour
         // 죽었다는 charging state에서 처리하면 되고
         // 어차피 current player는 포함될 거고
 
-        HashSet<string> activeBulletIds = new HashSet<string>();
+        HashSet<int> activeBulletIds = new HashSet<int>();
 
         foreach (var bullet in bullets)
         {
@@ -43,9 +43,9 @@ public class BulletManager : MonoBehaviour
         RemoveInactiveBullets(activeBulletIds);
     }
 
-    private void RemoveInactiveBullets(HashSet<string> activeBulletIds)
+    private void RemoveInactiveBullets(HashSet<int> activeBulletIds)
     {
-        List<string> bulletsToRemove = new List<string>();
+        List<int> bulletsToRemove = new List<int>();
 
         foreach (var bulletId in bulletObjects.Keys)
         {
@@ -65,7 +65,7 @@ public class BulletManager : MonoBehaviour
         }
     }
 
-    public GameObject GetBulletById(string bulletId)
+    public GameObject GetBulletById(int bulletId)
     {
         if (bulletObjects.ContainsKey(bulletId))
         {
