@@ -92,7 +92,7 @@ public class ChangingStateManager : MonoBehaviour
 
         if (state.IsWinner())
         {
-            // 승리 애니메이션
+            animator.SetTrigger("win");
             return;
         }
 
@@ -104,7 +104,7 @@ public class ChangingStateManager : MonoBehaviour
         else // TODO: 맞아 죽는 처리 다르게 처리
         {
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dead, 1.0f);
-            animator.SetTrigger("byeSnowman");
+            animator.SetTrigger("byeLooser");
         }
 
 

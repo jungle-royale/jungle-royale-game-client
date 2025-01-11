@@ -32,6 +32,8 @@ public class ClientManager : Singleton<ClientManager>
     public int playerCount;
     public int killCount;
 
+    public bool gameEnd = false;
+
     public void SetClientId(int clientId)
     {
         this.ClientId = clientId;

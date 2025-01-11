@@ -2,9 +2,17 @@ using UnityEngine;
 
 public class PlayerAnimationEvent : MonoBehaviour
 {
-    public void Dash()
+    public void StartWalk()
     {
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.Walk);
+    }
+
+    public void EndWalk()
+    {
+        GameObject player = this.gameObject;
+        var newPosition = player.transform.position;
+        newPosition.y = 0;
+        player.transform.position = newPosition;
     }
 
     public void AfterFalling()
@@ -25,6 +33,11 @@ public class PlayerAnimationEvent : MonoBehaviour
         if (player.name == ClientManager.Instance.CurrentPlayerName)
         {
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameOver, 0.7f);
+
+            if (ClientManager.Instance.gameEnd) {
+                return; // 애니메이션 실행 중에 게임이 종료되면 gui 표시 X
+            }
+
             EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameOver");
 
             StateUIDTO stateData = new StateUIDTO

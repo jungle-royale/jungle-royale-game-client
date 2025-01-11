@@ -774,10 +774,17 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: Dash
+    functionName: StartWalk
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: 2eded25784a184239a3c2b9bbd010037,
       type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5
+    functionName: EndWalk
+    data: 
+    objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

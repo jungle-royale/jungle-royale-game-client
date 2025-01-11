@@ -89,7 +89,7 @@ public class InputAdapter : MonoBehaviour
         return Input.GetKeyDown(KeyCode.Space);
     }
 
-    public float GetCurrentPlayerAngle()
+    public float GetCurrentAimAngle()
     {
         if (isMobile)
         {

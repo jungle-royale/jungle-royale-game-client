@@ -56,10 +56,10 @@ public class InputManager : MonoBehaviour
         }
         if (!EndGame)
         {
-            HandleBullet();
+            HandleDirection();
             HandleMove();
             HandleDash();
-            HandleDirection();
+            HandleBullet();
         }
     }
 
@@ -104,14 +104,10 @@ public class InputManager : MonoBehaviour
         float angle = CalculateAngle(inputDirection);
         bool isMoved = inputDirection != Vector2.zero;
 
-        // Debug.Log($"anlge, move: {angle}, {isMoved}");
-
         // 입력 상태 변화 감지
         if (inputDirection != lastDirection || isMoved != wasMoved)
         {
             networkSender.SendChangeDirMessage(angle, isMoved);
-
-            // Debug.Log($"🍎 {isMoved}");
 
             // 상태 업데이트
             lastDirection = inputDirection;
@@ -123,8 +119,14 @@ public class InputManager : MonoBehaviour
     {
         if (input.GetMouseLeftButton() && !lastClickState) // 마우스 왼쪽 버튼 클릭 눌려있는동안
         {
-            lastClickState = true;
-            networkSender.SendChangeBulletStateMessage(ClientId, true);
+            float aimAngle = input.GetCurrentAimAngle();
+
+            if (lastAngle == aimAngle) {
+                lastClickState = true;
+                networkSender.SendChangeBulletStateMessage(ClientId, true);
+            }            
+
+            Debug.Log($"{lastAngle} {aimAngle}");
         }
         else if (!input.GetMouseLeftButton() && lastClickState)
         {
@@ -144,12 +146,34 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    private float lastAngle = 0f;
+
     void HandleDirection()
     {
         if (lastSendAngleTime <= 0)
         {
-            float angle = input.GetCurrentPlayerAngle();
-            networkSender.SendChangeAngleMessage(angle);
+            if (input.GetMouseLeftButton()) // 마우스 왼쪽 버튼 클릭 눌려 있는 동안
+            {
+                float angle = input.GetCurrentAimAngle();
+                networkSender.SendChangeAngleMessage(angle);
+                lastAngle = angle;
+            }
+            else
+            {
+                float x = input.GetAxisX();
+                float y = input.GetAxisY();
+                Vector2 inputDirection = new Vector2(x, y);
+                float angle = CalculateAngle(inputDirection);
+                if (angle != -1)
+                {
+                    networkSender.SendChangeAngleMessage(angle);
+                }
+                else
+                {
+                    lastAngle = angle;
+                }
+            }
+
             lastSendAngleTime = 6; // 0.1초마다 angle 전송
         }
         lastSendAngleTime--;
@@ -159,7 +183,7 @@ public class InputManager : MonoBehaviour
     {
         if (inputDirection == Vector2.zero)
         {
-            return 0f; // 정지 상태일 경우 0도 반환
+            return -1f; // 정지 상태일 경우 0도 반환
         }
 
         // 방향 벡터에서 각도를 계산 (Z축 기준, 시계 방향이 +)
