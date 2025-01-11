@@ -22,6 +22,8 @@ public class PlayerManager : MonoBehaviour
     private HashSet<int> dashPlayers = new HashSet<int>();
     private HashSet<int> shootingPlayers = new HashSet<int>();
 
+    const float DASH_ROTATION = 15f;
+
     private int currentPlayerId
     {
         get
@@ -197,7 +199,7 @@ public class PlayerManager : MonoBehaviour
                 Quaternion tiltRotation = Quaternion.LookRotation(movementDirection.normalized); // 이동 방향을 기준으로 회전
                                                                                                  // Y축 기울이기 (Roll 추가)
                 Quaternion tilt = Quaternion.Euler(
-                    10,               // 상하 기울임 유지
+                    DASH_ROTATION,               // 상하 기울임 유지
                     tiltRotation.eulerAngles.y,
                     0
                 );

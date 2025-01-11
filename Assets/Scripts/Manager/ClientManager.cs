@@ -46,7 +46,7 @@ public class ClientManager : Singleton<ClientManager>
 
     public void SetTotalPlayerNumber(int totalPlayerNum)
     {
-        Debug.Log("총 플레이어 수 세팅!!!");
+        // Debug.Log("총 플레이어 수 세팅!!!");
         this.totalPlayerNum = totalPlayerNum;
     }
 
