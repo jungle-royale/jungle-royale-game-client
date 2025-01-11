@@ -22,6 +22,7 @@ TagManager:
   - Description_Mobile
   - Description_PC
   - MinPlayerLabel
+  - Ground
   layers:
   - Default
   - TransparentFX
