@@ -23,7 +23,6 @@ public class CameraManager : MonoBehaviour
     private bool isShaking = false;
     private float shakeDuration = 0f;
     private float shakeMagnitude = 0f;
-    private Vector3 originalCameraPosition;
 
     void Start()
     {
@@ -35,11 +34,6 @@ public class CameraManager : MonoBehaviour
         if (miniMapCamera == null)
         {
             Debug.LogError("MiniMapCamera를 찾을 수 없습니다. 'MiniMapCamera' 태그를 확인하세요.");
-        }
-
-        if (mainCamera != null)
-        {
-            originalCameraPosition = mainCamera.transform.localPosition;
         }
     }
 
@@ -141,7 +135,6 @@ public class CameraManager : MonoBehaviour
     {
         if (mainCamera == null) return;
         if (isShaking == true) return;
-        Debug.Log("지진 true");
         isShaking = true;
         shakeDuration = duration;
         shakeMagnitude = magnitude;
@@ -151,8 +144,6 @@ public class CameraManager : MonoBehaviour
     // 카메라 흔들림 코루틴
     private System.Collections.IEnumerator CameraShakeCoroutine()
     {
-        Debug.Log("흔들림");
-
         float elapsedTime = 0f;
 
         while (elapsedTime < shakeDuration)
@@ -171,6 +162,5 @@ public class CameraManager : MonoBehaviour
         if (isShaking == false) return;
         Debug.Log("지진 false");
         isShaking = false;
-        mainCamera.transform.localPosition = originalCameraPosition;
     }
 }
