@@ -104,14 +104,10 @@ public class InputManager : MonoBehaviour
         float angle = CalculateAngle(inputDirection);
         bool isMoved = inputDirection != Vector2.zero;
 
-        // Debug.Log($"anlge, move: {angle}, {isMoved}");
-
         // 입력 상태 변화 감지
         if (inputDirection != lastDirection || isMoved != wasMoved)
         {
             networkSender.SendChangeDirMessage(angle, isMoved);
-
-            // Debug.Log($"🍎 {isMoved}");
 
             // 상태 업데이트
             lastDirection = inputDirection;
@@ -148,8 +144,20 @@ public class InputManager : MonoBehaviour
     {
         if (lastSendAngleTime <= 0)
         {
-            float angle = input.GetCurrentPlayerAngle();
-            networkSender.SendChangeAngleMessage(angle);
+            if (input.GetMouseLeftButton()) // 마우스 왼쪽 버튼 클릭 눌려 있는 동안
+            {
+                float angle = input.GetCurrentAimAngle();
+                networkSender.SendChangeAngleMessage(angle);
+            }
+            else
+            {
+                float x = input.GetAxisX();
+                float y = input.GetAxisY();
+                Vector2 inputDirection = new Vector2(x, y);
+                float angle = CalculateAngle(inputDirection);
+                networkSender.SendChangeAngleMessage(angle);
+            }
+
             lastSendAngleTime = 6; // 0.1초마다 angle 전송
         }
         lastSendAngleTime--;
