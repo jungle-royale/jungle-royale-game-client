@@ -39,13 +39,13 @@ public class TileManager : MonoBehaviour
                 GameObject tilePrefab = null;
 
 #if UNITY_EDITOR
-                tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile00");
+                tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile04");
 #else
             // 빌드된 환경에서 실행 중일 때
             if (Debug.isDebugBuild)
             {
                 Debug.Log("[TileManager.cs] Development Build에서 실행 중");
-                tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile00");
+                tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile04");
             }
             else
             {
