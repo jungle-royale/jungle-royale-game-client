@@ -16,10 +16,10 @@ public class Magic
         switch (magicType)
         {
             case 1:
-                this.MagicType = MagicType.Fire;
+                this.MagicType = MagicType.Stone;
                 break;
             case 2:
-                this.MagicType = MagicType.Stone;
+                this.MagicType = MagicType.Fire;
                 break;
             default:
                 this.MagicType = MagicType.None;

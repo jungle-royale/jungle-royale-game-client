@@ -321,7 +321,7 @@ public class InGameGUIManager : MonoBehaviour
         {
             foreach (var label in hpLabel) // hpLabel 리스트 순회
             {
-                label.text = $"HP {hp:D3}";
+                label.text = $"{hp:D3}";
             }
         }
     }

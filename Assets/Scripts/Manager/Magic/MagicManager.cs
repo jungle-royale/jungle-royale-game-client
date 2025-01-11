@@ -46,7 +46,6 @@ public class MagicManager : MonoBehaviour
 
     private GameObject LoadPrefab(MagicType type)
     {
-
         string path = "Prefabs/Items/Item_";
 
         switch (type)
@@ -95,7 +94,6 @@ public class MagicManager : MonoBehaviour
             {
                 Destroy(itemObject);
                 targetDictionary.Remove(itemId);
-                AudioManager.Instance.PlaySfx(AudioManager.Sfx.GetItem);
                 Debug.Log($"Removed inactive {itemId}.");
             }
         }

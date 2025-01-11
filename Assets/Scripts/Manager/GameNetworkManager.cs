@@ -253,7 +253,8 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
             foreach (var bulletState in gameState.BulletState)
             {
-                bulletStateList.Add(new Bullet(bulletState.BulletId, bulletState.X, bulletState.Y));
+                Debug.Log($"bulletType: {bulletState.BulletType}");
+                bulletStateList.Add(new Bullet(bulletState.BulletId, bulletState.BulletType, bulletState.X, bulletState.Y));
             }
 
             bulletManager.UpdateBullets(bulletStateList);

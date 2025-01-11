@@ -16,7 +16,7 @@ public class WebGLHapticManager
 
         #else
 
-        Debug.Log("웹 아님~");
+        // Debug.Log("웹 아님~");
 
         #endif
     }

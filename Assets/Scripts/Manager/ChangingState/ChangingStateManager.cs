@@ -107,7 +107,7 @@ public class ChangingStateManager : MonoBehaviour
             animator.SetTrigger("byeSnowman");
         }
 
-        
+
     }
 
     private void UpdateFallDead(int deadPlayerId)
@@ -217,20 +217,21 @@ public class ChangingStateManager : MonoBehaviour
 
     private void PlayGetItemEffectWithSfx(GameObject player, int itemType)
     {
-        AudioManager.Instance.PlaySfx(AudioManager.Sfx.Heal, 0.7f);
-
         Transform getItemEffect = null;
 
         switch (itemType)
         {
             case 0:
                 getItemEffect = player.transform.Find("HealEffect");
+                AudioManager.Instance.PlaySfx(AudioManager.Sfx.Heal, 0.7f);
                 break;
             case 1:
                 getItemEffect = player.transform.Find("GetItem_Stone");
+                AudioManager.Instance.PlaySfx(AudioManager.Sfx.GetItem);
                 break;
             case 2:
                 getItemEffect = player.transform.Find("GetItem_Fire");
+                AudioManager.Instance.PlaySfx(AudioManager.Sfx.GetItem);
                 break;
             default:
                 Debug.LogError("getItem Type이 올바르지 않음");

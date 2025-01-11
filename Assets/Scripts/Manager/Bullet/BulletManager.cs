@@ -26,7 +26,21 @@ public class BulletManager : MonoBehaviour
                 GameObject bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullets/Bullet");
                 if (bulletPrefab != null)
                 {
-                    AudioManager.Instance.PlaySfx(AudioManager.Sfx.ShootNormal);
+                    switch (bullet.BulletType)
+                    {
+                        case 0:
+                            AudioManager.Instance.PlaySfx(AudioManager.Sfx.ShootNormal);
+                            break;
+                        case 1:
+                            AudioManager.Instance.PlaySfx(AudioManager.Sfx.ShootStone);
+                            break;
+                        case 2:
+                            AudioManager.Instance.PlaySfx(AudioManager.Sfx.ShootFire);
+                            break;
+                        default:
+                            AudioManager.Instance.PlaySfx(AudioManager.Sfx.ShootNormal);
+                            break;
+                    }
                     bulletObject = Instantiate(bulletPrefab, new Vector3(bullet.X, BULLET_Y, bullet.Y), Quaternion.identity);
                     bulletObjects[bullet.BulletId] = bulletObject;
                 }
@@ -36,11 +50,43 @@ public class BulletManager : MonoBehaviour
                     return;
                 }
             }
+            ActivateBulletEffect(bulletObject, bullet.BulletType);
 
             bulletObject.transform.position = new Vector3(bullet.X, BULLET_Y, bullet.Y);
 
         }
         RemoveInactiveBullets(activeBulletIds);
+    }
+
+    // 총알 타입에 따른 이펙트를 활성화하는 메서드
+    private void ActivateBulletEffect(GameObject bulletObject, int bulletType)
+    {
+        // Debug.Log($"Active Effect!!! BulletType:{bulletType}");
+        // 자식 이펙트 비활성화
+        Transform normalEffect = bulletObject.transform.Find("Bullet_NormalEffect");
+        Transform stoneEffect = bulletObject.transform.Find("Bullet_StoneEffect");
+        Transform fireEffect = bulletObject.transform.Find("Bullet_FireEffect");
+
+        if (normalEffect != null) normalEffect.gameObject.SetActive(false);
+        if (stoneEffect != null) stoneEffect.gameObject.SetActive(false);
+        if (fireEffect != null) fireEffect.gameObject.SetActive(false);
+
+        // 선택된 이펙트 활성화
+        switch (bulletType)
+        {
+            case 0: // Normal
+                if (normalEffect != null) normalEffect.gameObject.SetActive(true);
+                break;
+            case 1: // Stone
+                if (stoneEffect != null) stoneEffect.gameObject.SetActive(true);
+                break;
+            case 2: // Fire
+                if (fireEffect != null) fireEffect.gameObject.SetActive(true);
+                break;
+            default:
+                Debug.LogWarning("Unknown bullet type: " + bulletType);
+                break;
+        }
     }
 
     private void RemoveInactiveBullets(HashSet<int> activeBulletIds)

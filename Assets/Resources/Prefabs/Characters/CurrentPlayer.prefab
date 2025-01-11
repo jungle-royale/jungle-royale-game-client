@@ -1298,6 +1298,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2771315950761746138, guid: df2d79d5dd3334ce99d11e8174878245,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 4.1
+      objectReference: {fileID: 0}
     - target: {fileID: 4414040733044798399, guid: df2d79d5dd3334ce99d11e8174878245,
         type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -1307,6 +1312,32 @@ PrefabInstance:
         type: 3}
       propertyPath: fixedYPosition
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220012898249998568, guid: df2d79d5dd3334ce99d11e8174878245,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220012898249998568, guid: df2d79d5dd3334ce99d11e8174878245,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fca7809ea48aa4638aff8fe2f48fad8a,
+        type: 2}
+    - target: {fileID: 7220012898249998568, guid: df2d79d5dd3334ce99d11e8174878245,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220012898249998568, guid: df2d79d5dd3334ce99d11e8174878245,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 13c357dfa9813453fa560f66fb5b06e0, type: 2}
+    - target: {fileID: 7220012898249998568, guid: df2d79d5dd3334ce99d11e8174878245,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7623479863435578230, guid: df2d79d5dd3334ce99d11e8174878245,
         type: 3}
