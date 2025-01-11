@@ -15,14 +15,14 @@ public class PlayerManager : MonoBehaviour
 
     private GameObject currentPlayer; // 현재 플레이어 객체
     private GameObject currentPlayerMark;
-    private Dictionary<string, GameObject> otherPlayers = new Dictionary<string, GameObject>();
-    private Dictionary<string, GameObject> otherPlayersMark = new Dictionary<string, GameObject>();
+    private Dictionary<int, GameObject> otherPlayers = new Dictionary<int, GameObject>();
+    private Dictionary<int, GameObject> otherPlayersMark = new Dictionary<int, GameObject>();
 
-    private HashSet<string> movePlayers = new HashSet<string>();
-    private HashSet<string> dashPlayers = new HashSet<string>();
-    private HashSet<string> shootingPlayers = new HashSet<string>();
+    private HashSet<int> movePlayers = new HashSet<int>();
+    private HashSet<int> dashPlayers = new HashSet<int>();
+    private HashSet<int> shootingPlayers = new HashSet<int>();
 
-    private string currentPlayerId
+    private int currentPlayerId
     {
         get
         {
@@ -32,7 +32,7 @@ public class PlayerManager : MonoBehaviour
 
     private float PLAYER_Y;
 
-    public GameObject GetPlayerById(string playerId)
+    public GameObject GetPlayerById(int playerId)
     {
         if (playerId == currentPlayerId)
         {
@@ -307,8 +307,8 @@ public class PlayerManager : MonoBehaviour
 
     private void RemoveDisconnectedPlayers(List<Player> playerDataList)
     {
-        var existingIds = new HashSet<string>(playerDataList.ConvertAll(p => p.id));
-        var keysToRemove = new List<string>();
+        var existingIds = new HashSet<int>(playerDataList.ConvertAll(p => p.id));
+        var keysToRemove = new List<int>();
 
         foreach (var key in otherPlayers.Keys)
         {

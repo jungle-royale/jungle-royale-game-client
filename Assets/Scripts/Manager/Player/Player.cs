@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player
 {
-    public string id;
+    public int id;
     public float x;
     public float y;
     public int health;
@@ -16,7 +16,7 @@ public class Player
     public bool isShooting;
 
     public Player(
-        string playerId,
+        int playerId,
         float x,
         float y,
         int health,

@@ -5,13 +5,13 @@ public class Magic
 {
     public MagicType MagicType { get; private set; }
 
-    public string ItemId { get; private set; }
+    public int ItemId { get; private set; }
     public float X { get; private set; }
     public float Y { get; private set; }
 
 
 
-    public Magic(string itemId, int magicType, float x, float y)
+    public Magic(int itemId, int magicType, float x, float y)
     {
         switch (magicType) 
         {

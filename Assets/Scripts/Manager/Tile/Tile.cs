@@ -6,7 +6,7 @@ public class Tile
     // public int tileScale;
 
     // GameUpdate
-    public string tileId;
+    public int tileId;
     public float X;
     public float Y;
     public int tileType;
@@ -16,7 +16,7 @@ public class Tile
 
     public int warning = 0;
 
-    public Tile(string tileId, float x, float y, int warning, int tileType)
+    public Tile(int tileId, float x, float y, int warning, int tileType)
     {
         this.tileId = tileId;
         this.X = x;

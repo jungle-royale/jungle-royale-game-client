@@ -34,10 +34,10 @@ namespace Message {
             "ES5tZXNzYWdlLkdhbWVJbml0SAASJwoJZ2FtZVN0YXJ0GAggASgLMhIubWVz",
             "c2FnZS5HYW1lU3RhcnRIABIvCg1nYW1lUmVjb25uZWN0GAkgASgLMhYubWVz",
             "c2FnZS5HYW1lUmVjb25uZWN0SABCDQoLTWVzc2FnZVR5cGUiLAoIR2FtZUlu",
-            "aXQSCgoCaWQYASABKAkSFAoMbWluUGxheWVyTnVtGAIgASgFIisKCUNoYW5n",
+            "aXQSCgoCaWQYASABKAUSFAoMbWluUGxheWVyTnVtGAIgASgFIisKCUNoYW5n",
             "ZURpchINCgVhbmdsZRgBIAEoAhIPCgdpc01vdmVkGAIgASgIIhwKC0NoYW5n",
             "ZUFuZ2xlEg0KBWFuZ2xlGAEgASgCIkkKDUdhbWVSZWNvbm5lY3QSCgoCaWQY",
-            "ASABKAkSFAoMbWluUGxheWVyTnVtGAIgASgFEhYKDnRvdGFsUGxheWVyTnVt",
+            "ASABKAUSFAoMbWluUGxheWVyTnVtGAIgASgFEhYKDnRvdGFsUGxheWVyTnVt",
             "GAMgASgFIqgCCglHYW1lU3RhdGUSKQoLcGxheWVyU3RhdGUYASADKAsyFC5t",
             "ZXNzYWdlLlBsYXllclN0YXRlEikKC2J1bGxldFN0YXRlGAIgAygLMhQubWVz",
             "c2FnZS5CdWxsZXRTdGF0ZRItCg1oZWFsUGFja1N0YXRlGAMgAygLMhYubWVz",
@@ -45,30 +45,30 @@ namespace Message {
             "bWVzc2FnZS5NYWdpY0l0ZW1TdGF0ZRIlCgl0aWxlU3RhdGUYBSADKAsyEi5t",
             "ZXNzYWdlLlRpbGVTdGF0ZRIPCgdsYXN0U2VjGAYgASgFEi0KDWNoYW5naW5n",
             "U3RhdGUYByABKAsyFi5tZXNzYWdlLkNoYW5naW5nU3RhdGUivwEKC1BsYXll",
-            "clN0YXRlEgoKAmlkGAEgASgJEgkKAXgYAiABKAISCQoBeRgDIAEoAhIOCgZo",
+            "clN0YXRlEgoKAmlkGAEgASgFEgkKAXgYAiABKAISCQoBeRgDIAEoAhIOCgZo",
             "ZWFsdGgYBCABKAUSEQoJbWFnaWNUeXBlGAUgASgFEg0KBWFuZ2xlGAYgASgC",
             "EhQKDGRhc2hDb29sVGltZRgHIAEoBRIPCgdpc01vdmVkGAggASgIEhEKCWlz",
             "RGFzaGluZxgJIAEoCBIOCgZpc0J1cm4YCiABKAgSEgoKaXNTaG9vdGluZxgL",
             "IAEoCCInChFDaGFuZ2VCdWxsZXRTdGF0ZRISCgppc1Nob290aW5nGAEgASgI",
-            "IkkKC0J1bGxldFN0YXRlEhAKCGJ1bGxldElkGAEgASgJEhIKCmJ1bGxldFR5",
+            "IkkKC0J1bGxldFN0YXRlEhAKCGJ1bGxldElkGAEgASgFEhIKCmJ1bGxldFR5",
             "cGUYAiABKAUSCQoBeBgDIAEoAhIJCgF5GAQgASgCIhoKCUdhbWVDb3VudBIN",
             "CgVjb3VudBgBIAEoBSIWCgZEb0Rhc2gSDAoEZGFzaBgBIAEoCCI2CglHYW1l",
             "U3RhcnQSEQoJbWFwTGVuZ3RoGAEgASgFEhYKDnRvdGFsUGxheWVyTnVtGAIg",
-            "ASgFIjUKDUhlYWxQYWNrU3RhdGUSDgoGaXRlbUlkGAEgASgJEgkKAXgYAiAB",
+            "ASgFIjUKDUhlYWxQYWNrU3RhdGUSDgoGaXRlbUlkGAEgASgFEgkKAXgYAiAB",
             "KAISCQoBeRgDIAEoAiJJCg5NYWdpY0l0ZW1TdGF0ZRIOCgZpdGVtSWQYASAB",
-            "KAkSEQoJbWFnaWNUeXBlGAIgASgFEgkKAXgYAyABKAISCQoBeRgEIAEoAiJW",
-            "CglUaWxlU3RhdGUSDgoGdGlsZUlkGAEgASgJEgkKAXgYAiABKAISCQoBeRgD",
+            "KAUSEQoJbWFnaWNUeXBlGAIgASgFEgkKAXgYAyABKAISCQoBeRgEIAEoAiJW",
+            "CglUaWxlU3RhdGUSDgoGdGlsZUlkGAEgASgFEgkKAXgYAiABKAISCQoBeRgD",
             "IAEoAhIQCgh0aWxlVHlwZRgEIAEoBRIRCgl0aWxlU3RhdGUYBSABKAUioAEK",
             "DUNoYW5naW5nU3RhdGUSLwoOaGl0QnVsbGV0U3RhdGUYASADKAsyFy5tZXNz",
             "YWdlLkhpdEJ1bGxldFN0YXRlEisKDGdldEl0ZW1TdGF0ZRgCIAMoCzIVLm1l",
             "c3NhZ2UuR2V0SXRlbVN0YXRlEjEKD3BsYXllckRlYWRTdGF0ZRgDIAMoCzIY",
             "Lm1lc3NhZ2UuUGxheWVyRGVhZFN0YXRlInIKDkhpdEJ1bGxldFN0YXRlEhIK",
-            "Cm9iamVjdFR5cGUYASABKAUSEAoIYnVsbGV0SWQYAiABKAkSEAoIb2JqZWN0",
-            "SWQYAyABKAkSCQoBeBgEIAEoAhIJCgF5GAUgASgCEhIKCmJ1bGxldFR5cGUY",
-            "BiABKAUiWAoMR2V0SXRlbVN0YXRlEg4KBml0ZW1JZBgBIAEoCRIQCghwbGF5",
-            "ZXJJZBgCIAEoCRIQCghpdGVtVHlwZRgDIAEoBRIJCgF4GAQgASgCEgkKAXkY",
-            "BSABKAIibAoPUGxheWVyRGVhZFN0YXRlEhAKCGtpbGxlcklkGAEgASgJEg4K",
-            "BmRlYWRJZBgCIAEoCRITCgtkeWluZ1N0YXR1cxgDIAEoBRIPCgdraWxsTnVt",
+            "Cm9iamVjdFR5cGUYASABKAUSEAoIYnVsbGV0SWQYAiABKAUSEAoIb2JqZWN0",
+            "SWQYAyABKAUSCQoBeBgEIAEoAhIJCgF5GAUgASgCEhIKCmJ1bGxldFR5cGUY",
+            "BiABKAUiWAoMR2V0SXRlbVN0YXRlEg4KBml0ZW1JZBgBIAEoBRIQCghwbGF5",
+            "ZXJJZBgCIAEoBRIQCghpdGVtVHlwZRgDIAEoBRIJCgF4GAQgASgCEgkKAXkY",
+            "BSABKAIibAoPUGxheWVyRGVhZFN0YXRlEhAKCGtpbGxlcklkGAEgASgFEg4K",
+            "BmRlYWRJZBgCIAEoBRITCgtkeWluZ1N0YXR1cxgDIAEoBRIPCgdraWxsTnVt",
             "GAQgASgFEhEKCVBsYWNlbWVudBgFIAEoBUIKWggvbWVzc2FnZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
@@ -814,16 +814,16 @@ namespace Message {
 
     /// <summary>Field number for the "id" field.</summary>
     public const int IdFieldNumber = 1;
-    private string id_ = "";
+    private int id_;
     /// <summary>
     /// player id
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Id {
+    public int Id {
       get { return id_; }
       set {
-        id_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        id_ = value;
       }
     }
 
@@ -863,7 +863,7 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Id.Length != 0) hash ^= Id.GetHashCode();
+      if (Id != 0) hash ^= Id.GetHashCode();
       if (MinPlayerNum != 0) hash ^= MinPlayerNum.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -883,9 +883,9 @@ namespace Message {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Id.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(Id);
+      if (Id != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Id);
       }
       if (MinPlayerNum != 0) {
         output.WriteRawTag(16);
@@ -901,9 +901,9 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Id.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(Id);
+      if (Id != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Id);
       }
       if (MinPlayerNum != 0) {
         output.WriteRawTag(16);
@@ -919,8 +919,8 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Id.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Id);
+      if (Id != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
       }
       if (MinPlayerNum != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(MinPlayerNum);
@@ -937,7 +937,7 @@ namespace Message {
       if (other == null) {
         return;
       }
-      if (other.Id.Length != 0) {
+      if (other.Id != 0) {
         Id = other.Id;
       }
       if (other.MinPlayerNum != 0) {
@@ -962,8 +962,8 @@ namespace Message {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            Id = input.ReadString();
+          case 8: {
+            Id = input.ReadInt32();
             break;
           }
           case 16: {
@@ -989,8 +989,8 @@ namespace Message {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            Id = input.ReadString();
+          case 8: {
+            Id = input.ReadInt32();
             break;
           }
           case 16: {
@@ -1489,13 +1489,13 @@ namespace Message {
 
     /// <summary>Field number for the "id" field.</summary>
     public const int IdFieldNumber = 1;
-    private string id_ = "";
+    private int id_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Id {
+    public int Id {
       get { return id_; }
       set {
-        id_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        id_ = value;
       }
     }
 
@@ -1551,7 +1551,7 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Id.Length != 0) hash ^= Id.GetHashCode();
+      if (Id != 0) hash ^= Id.GetHashCode();
       if (MinPlayerNum != 0) hash ^= MinPlayerNum.GetHashCode();
       if (TotalPlayerNum != 0) hash ^= TotalPlayerNum.GetHashCode();
       if (_unknownFields != null) {
@@ -1572,9 +1572,9 @@ namespace Message {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Id.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(Id);
+      if (Id != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Id);
       }
       if (MinPlayerNum != 0) {
         output.WriteRawTag(16);
@@ -1594,9 +1594,9 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Id.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(Id);
+      if (Id != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Id);
       }
       if (MinPlayerNum != 0) {
         output.WriteRawTag(16);
@@ -1616,8 +1616,8 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Id.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Id);
+      if (Id != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
       }
       if (MinPlayerNum != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(MinPlayerNum);
@@ -1637,7 +1637,7 @@ namespace Message {
       if (other == null) {
         return;
       }
-      if (other.Id.Length != 0) {
+      if (other.Id != 0) {
         Id = other.Id;
       }
       if (other.MinPlayerNum != 0) {
@@ -1665,8 +1665,8 @@ namespace Message {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            Id = input.ReadString();
+          case 8: {
+            Id = input.ReadInt32();
             break;
           }
           case 16: {
@@ -1696,8 +1696,8 @@ namespace Message {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            Id = input.ReadString();
+          case 8: {
+            Id = input.ReadInt32();
             break;
           }
           case 16: {
@@ -2149,13 +2149,13 @@ namespace Message {
 
     /// <summary>Field number for the "id" field.</summary>
     public const int IdFieldNumber = 1;
-    private string id_ = "";
+    private int id_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Id {
+    public int Id {
       get { return id_; }
       set {
-        id_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        id_ = value;
       }
     }
 
@@ -2312,7 +2312,7 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Id.Length != 0) hash ^= Id.GetHashCode();
+      if (Id != 0) hash ^= Id.GetHashCode();
       if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
       if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
       if (Health != 0) hash ^= Health.GetHashCode();
@@ -2341,9 +2341,9 @@ namespace Message {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Id.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(Id);
+      if (Id != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Id);
       }
       if (X != 0F) {
         output.WriteRawTag(21);
@@ -2395,9 +2395,9 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Id.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(Id);
+      if (Id != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Id);
       }
       if (X != 0F) {
         output.WriteRawTag(21);
@@ -2449,8 +2449,8 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Id.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Id);
+      if (Id != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
       }
       if (X != 0F) {
         size += 1 + 4;
@@ -2494,7 +2494,7 @@ namespace Message {
       if (other == null) {
         return;
       }
-      if (other.Id.Length != 0) {
+      if (other.Id != 0) {
         Id = other.Id;
       }
       if (other.X != 0F) {
@@ -2546,8 +2546,8 @@ namespace Message {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            Id = input.ReadString();
+          case 8: {
+            Id = input.ReadInt32();
             break;
           }
           case 21: {
@@ -2609,8 +2609,8 @@ namespace Message {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            Id = input.ReadString();
+          case 8: {
+            Id = input.ReadInt32();
             break;
           }
           case 21: {
@@ -2908,13 +2908,13 @@ namespace Message {
 
     /// <summary>Field number for the "bulletId" field.</summary>
     public const int BulletIdFieldNumber = 1;
-    private string bulletId_ = "";
+    private int bulletId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string BulletId {
+    public int BulletId {
       get { return bulletId_; }
       set {
-        bulletId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        bulletId_ = value;
       }
     }
 
@@ -2985,7 +2985,7 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (BulletId.Length != 0) hash ^= BulletId.GetHashCode();
+      if (BulletId != 0) hash ^= BulletId.GetHashCode();
       if (BulletType != 0) hash ^= BulletType.GetHashCode();
       if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
       if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
@@ -3007,9 +3007,9 @@ namespace Message {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (BulletId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(BulletId);
+      if (BulletId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(BulletId);
       }
       if (BulletType != 0) {
         output.WriteRawTag(16);
@@ -3033,9 +3033,9 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (BulletId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(BulletId);
+      if (BulletId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(BulletId);
       }
       if (BulletType != 0) {
         output.WriteRawTag(16);
@@ -3059,8 +3059,8 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (BulletId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(BulletId);
+      if (BulletId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(BulletId);
       }
       if (BulletType != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(BulletType);
@@ -3083,7 +3083,7 @@ namespace Message {
       if (other == null) {
         return;
       }
-      if (other.BulletId.Length != 0) {
+      if (other.BulletId != 0) {
         BulletId = other.BulletId;
       }
       if (other.BulletType != 0) {
@@ -3114,8 +3114,8 @@ namespace Message {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            BulletId = input.ReadString();
+          case 8: {
+            BulletId = input.ReadInt32();
             break;
           }
           case 16: {
@@ -3149,8 +3149,8 @@ namespace Message {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            BulletId = input.ReadString();
+          case 8: {
+            BulletId = input.ReadInt32();
             break;
           }
           case 16: {
@@ -3852,13 +3852,13 @@ namespace Message {
 
     /// <summary>Field number for the "itemId" field.</summary>
     public const int ItemIdFieldNumber = 1;
-    private string itemId_ = "";
+    private int itemId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string ItemId {
+    public int ItemId {
       get { return itemId_; }
       set {
-        itemId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        itemId_ = value;
       }
     }
 
@@ -3911,7 +3911,7 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (ItemId.Length != 0) hash ^= ItemId.GetHashCode();
+      if (ItemId != 0) hash ^= ItemId.GetHashCode();
       if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
       if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
       if (_unknownFields != null) {
@@ -3932,9 +3932,9 @@ namespace Message {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (ItemId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(ItemId);
+      if (ItemId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(ItemId);
       }
       if (X != 0F) {
         output.WriteRawTag(21);
@@ -3954,9 +3954,9 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (ItemId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(ItemId);
+      if (ItemId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(ItemId);
       }
       if (X != 0F) {
         output.WriteRawTag(21);
@@ -3976,8 +3976,8 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (ItemId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(ItemId);
+      if (ItemId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ItemId);
       }
       if (X != 0F) {
         size += 1 + 4;
@@ -3997,7 +3997,7 @@ namespace Message {
       if (other == null) {
         return;
       }
-      if (other.ItemId.Length != 0) {
+      if (other.ItemId != 0) {
         ItemId = other.ItemId;
       }
       if (other.X != 0F) {
@@ -4025,8 +4025,8 @@ namespace Message {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            ItemId = input.ReadString();
+          case 8: {
+            ItemId = input.ReadInt32();
             break;
           }
           case 21: {
@@ -4056,8 +4056,8 @@ namespace Message {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            ItemId = input.ReadString();
+          case 8: {
+            ItemId = input.ReadInt32();
             break;
           }
           case 21: {
@@ -4125,13 +4125,13 @@ namespace Message {
 
     /// <summary>Field number for the "itemId" field.</summary>
     public const int ItemIdFieldNumber = 1;
-    private string itemId_ = "";
+    private int itemId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string ItemId {
+    public int ItemId {
       get { return itemId_; }
       set {
-        itemId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        itemId_ = value;
       }
     }
 
@@ -4197,7 +4197,7 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (ItemId.Length != 0) hash ^= ItemId.GetHashCode();
+      if (ItemId != 0) hash ^= ItemId.GetHashCode();
       if (MagicType != 0) hash ^= MagicType.GetHashCode();
       if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
       if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
@@ -4219,9 +4219,9 @@ namespace Message {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (ItemId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(ItemId);
+      if (ItemId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(ItemId);
       }
       if (MagicType != 0) {
         output.WriteRawTag(16);
@@ -4245,9 +4245,9 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (ItemId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(ItemId);
+      if (ItemId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(ItemId);
       }
       if (MagicType != 0) {
         output.WriteRawTag(16);
@@ -4271,8 +4271,8 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (ItemId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(ItemId);
+      if (ItemId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ItemId);
       }
       if (MagicType != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(MagicType);
@@ -4295,7 +4295,7 @@ namespace Message {
       if (other == null) {
         return;
       }
-      if (other.ItemId.Length != 0) {
+      if (other.ItemId != 0) {
         ItemId = other.ItemId;
       }
       if (other.MagicType != 0) {
@@ -4326,8 +4326,8 @@ namespace Message {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            ItemId = input.ReadString();
+          case 8: {
+            ItemId = input.ReadInt32();
             break;
           }
           case 16: {
@@ -4361,8 +4361,8 @@ namespace Message {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            ItemId = input.ReadString();
+          case 8: {
+            ItemId = input.ReadInt32();
             break;
           }
           case 16: {
@@ -4435,13 +4435,13 @@ namespace Message {
 
     /// <summary>Field number for the "tileId" field.</summary>
     public const int TileIdFieldNumber = 1;
-    private string tileId_ = "";
+    private int tileId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string TileId {
+    public int TileId {
       get { return tileId_; }
       set {
-        tileId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        tileId_ = value;
       }
     }
 
@@ -4524,7 +4524,7 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (TileId.Length != 0) hash ^= TileId.GetHashCode();
+      if (TileId != 0) hash ^= TileId.GetHashCode();
       if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
       if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
       if (TileType != 0) hash ^= TileType.GetHashCode();
@@ -4547,9 +4547,9 @@ namespace Message {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (TileId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(TileId);
+      if (TileId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(TileId);
       }
       if (X != 0F) {
         output.WriteRawTag(21);
@@ -4577,9 +4577,9 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (TileId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(TileId);
+      if (TileId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(TileId);
       }
       if (X != 0F) {
         output.WriteRawTag(21);
@@ -4607,8 +4607,8 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (TileId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(TileId);
+      if (TileId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(TileId);
       }
       if (X != 0F) {
         size += 1 + 4;
@@ -4634,7 +4634,7 @@ namespace Message {
       if (other == null) {
         return;
       }
-      if (other.TileId.Length != 0) {
+      if (other.TileId != 0) {
         TileId = other.TileId;
       }
       if (other.X != 0F) {
@@ -4668,8 +4668,8 @@ namespace Message {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            TileId = input.ReadString();
+          case 8: {
+            TileId = input.ReadInt32();
             break;
           }
           case 21: {
@@ -4707,8 +4707,8 @@ namespace Message {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            TileId = input.ReadString();
+          case 8: {
+            TileId = input.ReadInt32();
             break;
           }
           case 21: {
@@ -5041,25 +5041,25 @@ namespace Message {
 
     /// <summary>Field number for the "bulletId" field.</summary>
     public const int BulletIdFieldNumber = 2;
-    private string bulletId_ = "";
+    private int bulletId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string BulletId {
+    public int BulletId {
       get { return bulletId_; }
       set {
-        bulletId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        bulletId_ = value;
       }
     }
 
     /// <summary>Field number for the "objectId" field.</summary>
     public const int ObjectIdFieldNumber = 3;
-    private string objectId_ = "";
+    private int objectId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string ObjectId {
+    public int ObjectId {
       get { return objectId_; }
       set {
-        objectId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        objectId_ = value;
       }
     }
 
@@ -5133,8 +5133,8 @@ namespace Message {
     public override int GetHashCode() {
       int hash = 1;
       if (ObjectType != 0) hash ^= ObjectType.GetHashCode();
-      if (BulletId.Length != 0) hash ^= BulletId.GetHashCode();
-      if (ObjectId.Length != 0) hash ^= ObjectId.GetHashCode();
+      if (BulletId != 0) hash ^= BulletId.GetHashCode();
+      if (ObjectId != 0) hash ^= ObjectId.GetHashCode();
       if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
       if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
       if (BulletType != 0) hash ^= BulletType.GetHashCode();
@@ -5160,13 +5160,13 @@ namespace Message {
         output.WriteRawTag(8);
         output.WriteInt32(ObjectType);
       }
-      if (BulletId.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(BulletId);
+      if (BulletId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(BulletId);
       }
-      if (ObjectId.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(ObjectId);
+      if (ObjectId != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(ObjectId);
       }
       if (X != 0F) {
         output.WriteRawTag(37);
@@ -5194,13 +5194,13 @@ namespace Message {
         output.WriteRawTag(8);
         output.WriteInt32(ObjectType);
       }
-      if (BulletId.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(BulletId);
+      if (BulletId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(BulletId);
       }
-      if (ObjectId.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(ObjectId);
+      if (ObjectId != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(ObjectId);
       }
       if (X != 0F) {
         output.WriteRawTag(37);
@@ -5227,11 +5227,11 @@ namespace Message {
       if (ObjectType != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(ObjectType);
       }
-      if (BulletId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(BulletId);
+      if (BulletId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(BulletId);
       }
-      if (ObjectId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(ObjectId);
+      if (ObjectId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ObjectId);
       }
       if (X != 0F) {
         size += 1 + 4;
@@ -5257,10 +5257,10 @@ namespace Message {
       if (other.ObjectType != 0) {
         ObjectType = other.ObjectType;
       }
-      if (other.BulletId.Length != 0) {
+      if (other.BulletId != 0) {
         BulletId = other.BulletId;
       }
-      if (other.ObjectId.Length != 0) {
+      if (other.ObjectId != 0) {
         ObjectId = other.ObjectId;
       }
       if (other.X != 0F) {
@@ -5295,12 +5295,12 @@ namespace Message {
             ObjectType = input.ReadInt32();
             break;
           }
-          case 18: {
-            BulletId = input.ReadString();
+          case 16: {
+            BulletId = input.ReadInt32();
             break;
           }
-          case 26: {
-            ObjectId = input.ReadString();
+          case 24: {
+            ObjectId = input.ReadInt32();
             break;
           }
           case 37: {
@@ -5338,12 +5338,12 @@ namespace Message {
             ObjectType = input.ReadInt32();
             break;
           }
-          case 18: {
-            BulletId = input.ReadString();
+          case 16: {
+            BulletId = input.ReadInt32();
             break;
           }
-          case 26: {
-            ObjectId = input.ReadString();
+          case 24: {
+            ObjectId = input.ReadInt32();
             break;
           }
           case 37: {
@@ -5416,25 +5416,25 @@ namespace Message {
 
     /// <summary>Field number for the "itemId" field.</summary>
     public const int ItemIdFieldNumber = 1;
-    private string itemId_ = "";
+    private int itemId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string ItemId {
+    public int ItemId {
       get { return itemId_; }
       set {
-        itemId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        itemId_ = value;
       }
     }
 
     /// <summary>Field number for the "playerId" field.</summary>
     public const int PlayerIdFieldNumber = 2;
-    private string playerId_ = "";
+    private int playerId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string PlayerId {
+    public int PlayerId {
       get { return playerId_; }
       set {
-        playerId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        playerId_ = value;
       }
     }
 
@@ -5506,8 +5506,8 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (ItemId.Length != 0) hash ^= ItemId.GetHashCode();
-      if (PlayerId.Length != 0) hash ^= PlayerId.GetHashCode();
+      if (ItemId != 0) hash ^= ItemId.GetHashCode();
+      if (PlayerId != 0) hash ^= PlayerId.GetHashCode();
       if (ItemType != 0) hash ^= ItemType.GetHashCode();
       if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
       if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
@@ -5529,13 +5529,13 @@ namespace Message {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (ItemId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(ItemId);
+      if (ItemId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(ItemId);
       }
-      if (PlayerId.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(PlayerId);
+      if (PlayerId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(PlayerId);
       }
       if (ItemType != 0) {
         output.WriteRawTag(24);
@@ -5559,13 +5559,13 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (ItemId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(ItemId);
+      if (ItemId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(ItemId);
       }
-      if (PlayerId.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(PlayerId);
+      if (PlayerId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(PlayerId);
       }
       if (ItemType != 0) {
         output.WriteRawTag(24);
@@ -5589,11 +5589,11 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (ItemId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(ItemId);
+      if (ItemId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ItemId);
       }
-      if (PlayerId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(PlayerId);
+      if (PlayerId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(PlayerId);
       }
       if (ItemType != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(ItemType);
@@ -5616,10 +5616,10 @@ namespace Message {
       if (other == null) {
         return;
       }
-      if (other.ItemId.Length != 0) {
+      if (other.ItemId != 0) {
         ItemId = other.ItemId;
       }
-      if (other.PlayerId.Length != 0) {
+      if (other.PlayerId != 0) {
         PlayerId = other.PlayerId;
       }
       if (other.ItemType != 0) {
@@ -5650,12 +5650,12 @@ namespace Message {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            ItemId = input.ReadString();
+          case 8: {
+            ItemId = input.ReadInt32();
             break;
           }
-          case 18: {
-            PlayerId = input.ReadString();
+          case 16: {
+            PlayerId = input.ReadInt32();
             break;
           }
           case 24: {
@@ -5689,12 +5689,12 @@ namespace Message {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            ItemId = input.ReadString();
+          case 8: {
+            ItemId = input.ReadInt32();
             break;
           }
-          case 18: {
-            PlayerId = input.ReadString();
+          case 16: {
+            PlayerId = input.ReadInt32();
             break;
           }
           case 24: {
@@ -5767,25 +5767,25 @@ namespace Message {
 
     /// <summary>Field number for the "killerId" field.</summary>
     public const int KillerIdFieldNumber = 1;
-    private string killerId_ = "";
+    private int killerId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string KillerId {
+    public int KillerId {
       get { return killerId_; }
       set {
-        killerId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        killerId_ = value;
       }
     }
 
     /// <summary>Field number for the "deadId" field.</summary>
     public const int DeadIdFieldNumber = 2;
-    private string deadId_ = "";
+    private int deadId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string DeadId {
+    public int DeadId {
       get { return deadId_; }
       set {
-        deadId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        deadId_ = value;
       }
     }
 
@@ -5858,8 +5858,8 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (KillerId.Length != 0) hash ^= KillerId.GetHashCode();
-      if (DeadId.Length != 0) hash ^= DeadId.GetHashCode();
+      if (KillerId != 0) hash ^= KillerId.GetHashCode();
+      if (DeadId != 0) hash ^= DeadId.GetHashCode();
       if (DyingStatus != 0) hash ^= DyingStatus.GetHashCode();
       if (KillNum != 0) hash ^= KillNum.GetHashCode();
       if (Placement != 0) hash ^= Placement.GetHashCode();
@@ -5881,13 +5881,13 @@ namespace Message {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (KillerId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(KillerId);
+      if (KillerId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(KillerId);
       }
-      if (DeadId.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(DeadId);
+      if (DeadId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(DeadId);
       }
       if (DyingStatus != 0) {
         output.WriteRawTag(24);
@@ -5911,13 +5911,13 @@ namespace Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (KillerId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(KillerId);
+      if (KillerId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(KillerId);
       }
-      if (DeadId.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(DeadId);
+      if (DeadId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(DeadId);
       }
       if (DyingStatus != 0) {
         output.WriteRawTag(24);
@@ -5941,11 +5941,11 @@ namespace Message {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (KillerId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(KillerId);
+      if (KillerId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(KillerId);
       }
-      if (DeadId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(DeadId);
+      if (DeadId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(DeadId);
       }
       if (DyingStatus != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(DyingStatus);
@@ -5968,10 +5968,10 @@ namespace Message {
       if (other == null) {
         return;
       }
-      if (other.KillerId.Length != 0) {
+      if (other.KillerId != 0) {
         KillerId = other.KillerId;
       }
-      if (other.DeadId.Length != 0) {
+      if (other.DeadId != 0) {
         DeadId = other.DeadId;
       }
       if (other.DyingStatus != 0) {
@@ -6002,12 +6002,12 @@ namespace Message {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            KillerId = input.ReadString();
+          case 8: {
+            KillerId = input.ReadInt32();
             break;
           }
-          case 18: {
-            DeadId = input.ReadString();
+          case 16: {
+            DeadId = input.ReadInt32();
             break;
           }
           case 24: {
@@ -6041,12 +6041,12 @@ namespace Message {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            KillerId = input.ReadString();
+          case 8: {
+            KillerId = input.ReadInt32();
             break;
           }
-          case 18: {
-            DeadId = input.ReadString();
+          case 16: {
+            DeadId = input.ReadInt32();
             break;
           }
           case 24: {

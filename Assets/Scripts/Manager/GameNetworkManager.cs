@@ -400,7 +400,8 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     {
         if (IsDebug())
         {
-            return "/room?roomId=test&clientId=test";
+            // return "/room?roomId=test&clientId=test";
+            return "/room?roomId=room0&clientId=test";
         }
         else
         {
