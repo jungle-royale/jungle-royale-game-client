@@ -11,7 +11,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "cluster": "^0.7.7",
     "compression": "^1.7.5",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "lru-cache": "^11.0.2"
   }
 }
