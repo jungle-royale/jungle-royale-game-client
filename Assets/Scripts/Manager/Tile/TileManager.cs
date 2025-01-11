@@ -6,6 +6,7 @@ using UnityEngine;
 public class TileManager : MonoBehaviour
 {
     public PlayerManager playerManager;
+    public CameraManager cameraManager;
     private Dictionary<int, GameObject> tileObjects = new Dictionary<int, GameObject>();
 
     private Debouncer debouncer = new Debouncer();
@@ -103,7 +104,7 @@ public class TileManager : MonoBehaviour
             float t = Mathf.PingPong(Time.time * blinkSpeed, 1f); // 0~1 사이의 값 반복
             UpdateGroundColors(tileObject, t);
             UpdatePlayerHaptick(tileObject);
-        }
+        } 
     }
 
     private void UpdatePlayerHaptick(GameObject tileObject)
@@ -147,6 +148,10 @@ public class TileManager : MonoBehaviour
             {
                 HaptickManager.TriggerHaptic(200);
             });
+
+            cameraManager.StartCameraShake(1.0f, 0.2f); // 1초, 0.2강도
+        } else {
+            cameraManager.StopCameraShake();
         }
     }
 

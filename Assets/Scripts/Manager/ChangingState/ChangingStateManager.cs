@@ -92,7 +92,7 @@ public class ChangingStateManager : MonoBehaviour
 
         if (state.IsWinner())
         {
-            // 승리 애니메이션
+            animator.SetTrigger("win");
             return;
         }
 
