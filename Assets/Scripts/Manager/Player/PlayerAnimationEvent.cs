@@ -33,6 +33,11 @@ public class PlayerAnimationEvent : MonoBehaviour
         if (player.name == ClientManager.Instance.CurrentPlayerName)
         {
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameOver, 0.7f);
+
+            if (ClientManager.Instance.gameEnd) {
+                return; // 애니메이션 실행 중에 게임이 종료되면 gui 표시 X
+            }
+
             EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameOver");
 
             StateUIDTO stateData = new StateUIDTO

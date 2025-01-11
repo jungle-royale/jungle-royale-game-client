@@ -61,20 +61,15 @@ public class GameStateManager : Singleton<GameStateManager>
     {
         // 모든 키를 막는다. - 모든 키 막을 때, 쏘고 있거나, 대시하고 있는거 다 false로 서버에 보내버리기
         EventBus<InputButtonEventType>.Publish(InputButtonEventType.StopPlay);
+        ClientManager.Instance.gameEnd = true;
 
         // 3초 대기
-        yield return new WaitForSeconds(4f);
-
-        // 여기서부터 3초뒤 실행하도록 함
-
-        // camera를 승리자로 옮긴다.
-        cameraManager.SetFocusedClient(playerId);
+        yield return new WaitForSeconds(3f);
 
         // TODO: 파티클 추가
 
         if (playerId == ClientManager.Instance.ClientId)
         {
-            // 승리
             Debug.Log("승리");
             AudioManager.Instance.PlayOnceSfx(AudioManager.Sfx.Win, 1.0f);
             EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameWin");
