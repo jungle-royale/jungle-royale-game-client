@@ -43,38 +43,37 @@ public class TileManager : MonoBehaviour
 #if UNITY_EDITOR
                 tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile04");
 #else
-            // 빌드된 환경에서 실행 중일 때
-            if (Debug.isDebugBuild)
-            {
-                Debug.Log("[TileManager.cs] Development Build에서 실행 중");
-                tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile04");
-            }
-            else
-            {
-                // Release Build에서 실행 중
-                switch (tile.tileType)
+                // 빌드된 환경에서 실행 중일 때
+                if (Debug.isDebugBuild)
                 {
-                    case 0:
-                        tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile00");
-                        break;
-
-                    case 1:
-                        tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile01");
-                        break;
-
-                    case 2:
-                        tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile02");
-                        break;
-
-                    case 3:
-                        tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile03");
-                        break;
-
-                    default:
-                        Debug.LogError($"Unknown tile type: {tile.tileType}");
-                        break;
+                    Debug.Log("[TileManager.cs] Development Build에서 실행 중");
+                    tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile04");
                 }
-            }
+                else
+                {
+                    switch (tile.tileType)
+                    {
+                        case 0:
+                            tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile00");
+                            break;
+
+                        case 1:
+                            tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile01");
+                            break;
+
+                        case 2:
+                            tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile02");
+                            break;
+
+                        case 3:
+                            tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile03");
+                            break;
+
+                        default:
+                            Debug.LogError($"Unknown tile type: {tile.tileType}");
+                            break;
+                    }
+                }
 #endif
                 if (tilePrefab != null)
                 {

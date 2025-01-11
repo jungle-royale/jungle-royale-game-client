@@ -2,9 +2,17 @@ using UnityEngine;
 
 public class PlayerAnimationEvent : MonoBehaviour
 {
-    public void Dash()
+    public void StartWalk()
     {
         AudioManager.Instance.PlaySfx(AudioManager.Sfx.Walk);
+    }
+
+    public void EndWalk()
+    {
+        GameObject player = this.gameObject;
+        var newPosition = player.transform.position;
+        newPosition.y = 0;
+        player.transform.position = newPosition;
     }
 
     public void AfterFalling()
