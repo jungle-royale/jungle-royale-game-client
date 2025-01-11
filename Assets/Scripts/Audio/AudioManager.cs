@@ -41,6 +41,7 @@ public class AudioManager : Singleton<AudioManager>
         Hit02,
         Hit03,
         Hit04,
+        DestroyGround,
     }
 
     // 싱글톤 인스턴스

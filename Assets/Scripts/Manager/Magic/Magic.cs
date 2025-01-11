@@ -13,13 +13,13 @@ public class Magic
 
     public Magic(int itemId, int magicType, float x, float y)
     {
-        switch (magicType) 
+        switch (magicType)
         {
             case 1:
-                this.MagicType = MagicType.Fire;
+                this.MagicType = MagicType.Stone;
                 break;
             case 2:
-                this.MagicType = MagicType.Stone;
+                this.MagicType = MagicType.Fire;
                 break;
             default:
                 this.MagicType = MagicType.None;
@@ -32,7 +32,7 @@ public class Magic
 
     public virtual Vector3 Position()
     {
-        return new Vector3(this.X, 0, this.Y);
+        return new Vector3(this.X, 1, this.Y);
     }
 
     // Scale 메서드: 기본값 2f를 가지는 매개변수화된 함수

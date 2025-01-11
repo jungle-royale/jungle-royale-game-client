@@ -14,7 +14,9 @@ public class TileManager : MonoBehaviour
 
     const float TILE_Y = 0;
     private const float blinkSpeed = 1.5f;
-    private Color baseColor = new Color(142 / 255f, 183 / 255f, 180 / 255f);
+    private Color baseColor = new Color(1f, 1f, 1f); // 흰색
+
+    public Color warningColor;
 
     private void Awake()
     {
@@ -39,13 +41,13 @@ public class TileManager : MonoBehaviour
                 GameObject tilePrefab = null;
 
 #if UNITY_EDITOR
-                tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile00");
+                tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile04");
 #else
             // 빌드된 환경에서 실행 중일 때
             if (Debug.isDebugBuild)
             {
                 Debug.Log("[TileManager.cs] Development Build에서 실행 중");
-                tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile00");
+                tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile04");
             }
             else
             {
@@ -115,7 +117,7 @@ public class TileManager : MonoBehaviour
         }
 
         // "Ground"라는 이름의 자식 객체 찾기
-        Transform groundTransform = tileObject.transform.Find("Grounds/Ground");
+        Transform groundTransform = tileObject.transform.Find("Ground");
 
         if (groundTransform != null)
         {
@@ -151,29 +153,30 @@ public class TileManager : MonoBehaviour
 
     private void UpdateGroundColors(GameObject tileObject, float lerpFactor)
     {
-        Transform groundsTransform = tileObject.transform.Find("Grounds");
+        Transform groundsTransform = tileObject.transform.Find("Ground");
         if (groundsTransform != null)
         {
-            foreach (Transform child in groundsTransform)
-            {
-                Renderer renderer = child.GetComponent<Renderer>();
-                if (renderer != null)
-                {
-                    // 기존 Material을 복사하여 독립적인 Material 생성
-                    if (!renderer.material.name.Contains("(Instance)")) // 이미 인스턴스화된 Material인지 확인
-                    {
-                        renderer.material = new Material(renderer.material);
-                    }
 
-                    // 인스턴스화된 Material의 색상 변경
-                    renderer.material.color = Color.Lerp(baseColor, Color.magenta, lerpFactor);
-                }
-                else
+            Renderer renderer = groundsTransform.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                // 기존 Material을 복사하여 독립적인 Material 생성
+                if (!renderer.material.name.Contains("(Instance)")) // 이미 인스턴스화된 Material인지 확인
                 {
-                    Debug.LogWarning($"Renderer not found on child: {child.name}");
+                    renderer.material = new Material(renderer.material);
                 }
+
+                if (warningColor == null)
+                    warningColor = new Color(255f, 130f, 130f); // 세미빨강
+
+                renderer.material.color = Color.Lerp(baseColor, warningColor, lerpFactor);
+            }
+            else
+            {
+                Debug.LogWarning($"Renderer not found on groundsTransform: {groundsTransform.name}");
             }
         }
+
         else
         {
             Debug.LogWarning("Grounds 오브젝트 없음");
