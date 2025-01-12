@@ -61,12 +61,18 @@ public class ChangingStateManager : MonoBehaviour
 
     private void HandlePlayerDeadState(PlayerDeadState state)
     {
-        // TODO: 여기서 카메라 range check
 
+        // TODO: 여기서 카메라 range check
         GameObject player = playerManager.GetPlayerById(state.deadPlayerId);
         if (player == null)
         {
             return;
+        }
+
+        HealthBar healthBarComponent = player.GetComponentInChildren<HealthBar>();
+        if (healthBarComponent != null)
+        {
+            healthBarComponent.SetHealth(0);
         }
 
         Animator animator = player.GetComponent<Animator>();
