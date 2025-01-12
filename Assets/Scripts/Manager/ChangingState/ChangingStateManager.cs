@@ -9,6 +9,7 @@ public class ChangingStateManager : MonoBehaviour
 {
     public PlayerManager playerManager;
     public BulletManager bulletManager;
+    public CameraManager cameraManager;
     private WebGLHapticManager HaptickManager = new WebGLHapticManager();
 
     private float BULLET_Y = 0.9f;
@@ -26,6 +27,12 @@ public class ChangingStateManager : MonoBehaviour
         if (bulletManager == null)
         {
             Debug.LogError("BulletManager 없음");
+        }
+
+        cameraManager = FindObjectOfType<CameraManager>();
+        if (cameraManager == null)
+        {
+            Debug.LogError("CameraManager 없음");
         }
     }
 
@@ -61,10 +68,16 @@ public class ChangingStateManager : MonoBehaviour
 
     private void HandlePlayerDeadState(PlayerDeadState state)
     {
-
-        // TODO: 여기서 카메라 range check
         GameObject player = playerManager.GetPlayerById(state.deadPlayerId);
         if (player == null)
+        {
+            return;
+        }
+
+        // TODO: 여기서 카메라 range check
+        Debug.Log($"PlayerPosition: {new Vector3(player.transform.position.x, 0, player.transform.position.z)}");
+        Debug.Log($"CameraPosition: {cameraManager.GetMinimapCameraPosition()}");
+        if (!cameraManager.IsInCameraView(new Vector3(player.transform.position.x, 0, player.transform.position.z)))
         {
             return;
         }

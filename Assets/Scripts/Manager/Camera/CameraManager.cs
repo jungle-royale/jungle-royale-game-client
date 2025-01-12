@@ -77,7 +77,19 @@ public class CameraManager : MonoBehaviour
         {
             focusedClientId = ClientManager.Instance.ClientId;
         }
+
         currentPlayerList = playerListFromServer; // players 리스트를 저장
+
+        var player = currentPlayerList.FirstOrDefault(p => p.id == focusedClientId);
+
+        if (player == null)
+        {
+            // player가 죽어서 current에 없는 경우, 업데이트를 멈추고 현재 위치로 카메라를 고정시킨다.
+            return; 
+        }
+
+        UpdateMainCamera(player);
+        UpdateMiniMapCamera(player);
     }
 
     private void UpdateMainCamera(Player player)
@@ -170,7 +182,8 @@ public class CameraManager : MonoBehaviour
 
         while (elapsedTime < shakeDuration)
         {
-            shakeAudioDebouncer.Debounce(2500, () => {
+            shakeAudioDebouncer.Debounce(2500, () =>
+            {
                 AudioManager.Instance.PlaySfx(AudioManager.Sfx.DestroyGround);
             });
             elapsedTime += Time.deltaTime;
@@ -204,5 +217,22 @@ public class CameraManager : MonoBehaviour
         Vector3 targetPosition = mainCamera.transform.position + diff;
         mainCamera.transform.position = targetPosition;
         miniMapCamera.transform.position = targetPosition;
+    }
+
+    public bool IsInCameraView(Vector3 worldPosition)
+    {
+        // 미니맵 카메라 참조
+        Vector3 viewportPoint = miniMapCamera.WorldToViewportPoint(worldPosition);
+
+        // 뷰포트의 x와 y가 0~1 사이인지 확인
+        bool isInView = viewportPoint.x >= 0 && viewportPoint.x <= 1 &&
+                        viewportPoint.y >= 0 && viewportPoint.y <= 1;
+
+        return isInView;
+    }
+
+    public Vector3 GetMinimapCameraPosition()
+    {
+        return miniMapCamera.transform.position;
     }
 }

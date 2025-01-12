@@ -38,4 +38,3 @@ namespace Viapix_HealingItem
         }
     }
 }
-

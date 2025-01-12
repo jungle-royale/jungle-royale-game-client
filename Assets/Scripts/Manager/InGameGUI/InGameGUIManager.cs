@@ -217,17 +217,21 @@ public class InGameGUIManager : MonoBehaviour
                 inGameCanvas?.SetActive(true);
                 break;
             case "GameOver":
+                mainCanvas?.SetActive(false);
                 gameOverCanvas?.SetActive(true);
                 break;
             case "WatchMode":
+                mainCanvas?.SetActive(true);
                 watchModeCanvas?.SetActive(true);
                 break;
             case "GameWin":
+                mainCanvas?.SetActive(false);
                 gameOverCanvas?.SetActive(false);
                 watchModeCanvas?.SetActive(false);
                 gameWinCanvas?.SetActive(true);
                 break;
             case "GameEnd":
+                mainCanvas?.SetActive(false);
                 gameOverCanvas?.SetActive(false);
                 watchModeCanvas?.SetActive(false);
                 gameEndCanvas?.SetActive(true);

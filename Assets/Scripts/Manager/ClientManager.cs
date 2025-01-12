@@ -114,4 +114,10 @@ public class ClientManager : Singleton<ClientManager>
         }
     }
 
+    public bool IsCreatedPlayer()
+    {
+        GameObject myPlayer = GameObject.Find("MyPlayer");
+
+        return myPlayer != null; // 생성 됐으면 true, 아니면 false
+    }
 }

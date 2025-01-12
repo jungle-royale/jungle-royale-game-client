@@ -79,7 +79,6 @@ public class HealPackManager : MonoBehaviour
         {
             if (targetDictionary.TryGetValue(itemId, out GameObject itemObject))
             {
-                AudioManager.Instance.PlaySfx(AudioManager.Sfx.Heal, 1.0f);
                 Destroy(itemObject);
                 targetDictionary.Remove(itemId);
                 Debug.Log($"Removed inactive {itemId}.");

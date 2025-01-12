@@ -23,13 +23,14 @@ public class PlayerManager : MonoBehaviour
     private HashSet<int> shootingPlayerIdList = new HashSet<int>();
 
     private List<Player> playerDataList = new List<Player>();
-    
+
     private float lastServerUpdateTime;
 
     const float DASH_ROTATION = 15f;
 
     // 60FPS 환경에서는 lerpSpeed가 10이라면, 한 프레임 동안 약 10 * 1/60 = 0.1667의 속도로 보간
     float LERP_SPEED = 10f; // 10f는 빠르게 따라가고, 2~5f는 더 느리고 부드럽게
+    const int GAGE_PER_BULLET = 30;
 
     private int currentPlayerId
     {
@@ -140,11 +141,19 @@ public class PlayerManager : MonoBehaviour
 
     private void UpdateOtherPlayerAtUpdate(GameObject player, Player serverData)
     {
-        UpdateHealthBar(player, serverData);
-        UpdatePlayerMoveState(player, serverData);
-        UpdatePlayerShootState(player, serverData);
-        UpdateOtherPlayersMark(serverData);
-        UpdatePlayerPosition(player, serverData);
+        if (!serverData.isOutofView) // 범위 밖이면 비활성화
+        {
+            player.SetActive(false);
+            return;
+        }
+        else
+        {
+            UpdateHealthBar(player, serverData);
+            UpdatePlayerMoveState(player, serverData);
+            UpdatePlayerShootState(player, serverData);
+            UpdateOtherPlayersMark(serverData);
+            UpdatePlayerPosition(player, serverData);
+        }
     }
 
     private void UpdateHealthBar(GameObject player, Player serverData)
@@ -181,7 +190,7 @@ public class PlayerManager : MonoBehaviour
     {
         var currentPosition = CalculatePredicatedPosition(player.transform.position.y, serverData);
         var previousPosition = serverData.NewPosition(player.transform.position.y);
-        
+
         Vector3 movementDirection = currentPosition - previousPosition;
 
         Animator animator = player.GetComponent<Animator>();
@@ -324,7 +333,7 @@ public class PlayerManager : MonoBehaviour
             Debug.LogError("Shooting 이펙트 없음");
         }
 
-        if (serverData.isShooting)
+        if (serverData.isShooting && serverData.bulletGage >= GAGE_PER_BULLET)
         {
             if (dashPlayerIdList.Contains(serverData.id))
             {
