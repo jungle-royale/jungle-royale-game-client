@@ -51,6 +51,11 @@ public class CameraManager : MonoBehaviour
 
     void Update()
     {
+        if (isMoving)
+        {
+            return;
+        }
+
         var player = currentPlayerList.FirstOrDefault(p => p.id == focusedClientId);
         if (player == null)
         {
@@ -184,4 +189,20 @@ public class CameraManager : MonoBehaviour
         isShaking = false;
     }
 
+    private bool isMoving = false;
+
+    public void StopUpdateCameraMovement()
+    {
+        isMoving = false;
+    }
+
+    public void UpdateCameraMovement(float x, float y)
+    {
+        isMoving = true;
+        float speed = 0.1f;
+        var diff = new Vector3(x, 0, y).normalized * speed;
+        Vector3 targetPosition = mainCamera.transform.position + diff;
+        mainCamera.transform.position = targetPosition;
+        miniMapCamera.transform.position = targetPosition;
+    }
 }
