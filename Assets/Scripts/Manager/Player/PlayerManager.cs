@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,22 +8,28 @@ public class PlayerManager : MonoBehaviour
     public GameObject playerPrefab; // 내 플레이어 프리팹
     public GameObject currentPlayerMarkPrefab; // 내 플레이어 프리팹
     public GameObject otherPlayerMarkPrefab; // 내 플레이어 프리팹
-    // public GameObject otherPlayerPrefab;   // 다른 플레이어 프리팹
+
     private bool currentPlayerDead = false;
 
     // 이펙트
     private GameObject shootingEffect;
-
-    private GameObject currentPlayer; // 현재 플레이어 객체
+    private GameObject currentPlayerGameObject; // 현재 플레이어 객체
     private GameObject currentPlayerMark;
-    private Dictionary<int, GameObject> otherPlayers = new Dictionary<int, GameObject>();
-    private Dictionary<int, GameObject> otherPlayersMark = new Dictionary<int, GameObject>();
+    private Dictionary<int, GameObject> otherPlayerGameObjectDictionary = new Dictionary<int, GameObject>();
+    private Dictionary<int, GameObject> otherPlayerMarkDictionary = new Dictionary<int, GameObject>();
 
-    private HashSet<int> movePlayers = new HashSet<int>();
-    private HashSet<int> dashPlayers = new HashSet<int>();
-    private HashSet<int> shootingPlayers = new HashSet<int>();
+    private HashSet<int> movePlayerIdList = new HashSet<int>();
+    private HashSet<int> dashPlayerIdList = new HashSet<int>();
+    private HashSet<int> shootingPlayerIdList = new HashSet<int>();
+
+    private List<Player> playerDataList = new List<Player>();
+    
+    private float lastServerUpdateTime;
 
     const float DASH_ROTATION = 15f;
+
+    // 60FPS 환경에서는 lerpSpeed가 10이라면, 한 프레임 동안 약 10 * 1/60 = 0.1667의 속도로 보간
+    float LERP_SPEED = 10f; // 10f는 빠르게 따라가고, 2~5f는 더 느리고 부드럽게
 
     private int currentPlayerId
     {
@@ -38,67 +45,66 @@ public class PlayerManager : MonoBehaviour
     {
         if (playerId == currentPlayerId)
         {
-            return currentPlayer;
+            return currentPlayerGameObject;
         }
 
-        if (otherPlayers.ContainsKey(playerId))
+        if (otherPlayerGameObjectDictionary.ContainsKey(playerId))
         {
-            return otherPlayers[playerId];
+            return otherPlayerGameObjectDictionary[playerId];
         }
 
         return null;
     }
 
-    public void UpdatePlayers(List<Player> playerDataList)
+    void Update()
     {
-
-        // 카메라 비교해서 update할 아이들만 update하기
-        int activePlayerNumber = 0;
-
         foreach (var data in playerDataList)
         {
             if (data.id == currentPlayerId)
             {
-                if (currentPlayer == null)
+                if (currentPlayerGameObject)
                 {
-                    CreateCurrentPlayer(data);
+                    ValidateCurrentPlayerAtUpdate(data);
                 }
                 else
                 {
-                    ValidateCurrentPlayer(data);
+                    CreateCurrentPlayer(data);
                 }
             }
             else
             {
-                activePlayerNumber += 1;
-                if (otherPlayers.ContainsKey(data.id))
+                if (otherPlayerGameObjectDictionary.ContainsKey(data.id))
                 {
-                    // 기존 플레이어 업데이트
-                    UpdatePlayer(otherPlayers[data.id], data);
+                    UpdateOtherPlayerAtUpdate(otherPlayerGameObjectDictionary[data.id], data);
                 }
                 else
                 {
-                    // 새로운 플레이어 생성
                     CreateOtherPlayer(data);
                 }
             }
         }
 
-        // 제거할 플레이어 처리
         RemoveDisconnectedPlayers(playerDataList);
-        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdatePlayerCountLabel, playerDataList.Count);
+    }
+
+    public void UpdatePlayersFromServer(List<Player> activePlayerDataListFromServer)
+    {
+        lastServerUpdateTime = Time.time;
+        playerDataList = activePlayerDataListFromServer;
+        int activePlayerNumber = activePlayerDataListFromServer.Count;
+        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdatePlayerCountLabel, activePlayerNumber);
     }
 
     private void CreateCurrentPlayer(Player data)
     {
-        currentPlayer = Instantiate(playerPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity);
+        currentPlayerGameObject = Instantiate(playerPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity);
         currentPlayerMark = Instantiate(currentPlayerMarkPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity); // 내 플레이어 마크
 
-        currentPlayer.tag = "Player";
-        currentPlayer.name = ClientManager.Instance.CurrentPlayerName;
+        currentPlayerGameObject.tag = "Player";
+        currentPlayerGameObject.name = ClientManager.Instance.CurrentPlayerName;
 
         // 플레이어의 HealthBar 초기화
-        HealthBar healthBarComponent = currentPlayer.GetComponentInChildren<HealthBar>();
+        HealthBar healthBarComponent = currentPlayerGameObject.GetComponentInChildren<HealthBar>();
         if (healthBarComponent != null)
         {
             healthBarComponent.SetMaxHealth(data.health);
@@ -118,63 +124,65 @@ public class PlayerManager : MonoBehaviour
             healthBarComponent.SetMaxHealth(data.health);
         }
 
-        Debug.Log($"init BulletGage: {data.bulletGage}");
-
-        otherPlayers[data.id] = newPlayer;
-        otherPlayersMark[data.id] = newPlayerMark;
+        otherPlayerGameObjectDictionary[data.id] = newPlayer;
+        otherPlayerMarkDictionary[data.id] = newPlayerMark;
     }
 
-    private void ValidateCurrentPlayer(Player serverData)
+    private void ValidateCurrentPlayerAtUpdate(Player serverData)
     {
-        // HealthBar 업데이트
-        HealthBar healthBarComponent = currentPlayer.GetComponentInChildren<HealthBar>();
-        if (healthBarComponent != null)
-        {
-            healthBarComponent.SetHealth(serverData.health);
-        }
-
         EventBus<InGameGUIEventType>.Publish<int>(InGameGUIEventType.UpdateBulletBarLabel, serverData.bulletGage);
-
-        UpdatePlayerMoveState(currentPlayer, serverData);
-        UpdatePlayerShootState(currentPlayer, serverData);
-        UpdatePlayerMark(serverData);
+        UpdateHealthBar(currentPlayerGameObject, serverData);
+        UpdatePlayerMoveState(currentPlayerGameObject, serverData);
+        UpdatePlayerShootState(currentPlayerGameObject, serverData);
+        UpdateCurrentPlayerMark(serverData);
+        UpdatePlayerPosition(currentPlayerGameObject, serverData);
     }
 
-    private void UpdatePlayer(GameObject player, Player serverData)
+    private void UpdateOtherPlayerAtUpdate(GameObject player, Player serverData)
     {
-        // HealthBar 업데이트
+        UpdateHealthBar(player, serverData);
+        UpdatePlayerMoveState(player, serverData);
+        UpdatePlayerShootState(player, serverData);
+        UpdateOtherPlayersMark(serverData);
+        UpdatePlayerPosition(player, serverData);
+    }
+
+    private void UpdateHealthBar(GameObject player, Player serverData)
+    {
         HealthBar healthBarComponent = player.GetComponentInChildren<HealthBar>();
         if (healthBarComponent != null)
         {
             healthBarComponent.SetHealth(serverData.health);
         }
-        UpdatePlayerMoveState(player, serverData);
-        UpdatePlayerShootState(player, serverData);
-        UpdateOtherPlayersMark(serverData);
     }
 
-    private void UpdatePlayerMark(Player serverData)
+    private void UpdateCurrentPlayerMark(Player serverData)
     {
-        // Mark 위치 업데이트
-        currentPlayerMark.transform.position = serverData.NewPosition(PLAYER_Y);
+        var targetPosition = CalculatePredicatedPosition(PLAYER_Y, serverData);
+        var currentPosition = currentPlayerMark.transform.position;
+        var newPosition = Vector3.Lerp(currentPosition, targetPosition, LERP_SPEED * Time.deltaTime);
+        currentPlayerMark.transform.position = newPosition;
     }
 
     private void UpdateOtherPlayersMark(Player serverData)
     {
-        var otherPlayerMark = otherPlayersMark[serverData.id];
+        var otherPlayerMark = otherPlayerMarkDictionary[serverData.id];
 
         if (otherPlayerMark != null)
         {
-            otherPlayerMark.transform.position = serverData.NewPosition(PLAYER_Y);
+            var targetPosition = CalculatePredicatedPosition(PLAYER_Y, serverData);
+            var currentPosition = otherPlayerMark.transform.position;
+            var newPosition = Vector3.Lerp(currentPosition, targetPosition, LERP_SPEED * Time.deltaTime);
+            otherPlayerMark.transform.position = newPosition;
         }
     }
 
     private void UpdatePlayerMoveState(GameObject player, Player serverData)
     {
-        var currentPosition = serverData.NewPosition(PLAYER_Y);
-        var previousPosition = player.transform.position;
+        var currentPosition = CalculatePredicatedPosition(player.transform.position.y, serverData);
+        var previousPosition = serverData.NewPosition(player.transform.position.y);
+        
         Vector3 movementDirection = currentPosition - previousPosition;
-
 
         Animator animator = player.GetComponent<Animator>();
         if (animator == null)
@@ -183,9 +191,7 @@ public class PlayerManager : MonoBehaviour
             return;
         }
 
-        // DustTrail 파티클 시스템 가져오기
         var dustTrail = player.transform.Find("DustTrail").gameObject;
-
         if (dustTrail == null)
         {
             Debug.LogWarning($"DustTrail ParticleSystem not found on player: {player.name}");
@@ -193,11 +199,12 @@ public class PlayerManager : MonoBehaviour
 
         if (serverData.isDashing)
         {
-            if (!dashPlayers.Contains(serverData.id))
+            if (!dashPlayerIdList.Contains(serverData.id))
             {
-                dashPlayers.Add(serverData.id);
+                dashPlayerIdList.Add(serverData.id);
                 AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dash);
             }
+
             if (movementDirection != Vector3.zero)
             {
                 Quaternion tiltRotation = Quaternion.LookRotation(movementDirection.normalized); // 이동 방향을 기준으로 회전
@@ -211,7 +218,6 @@ public class PlayerManager : MonoBehaviour
                 player.transform.rotation = tilt;
             }
 
-            // DustTrail 파티클 활성화
             if (dustTrail != null)
             {
                 dustTrail.SetActive(true);
@@ -219,14 +225,14 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            if (dashPlayers.Contains(serverData.id))
+            if (dashPlayerIdList.Contains(serverData.id))
             {
-                dashPlayers.Remove(serverData.id);
+                dashPlayerIdList.Remove(serverData.id);
             }
+
             Quaternion uprightRotation = Quaternion.Euler(0, -(serverData.angle - 180), 0);
             player.transform.rotation = uprightRotation;
 
-            // DustTrail 파티클 비활성화
             if (dustTrail != null)
             {
                 dustTrail.SetActive(false);
@@ -235,26 +241,46 @@ public class PlayerManager : MonoBehaviour
 
         if (serverData.isMoved)
         {
-            if (!movePlayers.Contains(serverData.id))
+            if (!movePlayerIdList.Contains(serverData.id))
             {
-                movePlayers.Add(serverData.id);
+                movePlayerIdList.Add(serverData.id);
                 animator.SetBool("isMoving", true);
             }
         }
         else
         {
-            if (movePlayers.Contains(serverData.id))
+            if (movePlayerIdList.Contains(serverData.id))
             {
-                movePlayers.Remove(serverData.id);
+                movePlayerIdList.Remove(serverData.id);
                 animator.SetBool("isMoving", false);
             }
         }
+    }
 
-        // 현재 위치 조정
-        var newPosition = player.transform.position;
-        newPosition.x = serverData.x;
-        newPosition.z = serverData.y;
+    private void UpdatePlayerPosition(GameObject player, Player serverData)
+    {
+        var targetPosition = CalculatePredicatedPosition(player.transform.position.y, serverData);
+        var currentPosition = player.transform.position;
+        var newPosition = Vector3.Lerp(currentPosition, targetPosition, LERP_SPEED * Time.deltaTime);
         player.transform.position = newPosition;
+    }
+
+    private Vector3 CalculatePredicatedPosition(float y, Player serverData)
+    {
+        if (!serverData.isMoved)
+        {
+            return serverData.NewPosition(y);
+        }
+
+        float currentTime = Time.time;
+        float timeSinceLastUpdate = (currentTime - lastServerUpdateTime);
+        float frameFactor = timeSinceLastUpdate * 1000 / 16; // 16ms 기준
+
+        var newPosition = serverData.NewPosition(y);
+        newPosition.x += serverData.dx * frameFactor;
+        newPosition.z += serverData.dy * frameFactor;
+
+        return newPosition;
     }
 
     private void UpdatePlayerShootState(GameObject player, Player serverData)
@@ -282,25 +308,25 @@ public class PlayerManager : MonoBehaviour
 
         if (serverData.isShooting)
         {
-            if (dashPlayers.Contains(serverData.id))
+            if (dashPlayerIdList.Contains(serverData.id))
             {
                 shootingEffect.SetActive(false);
-                shootingPlayers.Remove(serverData.id);
+                shootingPlayerIdList.Remove(serverData.id);
             }
             else
             {
-                if (!shootingPlayers.Contains(serverData.id))
+                if (!shootingPlayerIdList.Contains(serverData.id))
                 {
-                    shootingPlayers.Add(serverData.id);
+                    shootingPlayerIdList.Add(serverData.id);
                     shootingEffect.SetActive(true);
                 }
             }
         }
         else
         {
-            if (shootingPlayers.Contains(serverData.id))
+            if (shootingPlayerIdList.Contains(serverData.id))
             {
-                shootingPlayers.Remove(serverData.id);
+                shootingPlayerIdList.Remove(serverData.id);
 
                 // Shooting Effect 비활성화
                 if (shootingEffect.activeSelf)
@@ -316,7 +342,7 @@ public class PlayerManager : MonoBehaviour
         var existingIds = new HashSet<int>(playerDataList.ConvertAll(p => p.id));
         var keysToRemove = new List<int>();
 
-        foreach (var key in otherPlayers.Keys)
+        foreach (var key in otherPlayerGameObjectDictionary.Keys)
         {
             if (!existingIds.Contains(key))
             {
@@ -326,20 +352,19 @@ public class PlayerManager : MonoBehaviour
 
         foreach (var key in keysToRemove)
         {
-            Destroy(otherPlayersMark[key]);
-            otherPlayers.Remove(key);
-            movePlayers.Remove(key);
-            dashPlayers.Remove(key);
+            Destroy(otherPlayerMarkDictionary[key]);
+            otherPlayerGameObjectDictionary.Remove(key);
+            movePlayerIdList.Remove(key);
+            dashPlayerIdList.Remove(key);
         }
 
         if (!currentPlayerDead && !existingIds.Contains(currentPlayerId))
         {
             Destroy(currentPlayerMark);
             currentPlayerDead = true;
-            movePlayers.Remove(currentPlayerId);
-            dashPlayers.Remove(currentPlayerId);
+            movePlayerIdList.Remove(currentPlayerId);
+            dashPlayerIdList.Remove(currentPlayerId);
         }
     }
 
-    // private 
 }

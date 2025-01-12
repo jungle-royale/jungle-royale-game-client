@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
+    public PlayerManager playerManager;
     private Camera mainCamera;
     private Camera miniMapCamera;
     private int focusedClientId = -1;
@@ -15,7 +16,7 @@ public class CameraManager : MonoBehaviour
 
     private const float MINI_MAP_OFFSET_Y = 20f; // MiniMapCamera의 Y축 오프셋
 
-    private List<Player> currentPlayers = new List<Player>(); // 현재 players 리스트 저장
+    private List<Player> currentPlayerList = new List<Player>(); // 현재 players 리스트 저장
 
 
     // 흔들림 효과 관련 변수
@@ -24,6 +25,16 @@ public class CameraManager : MonoBehaviour
     private float shakeMagnitude = 0f;
 
     private Debouncer shakeAudioDebouncer = new Debouncer();
+
+    void Awake()
+    {
+        // PlayerManager를 찾거나 연결
+        playerManager = FindObjectOfType<PlayerManager>();
+        if (playerManager == null)
+        {
+            Debug.LogError("PlayerManager not found in the scene.");
+        }
+    }
 
     void Start()
     {
@@ -38,39 +49,45 @@ public class CameraManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        var player = currentPlayerList.FirstOrDefault(p => p.id == focusedClientId);
+        if (player == null)
+        {
+            // player가 죽어서 current에 없는 경우, 업데이트를 멈추고 현재 위치로 카메라를 고정시킨다.
+            return;
+        }
+        UpdateMainCamera(player);
+        UpdateMiniMapCamera(player);
+    }
+
     public void SetFocusedClient(int id)
     {
         focusedClientId = id;
     }
 
-    public void UpdateCamera(List<Player> players)
+    public void UpdateCameraFromServer(List<Player> playerListFromServer)
     {
         if (focusedClientId == -1)
         {
             focusedClientId = ClientManager.Instance.ClientId;
         }
-
-        currentPlayers = players; // players 리스트를 저장
-
-        var player = currentPlayers.FirstOrDefault(p => p.id == focusedClientId);
-
-        if (player == null)
-        {
-            // player가 죽어서 current에 없는 경우, 업데이트를 멈추고 현재 위치로 카메라를 고정시킨다.
-            return; 
-        }
-
-        UpdateMainCamera(player);
-        UpdateMiniMapCamera(player);
+        currentPlayerList = playerListFromServer; // players 리스트를 저장
     }
 
     private void UpdateMainCamera(Player player)
     {
         if (mainCamera == null) return;
+        GameObject playerObject = playerManager.GetPlayerById(focusedClientId);
+        if (playerObject == null)
+        {
+            return;
+        }
 
-        Vector3 targetPosition = new Vector3(player.x, CAMERA_OFFSET_Y, player.y - CAMERA_OFFSET_Z);
+        Vector3 targetPosition = playerObject.transform.position;
+        targetPosition.y = CAMERA_OFFSET_Y;
+        targetPosition.z -= CAMERA_OFFSET_Z;
 
-        // 카메라 흔들림이 활성화된 경우 흔들림 적용
         if (isShaking)
         {
             Vector3 shakeOffset = new Vector3(
@@ -83,7 +100,6 @@ public class CameraManager : MonoBehaviour
         }
         else
         {
-            // 카메라 위치 및 회전 설정
             mainCamera.transform.position = targetPosition;
         }
 
@@ -100,16 +116,16 @@ public class CameraManager : MonoBehaviour
 
     public void SwitchToNextPlayer()
     {
-        if (currentPlayers.Count == 0) return;
+        if (currentPlayerList.Count == 0) return;
 
          // 현재 clientId의 플레이어 인덱스 찾기
-        int currentIndex = currentPlayers.FindIndex(p => p.id == focusedClientId);
+        int currentIndex = currentPlayerList.FindIndex(p => p.id == focusedClientId);
 
         // focus에 해당하는 유저가 없으면 current 중에 찾아서 세팅한다.
         if (currentIndex == -1) {
-            if (currentPlayers.Count > 0)
+            if (currentPlayerList.Count > 0)
             {
-                focusedClientId = currentPlayers[0].id; // focus player id를 설정해준다.
+                focusedClientId = currentPlayerList[0].id; // focus player id를 설정해준다.
             }
             else
             {
@@ -120,11 +136,11 @@ public class CameraManager : MonoBehaviour
         if (currentIndex != -1)
         {
             // 다음 플레이어로 변경 (리스트를 순환)
-            int nextIndex = (currentIndex + 1) % currentPlayers.Count;
-            focusedClientId = currentPlayers[nextIndex].id;
+            int nextIndex = (currentIndex + 1) % currentPlayerList.Count;
+            focusedClientId = currentPlayerList[nextIndex].id;
 
             // 카메라 위치 변경
-            var nextPlayer = currentPlayers[nextIndex];
+            var nextPlayer = currentPlayerList[nextIndex];
 
             UpdateMainCamera(nextPlayer);
             UpdateMiniMapCamera(nextPlayer);
