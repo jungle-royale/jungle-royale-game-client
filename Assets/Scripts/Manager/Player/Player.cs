@@ -17,6 +17,7 @@ public class Player
     public bool isDashing;
     public bool isShooting;
     public int bulletGage;
+    public bool isOutofView;
 
     public Player(
         int playerId,
@@ -31,7 +32,8 @@ public class Player
         bool isMoved,
         bool isDashing,
         bool isShooting,
-        int bulletGage
+        int bulletGage,
+        bool isOutofView
     )
     {
         this.id = playerId;
@@ -47,6 +49,7 @@ public class Player
         this.isDashing = isDashing;
         this.isShooting = isShooting;
         this.bulletGage = bulletGage;
+        this.isOutofView = isOutofView;
     }
 
     public Vector3 NewPosition(float playerY)

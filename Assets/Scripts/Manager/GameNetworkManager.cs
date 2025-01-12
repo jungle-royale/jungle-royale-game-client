@@ -255,7 +255,12 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
             foreach (var bulletState in gameState.BulletState)
             {
-                Debug.Log($"bulletType: {bulletState.BulletType}");
+                // Debug.Log($"bulletType: {bulletState.BulletType}");
+
+                // TODO: 미니맵 카메라 레인지랑 state의 좌표 비교해서 범위 밖이면 그냥 return
+                if (!cameraManager.IsInCameraView(new Vector3(bulletState.X, 0, bulletState.Y)))
+                    continue;
+
                 bulletStateList.Add(new Bullet(bulletState.BulletId, bulletState.BulletType, bulletState.X, bulletState.Y));
             }
 
@@ -310,7 +315,14 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             foreach (var player in gameState.PlayerState)
             {
                 Player newPlayer = new Player(
-                    player.Id, player.X, player.Y, player.Dx, player.Dy, player.Health, player.MagicType, player.Angle, player.DashCoolTime, player.IsMoved, player.IsDashing, player.IsShooting, player.BulletGage
+                    player.Id, 
+                    player.X, player.Y, 
+                    player.Dx, player.Dy, 
+                    player.Health, player.MagicType, 
+                    player.Angle, player.DashCoolTime, 
+                    player.IsMoved, player.IsDashing, 
+                    player.IsShooting,player.BulletGage, 
+                    cameraManager.IsInCameraView(new Vector3(player.X, 0, player.Y))
                 );
                 playerStateList.Add(newPlayer);
             }
