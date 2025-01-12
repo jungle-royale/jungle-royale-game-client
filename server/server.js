@@ -22,9 +22,9 @@ if (cluster.isMaster) {
     });
 } else {
     const cache = new LRUCache({
-        maxSize: 50 * 1024 * 1024, // 최대 50MB
+        maxSize: 100 * 1024 * 1024, // 최대 100MB
         sizeCalculation: (value, key) => value.length, // 항목 크기 계산
-        ttl: 1000 * 60 * 60, // 1시간 동안 캐싱
+        ttl: 1000 * 60 * 60 * 5, // 5시간 동안 캐싱
     });
 
     const app = express();
