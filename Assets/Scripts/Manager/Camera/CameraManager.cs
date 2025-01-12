@@ -87,7 +87,6 @@ public class CameraManager : MonoBehaviour
         Vector3 targetPosition = playerObject.transform.position;
         targetPosition.y = CAMERA_OFFSET_Y;
         targetPosition.z -= CAMERA_OFFSET_Z;
-        // Vector3 targetPosition = new Vector3(player.x, CAMERA_OFFSET_Y, player.y - CAMERA_OFFSET_Z);
 
         if (isShaking)
         {

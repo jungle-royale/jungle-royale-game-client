@@ -23,9 +23,13 @@ public class PlayerManager : MonoBehaviour
     private HashSet<int> shootingPlayerIdList = new HashSet<int>();
 
     private List<Player> playerDataList = new List<Player>();
-
+    
+    private float lastServerUpdateTime;
 
     const float DASH_ROTATION = 15f;
+
+    // 60FPS 환경에서는 lerpSpeed가 10이라면, 한 프레임 동안 약 10 * 1/60 = 0.1667의 속도로 보간
+    float LERP_SPEED = 10f; // 10f는 빠르게 따라가고, 2~5f는 더 느리고 부드럽게
 
     private int currentPlayerId
     {
@@ -154,7 +158,10 @@ public class PlayerManager : MonoBehaviour
 
     private void UpdateCurrentPlayerMark(Player serverData)
     {
-        currentPlayerMark.transform.position = CalculatePredicatedPosition(PLAYER_Y, serverData);
+        var targetPosition = CalculatePredicatedPosition(PLAYER_Y, serverData);
+        var currentPosition = currentPlayerMark.transform.position;
+        var newPosition = Vector3.Lerp(currentPosition, targetPosition, LERP_SPEED * Time.deltaTime);
+        currentPlayerMark.transform.position = newPosition;
     }
 
     private void UpdateOtherPlayersMark(Player serverData)
@@ -163,7 +170,10 @@ public class PlayerManager : MonoBehaviour
 
         if (otherPlayerMark != null)
         {
-            otherPlayerMark.transform.position = CalculatePredicatedPosition(PLAYER_Y, serverData);
+            var targetPosition = CalculatePredicatedPosition(PLAYER_Y, serverData);
+            var currentPosition = otherPlayerMark.transform.position;
+            var newPosition = Vector3.Lerp(currentPosition, targetPosition, LERP_SPEED * Time.deltaTime);
+            otherPlayerMark.transform.position = newPosition;
         }
     }
 
@@ -247,13 +257,11 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private float lastServerUpdateTime;
-
     private void UpdatePlayerPosition(GameObject player, Player serverData)
     {
-        var newPosition = CalculatePredicatedPosition(player.transform.position.y, serverData);
-
-        // TODO: 여기도 아주 짧은 찰나의 보간법 필요
+        var targetPosition = CalculatePredicatedPosition(player.transform.position.y, serverData);
+        var currentPosition = player.transform.position;
+        var newPosition = Vector3.Lerp(currentPosition, targetPosition, LERP_SPEED * Time.deltaTime);
         player.transform.position = newPosition;
     }
 
@@ -261,8 +269,6 @@ public class PlayerManager : MonoBehaviour
     {
         if (!serverData.isMoved)
         {
-            // player.transform.position = serverData.NewPosition(player.transform.position.y);
-            // TODO: 보간법 적용 - 카메라도 마찬가지 - transform 가져오면 자동으로 보간까지 반영돼서 가져오는지?
             return serverData.NewPosition(y);
         }
 
