@@ -315,7 +315,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                 playerStateList.Add(newPlayer);
             }
             playerManager.UpdatePlayersFromServer(playerStateList);
-            cameraManager.UpdateCamera(playerStateList);
+            cameraManager.UpdateCameraFromServer(playerStateList);
         }
 
     }

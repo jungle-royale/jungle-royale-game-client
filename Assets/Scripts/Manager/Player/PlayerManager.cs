@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -59,7 +60,7 @@ public class PlayerManager : MonoBehaviour
             {
                 if (currentPlayerGameObject)
                 {
-                    ValidateCurrentPlayer(data);
+                    ValidateCurrentPlayerAtUpdate(data);
                 }
                 else
                 {
@@ -70,7 +71,7 @@ public class PlayerManager : MonoBehaviour
             {
                 if (otherPlayerGameObjectDictionary.ContainsKey(data.id))
                 {
-                    UpdateOtherPlayer(otherPlayerGameObjectDictionary[data.id], data);
+                    UpdateOtherPlayerAtUpdate(otherPlayerGameObjectDictionary[data.id], data);
                 }
                 else
                 {
@@ -84,7 +85,8 @@ public class PlayerManager : MonoBehaviour
 
     public void UpdatePlayersFromServer(List<Player> activePlayerDataListFromServer)
     {
-        this.playerDataList = activePlayerDataListFromServer;
+        lastServerUpdateTime = Time.time;
+        playerDataList = activePlayerDataListFromServer;
         int activePlayerNumber = activePlayerDataListFromServer.Count;
         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdatePlayerCountLabel, activePlayerNumber);
     }
@@ -118,50 +120,41 @@ public class PlayerManager : MonoBehaviour
             healthBarComponent.SetMaxHealth(data.health);
         }
 
-<<<<<<< HEAD
-        Debug.Log($"init BulletGage: {data.bulletGage}");
-
-        otherPlayers[data.id] = newPlayer;
-        otherPlayersMark[data.id] = newPlayerMark;
-=======
         otherPlayerGameObjectDictionary[data.id] = newPlayer;
         otherPlayerMarkDictionary[data.id] = newPlayerMark;
->>>>>>> 4d258c6 (feat: dx, dy 메세지 프로토콜 반영)
     }
 
-    private void ValidateCurrentPlayer(Player serverData)
+    private void ValidateCurrentPlayerAtUpdate(Player serverData)
     {
-        // HealthBar 업데이트
-        HealthBar healthBarComponent = currentPlayerGameObject.GetComponentInChildren<HealthBar>();
-        if (healthBarComponent != null)
-        {
-            healthBarComponent.SetHealth(serverData.health);
-        }
-
         EventBus<InGameGUIEventType>.Publish<int>(InGameGUIEventType.UpdateBulletBarLabel, serverData.bulletGage);
-
+        UpdateHealthBar(currentPlayerGameObject, serverData);
         UpdatePlayerMoveState(currentPlayerGameObject, serverData);
         UpdatePlayerShootState(currentPlayerGameObject, serverData);
-        UpdatePlayerMark(serverData);
+        UpdateCurrentPlayerMark(serverData);
+        UpdatePlayerPosition(currentPlayerGameObject, serverData);
     }
 
-    private void UpdateOtherPlayer(GameObject player, Player serverData)
+    private void UpdateOtherPlayerAtUpdate(GameObject player, Player serverData)
     {
-        // HealthBar 업데이트
+        UpdateHealthBar(player, serverData);
+        UpdatePlayerMoveState(player, serverData);
+        UpdatePlayerShootState(player, serverData);
+        UpdateOtherPlayersMark(serverData);
+        UpdatePlayerPosition(player, serverData);
+    }
+
+    private void UpdateHealthBar(GameObject player, Player serverData)
+    {
         HealthBar healthBarComponent = player.GetComponentInChildren<HealthBar>();
         if (healthBarComponent != null)
         {
             healthBarComponent.SetHealth(serverData.health);
         }
-        UpdatePlayerMoveState(player, serverData);
-        UpdatePlayerShootState(player, serverData);
-        UpdateOtherPlayersMark(serverData);
     }
 
-    private void UpdatePlayerMark(Player serverData)
+    private void UpdateCurrentPlayerMark(Player serverData)
     {
-        // Mark 위치 업데이트
-        currentPlayerMark.transform.position = serverData.NewPosition(PLAYER_Y);
+        currentPlayerMark.transform.position = CalculatePredicatedPosition(PLAYER_Y, serverData);
     }
 
     private void UpdateOtherPlayersMark(Player serverData)
@@ -170,16 +163,16 @@ public class PlayerManager : MonoBehaviour
 
         if (otherPlayerMark != null)
         {
-            otherPlayerMark.transform.position = serverData.NewPosition(PLAYER_Y);
+            otherPlayerMark.transform.position = CalculatePredicatedPosition(PLAYER_Y, serverData);
         }
     }
 
     private void UpdatePlayerMoveState(GameObject player, Player serverData)
     {
-        var currentPosition = serverData.NewPosition(PLAYER_Y);
-        var previousPosition = player.transform.position;
+        var currentPosition = CalculatePredicatedPosition(player.transform.position.y, serverData);
+        var previousPosition = serverData.NewPosition(player.transform.position.y);
+        
         Vector3 movementDirection = currentPosition - previousPosition;
-
 
         Animator animator = player.GetComponent<Animator>();
         if (animator == null)
@@ -188,9 +181,7 @@ public class PlayerManager : MonoBehaviour
             return;
         }
 
-        // DustTrail 파티클 시스템 가져오기
         var dustTrail = player.transform.Find("DustTrail").gameObject;
-
         if (dustTrail == null)
         {
             Debug.LogWarning($"DustTrail ParticleSystem not found on player: {player.name}");
@@ -203,6 +194,7 @@ public class PlayerManager : MonoBehaviour
                 dashPlayerIdList.Add(serverData.id);
                 AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dash);
             }
+
             if (movementDirection != Vector3.zero)
             {
                 Quaternion tiltRotation = Quaternion.LookRotation(movementDirection.normalized); // 이동 방향을 기준으로 회전
@@ -216,7 +208,6 @@ public class PlayerManager : MonoBehaviour
                 player.transform.rotation = tilt;
             }
 
-            // DustTrail 파티클 활성화
             if (dustTrail != null)
             {
                 dustTrail.SetActive(true);
@@ -228,10 +219,10 @@ public class PlayerManager : MonoBehaviour
             {
                 dashPlayerIdList.Remove(serverData.id);
             }
+
             Quaternion uprightRotation = Quaternion.Euler(0, -(serverData.angle - 180), 0);
             player.transform.rotation = uprightRotation;
 
-            // DustTrail 파티클 비활성화
             if (dustTrail != null)
             {
                 dustTrail.SetActive(false);
@@ -254,12 +245,36 @@ public class PlayerManager : MonoBehaviour
                 animator.SetBool("isMoving", false);
             }
         }
+    }
 
-        // 현재 위치 조정
-        var newPosition = player.transform.position;
-        newPosition.x = serverData.x;
-        newPosition.z = serverData.y;
+    private float lastServerUpdateTime;
+
+    private void UpdatePlayerPosition(GameObject player, Player serverData)
+    {
+        var newPosition = CalculatePredicatedPosition(player.transform.position.y, serverData);
+
+        // TODO: 여기도 아주 짧은 찰나의 보간법 필요
         player.transform.position = newPosition;
+    }
+
+    private Vector3 CalculatePredicatedPosition(float y, Player serverData)
+    {
+        if (!serverData.isMoved)
+        {
+            // player.transform.position = serverData.NewPosition(player.transform.position.y);
+            // TODO: 보간법 적용 - 카메라도 마찬가지 - transform 가져오면 자동으로 보간까지 반영돼서 가져오는지?
+            return serverData.NewPosition(y);
+        }
+
+        float currentTime = Time.time;
+        float timeSinceLastUpdate = (currentTime - lastServerUpdateTime);
+        float frameFactor = timeSinceLastUpdate * 1000 / 16; // 16ms 기준
+
+        var newPosition = serverData.NewPosition(y);
+        newPosition.x += serverData.dx * frameFactor;
+        newPosition.z += serverData.dy * frameFactor;
+
+        return newPosition;
     }
 
     private void UpdatePlayerShootState(GameObject player, Player serverData)
