@@ -17,12 +17,13 @@ public class CameraManager : MonoBehaviour
 
     private List<Player> currentPlayers = new List<Player>(); // 현재 players 리스트 저장
 
-    private GameObject FocusPlayer;
 
     // 흔들림 효과 관련 변수
     private bool isShaking = false;
     private float shakeDuration = 0f;
     private float shakeMagnitude = 0f;
+
+    private Debouncer shakeAudioDebouncer = new Debouncer();
 
     void Start()
     {
@@ -148,6 +149,9 @@ public class CameraManager : MonoBehaviour
 
         while (elapsedTime < shakeDuration)
         {
+            shakeAudioDebouncer.Debounce(2500, () => {
+                AudioManager.Instance.PlaySfx(AudioManager.Sfx.DestroyGround);
+            });
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -163,4 +167,5 @@ public class CameraManager : MonoBehaviour
         Debug.Log("지진 false");
         isShaking = false;
     }
+
 }

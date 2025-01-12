@@ -35,7 +35,7 @@ public class PlayerAnimationEvent : MonoBehaviour
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameOver, 0.7f);
 
             if (ClientManager.Instance.gameEnd) {
-                return; // 애니메이션 실행 중에 게임이 종료되면 gui 표시 X
+                return; // 애니메이션 실행 중에 게임이 종료되면 gui 표시 X, 시체 없애기 X
             }
 
             EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameOver");
@@ -49,7 +49,10 @@ public class PlayerAnimationEvent : MonoBehaviour
             };
 
             EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateStateLabel, stateData);
+
         }
+
+        Destroy(player);
     }
 
 }
