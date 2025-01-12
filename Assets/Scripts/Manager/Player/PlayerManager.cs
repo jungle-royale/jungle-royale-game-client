@@ -12,7 +12,7 @@ public class PlayerManager : MonoBehaviour
 
     // 이펙트
     private GameObject shootingEffect;
-    private GameObject currentPlayer; // 현재 플레이어 객체
+    private GameObject currentPlayerGameObject; // 현재 플레이어 객체
     private GameObject currentPlayerMark;
     private Dictionary<int, GameObject> otherPlayerGameObjectDictionary = new Dictionary<int, GameObject>();
     private Dictionary<int, GameObject> otherPlayerMarkDictionary = new Dictionary<int, GameObject>();
@@ -21,8 +21,7 @@ public class PlayerManager : MonoBehaviour
     private HashSet<int> dashPlayerIdList = new HashSet<int>();
     private HashSet<int> shootingPlayerIdList = new HashSet<int>();
 
-
-    private List<Player> playerList = new List<Player>();
+    private List<Player> playerDataList = new List<Player>();
 
 
     const float DASH_ROTATION = 15f;
@@ -41,7 +40,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (playerId == currentPlayerId)
         {
-            return currentPlayer;
+            return currentPlayerGameObject;
         }
 
         if (otherPlayerGameObjectDictionary.ContainsKey(playerId))
@@ -52,56 +51,54 @@ public class PlayerManager : MonoBehaviour
         return null;
     }
 
-    public void UpdatePlayers(List<Player> playerDataList)
+    void Update()
     {
-
-        // 카메라 비교해서 update할 아이들만 update하기
-        int activePlayerNumber = 0;
-
         foreach (var data in playerDataList)
         {
             if (data.id == currentPlayerId)
             {
-                if (currentPlayer == null)
+                if (currentPlayerGameObject)
                 {
-                    CreateCurrentPlayer(data);
+                    ValidateCurrentPlayer(data);
                 }
                 else
                 {
-                    ValidateCurrentPlayer(data);
+                    CreateCurrentPlayer(data);
                 }
             }
             else
             {
-                activePlayerNumber += 1;
                 if (otherPlayerGameObjectDictionary.ContainsKey(data.id))
                 {
-                    // 기존 플레이어 업데이트
-                    UpdatePlayer(otherPlayerGameObjectDictionary[data.id], data);
+                    UpdateOtherPlayer(otherPlayerGameObjectDictionary[data.id], data);
                 }
                 else
                 {
-                    // 새로운 플레이어 생성
                     CreateOtherPlayer(data);
                 }
             }
         }
 
-        // 제거할 플레이어 처리
         RemoveDisconnectedPlayers(playerDataList);
-        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdatePlayerCountLabel, playerDataList.Count);
+    }
+
+    public void UpdatePlayersFromServer(List<Player> activePlayerDataListFromServer)
+    {
+        this.playerDataList = activePlayerDataListFromServer;
+        int activePlayerNumber = activePlayerDataListFromServer.Count;
+        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdatePlayerCountLabel, activePlayerNumber);
     }
 
     private void CreateCurrentPlayer(Player data)
     {
-        currentPlayer = Instantiate(playerPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity);
+        currentPlayerGameObject = Instantiate(playerPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity);
         currentPlayerMark = Instantiate(currentPlayerMarkPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity); // 내 플레이어 마크
 
-        currentPlayer.tag = "Player";
-        currentPlayer.name = ClientManager.Instance.CurrentPlayerName;
+        currentPlayerGameObject.tag = "Player";
+        currentPlayerGameObject.name = ClientManager.Instance.CurrentPlayerName;
 
         // 플레이어의 HealthBar 초기화
-        HealthBar healthBarComponent = currentPlayer.GetComponentInChildren<HealthBar>();
+        HealthBar healthBarComponent = currentPlayerGameObject.GetComponentInChildren<HealthBar>();
         if (healthBarComponent != null)
         {
             healthBarComponent.SetMaxHealth(data.health);
@@ -135,7 +132,7 @@ public class PlayerManager : MonoBehaviour
     private void ValidateCurrentPlayer(Player serverData)
     {
         // HealthBar 업데이트
-        HealthBar healthBarComponent = currentPlayer.GetComponentInChildren<HealthBar>();
+        HealthBar healthBarComponent = currentPlayerGameObject.GetComponentInChildren<HealthBar>();
         if (healthBarComponent != null)
         {
             healthBarComponent.SetHealth(serverData.health);
@@ -143,12 +140,12 @@ public class PlayerManager : MonoBehaviour
 
         EventBus<InGameGUIEventType>.Publish<int>(InGameGUIEventType.UpdateBulletBarLabel, serverData.bulletGage);
 
-        UpdatePlayerMoveState(currentPlayer, serverData);
-        UpdatePlayerShootState(currentPlayer, serverData);
+        UpdatePlayerMoveState(currentPlayerGameObject, serverData);
+        UpdatePlayerShootState(currentPlayerGameObject, serverData);
         UpdatePlayerMark(serverData);
     }
 
-    private void UpdatePlayer(GameObject player, Player serverData)
+    private void UpdateOtherPlayer(GameObject player, Player serverData)
     {
         // HealthBar 업데이트
         HealthBar healthBarComponent = player.GetComponentInChildren<HealthBar>();
