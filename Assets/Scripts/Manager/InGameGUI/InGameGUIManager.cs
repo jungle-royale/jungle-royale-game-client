@@ -306,7 +306,7 @@ public class InGameGUIManager : MonoBehaviour
             {
                 foreach (var label in fpsLabel) // fpsLabel 리스트 순회
                 {
-                    label.text = $"FPS: {fps}";
+                    label.text = $"FPS : {fps}";
                 }
             }
 
