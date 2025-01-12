@@ -108,7 +108,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1776731084249374766}
-  - {fileID: 2771315950761746138}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -161,7 +160,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &4512769387293165462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,7 +278,7 @@ GameObject:
   - component: {fileID: 8093692837692281727}
   - component: {fileID: 7220012898249998568}
   m_Layer: 0
-  m_Name: HpLabel
+  m_Name: HpText
   m_TagString: HpLabel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -297,11 +296,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7623479863435578230}
+  m_Father: {fileID: 1776731084249374766}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 15, y: 8}
+  m_AnchoredPosition: {x: 15, y: 10}
   m_SizeDelta: {x: 30, y: 12}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &8093692837692281727
@@ -413,6 +412,7 @@ GameObject:
   - component: {fileID: 1776731084249374766}
   - component: {fileID: 3980024282338542211}
   - component: {fileID: 3268320019775397211}
+  - component: {fileID: 5495977279549769024}
   m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
@@ -434,6 +434,7 @@ RectTransform:
   m_Children:
   - {fileID: 275647071810048673}
   - {fileID: 7450712351337957591}
+  - {fileID: 2771315950761746138}
   m_Father: {fileID: 7623479863435578230}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -536,3 +537,12 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   fill: {fileID: 6266281452793292880}
+  hpText: {fileID: 7220012898249998568}
+--- !u!222 &5495977279549769024
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6468554795396219020}
+  m_CullTransparentMesh: 1

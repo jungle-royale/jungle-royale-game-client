@@ -84,7 +84,8 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         catch (Exception ex)
         {
             Debug.LogError($"Failed to connect WebSocket: {ex.Message}");
-            new RedirectHandler().RedirectToFailure(1);
+            // new RedirectHandler().RedirectToFailure(1);
+            EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "ErrorCanvas");
         }
     }
 
@@ -122,6 +123,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     private void OnError(string errorMsg)
     {
         Debug.Log($"Error! {errorMsg}");
+        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "ErrorCanvas");
     }
 
     private void OnClose(WebSocketCloseCode OnClose)
@@ -308,7 +310,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             foreach (var player in gameState.PlayerState)
             {
                 Player newPlayer = new Player(
-                    player.Id, player.X, player.Y, player.Health, player.MagicType, player.Angle, player.DashCoolTime, player.IsMoved, player.IsDashing, player.IsShooting
+                    player.Id, player.X, player.Y, player.Health, player.MagicType, player.Angle, player.DashCoolTime, player.IsMoved, player.IsDashing, player.IsShooting, player.Dx, player.Dy, player.BulletGage
                 );
                 playerStateList.Add(newPlayer);
             }
@@ -328,7 +330,8 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         if (!IsOpen())
         {
             Debug.LogWarning("WebSocket is not open. Cannot send data.");
-            new RedirectHandler().RedirectToFailure(1);
+            // new RedirectHandler().RedirectToFailure(1);
+            EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "ErrorCanvas");
             return;
         }
 

@@ -51,17 +51,17 @@ public class TileManager : MonoBehaviour
             {
                 GameObject tilePrefab = null;
 
-#if UNITY_EDITOR
-                tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile04");
-#else
-                                // 빌드된 환경에서 실행 중일 때
-                                if (Debug.isDebugBuild)
-                                {
-                                    Debug.Log("[TileManager.cs] Development Build에서 실행 중");
-                                    tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile04");
-                                }
-                                else
-                                {
+                // #if UNITY_EDITOR
+                //                 tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile04");
+                // #else
+                //                                 // 빌드된 환경에서 실행 중일 때
+                //                                 if (Debug.isDebugBuild)
+                //                                 {
+                //                                     Debug.Log("[TileManager.cs] Development Build에서 실행 중");
+                //                                     tilePrefab = Resources.Load<GameObject>("Prefabs/Tiles/Tile04");
+                //                                 }
+                //                                 else
+                //                                 {
                 switch (tile.tileType)
                 {
                     case 0:
@@ -84,8 +84,8 @@ public class TileManager : MonoBehaviour
                         Debug.LogError($"Unknown tile type: {tile.tileType}");
                         break;
                 }
-                }
-#endif
+                // }
+                // #endif
                 if (tilePrefab != null)
                 {
                     tileObject = Instantiate(tilePrefab, tile.Position(), Quaternion.identity);
@@ -127,50 +127,53 @@ public class TileManager : MonoBehaviour
         }
 
         // "Ground"라는 이름의 자식 객체 찾기
-        GameObject groundObject = GameObject.FindGameObjectWithTag("Ground");
+        Transform groundTransform = tileObject.transform.Find("Ground");
 
-        if (groundObject != null)
+        if (groundTransform != null)
         {
-            Vector3 playerPosition = player.transform.position;
-
-            Vector3 tilePosition = tileObject.transform.position;
-            Vector3 tileScale = groundObject.transform.localScale;
-
-            float tileMinX = tilePosition.x - (tileScale.x / 2f);
-            float tileMaxX = tilePosition.x + (tileScale.x / 2f);
-            float tileMinZ = tilePosition.z - (tileScale.z / 2f);
-            float tileMaxZ = tilePosition.z + (tileScale.z / 2f);
-
-            bool isOnTile = playerPosition.x >= tileMinX && playerPosition.x <= tileMaxX &&
-                            playerPosition.z >= tileMinZ && playerPosition.z <= tileMaxZ;
-
-            if (isOnTile)
-            {
-                debouncer.Debounce(200, () =>
-                {
-                    HaptickManager.TriggerHaptic(200);
-                });
-
-                cameraManager.StartCameraShake(1.0f, 0.2f); // 1초, 0.2강도
-            }
-            else
-            {
-                cameraManager.StopCameraShake();
-            }
+            // Ground의 Scale 가져오기
+            Vector3 groundScale = groundTransform.localScale;
         }
         else
         {
             Debug.LogError("Ground object not found under the tileObject!");
         }
+
+        Vector3 playerPosition = player.transform.position;
+
+        Vector3 tilePosition = tileObject.transform.position;
+        Vector3 tileScale = groundTransform.localScale;
+
+        float tileMinX = tilePosition.x - (tileScale.x / 2f);
+        float tileMaxX = tilePosition.x + (tileScale.x / 2f);
+        float tileMinZ = tilePosition.z - (tileScale.z / 2f);
+        float tileMaxZ = tilePosition.z + (tileScale.z / 2f);
+
+        bool isOnTile = playerPosition.x >= tileMinX && playerPosition.x <= tileMaxX &&
+                        playerPosition.z >= tileMinZ && playerPosition.z <= tileMaxZ;
+
+        if (isOnTile)
+        {
+            debouncer.Debounce(200, () =>
+            {
+                HaptickManager.TriggerHaptic(200);
+            });
+
+            cameraManager.StartCameraShake(1.0f, 0.2f); // 1초, 0.2강도
+        }
+        else
+        {
+            cameraManager.StopCameraShake();
+        }
     }
 
     private void UpdateGroundColors(GameObject tileObject, float lerpFactor)
     {
-        GameObject groundObject = GameObject.FindGameObjectWithTag("Ground");
-        if (groundObject != null)
+        Transform groundsTransform = tileObject.transform.Find("Ground");
+        if (groundsTransform != null)
         {
 
-            Renderer renderer = groundObject.GetComponent<Renderer>();
+            Renderer renderer = groundsTransform.GetComponent<Renderer>();
             if (renderer != null)
             {
                 // 기존 Material을 복사하여 독립적인 Material 생성
@@ -183,7 +186,7 @@ public class TileManager : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning($"Renderer not found on groundsTransform: {groundObject.name}");
+                Debug.LogWarning($"Renderer not found on groundsTransform: {groundsTransform.name}");
             }
         }
 

@@ -44,32 +44,33 @@ namespace Message {
             "c2FnZS5IZWFsUGFja1N0YXRlEi8KDm1hZ2ljSXRlbVN0YXRlGAQgAygLMhcu",
             "bWVzc2FnZS5NYWdpY0l0ZW1TdGF0ZRIlCgl0aWxlU3RhdGUYBSADKAsyEi5t",
             "ZXNzYWdlLlRpbGVTdGF0ZRIPCgdsYXN0U2VjGAYgASgFEi0KDWNoYW5naW5n",
-            "U3RhdGUYByABKAsyFi5tZXNzYWdlLkNoYW5naW5nU3RhdGUivwEKC1BsYXll",
+            "U3RhdGUYByABKAsyFi5tZXNzYWdlLkNoYW5naW5nU3RhdGUi6wEKC1BsYXll",
             "clN0YXRlEgoKAmlkGAEgASgFEgkKAXgYAiABKAISCQoBeRgDIAEoAhIOCgZo",
             "ZWFsdGgYBCABKAUSEQoJbWFnaWNUeXBlGAUgASgFEg0KBWFuZ2xlGAYgASgC",
             "EhQKDGRhc2hDb29sVGltZRgHIAEoBRIPCgdpc01vdmVkGAggASgIEhEKCWlz",
             "RGFzaGluZxgJIAEoCBIOCgZpc0J1cm4YCiABKAgSEgoKaXNTaG9vdGluZxgL",
-            "IAEoCCInChFDaGFuZ2VCdWxsZXRTdGF0ZRISCgppc1Nob290aW5nGAEgASgI",
-            "IkkKC0J1bGxldFN0YXRlEhAKCGJ1bGxldElkGAEgASgFEhIKCmJ1bGxldFR5",
-            "cGUYAiABKAUSCQoBeBgDIAEoAhIJCgF5GAQgASgCIhoKCUdhbWVDb3VudBIN",
-            "CgVjb3VudBgBIAEoBSIWCgZEb0Rhc2gSDAoEZGFzaBgBIAEoCCI2CglHYW1l",
-            "U3RhcnQSEQoJbWFwTGVuZ3RoGAEgASgFEhYKDnRvdGFsUGxheWVyTnVtGAIg",
-            "ASgFIjUKDUhlYWxQYWNrU3RhdGUSDgoGaXRlbUlkGAEgASgFEgkKAXgYAiAB",
-            "KAISCQoBeRgDIAEoAiJJCg5NYWdpY0l0ZW1TdGF0ZRIOCgZpdGVtSWQYASAB",
-            "KAUSEQoJbWFnaWNUeXBlGAIgASgFEgkKAXgYAyABKAISCQoBeRgEIAEoAiJW",
-            "CglUaWxlU3RhdGUSDgoGdGlsZUlkGAEgASgFEgkKAXgYAiABKAISCQoBeRgD",
-            "IAEoAhIQCgh0aWxlVHlwZRgEIAEoBRIRCgl0aWxlU3RhdGUYBSABKAUioAEK",
-            "DUNoYW5naW5nU3RhdGUSLwoOaGl0QnVsbGV0U3RhdGUYASADKAsyFy5tZXNz",
-            "YWdlLkhpdEJ1bGxldFN0YXRlEisKDGdldEl0ZW1TdGF0ZRgCIAMoCzIVLm1l",
-            "c3NhZ2UuR2V0SXRlbVN0YXRlEjEKD3BsYXllckRlYWRTdGF0ZRgDIAMoCzIY",
-            "Lm1lc3NhZ2UuUGxheWVyRGVhZFN0YXRlInIKDkhpdEJ1bGxldFN0YXRlEhIK",
-            "Cm9iamVjdFR5cGUYASABKAUSEAoIYnVsbGV0SWQYAiABKAUSEAoIb2JqZWN0",
-            "SWQYAyABKAUSCQoBeBgEIAEoAhIJCgF5GAUgASgCEhIKCmJ1bGxldFR5cGUY",
-            "BiABKAUiWAoMR2V0SXRlbVN0YXRlEg4KBml0ZW1JZBgBIAEoBRIQCghwbGF5",
-            "ZXJJZBgCIAEoBRIQCghpdGVtVHlwZRgDIAEoBRIJCgF4GAQgASgCEgkKAXkY",
-            "BSABKAIibAoPUGxheWVyRGVhZFN0YXRlEhAKCGtpbGxlcklkGAEgASgFEg4K",
-            "BmRlYWRJZBgCIAEoBRITCgtkeWluZ1N0YXR1cxgDIAEoBRIPCgdraWxsTnVt",
-            "GAQgASgFEhEKCVBsYWNlbWVudBgFIAEoBUIKWggvbWVzc2FnZWIGcHJvdG8z"));
+            "IAEoCBIKCgJkeBgMIAEoAhIKCgJkeRgNIAEoAhISCgpidWxsZXRHYWdlGA4g",
+            "ASgFIicKEUNoYW5nZUJ1bGxldFN0YXRlEhIKCmlzU2hvb3RpbmcYASABKAgi",
+            "SQoLQnVsbGV0U3RhdGUSEAoIYnVsbGV0SWQYASABKAUSEgoKYnVsbGV0VHlw",
+            "ZRgCIAEoBRIJCgF4GAMgASgCEgkKAXkYBCABKAIiGgoJR2FtZUNvdW50Eg0K",
+            "BWNvdW50GAEgASgFIhYKBkRvRGFzaBIMCgRkYXNoGAEgASgIIjYKCUdhbWVT",
+            "dGFydBIRCgltYXBMZW5ndGgYASABKAUSFgoOdG90YWxQbGF5ZXJOdW0YAiAB",
+            "KAUiNQoNSGVhbFBhY2tTdGF0ZRIOCgZpdGVtSWQYASABKAUSCQoBeBgCIAEo",
+            "AhIJCgF5GAMgASgCIkkKDk1hZ2ljSXRlbVN0YXRlEg4KBml0ZW1JZBgBIAEo",
+            "BRIRCgltYWdpY1R5cGUYAiABKAUSCQoBeBgDIAEoAhIJCgF5GAQgASgCIlYK",
+            "CVRpbGVTdGF0ZRIOCgZ0aWxlSWQYASABKAUSCQoBeBgCIAEoAhIJCgF5GAMg",
+            "ASgCEhAKCHRpbGVUeXBlGAQgASgFEhEKCXRpbGVTdGF0ZRgFIAEoBSKgAQoN",
+            "Q2hhbmdpbmdTdGF0ZRIvCg5oaXRCdWxsZXRTdGF0ZRgBIAMoCzIXLm1lc3Nh",
+            "Z2UuSGl0QnVsbGV0U3RhdGUSKwoMZ2V0SXRlbVN0YXRlGAIgAygLMhUubWVz",
+            "c2FnZS5HZXRJdGVtU3RhdGUSMQoPcGxheWVyRGVhZFN0YXRlGAMgAygLMhgu",
+            "bWVzc2FnZS5QbGF5ZXJEZWFkU3RhdGUicgoOSGl0QnVsbGV0U3RhdGUSEgoK",
+            "b2JqZWN0VHlwZRgBIAEoBRIQCghidWxsZXRJZBgCIAEoBRIQCghvYmplY3RJ",
+            "ZBgDIAEoBRIJCgF4GAQgASgCEgkKAXkYBSABKAISEgoKYnVsbGV0VHlwZRgG",
+            "IAEoBSJYCgxHZXRJdGVtU3RhdGUSDgoGaXRlbUlkGAEgASgFEhAKCHBsYXll",
+            "cklkGAIgASgFEhAKCGl0ZW1UeXBlGAMgASgFEgkKAXgYBCABKAISCQoBeRgF",
+            "IAEoAiJsCg9QbGF5ZXJEZWFkU3RhdGUSEAoIa2lsbGVySWQYASABKAUSDgoG",
+            "ZGVhZElkGAIgASgFEhMKC2R5aW5nU3RhdHVzGAMgASgFEg8KB2tpbGxOdW0Y",
+            "BCABKAUSEQoJUGxhY2VtZW50GAUgASgFQgpaCC9tZXNzYWdlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -79,7 +80,7 @@ namespace Message {
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.ChangeAngle), global::Message.ChangeAngle.Parser, new[]{ "Angle" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameReconnect), global::Message.GameReconnect.Parser, new[]{ "Id", "MinPlayerNum", "TotalPlayerNum" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameState), global::Message.GameState.Parser, new[]{ "PlayerState", "BulletState", "HealPackState", "MagicItemState", "TileState", "LastSec", "ChangingState" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Message.PlayerState), global::Message.PlayerState.Parser, new[]{ "Id", "X", "Y", "Health", "MagicType", "Angle", "DashCoolTime", "IsMoved", "IsDashing", "IsBurn", "IsShooting" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Message.PlayerState), global::Message.PlayerState.Parser, new[]{ "Id", "X", "Y", "Health", "MagicType", "Angle", "DashCoolTime", "IsMoved", "IsDashing", "IsBurn", "IsShooting", "Dx", "Dy", "BulletGage" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.ChangeBulletState), global::Message.ChangeBulletState.Parser, new[]{ "IsShooting" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.BulletState), global::Message.BulletState.Parser, new[]{ "BulletId", "BulletType", "X", "Y" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameCount), global::Message.GameCount.Parser, new[]{ "Count" }, null, null, null, null),
@@ -2138,6 +2139,9 @@ namespace Message {
       isDashing_ = other.isDashing_;
       isBurn_ = other.isBurn_;
       isShooting_ = other.isShooting_;
+      dx_ = other.dx_;
+      dy_ = other.dy_;
+      bulletGage_ = other.bulletGage_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -2279,6 +2283,45 @@ namespace Message {
       }
     }
 
+    /// <summary>Field number for the "dx" field.</summary>
+    public const int DxFieldNumber = 12;
+    private float dx_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float Dx {
+      get { return dx_; }
+      set {
+        dx_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "dy" field.</summary>
+    public const int DyFieldNumber = 13;
+    private float dy_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float Dy {
+      get { return dy_; }
+      set {
+        dy_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "bulletGage" field.</summary>
+    public const int BulletGageFieldNumber = 14;
+    private int bulletGage_;
+    /// <summary>
+    /// max 1000
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int BulletGage {
+      get { return bulletGage_; }
+      set {
+        bulletGage_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -2305,6 +2348,9 @@ namespace Message {
       if (IsDashing != other.IsDashing) return false;
       if (IsBurn != other.IsBurn) return false;
       if (IsShooting != other.IsShooting) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Dx, other.Dx)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Dy, other.Dy)) return false;
+      if (BulletGage != other.BulletGage) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -2323,6 +2369,9 @@ namespace Message {
       if (IsDashing != false) hash ^= IsDashing.GetHashCode();
       if (IsBurn != false) hash ^= IsBurn.GetHashCode();
       if (IsShooting != false) hash ^= IsShooting.GetHashCode();
+      if (Dx != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Dx);
+      if (Dy != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Dy);
+      if (BulletGage != 0) hash ^= BulletGage.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2385,6 +2434,18 @@ namespace Message {
         output.WriteRawTag(88);
         output.WriteBool(IsShooting);
       }
+      if (Dx != 0F) {
+        output.WriteRawTag(101);
+        output.WriteFloat(Dx);
+      }
+      if (Dy != 0F) {
+        output.WriteRawTag(109);
+        output.WriteFloat(Dy);
+      }
+      if (BulletGage != 0) {
+        output.WriteRawTag(112);
+        output.WriteInt32(BulletGage);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -2439,6 +2500,18 @@ namespace Message {
         output.WriteRawTag(88);
         output.WriteBool(IsShooting);
       }
+      if (Dx != 0F) {
+        output.WriteRawTag(101);
+        output.WriteFloat(Dx);
+      }
+      if (Dy != 0F) {
+        output.WriteRawTag(109);
+        output.WriteFloat(Dy);
+      }
+      if (BulletGage != 0) {
+        output.WriteRawTag(112);
+        output.WriteInt32(BulletGage);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -2481,6 +2554,15 @@ namespace Message {
       }
       if (IsShooting != false) {
         size += 1 + 1;
+      }
+      if (Dx != 0F) {
+        size += 1 + 4;
+      }
+      if (Dy != 0F) {
+        size += 1 + 4;
+      }
+      if (BulletGage != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(BulletGage);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -2526,6 +2608,15 @@ namespace Message {
       }
       if (other.IsShooting != false) {
         IsShooting = other.IsShooting;
+      }
+      if (other.Dx != 0F) {
+        Dx = other.Dx;
+      }
+      if (other.Dy != 0F) {
+        Dy = other.Dy;
+      }
+      if (other.BulletGage != 0) {
+        BulletGage = other.BulletGage;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2590,6 +2681,18 @@ namespace Message {
             IsShooting = input.ReadBool();
             break;
           }
+          case 101: {
+            Dx = input.ReadFloat();
+            break;
+          }
+          case 109: {
+            Dy = input.ReadFloat();
+            break;
+          }
+          case 112: {
+            BulletGage = input.ReadInt32();
+            break;
+          }
         }
       }
     #endif
@@ -2651,6 +2754,18 @@ namespace Message {
           }
           case 88: {
             IsShooting = input.ReadBool();
+            break;
+          }
+          case 101: {
+            Dx = input.ReadFloat();
+            break;
+          }
+          case 109: {
+            Dy = input.ReadFloat();
+            break;
+          }
+          case 112: {
+            BulletGage = input.ReadInt32();
             break;
           }
         }
