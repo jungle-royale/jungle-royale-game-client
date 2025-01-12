@@ -130,7 +130,6 @@ public class PlayerManager : MonoBehaviour
             healthBarComponent.SetHealth(serverData.health);
         }
 
-        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateHpLabel, serverData.health);
         UpdatePlayerMoveState(currentPlayer, serverData);
         UpdatePlayerShootState(currentPlayer, serverData);
         UpdatePlayerMark(serverData);

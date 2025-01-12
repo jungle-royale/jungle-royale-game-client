@@ -17,6 +17,7 @@ public class InGameGUIManager : MonoBehaviour
     private GameObject gameEndCanvas;
     private GameObject watchModeCanvas;
     private GameObject gameWinCanvas;
+    private GameObject errorCanvas;
 
     // MainCanvas
     [Header("MainCanvas Label")]
@@ -60,12 +61,14 @@ public class InGameGUIManager : MonoBehaviour
 
     private void CreateCanvases()
     {
+        mainCanvas = GameObject.FindGameObjectWithTag("MainCanvas");
         waitingRoomCanvas = InstantiateCanvas("Prefabs/UIs/WaitingRoomCanvas");
         inGameCanvas = InstantiateCanvas("Prefabs/UIs/InGameCanvas");
         gameOverCanvas = InstantiateCanvas("Prefabs/UIs/GameOverCanvas");
         gameEndCanvas = InstantiateCanvas("Prefabs/UIs/GameEndCanvas");
         watchModeCanvas = InstantiateCanvas("Prefabs/UIs/WatchModeCanvas");
         gameWinCanvas = InstantiateCanvas("Prefabs/UIs/GameWinCanvas");
+        errorCanvas = InstantiateCanvas("Prefabs/UIs/ErrorCanvas");
 
         // 모든 캔버스 비활성화
         SetAllCanvasesInactive();
@@ -98,6 +101,7 @@ public class InGameGUIManager : MonoBehaviour
         if (gameEndCanvas != null) gameEndCanvas.SetActive(false);
         if (watchModeCanvas != null) watchModeCanvas.SetActive(false);
         if (gameWinCanvas != null) gameWinCanvas.SetActive(false);
+        if (errorCanvas != null) errorCanvas.SetActive(false);
     }
 
     private void CacheCanvasComponents()
@@ -115,7 +119,6 @@ public class InGameGUIManager : MonoBehaviour
         placementLabel = FindLabelsByTag("PlacementLabel");
         totalPlayerLabel = FindLabelsByTag("TotalPlayerLabel");
         killCountLabel = FindLabelsByTag("KillCountLabel");
-
     }
 
     private List<TextMeshProUGUI> FindLabelsByTag(string tag)
@@ -221,6 +224,10 @@ public class InGameGUIManager : MonoBehaviour
                 gameOverCanvas?.SetActive(false);
                 watchModeCanvas?.SetActive(false);
                 gameEndCanvas?.SetActive(true);
+                break;
+            case "ErrorCanvas":
+                mainCanvas?.SetActive(false);
+                errorCanvas.SetActive(true);
                 break;
             default:
                 Debug.LogError($"Unknown game state: {gameState}");

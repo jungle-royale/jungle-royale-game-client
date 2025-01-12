@@ -11,24 +11,23 @@ public class RedirectHandler
         Debug.Log("Redirect in WebGL: " + url);
 
         // WebGL에서만 실행
-        #if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL && !UNITY_EDITOR
         Redirect(url);
-        #else
+#else
         Debug.Log("웹 아님~" + url);
-        #endif
+#endif
     }
 
-    public void RedirectToHome() 
+    public void RedirectToHome()
     {
 
         string url = "http://eternalsnowman.com";
         new RedirectHandler().RedirectTo(url);
     }
 
-    public void RedirectToFailure(int code)
-    {
-        string url = $"http://eternalsnowman.com/failure?code={code}";
-        new RedirectHandler().RedirectTo(url);
-    }
-
+    // public void RedirectToFailure(int code)
+    // {
+    //     string url = $"http://eternalsnowman.com/failure?code={code}";
+    //     new RedirectHandler().RedirectTo(url);
+    // }
 }

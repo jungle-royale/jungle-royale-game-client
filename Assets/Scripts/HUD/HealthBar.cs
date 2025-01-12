@@ -21,6 +21,7 @@ public class HealthBar : MonoBehaviour
     public void SetHealth(int health)
     {
         slider.value = health;
+        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateHpLabel, health);
 
         fill.color = gradient.Evaluate(slider.normalizedValue);
     }
