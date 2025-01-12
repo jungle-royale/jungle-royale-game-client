@@ -261,8 +261,26 @@ public class PlayerManager : MonoBehaviour
     {
         var targetPosition = CalculatePredicatedPosition(player.transform.position.y, serverData);
         var currentPosition = player.transform.position;
-        var newPosition = Vector3.Lerp(currentPosition, targetPosition, LERP_SPEED * Time.deltaTime);
-        player.transform.position = newPosition;
+        var distance = Vector3.Distance(currentPosition, targetPosition);
+        // Debug.Log("#########################################");
+        // Debug.Log("#########################################");
+        // Debug.Log($"player: {serverData.x}, {serverData.y}");
+        // Debug.Log($"position: {currentPosition}, {targetPosition}");
+        // Debug.Log($"distance: {distance}");
+        if (serverData.isDashing)
+        {
+            var newPosition = Vector3.Lerp(currentPosition, targetPosition, LERP_SPEED * Time.deltaTime * 2);
+            player.transform.position = newPosition;
+        }
+        else
+        {
+            if (distance > 1.0f) // 대시일 때는 더 가도 된다.
+            {
+                return;
+            }
+            var newPosition = Vector3.Lerp(currentPosition, targetPosition, LERP_SPEED * Time.deltaTime);
+            player.transform.position = newPosition;
+        }
     }
 
     private Vector3 CalculatePredicatedPosition(float y, Player serverData)
