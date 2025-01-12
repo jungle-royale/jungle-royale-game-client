@@ -13525,7 +13525,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4637794623333522901
 Transform:
@@ -13853,6 +13853,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BurningCandle04
       objectReference: {fileID: 0}
+    - target: {fileID: 1826755424854115183, guid: eb7669a1dd79d45e89d9c7a002838aaf,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 5065277705367185677, guid: eb7669a1dd79d45e89d9c7a002838aaf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13977,6 +13982,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChristmasTree_S
       objectReference: {fileID: 0}
+    - target: {fileID: 6608443534833352192, guid: d461220bb90354542ac024ef26d00792,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14051,6 +14061,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Balloon_Normal
       objectReference: {fileID: 0}
+    - target: {fileID: 4567336900583915476, guid: 8215b573cce4e40be85badddb8aab8ff,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14124,6 +14139,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ChristmasTree_S (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6608443534833352192, guid: d461220bb90354542ac024ef26d00792,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14293,6 +14313,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChristmasTree_S (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6608443534833352192, guid: d461220bb90354542ac024ef26d00792,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14366,6 +14391,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Balloon_Start
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185660478374196895, guid: c209780b812b944f282b5536fede05a0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14441,6 +14471,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BurningCandle03
       objectReference: {fileID: 0}
+    - target: {fileID: 7987373632847263306, guid: 1692be7476b9648f68d47e1127f058ab,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14514,6 +14549,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BurningCandle01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773725328834038042, guid: 22ad69f5064944c7b93b67a24f7e6b14,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14589,6 +14629,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BurningCandle02
       objectReference: {fileID: 0}
+    - target: {fileID: 2688156166052491710, guid: 723b46920f490453d89540e4a32662ee,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14663,6 +14708,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BurningCandle05
       objectReference: {fileID: 0}
+    - target: {fileID: 6808049902404287183, guid: ad531e069044f4ba7a9459fa62588349,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14686,6 +14736,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Balloon_Heart
+      objectReference: {fileID: 0}
+    - target: {fileID: 863507487169013018, guid: c7c1fffc874ff4450a6153ed185dd9e7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 3738178833004946665, guid: c7c1fffc874ff4450a6153ed185dd9e7,
         type: 3}
@@ -14810,6 +14865,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ChristmasTree_S (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6608443534833352192, guid: d461220bb90354542ac024ef26d00792,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

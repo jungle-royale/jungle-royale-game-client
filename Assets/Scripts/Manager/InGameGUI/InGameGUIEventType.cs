@@ -6,15 +6,17 @@ public enum InGameGUIEventType
 
     // MainCanvas
     UpdateTimerLabel,
+    UpdatePingLabel, // Ping 값 업데이트
+    UpdateHpLabel,
+    UpdatePlayerCountLabel,
 
     // WaitingRoomCanvas Child
     UpdateMinPlayerLabel,
     UpdateGameCountDownLabel,
 
     // InGameCanvas Child
-    UpdatePingLabel, // Ping 값 업데이트
-    UpdateHpLabel,
-    UpdatePlayerCountLabel,
+    SetBulletBarLabel,
+    UpdateBulletBarLabel,
 
     // State Canvas (GameOvaer, Win, End)
     UpdateStateLabel,

@@ -103,6 +103,7 @@ public class PlayerManager : MonoBehaviour
         {
             healthBarComponent.SetMaxHealth(data.health);
         }
+        EventBus<InGameGUIEventType>.Publish<int>(InGameGUIEventType.SetBulletBarLabel, data.bulletGage);
     }
 
     private void CreateOtherPlayer(Player data)
@@ -117,6 +118,8 @@ public class PlayerManager : MonoBehaviour
             healthBarComponent.SetMaxHealth(data.health);
         }
 
+        Debug.Log($"init BulletGage: {data.bulletGage}");
+
         otherPlayers[data.id] = newPlayer;
         otherPlayersMark[data.id] = newPlayerMark;
     }
@@ -129,6 +132,8 @@ public class PlayerManager : MonoBehaviour
         {
             healthBarComponent.SetHealth(serverData.health);
         }
+
+        EventBus<InGameGUIEventType>.Publish<int>(InGameGUIEventType.UpdateBulletBarLabel, serverData.bulletGage);
 
         UpdatePlayerMoveState(currentPlayer, serverData);
         UpdatePlayerShootState(currentPlayer, serverData);

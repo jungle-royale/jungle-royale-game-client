@@ -310,7 +310,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             foreach (var player in gameState.PlayerState)
             {
                 Player newPlayer = new Player(
-                    player.Id, player.X, player.Y, player.Health, player.MagicType, player.Angle, player.DashCoolTime, player.IsMoved, player.IsDashing, player.IsShooting
+                    player.Id, player.X, player.Y, player.Health, player.MagicType, player.Angle, player.DashCoolTime, player.IsMoved, player.IsDashing, player.IsShooting, player.Dx, player.Dy, player.BulletGage
                 );
                 playerStateList.Add(newPlayer);
             }

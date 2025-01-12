@@ -1132,6 +1132,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_Snow01_S
       objectReference: {fileID: 0}
+    - target: {fileID: 1754325774238870985, guid: 41c5ab404248a406aba42f3e6c592a29,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4849146302335029886, guid: 41c5ab404248a406aba42f3e6c592a29,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1349,6 +1354,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7360176591623575111}
     m_Modifications:
+    - target: {fileID: 281338454351468302, guid: ca2183b06fb014070bafe4c9355f2b3c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 290967593651522331, guid: ca2183b06fb014070bafe4c9355f2b3c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1399,10 +1409,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2003131523273979266, guid: ca2183b06fb014070bafe4c9355f2b3c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 2456383904545159091, guid: ca2183b06fb014070bafe4c9355f2b3c,
         type: 3}
       propertyPath: m_Name
       value: StreetLamp_L
+      objectReference: {fileID: 0}
+    - target: {fileID: 2456383904545159091, guid: ca2183b06fb014070bafe4c9355f2b3c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2465723113268619402, guid: ca2183b06fb014070bafe4c9355f2b3c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

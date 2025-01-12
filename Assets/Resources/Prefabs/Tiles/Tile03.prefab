@@ -91,6 +91,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_Snow01_M (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 849607104288074469, guid: c46943b1031064ba88158381ad5e6453,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7813148958454459481, guid: c46943b1031064ba88158381ad5e6453,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -239,6 +244,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BurningCandle04
       objectReference: {fileID: 0}
+    - target: {fileID: 1826755424854115183, guid: eb7669a1dd79d45e89d9c7a002838aaf,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 5065277705367185677, guid: eb7669a1dd79d45e89d9c7a002838aaf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -363,6 +373,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BurningCandle01
       objectReference: {fileID: 0}
+    - target: {fileID: 6773725328834038042, guid: 22ad69f5064944c7b93b67a24f7e6b14,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -386,6 +401,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_Snow01_M
+      objectReference: {fileID: 0}
+    - target: {fileID: 849607104288074469, guid: c46943b1031064ba88158381ad5e6453,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 7813148958454459481, guid: c46943b1031064ba88158381ad5e6453,
         type: 3}
@@ -511,6 +531,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BurningCandle05
       objectReference: {fileID: 0}
+    - target: {fileID: 6808049902404287183, guid: ad531e069044f4ba7a9459fa62588349,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -584,6 +609,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SnowSled
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187264488699124005, guid: 2c691c05a814447a6852778cbb0efa21,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -659,6 +689,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BurningCandle03
       objectReference: {fileID: 0}
+    - target: {fileID: 7987373632847263306, guid: 1692be7476b9648f68d47e1127f058ab,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -733,6 +768,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BurningCandle05 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6808049902404287183, guid: ad531e069044f4ba7a9459fa62588349,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -756,6 +796,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_M
+      objectReference: {fileID: 0}
+    - target: {fileID: 1428760078015619369, guid: df8471f35389143c8b79a941e54076e1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 3281272717760213513, guid: df8471f35389143c8b79a941e54076e1,
         type: 3}
@@ -954,6 +999,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BurningCandle02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2688156166052491710, guid: 723b46920f490453d89540e4a32662ee,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

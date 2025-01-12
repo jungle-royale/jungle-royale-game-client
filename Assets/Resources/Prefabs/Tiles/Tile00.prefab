@@ -3081,6 +3081,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barrel_Group02
       objectReference: {fileID: 0}
+    - target: {fileID: 9012190899710351396, guid: 36aa403964ccd4f9e874a176a43292c4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 9060253040151369030, guid: 36aa403964ccd4f9e874a176a43292c4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3154,6 +3159,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Barrel_Group03
+      objectReference: {fileID: 0}
+    - target: {fileID: 2273463531203397994, guid: 04daa1c356db944e2a6014cc3fa984be,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 7301582139537971326, guid: 04daa1c356db944e2a6014cc3fa984be,
         type: 3}
@@ -3352,6 +3362,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CordWood01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7728376181559471936, guid: 6c063997767974a35813a0defe3f19da,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

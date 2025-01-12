@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class InGameGUIManager : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class InGameGUIManager : MonoBehaviour
     // InGameCanvas Child
     [Header("InGameCanvas Label")]
     public List<TextMeshProUGUI> hpLabel;
+    public BulletBar bulletBarLabel;
 
     // State Canvas
     [Header("State Canvas Label")]
@@ -115,6 +117,7 @@ public class InGameGUIManager : MonoBehaviour
         minPlayerLabel = FindLabelsByTag("MinPlayerLabel");
 
         hpLabel = FindLabelsByTag("HpLabel");
+        bulletBarLabel = FindObjectOfType<BulletBar>();
 
         placementLabel = FindLabelsByTag("PlacementLabel");
         totalPlayerLabel = FindLabelsByTag("TotalPlayerLabel");
@@ -159,6 +162,8 @@ public class InGameGUIManager : MonoBehaviour
         EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.UpdatePlayerCountLabel, UpdatePlayerCountUI);
         EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.UpdateTimerLabel, UpdateTimerUI);
         EventBus<InGameGUIEventType>.Subscribe<StateUIDTO>(InGameGUIEventType.UpdateStateLabel, UpdateStateUI);
+        EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.SetBulletBarLabel, SetBulletBarUI);
+        EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.UpdateBulletBarLabel, UpdateBulletBarUI);
     }
 
     private void OnDestroy()
@@ -171,6 +176,8 @@ public class InGameGUIManager : MonoBehaviour
         EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.UpdatePlayerCountLabel, UpdatePlayerCountUI);
         EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.UpdateTimerLabel, UpdateTimerUI);
         EventBus<InGameGUIEventType>.Unsubscribe<StateUIDTO>(InGameGUIEventType.UpdateStateLabel, UpdateStateUI);
+        EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.SetBulletBarLabel, SetBulletBarUI);
+        EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.UpdateBulletBarLabel, UpdateBulletBarUI);
     }
 
     private void OnActivateCanvas(string gameState)
@@ -330,6 +337,22 @@ public class InGameGUIManager : MonoBehaviour
             {
                 label.text = $"{hp:D3}";
             }
+        }
+    }
+
+    private void SetBulletBarUI(int bulletGage)
+    {
+        if (bulletBarLabel != null)
+        {
+            bulletBarLabel.SetMaxBulletGage(bulletGage);
+        }
+    }
+
+    private void UpdateBulletBarUI(int bulletGage)
+    {
+        if (bulletBarLabel != null)
+        {
+            bulletBarLabel.SetBulletGage(bulletGage);
         }
     }
 

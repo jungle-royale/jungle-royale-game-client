@@ -23,6 +23,7 @@ public class ClientManager : Singleton<ClientManager>
     public MagicType MagicType;
     public float Angle;
     public int DashCoolTime;
+    public int BulletGage;
 
     public int minPlayerNum;
     public int totalPlayerNum;
@@ -78,6 +79,7 @@ public class ClientManager : Singleton<ClientManager>
                             Hp = player.Health;
                             DashCoolTime = player.DashCoolTime;
                             Angle = player.Angle;
+                            BulletGage = player.BulletGage;
                             switch (player.MagicType)
                             {
                                 case 1:

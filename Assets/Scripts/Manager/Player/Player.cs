@@ -14,6 +14,9 @@ public class Player
     public bool isMoved;
     public bool isDashing;
     public bool isShooting;
+    public float dx;
+    public float dy;
+    public int bulletGage;
 
     public Player(
         int playerId,
@@ -25,7 +28,10 @@ public class Player
         int dashCoolTime,
         bool isMoved,
         bool isDashing,
-        bool isShooting
+        bool isShooting,
+        float dx,
+        float dy,
+        int bulletGage
     )
     {
         this.id = playerId;
@@ -38,6 +44,9 @@ public class Player
         this.isMoved = isMoved;
         this.isDashing = isDashing;
         this.isShooting = isShooting;
+        this.dx = dx;
+        this.dy = dy;
+        this.bulletGage = bulletGage;
     }
 
     public Vector3 NewPosition(float playerY)
