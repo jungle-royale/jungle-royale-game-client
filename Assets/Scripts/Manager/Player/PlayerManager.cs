@@ -7,20 +7,23 @@ public class PlayerManager : MonoBehaviour
     public GameObject playerPrefab; // 내 플레이어 프리팹
     public GameObject currentPlayerMarkPrefab; // 내 플레이어 프리팹
     public GameObject otherPlayerMarkPrefab; // 내 플레이어 프리팹
-    // public GameObject otherPlayerPrefab;   // 다른 플레이어 프리팹
+
     private bool currentPlayerDead = false;
 
     // 이펙트
     private GameObject shootingEffect;
-
     private GameObject currentPlayer; // 현재 플레이어 객체
     private GameObject currentPlayerMark;
-    private Dictionary<int, GameObject> otherPlayers = new Dictionary<int, GameObject>();
-    private Dictionary<int, GameObject> otherPlayersMark = new Dictionary<int, GameObject>();
+    private Dictionary<int, GameObject> otherPlayerGameObjectDictionary = new Dictionary<int, GameObject>();
+    private Dictionary<int, GameObject> otherPlayerMarkDictionary = new Dictionary<int, GameObject>();
 
-    private HashSet<int> movePlayers = new HashSet<int>();
-    private HashSet<int> dashPlayers = new HashSet<int>();
-    private HashSet<int> shootingPlayers = new HashSet<int>();
+    private HashSet<int> movePlayerIdList = new HashSet<int>();
+    private HashSet<int> dashPlayerIdList = new HashSet<int>();
+    private HashSet<int> shootingPlayerIdList = new HashSet<int>();
+
+
+    private List<Player> playerList = new List<Player>();
+
 
     const float DASH_ROTATION = 15f;
 
@@ -41,9 +44,9 @@ public class PlayerManager : MonoBehaviour
             return currentPlayer;
         }
 
-        if (otherPlayers.ContainsKey(playerId))
+        if (otherPlayerGameObjectDictionary.ContainsKey(playerId))
         {
-            return otherPlayers[playerId];
+            return otherPlayerGameObjectDictionary[playerId];
         }
 
         return null;
@@ -71,10 +74,10 @@ public class PlayerManager : MonoBehaviour
             else
             {
                 activePlayerNumber += 1;
-                if (otherPlayers.ContainsKey(data.id))
+                if (otherPlayerGameObjectDictionary.ContainsKey(data.id))
                 {
                     // 기존 플레이어 업데이트
-                    UpdatePlayer(otherPlayers[data.id], data);
+                    UpdatePlayer(otherPlayerGameObjectDictionary[data.id], data);
                 }
                 else
                 {
@@ -118,10 +121,15 @@ public class PlayerManager : MonoBehaviour
             healthBarComponent.SetMaxHealth(data.health);
         }
 
+<<<<<<< HEAD
         Debug.Log($"init BulletGage: {data.bulletGage}");
 
         otherPlayers[data.id] = newPlayer;
         otherPlayersMark[data.id] = newPlayerMark;
+=======
+        otherPlayerGameObjectDictionary[data.id] = newPlayer;
+        otherPlayerMarkDictionary[data.id] = newPlayerMark;
+>>>>>>> 4d258c6 (feat: dx, dy 메세지 프로토콜 반영)
     }
 
     private void ValidateCurrentPlayer(Player serverData)
@@ -161,7 +169,7 @@ public class PlayerManager : MonoBehaviour
 
     private void UpdateOtherPlayersMark(Player serverData)
     {
-        var otherPlayerMark = otherPlayersMark[serverData.id];
+        var otherPlayerMark = otherPlayerMarkDictionary[serverData.id];
 
         if (otherPlayerMark != null)
         {
@@ -193,9 +201,9 @@ public class PlayerManager : MonoBehaviour
 
         if (serverData.isDashing)
         {
-            if (!dashPlayers.Contains(serverData.id))
+            if (!dashPlayerIdList.Contains(serverData.id))
             {
-                dashPlayers.Add(serverData.id);
+                dashPlayerIdList.Add(serverData.id);
                 AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dash);
             }
             if (movementDirection != Vector3.zero)
@@ -219,9 +227,9 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            if (dashPlayers.Contains(serverData.id))
+            if (dashPlayerIdList.Contains(serverData.id))
             {
-                dashPlayers.Remove(serverData.id);
+                dashPlayerIdList.Remove(serverData.id);
             }
             Quaternion uprightRotation = Quaternion.Euler(0, -(serverData.angle - 180), 0);
             player.transform.rotation = uprightRotation;
@@ -235,17 +243,17 @@ public class PlayerManager : MonoBehaviour
 
         if (serverData.isMoved)
         {
-            if (!movePlayers.Contains(serverData.id))
+            if (!movePlayerIdList.Contains(serverData.id))
             {
-                movePlayers.Add(serverData.id);
+                movePlayerIdList.Add(serverData.id);
                 animator.SetBool("isMoving", true);
             }
         }
         else
         {
-            if (movePlayers.Contains(serverData.id))
+            if (movePlayerIdList.Contains(serverData.id))
             {
-                movePlayers.Remove(serverData.id);
+                movePlayerIdList.Remove(serverData.id);
                 animator.SetBool("isMoving", false);
             }
         }
@@ -282,25 +290,25 @@ public class PlayerManager : MonoBehaviour
 
         if (serverData.isShooting)
         {
-            if (dashPlayers.Contains(serverData.id))
+            if (dashPlayerIdList.Contains(serverData.id))
             {
                 shootingEffect.SetActive(false);
-                shootingPlayers.Remove(serverData.id);
+                shootingPlayerIdList.Remove(serverData.id);
             }
             else
             {
-                if (!shootingPlayers.Contains(serverData.id))
+                if (!shootingPlayerIdList.Contains(serverData.id))
                 {
-                    shootingPlayers.Add(serverData.id);
+                    shootingPlayerIdList.Add(serverData.id);
                     shootingEffect.SetActive(true);
                 }
             }
         }
         else
         {
-            if (shootingPlayers.Contains(serverData.id))
+            if (shootingPlayerIdList.Contains(serverData.id))
             {
-                shootingPlayers.Remove(serverData.id);
+                shootingPlayerIdList.Remove(serverData.id);
 
                 // Shooting Effect 비활성화
                 if (shootingEffect.activeSelf)
@@ -316,7 +324,7 @@ public class PlayerManager : MonoBehaviour
         var existingIds = new HashSet<int>(playerDataList.ConvertAll(p => p.id));
         var keysToRemove = new List<int>();
 
-        foreach (var key in otherPlayers.Keys)
+        foreach (var key in otherPlayerGameObjectDictionary.Keys)
         {
             if (!existingIds.Contains(key))
             {
@@ -326,20 +334,19 @@ public class PlayerManager : MonoBehaviour
 
         foreach (var key in keysToRemove)
         {
-            Destroy(otherPlayersMark[key]);
-            otherPlayers.Remove(key);
-            movePlayers.Remove(key);
-            dashPlayers.Remove(key);
+            Destroy(otherPlayerMarkDictionary[key]);
+            otherPlayerGameObjectDictionary.Remove(key);
+            movePlayerIdList.Remove(key);
+            dashPlayerIdList.Remove(key);
         }
 
         if (!currentPlayerDead && !existingIds.Contains(currentPlayerId))
         {
             Destroy(currentPlayerMark);
             currentPlayerDead = true;
-            movePlayers.Remove(currentPlayerId);
-            dashPlayers.Remove(currentPlayerId);
+            movePlayerIdList.Remove(currentPlayerId);
+            dashPlayerIdList.Remove(currentPlayerId);
         }
     }
 
-    // private 
 }
