@@ -29,12 +29,14 @@ public class InputManager : MonoBehaviour
     private bool IsConnected = false;
     private bool EndGame = false;
     private bool IsActivateTab = false;
+    private bool IsObserver = false;
 
     void Start()
     {
         EventBus<InputButtonEventType>.Subscribe(InputButtonEventType.CompleteConnect, CompleteConnection);
         EventBus<InputButtonEventType>.Subscribe(InputButtonEventType.StopPlay, StopPlay);
         EventBus<InputButtonEventType>.Subscribe(InputButtonEventType.ActivateTabKey, ActivateTabKey);
+        EventBus<InputButtonEventType>.Subscribe(InputButtonEventType.Observer, ActivateObserver);
     }
 
     private void OnDestroy()
@@ -42,10 +44,16 @@ public class InputManager : MonoBehaviour
         EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.CompleteConnect, CompleteConnection);
         EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.StopPlay, StopPlay);
         EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.ActivateTabKey, ActivateTabKey);
+        EventBus<InputButtonEventType>.Unsubscribe(InputButtonEventType.Observer, ActivateObserver);
     }
 
     void Update()
     {
+        if (IsObserver)
+        {
+            HandleObserver();
+            return;
+        }
         if (!IsConnected)
         {
             return;
@@ -83,6 +91,25 @@ public class InputManager : MonoBehaviour
         IsActivateTab = true;
     }
 
+    private void ActivateObserver()
+    {
+        IsObserver = true;
+    }
+
+    private void HandleObserver()
+    {
+        float x = input.GetAxisX();
+        float y = input.GetAxisY();
+        if (x != 0 || y != 0)
+        {
+            cameraManager.UpdateCameraMovement(x, y);
+        }
+        if (input.GetTab())
+        {
+            cameraManager.StopUpdateCameraMovement();    
+            cameraManager.SwitchToNextPlayer(); // TODO: next button에도 추가
+        }
+    }
 
     private void HandleTab()
     {

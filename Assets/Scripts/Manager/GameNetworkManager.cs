@@ -404,7 +404,8 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     {
         if (IsDebug())
         {
-            // return "/room?roomId=test&clientId=test";
+            // EventBus<InputButtonEventType>.Publish(InputButtonEventType.Observer);
+            // return "/observer?roomId=test";
             return "/room?roomId=room0&clientId=test";
         }
         else
@@ -414,12 +415,27 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             {
                 Uri uri = new Uri(url);
                 NameValueCollection queryParameters = HttpUtility.ParseQueryString(uri.Query);
-                string roomId = queryParameters["roomId"];
-                string clientId = queryParameters["clientId"];
-                return $"/room?roomId={roomId}&clientId={clientId}";
+
+                string pathAndQuery = uri.PathAndQuery;
+
+                if (pathAndQuery.StartsWith("/room", StringComparison.OrdinalIgnoreCase))
+                {
+                    string roomId = queryParameters["roomId"];
+                    string clientId = queryParameters["clientId"];
+                    return $"/room?roomId={roomId}&clientId={clientId}";
+                }
+                else if (pathAndQuery.StartsWith("/observer", StringComparison.OrdinalIgnoreCase))
+                {
+                    string roomId = queryParameters["roomId"];
+                    EventBus<InputButtonEventType>.Publish(InputButtonEventType.Observer);
+                    return $"/observer?roomId={roomId}";
+                }
+
+                throw new Exception("없는 경로");
             }
             catch (UriFormatException e)
             {
+                // TODO: error 처리
                 Debug.LogError($"Invalid URL format: {e.Message}");
                 return "";
             }
