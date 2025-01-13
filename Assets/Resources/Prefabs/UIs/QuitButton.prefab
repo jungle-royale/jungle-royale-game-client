@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uB098\uAC00\uAE30"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 26729dc8beb3d424a89efd0a15942510, type: 2}
-  m_sharedMaterial: {fileID: -3022377892237832501, guid: 26729dc8beb3d424a89efd0a15942510,
+  m_fontAsset: {fileID: 11400000, guid: 88feb476510cc477da6830912451a6bf, type: 2}
+  m_sharedMaterial: {fileID: 1635700098342042820, guid: 88feb476510cc477da6830912451a6bf,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -281,4 +281,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d2e323a7d94045afaa02fdba17e9f8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quitButtonObject: {fileID: 2621934749233578653}

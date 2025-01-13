@@ -366,7 +366,7 @@ public class InGameGUIManager : MonoBehaviour
         {
             foreach (var label in playerCountLabel) // playerCountLabel 리스트 순회
             {
-                label.text = $"{playerCount:D3}";
+                label.text = $"{playerCount:D2}";
             }
         }
     }
@@ -377,7 +377,7 @@ public class InGameGUIManager : MonoBehaviour
         {
             foreach (var label in placementLabel) // placementLabel 리스트 순회
             {
-                label.text = $"{stateData.placement:D3}";
+                label.text = $"#{stateData.placement}";
             }
         }
 
@@ -385,7 +385,7 @@ public class InGameGUIManager : MonoBehaviour
         {
             foreach (var label in totalPlayerLabel) // totalPlayerLabel 리스트 순회
             {
-                label.text = $"/{stateData.totalPlayer:D3}";
+                label.text = $"/{stateData.totalPlayer}";
             }
         }
 
@@ -393,7 +393,7 @@ public class InGameGUIManager : MonoBehaviour
         {
             foreach (var label in killCountLabel) // killCountLabel 리스트 순회
             {
-                label.text = $"{stateData.killCount:D2}";
+                label.text = $"{stateData.killCount}";
             }
         }
 

@@ -305,6 +305,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
         if (gameState.LastSec >= 0)
         {
+            // Debug.Log($"Time: {gameState.LastSec}");
             EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateTimerLabel, gameState.LastSec);
         }
 
@@ -315,13 +316,13 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             foreach (var player in gameState.PlayerState)
             {
                 Player newPlayer = new Player(
-                    player.Id, 
-                    player.X, player.Y, 
-                    player.Dx, player.Dy, 
-                    player.Health, player.MagicType, 
-                    player.Angle, player.DashCoolTime, 
-                    player.IsMoved, player.IsDashing, 
-                    player.IsShooting,player.BulletGage, 
+                    player.Id,
+                    player.X, player.Y,
+                    player.Dx, player.Dy,
+                    player.Health, player.MagicType,
+                    player.Angle, player.DashCoolTime,
+                    player.IsMoved, player.IsDashing,
+                    player.IsShooting, player.BulletGage,
                     cameraManager.IsInCameraView(new Vector3(player.X, 0, player.Y))
                 );
                 playerStateList.Add(newPlayer);
