@@ -148,6 +148,8 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
+            player.SetActive(true);
+
             UpdateHealthBar(player, serverData);
             UpdatePlayerMoveState(player, serverData);
             UpdatePlayerShootState(player, serverData);

@@ -103,7 +103,7 @@ public class ClientManager : Singleton<ClientManager>
                         if (player.DeadId == ClientId)
                         {
                             placement = player.Placement;
-                            playerCount = player.KillNum;
+                            killCount = player.KillNum;
                         }
                     }
                 }

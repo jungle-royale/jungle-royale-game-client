@@ -23,6 +23,7 @@ TagManager:
   - Description_PC
   - MinPlayerLabel
   - Ground
+  - NicknameLabel
   layers:
   - Default
   - TransparentFX
