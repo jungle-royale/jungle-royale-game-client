@@ -47,7 +47,7 @@ public class QRCodeGenerator : MonoBehaviour
             Uri uri = new Uri(url);
             NameValueCollection queryParameters = HttpUtility.ParseQueryString(uri.Query);
             string roomId = queryParameters["roomId"];
-            qrData = $"http://game.eternalsnowman.com/room/ready?roomId=${roomId}";
+            qrData = $"http://eternalsnowman.com/room/ready?roomId=${roomId}";
         }
         catch (UriFormatException e)
         {

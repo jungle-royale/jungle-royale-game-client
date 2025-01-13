@@ -287,7 +287,7 @@ MonoBehaviour:
   gameCountDownLabel: []
   minPlayerLabel: []
   hpLabel: []
-  bulletBarLabel: {fileID: 0}
+  bulletBarLabel: []
   placementLabel: []
   totalPlayerLabel: []
   killCountLabel: []
@@ -1805,6 +1805,9 @@ MonoBehaviour:
     type: 3}
   otherPlayerMarkPrefab: {fileID: 7060622212243992953, guid: 68ceca7d97edc4d6eb8477417552dd77,
     type: 3}
+  shootingNormalEffect: {fileID: 0}
+  shootingStoneEffect: {fileID: 0}
+  shootingFireEffect: {fileID: 0}
 --- !u!4 &1981735299
 Transform:
   m_ObjectHideFlags: 0
