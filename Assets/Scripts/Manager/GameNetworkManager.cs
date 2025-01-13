@@ -131,7 +131,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
     private void OnClose(WebSocketCloseCode OnClose)
     {
-        Debug.Log("Connection closed!");
+        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "ErrorCanvas");
     }
 
     private void OnMessage(byte[] data)
@@ -439,7 +439,8 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                 {
                     string roomId = queryParameters["roomId"];
                     string clientId = queryParameters["clientId"];
-                    return $"/room?roomId={roomId}&clientId={clientId}";
+                    string userName = queryParameters["username"];
+                    return $"/room?roomId={roomId}&clientId={clientId}&username={userName}";
                 }
                 else if (pathAndQuery.StartsWith("/observer", StringComparison.OrdinalIgnoreCase))
                 {
