@@ -12,7 +12,9 @@ public class PlayerManager : MonoBehaviour
     private bool currentPlayerDead = false;
 
     // 이펙트
-    private GameObject shootingEffect;
+    public GameObject shootingNormalEffect;
+    public GameObject shootingStoneEffect;
+    public GameObject shootingFireEffect;
     private GameObject currentPlayerGameObject; // 현재 플레이어 객체
     private GameObject currentPlayerMark;
     private Dictionary<int, GameObject> otherPlayerGameObjectDictionary = new Dictionary<int, GameObject>();
@@ -110,6 +112,7 @@ public class PlayerManager : MonoBehaviour
         {
             healthBarComponent.SetMaxHealth(data.health);
         }
+        ClientManager.Instance.SetMaxBulletGage(data.bulletGage);
         EventBus<InGameGUIEventType>.Publish<int>(InGameGUIEventType.SetBulletBarLabel, data.bulletGage);
     }
 
@@ -141,7 +144,7 @@ public class PlayerManager : MonoBehaviour
 
     private void UpdateOtherPlayerAtUpdate(GameObject player, Player serverData)
     {
-        if (!serverData.isOutofView) // 범위 밖이면 비활성화
+        if (!serverData.isOutofView) // 범위 밖인 다른 플레이어들만 비활성화
         {
             player.SetActive(false);
             return;
@@ -310,32 +313,22 @@ public class PlayerManager : MonoBehaviour
 
     private void UpdatePlayerShootState(GameObject player, Player serverData)
     {
-        switch (serverData.magicType)
-        {
-            case 0:
-                shootingEffect = player.transform.Find("ShootingIce").gameObject;
-                break;
-            case 1:
-                shootingEffect = player.transform.Find("ShootingStone").gameObject;
-                break;
-            case 2:
-                shootingEffect = player.transform.Find("ShootingFire").gameObject;
-                break;
-            default:
-                Debug.Log($"{serverData.magicType}에 해당하는 Player의 MagicType 없음");
-                break;
-        }
+        shootingNormalEffect = player.transform.Find("ShootingIce").gameObject;
+        shootingStoneEffect = player.transform.Find("ShootingStone").gameObject;
+        shootingFireEffect = player.transform.Find("ShootingFire").gameObject;
 
-        if (shootingEffect == null)
+        if (shootingNormalEffect == null || shootingStoneEffect == null || shootingFireEffect == null)
         {
             Debug.LogError("Shooting 이펙트 없음");
         }
+
+
 
         if (serverData.isShooting && serverData.bulletGage >= GAGE_PER_BULLET)
         {
             if (dashPlayerIdList.Contains(serverData.id))
             {
-                shootingEffect.SetActive(false);
+                DeactivateShootingEffects();
                 shootingPlayerIdList.Remove(serverData.id);
             }
             else
@@ -343,7 +336,25 @@ public class PlayerManager : MonoBehaviour
                 if (!shootingPlayerIdList.Contains(serverData.id))
                 {
                     shootingPlayerIdList.Add(serverData.id);
-                    shootingEffect.SetActive(true);
+
+                    switch (serverData.magicType)
+                    {
+                        case 0:
+                            DeactivateShootingEffects();
+                            shootingNormalEffect.SetActive(true);
+                            break;
+                        case 1:
+                            DeactivateShootingEffects();
+                            shootingStoneEffect.SetActive(true);
+                            break;
+                        case 2:
+                            DeactivateShootingEffects();
+                            shootingFireEffect.SetActive(true);
+                            break;
+                        default:
+                            Debug.Log($"{serverData.magicType}에 해당하는 Player의 MagicType 없음");
+                            break;
+                    }
                 }
             }
         }
@@ -354,11 +365,18 @@ public class PlayerManager : MonoBehaviour
                 shootingPlayerIdList.Remove(serverData.id);
 
                 // Shooting Effect 비활성화
-                if (shootingEffect.activeSelf)
-                {
-                    shootingEffect.SetActive(false);
-                }
+                DeactivateShootingEffects();
             }
+        }
+    }
+
+    private void DeactivateShootingEffects()
+    {
+        if (shootingNormalEffect != null && shootingStoneEffect != null && shootingFireEffect != null)
+        {
+            shootingNormalEffect.SetActive(false);
+            shootingStoneEffect.SetActive(false);
+            shootingFireEffect.SetActive(false);
         }
     }
 

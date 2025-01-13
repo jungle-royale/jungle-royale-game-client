@@ -35,7 +35,7 @@ public class InGameGUIManager : MonoBehaviour
     // InGameCanvas Child
     [Header("InGameCanvas Label")]
     public List<TextMeshProUGUI> hpLabel;
-    public BulletBar bulletBarLabel;
+    public List<BulletBar> bulletBarLabel;
 
     // State Canvas
     [Header("State Canvas Label")]
@@ -117,11 +117,37 @@ public class InGameGUIManager : MonoBehaviour
         minPlayerLabel = FindLabelsByTag("MinPlayerLabel");
 
         hpLabel = FindLabelsByTag("HpLabel");
-        bulletBarLabel = FindObjectOfType<BulletBar>();
+        bulletBarLabel = FindBulletBarsByTag("BulletBar");
 
         placementLabel = FindLabelsByTag("PlacementLabel");
         totalPlayerLabel = FindLabelsByTag("TotalPlayerLabel");
         killCountLabel = FindLabelsByTag("KillCountLabel");
+    }
+
+    private List<BulletBar> FindBulletBarsByTag(string tag)
+    {
+        GameObject[] bulletBarObjects = GameObject.FindGameObjectsWithTag(tag);
+        if (bulletBarObjects == null || bulletBarObjects.Length == 0)
+        {
+            Debug.Log($"'{tag}' 태그를 가진 객체를 찾을 수 없습니다.");
+            return new List<BulletBar>(); // 빈 리스트 반환
+        }
+
+        List<BulletBar> bars = new List<BulletBar>();
+        foreach (GameObject obj in bulletBarObjects)
+        {
+            BulletBar bar = obj.GetComponent<BulletBar>();
+            if (bar != null)
+            {
+                bars.Add(bar);
+            }
+            else
+            {
+                Debug.Log($"'{obj.name}' 객체에 BulletBar 컴포넌트가 없습니다.");
+            }
+        }
+
+        return bars;
     }
 
     private List<TextMeshProUGUI> FindLabelsByTag(string tag)
@@ -348,7 +374,10 @@ public class InGameGUIManager : MonoBehaviour
     {
         if (bulletBarLabel != null)
         {
-            bulletBarLabel.SetMaxBulletGage(bulletGage);
+            foreach (var bulletBar in bulletBarLabel)
+            {
+                bulletBar.SetMaxBulletGage(bulletGage); // 각 BulletBar에 대해 호출
+            }
         }
     }
 
@@ -356,7 +385,15 @@ public class InGameGUIManager : MonoBehaviour
     {
         if (bulletBarLabel != null)
         {
-            bulletBarLabel.SetBulletGage(bulletGage);
+            foreach (var bulletBar in bulletBarLabel)
+            {
+                if (bulletBar.slider.maxValue != ClientManager.Instance.maxBulletGage)
+                {
+                    bulletBar.SetMaxBulletGage(ClientManager.Instance.maxBulletGage);
+                }
+                bulletBar.SetBulletGage(bulletGage); // 각 BulletBar에 대해 호출
+                bulletBar.UpdateGradientColor();
+            }
         }
     }
 

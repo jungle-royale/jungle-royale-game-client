@@ -35,6 +35,8 @@ public class ClientManager : Singleton<ClientManager>
 
     public bool gameEnd = false;
 
+    public int maxBulletGage;
+
     public void SetClientId(int clientId)
     {
         this.ClientId = clientId;
@@ -49,6 +51,11 @@ public class ClientManager : Singleton<ClientManager>
     {
         // Debug.Log("총 플레이어 수 세팅!!!");
         this.totalPlayerNum = totalPlayerNum;
+    }
+
+    public void SetMaxBulletGage(int bulletGage)
+    {
+        this.maxBulletGage = bulletGage;
     }
 
     public bool CanDoDash()
@@ -83,10 +90,10 @@ public class ClientManager : Singleton<ClientManager>
                             switch (player.MagicType)
                             {
                                 case 1:
-                                    MagicType = MagicType.Fire;
+                                    MagicType = MagicType.Stone;
                                     break;
                                 case 2:
-                                    MagicType = MagicType.Stone;
+                                    MagicType = MagicType.Fire;
                                     break;
                                 default:
                                     MagicType = MagicType.None;
