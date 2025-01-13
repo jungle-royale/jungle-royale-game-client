@@ -8,6 +8,9 @@ using Message;
 using Google.Protobuf;
 using System.Collections.Specialized;
 using System.Web;
+using System.Threading.Tasks;
+using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 
 public class GameNetworkManager : Singleton<GameNetworkManager>
 {
@@ -343,7 +346,6 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         if (!IsOpen())
         {
             Debug.LogWarning("WebSocket is not open. Cannot send data.");
-            // new RedirectHandler().RedirectToFailure(1);
             EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "ErrorCanvas");
             return;
         }
@@ -358,35 +360,37 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         }
     }
 
-    private void SendHttpPing()
+    public async void SendHttpPing()
     {
-        StartCoroutine(SendHttpPingCoroutine());
+        long latency = await SendHttpPingAsync();
+        Debug.Log($"HTTP Ping RTT: {latency} ms");
     }
 
-    private IEnumerator SendHttpPingCoroutine()
+     private async Task<long> SendHttpPingAsync()
     {
-        // 요청 시작 시간 기록
-        requestStartTime = DateTime.Now;
+        Stopwatch stopwatch = Stopwatch.StartNew();
 
         using (UnityWebRequest request = UnityWebRequest.Get(PingUrlString))
         {
-            yield return request.SendWebRequest(); // 요청 보내기
+            var operation = request.SendWebRequest();
 
-            // 요청 완료 시간
-            DateTime requestEndTime = DateTime.Now;
-            long latency = (long)(requestEndTime - requestStartTime).TotalMilliseconds; // 레이턴시 계산
+            while (!operation.isDone)
+            {
+                await Task.Yield(); // 대기
+            }
+
+            stopwatch.Stop();
 
             if (request.result == UnityWebRequest.Result.Success)
             {
-                Debug.Log($"HTTP Ping success. RTT: {latency} ms");
-
-                // EventBus를 통해 레이턴시 전달
-                EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdatePingLabel, latency);
+                Debug.Log($"HTTP Ping success.");
+                EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdatePingLabel, stopwatch.ElapsedMilliseconds);
+                return stopwatch.ElapsedMilliseconds;
             }
             else
             {
                 Debug.LogError($"HTTP Ping failed: {request.error}");
-                Debug.LogError($"Response Code: {request.responseCode}");
+                return -1;
             }
         }
     }
@@ -448,8 +452,8 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             }
             catch (UriFormatException e)
             {
-                // TODO: error 처리
                 Debug.LogError($"Invalid URL format: {e.Message}");
+                EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "ErrorCanvas");
                 return "";
             }
         }
