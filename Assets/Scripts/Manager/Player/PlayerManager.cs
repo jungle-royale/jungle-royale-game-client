@@ -285,10 +285,6 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            if (distance > 1.0f) // 대시일 때는 더 가도 된다.
-            {
-                return;
-            }
             var newPosition = Vector3.Lerp(currentPosition, targetPosition, LERP_SPEED * Time.deltaTime);
             player.transform.position = newPosition;
         }

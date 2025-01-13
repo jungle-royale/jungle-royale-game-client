@@ -73,6 +73,7 @@ public class InputManager : MonoBehaviour
 
     private void CompleteConnection()
     {
+        Debug.Log("complete connection");
         IsConnected = true;
     }
 

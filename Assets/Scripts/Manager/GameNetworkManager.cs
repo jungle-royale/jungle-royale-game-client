@@ -131,7 +131,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
     private void OnClose(WebSocketCloseCode OnClose)
     {
-        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "ErrorCanvas");
+        Debug.Log($"Connection Close! : {UrlString}");
     }
 
     private void OnMessage(byte[] data)
@@ -145,7 +145,6 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             switch (wrapper.MessageTypeCase)
             {
                 case Wrapper.MessageTypeOneofCase.GameState:
-                    // Debug.Log(wrapper.GameState);
                     HandleGameState(wrapper.GameState);
                     break;
 
@@ -258,12 +257,8 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
             foreach (var bulletState in gameState.BulletState)
             {
-                // Debug.Log($"bulletType: {bulletState.BulletType}");
-
-                // TODO: 미니맵 카메라 레인지랑 state의 좌표 비교해서 범위 밖이면 그냥 return
                 if (!cameraManager.IsInCameraView(new Vector3(bulletState.X, 0, bulletState.Y)))
                     continue;
-
                 bulletStateList.Add(new Bullet(bulletState.BulletId, bulletState.BulletType, bulletState.X, bulletState.Y));
             }
 
@@ -363,7 +358,6 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     public async void SendHttpPing()
     {
         long latency = await SendHttpPingAsync();
-        Debug.Log($"HTTP Ping RTT: {latency} ms");
     }
 
      private async Task<long> SendHttpPingAsync()
@@ -383,13 +377,11 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
             if (request.result == UnityWebRequest.Result.Success)
             {
-                Debug.Log($"HTTP Ping success.");
                 EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdatePingLabel, stopwatch.ElapsedMilliseconds);
                 return stopwatch.ElapsedMilliseconds;
             }
             else
             {
-                Debug.LogError($"HTTP Ping failed: {request.error}");
                 return -1;
             }
         }
