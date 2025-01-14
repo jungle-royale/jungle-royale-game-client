@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -113,7 +114,7 @@ public class PlayerManager : MonoBehaviour
         currentPlayerGameObject.tag = "Player";
         currentPlayerGameObject.name = ClientManager.Instance.CurrentPlayerName;
 
-        PlayerUIDTO playerUIData = new PlayerUIDTO
+        PlayerUIDTO currentPlayerUIData = new PlayerUIDTO
         {
             playerObj = currentPlayerGameObject,
             userName = usersNameDictionary[data.id],
@@ -130,7 +131,7 @@ public class PlayerManager : MonoBehaviour
         ClientManager.Instance.SetMaxBulletGage(data.bulletGage);
 
         EventBus<InGameGUIEventType>.Publish<int>(InGameGUIEventType.SetBulletBarLabel, data.bulletGage);
-        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.SetUserNameLabel, playerUIData); // 닉네임   
+        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.SetUserNameLabel, currentPlayerUIData); // 닉네임   
     }
 
     private void CreateOtherPlayer(Player data)
@@ -148,7 +149,15 @@ public class PlayerManager : MonoBehaviour
         otherPlayerGameObjectDictionary[data.id] = newPlayer;
         otherPlayerMarkDictionary[data.id] = newPlayerMark;
 
-        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.SetUserNameLabel, newPlayer); // 닉네임
+        PlayerUIDTO otherPlayerUIData = new PlayerUIDTO
+        {
+            playerObj = newPlayer,
+            userName = usersNameDictionary[data.id],
+            maxHealth = data.health,
+            health = data.health
+        };
+
+        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.SetUserNameLabel, otherPlayerUIData); // 닉네임
     }
 
     private void ValidateCurrentPlayerAtUpdate(Player serverData)
@@ -166,11 +175,13 @@ public class PlayerManager : MonoBehaviour
         if (!serverData.isOutofView) // 범위 밖인 다른 플레이어들만 비활성화
         {
             player.SetActive(false);
+            otherPlayerMarkDictionary[serverData.id].SetActive(false);
             return;
         }
         else
         {
             player.SetActive(true);
+            otherPlayerMarkDictionary[serverData.id].SetActive(true);
 
             UpdateHealthBar(player, serverData);
             UpdatePlayerMoveState(player, serverData);
@@ -235,7 +246,11 @@ public class PlayerManager : MonoBehaviour
             if (!dashPlayerIdList.Contains(serverData.id))
             {
                 dashPlayerIdList.Add(serverData.id);
-                AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dash);
+
+                if (serverData.id == currentPlayerId)
+                    AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dash);
+                else
+                    AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dash, 0.5f);
             }
 
             if (movementDirection != Vector3.zero)
