@@ -35,6 +35,13 @@ public class WatchGameButton : MonoBehaviour
         Debug.Log("Watch Button");
         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "WatchMode");
         EventBus<InputButtonEventType>.Publish(InputButtonEventType.ActivateTabKey);
+        CameraManager cameraManager = GameObject.FindFirstObjectByType<CameraManager>();
+        if (cameraManager == null)
+        {
+            Debug.LogError("CameraManager 못 찾음");
+            return;
+        }
+        cameraManager.SwitchToNextPlayer();
     }
 
 }

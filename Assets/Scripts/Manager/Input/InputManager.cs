@@ -60,7 +60,8 @@ public class InputManager : MonoBehaviour
         }
         if (IsActivateTab)
         {
-            HandleTab();
+            HandleObserver();
+            return;
         }
         if (!EndGame)
         {
@@ -105,15 +106,6 @@ public class InputManager : MonoBehaviour
         {
             cameraManager.UpdateCameraMovement(x, y);
         }
-        if (input.GetTab())
-        {
-            cameraManager.StopUpdateCameraMovement();    
-            cameraManager.SwitchToNextPlayer(); // TODO: next button에도 추가
-        }
-    }
-
-    private void HandleTab()
-    {
         if (input.GetTab())
         {
             cameraManager.SwitchToNextPlayer(); // TODO: next button에도 추가

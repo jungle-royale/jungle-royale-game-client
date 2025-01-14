@@ -95,6 +95,12 @@ public class CameraManager : MonoBehaviour
     private void UpdateMainCamera(Player player)
     {
         if (mainCamera == null) return;
+
+        if (isMoving)
+        {
+            return;
+        }
+
         GameObject playerObject = playerManager.GetPlayerById(focusedClientId);
         if (playerObject == null)
         {
@@ -134,6 +140,8 @@ public class CameraManager : MonoBehaviour
     public void SwitchToNextPlayer()
     {
         if (currentPlayerList.Count == 0) return;
+
+        StopUpdateCameraMovement();
 
          // 현재 clientId의 플레이어 인덱스 찾기
         int currentIndex = currentPlayerList.FindIndex(p => p.id == focusedClientId);
@@ -211,6 +219,7 @@ public class CameraManager : MonoBehaviour
 
     public void UpdateCameraMovement(float x, float y)
     {
+        Debug.Log($"move camera {x}, {y}");
         isMoving = true;
         float speed = 0.1f;
         var diff = new Vector3(x, 0, y).normalized * speed;
