@@ -75,8 +75,8 @@ public class ChangingStateManager : MonoBehaviour
         }
 
         // TODO: 여기서 카메라 range check
-        Debug.Log($"PlayerPosition: {new Vector3(player.transform.position.x, 0, player.transform.position.z)}");
-        Debug.Log($"CameraPosition: {cameraManager.GetMinimapCameraPosition()}");
+        // Debug.Log($"PlayerPosition: {new Vector3(player.transform.position.x, 0, player.transform.position.z)}");
+        // Debug.Log($"CameraPosition: {cameraManager.GetMinimapCameraPosition()}");
         if (!cameraManager.IsInMinimapCameraView(new Vector3(player.transform.position.x, 0, player.transform.position.z)))
         {
             return;

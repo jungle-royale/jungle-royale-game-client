@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -245,7 +246,11 @@ public class PlayerManager : MonoBehaviour
             if (!dashPlayerIdList.Contains(serverData.id))
             {
                 dashPlayerIdList.Add(serverData.id);
-                AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dash);
+
+                if (serverData.id == currentPlayerId)
+                    AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dash);
+                else
+                    AudioManager.Instance.PlaySfx(AudioManager.Sfx.Dash, 0.5f);
             }
 
             if (movementDirection != Vector3.zero)

@@ -2,9 +2,30 @@ using UnityEngine;
 
 public class PlayerAnimationEvent : MonoBehaviour
 {
+    public CameraManager cameraManager;
+
+    void Awake()
+    {
+        cameraManager = FindObjectOfType<CameraManager>();
+        if (cameraManager == null)
+        {
+            Debug.LogError("CameraManager 없음");
+        }
+    }
+
     public void StartWalk()
     {
-        AudioManager.Instance.PlaySfx(AudioManager.Sfx.Walk);
+        GameObject player = this.gameObject;
+        if (cameraManager != null && !cameraManager.IsInMainCameraView(player.transform.position)) return;
+
+        if (player.name == ClientManager.Instance.CurrentPlayerName)
+        {
+            AudioManager.Instance.PlaySfx(AudioManager.Sfx.Walk);
+        }
+        else
+        {
+            AudioManager.Instance.PlaySfx(AudioManager.Sfx.Walk, 0.5f);
+        }
     }
 
     public void EndWalk()
@@ -34,7 +55,8 @@ public class PlayerAnimationEvent : MonoBehaviour
         {
             AudioManager.Instance.PlaySfx(AudioManager.Sfx.GameOver, 0.7f);
 
-            if (ClientManager.Instance.gameEnd) {
+            if (ClientManager.Instance.gameEnd)
+            {
                 return; // 애니메이션 실행 중에 게임이 종료되면 gui 표시 X, 시체 없애기 X
             }
 
