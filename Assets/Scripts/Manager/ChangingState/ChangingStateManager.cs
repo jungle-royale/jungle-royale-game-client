@@ -217,7 +217,6 @@ public class ChangingStateManager : MonoBehaviour
 
     private void HandleGetItemState(GetItemState state)
     {
-        // TODO: 여기서 카메라 range check
 
         if (playerManager == null)
         {
@@ -231,6 +230,9 @@ public class ChangingStateManager : MonoBehaviour
             Debug.LogWarning($"Player with ID {state.playerId} not found.");
             return;
         }
+
+        // TODO: 여기서 카메라 range check
+        if (!cameraManager.IsInMainCameraView(player.transform.position)) return;
 
         PlayGetItemEffectWithSfx(player, state.itemType);
     }
