@@ -165,6 +165,10 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                     HandleGameReconnect(wrapper.GameReconnect);
                     break;
 
+                case Wrapper.MessageTypeOneofCase.NewUser:
+                    HandleNewUser(wrapper.NewUser);
+                    break;
+
                 default:
                     Debug.Log($"Unknown message type received: {wrapper.MessageTypeCase}");
                     break;
@@ -185,6 +189,8 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     {
         ClientManager.Instance.SetClientId(init.Id);
         ClientManager.Instance.SetMinPlayerNumber(init.MinPlayerNum);
+        ClientManager.Instance.SetBulletMaxTick(init.BulletMaxTick);
+        ClientManager.Instance.SetBulletSpeed(init.BulletSpeed);
         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateMinPlayerLabel, init.MinPlayerNum);
         new LoadingScreenRemover().Remove();
     }
@@ -206,9 +212,23 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     private void HandleGameReconnect(GameReconnect gameReconnect)
     {
         ClientManager.Instance.SetClientId(gameReconnect.Id);
-        gameReconnect.MinPlayerNum = ClientManager.Instance.minPlayerNum;
-        gameReconnect.MinPlayerNum = ClientManager.Instance.totalPlayerNum;
+        ClientManager.Instance.SetMinPlayerNumber(gameReconnect.MinPlayerNum);
+        ClientManager.Instance.SetTotalPlayerNumber(gameReconnect.TotalPlayerNum);
+        ClientManager.Instance.SetBulletMaxTick(gameReconnect.BulletMaxTick);
+        ClientManager.Instance.SetBulletSpeed(gameReconnect.BulletSpeed);
+        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateMinPlayerLabel, gameReconnect.MinPlayerNum);
+        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateMinPlayerLabel, gameReconnect.TotalPlayerNum);
         new LoadingScreenRemover().Remove();
+    }
+
+    private void HandleNewUser(NewUser newUser)
+    {
+        foreach (var currentPlayer in newUser.CurrentPlayers)
+        {
+            int userId = currentPlayer.PlayerId;
+            string userName = currentPlayer.PlayerName;
+            playerManager.SetCurrentUsersDictionary(userId, userName);
+        }
     }
 
     private void HandleGameState(GameState gameState)
@@ -257,7 +277,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
             foreach (var bulletState in gameState.BulletState)
             {
-                if (!cameraManager.IsInCameraView(new Vector3(bulletState.X, 0, bulletState.Y)))
+                if (!cameraManager.IsInMinimapCameraView(new Vector3(bulletState.X, 0, bulletState.Y)))
                     continue;
                 bulletStateList.Add(new Bullet(bulletState.BulletId, bulletState.BulletType, bulletState.X, bulletState.Y));
             }
@@ -321,7 +341,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                     player.Angle, player.DashCoolTime,
                     player.IsMoved, player.IsDashing,
                     player.IsShooting, player.BulletGage,
-                    cameraManager.IsInCameraView(new Vector3(player.X, 0, player.Y))
+                    cameraManager.IsInMinimapCameraView(new Vector3(player.X, 0, player.Y))
                 );
                 playerStateList.Add(newPlayer);
             }
@@ -341,7 +361,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         if (!IsOpen())
         {
             Debug.LogWarning("WebSocket is not open. Cannot send data.");
-            EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "ErrorCanvas");
+            // EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "ErrorCanvas");
             return;
         }
 
@@ -360,7 +380,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         long latency = await SendHttpPingAsync();
     }
 
-     private async Task<long> SendHttpPingAsync()
+    private async Task<long> SendHttpPingAsync()
     {
         Stopwatch stopwatch = Stopwatch.StartNew();
 

@@ -7,7 +7,7 @@ public class TileAnimationEvent : MonoBehaviour
         // 죽음 처리
         GameObject tileObject = this.gameObject;
 
-        Debug.Log($"🪵 {tileObject.name}");
+        // Debug.Log($"🪵 {tileObject.name}");
 
         Destroy(tileObject);
     }

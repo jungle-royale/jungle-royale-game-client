@@ -18,7 +18,6 @@ public class CameraManager : MonoBehaviour
 
     private List<Player> currentPlayerList = new List<Player>(); // 현재 players 리스트 저장
 
-
     // 흔들림 효과 관련 변수
     private bool isShaking = false;
     private float shakeDuration = 0f;
@@ -85,7 +84,7 @@ public class CameraManager : MonoBehaviour
         if (player == null)
         {
             // player가 죽어서 current에 없는 경우, 업데이트를 멈추고 현재 위치로 카메라를 고정시킨다.
-            return; 
+            return;
         }
 
         UpdateMainCamera(player);
@@ -118,7 +117,7 @@ public class CameraManager : MonoBehaviour
                 UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude,
                 UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude
             );
-            Debug.Log($"{shakeOffset.x},{shakeOffset.y},{shakeOffset.z}");
+            // Debug.Log($"{shakeOffset.x},{shakeOffset.y},{shakeOffset.z}");
             mainCamera.transform.position = targetPosition + shakeOffset;
         }
         else
@@ -142,12 +141,11 @@ public class CameraManager : MonoBehaviour
         if (currentPlayerList.Count == 0) return;
 
         StopUpdateCameraMovement();
-
-         // 현재 clientId의 플레이어 인덱스 찾기
         int currentIndex = currentPlayerList.FindIndex(p => p.id == focusedClientId);
 
         // focus에 해당하는 유저가 없으면 current 중에 찾아서 세팅한다.
-        if (currentIndex == -1) {
+        if (currentIndex == -1)
+        {
             if (currentPlayerList.Count > 0)
             {
                 focusedClientId = currentPlayerList[0].id; // focus player id를 설정해준다.
@@ -206,7 +204,7 @@ public class CameraManager : MonoBehaviour
     {
         if (mainCamera == null) return;
         if (isShaking == false) return;
-        Debug.Log("지진 false");
+        // Debug.Log("지진 false");
         isShaking = false;
     }
 
@@ -228,10 +226,22 @@ public class CameraManager : MonoBehaviour
         miniMapCamera.transform.position = targetPosition;
     }
 
-    public bool IsInCameraView(Vector3 worldPosition)
+    public bool IsInMinimapCameraView(Vector3 worldPosition)
     {
         // 미니맵 카메라 참조
         Vector3 viewportPoint = miniMapCamera.WorldToViewportPoint(worldPosition);
+
+        // 뷰포트의 x와 y가 0~1 사이인지 확인
+        bool isInView = viewportPoint.x >= 0 && viewportPoint.x <= 1 &&
+                        viewportPoint.y >= 0 && viewportPoint.y <= 1;
+
+        return isInView;
+    }
+
+    public bool IsInMainCameraView(Vector3 worldPosition)
+    {
+        // 미니맵 카메라 참조
+        Vector3 viewportPoint = mainCamera.WorldToViewportPoint(worldPosition);
 
         // 뷰포트의 x와 y가 0~1 사이인지 확인
         bool isInView = viewportPoint.x >= 0 && viewportPoint.x <= 1 &&

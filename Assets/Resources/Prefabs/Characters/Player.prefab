@@ -801,6 +801,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3843087526362166028, guid: df2d79d5dd3334ce99d11e8174878245,
+        type: 3}
+      propertyPath: m_Name
+      value: UserNameLabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3843087526362166028, guid: df2d79d5dd3334ce99d11e8174878245,
+        type: 3}
+      propertyPath: m_TagString
+      value: NicknameLabel
+      objectReference: {fileID: 0}
     - target: {fileID: 7623479863435578230, guid: df2d79d5dd3334ce99d11e8174878245,
         type: 3}
       propertyPath: m_Pivot.x

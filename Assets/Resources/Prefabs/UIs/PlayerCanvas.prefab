@@ -161,7 +161,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &4512769387293165462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,8 +279,8 @@ GameObject:
   - component: {fileID: 2400517513030732672}
   - component: {fileID: 4356477778440305686}
   m_Layer: 0
-  m_Name: HpText (1)
-  m_TagString: HpLabel
+  m_Name: UserNameLabel
+  m_TagString: UserNameLabel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647

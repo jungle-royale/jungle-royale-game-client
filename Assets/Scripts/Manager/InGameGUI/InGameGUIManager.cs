@@ -44,6 +44,9 @@ public class InGameGUIManager : MonoBehaviour
     public List<TextMeshProUGUI> killCountLabel;
     public List<TextMeshProUGUI> pointLabel;
 
+    // PlayerCanvas
+    public TextMeshProUGUI userNameLabel;
+
     void Start()
     {
         // 캔버스 생성 및 초기화
@@ -129,7 +132,9 @@ public class InGameGUIManager : MonoBehaviour
         GameObject[] bulletBarObjects = GameObject.FindGameObjectsWithTag(tag);
         if (bulletBarObjects == null || bulletBarObjects.Length == 0)
         {
+#if UNITY_EDITOR
             Debug.Log($"'{tag}' 태그를 가진 객체를 찾을 수 없습니다.");
+#endif
             return new List<BulletBar>(); // 빈 리스트 반환
         }
 
@@ -156,7 +161,9 @@ public class InGameGUIManager : MonoBehaviour
         GameObject[] labelObjects = GameObject.FindGameObjectsWithTag(tag);
         if (labelObjects == null || labelObjects.Length == 0)
         {
+#if UNITY_EDITOR
             Debug.Log($"'{tag}' 태그를 가진 객체를 찾을 수 없습니다.");
+#endif
             return new List<TextMeshProUGUI>(); // 빈 리스트 반환
         }
 
@@ -190,6 +197,7 @@ public class InGameGUIManager : MonoBehaviour
         EventBus<InGameGUIEventType>.Subscribe<StateUIDTO>(InGameGUIEventType.UpdateStateLabel, UpdateStateUI);
         EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.SetBulletBarLabel, SetBulletBarUI);
         EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.UpdateBulletBarLabel, UpdateBulletBarUI);
+        EventBus<InGameGUIEventType>.Subscribe<PlayerUIDTO>(InGameGUIEventType.SetUserNameLabel, UpdateUserNameLabel);
     }
 
     private void OnDestroy()
@@ -204,6 +212,7 @@ public class InGameGUIManager : MonoBehaviour
         EventBus<InGameGUIEventType>.Unsubscribe<StateUIDTO>(InGameGUIEventType.UpdateStateLabel, UpdateStateUI);
         EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.SetBulletBarLabel, SetBulletBarUI);
         EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.UpdateBulletBarLabel, UpdateBulletBarUI);
+        EventBus<InGameGUIEventType>.Unsubscribe<PlayerUIDTO>(InGameGUIEventType.SetUserNameLabel, UpdateUserNameLabel);
     }
 
     private void OnActivateCanvas(string gameState)
@@ -441,5 +450,34 @@ public class InGameGUIManager : MonoBehaviour
         //         // label.text = stateData.point.ToString("D3");
         //     }
         // }
+    }
+
+    private void UpdateUserNameLabel(PlayerUIDTO playerUIdata)
+    {
+        // PlayerCanvas 찾기
+        Transform playerCanvasTransform = playerUIdata.playerObj.transform.Find("PlayerCanvas");
+        if (playerCanvasTransform == null)
+        {
+            Debug.LogError("PlayerCanvas를 찾을 수 없습니다.");
+            return;
+        }
+
+        // UserNameLabel 찾기
+        Transform userNameLabelTransform = playerCanvasTransform.Find("UserNameLabel");
+        if (userNameLabelTransform == null)
+        {
+            Debug.LogError("UserNameLabel을 찾을 수 없습니다.");
+            return;
+        }
+
+        // TextMeshProUGUI 컴포넌트 가져오기
+        TextMeshProUGUI userNameLabel = userNameLabelTransform.GetComponent<TextMeshProUGUI>();
+        if (userNameLabel == null)
+        {
+            Debug.LogError("UserNameLabel에 TextMeshProUGUI 컴포넌트가 없습니다.");
+            return;
+        }
+
+        userNameLabel.text = playerUIdata.userName;
     }
 }

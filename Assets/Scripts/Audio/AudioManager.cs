@@ -7,6 +7,7 @@ public class AudioManager : Singleton<AudioManager>
 {
     // const float DEFAULT_BGM_VOL = 0.3f;
     // const float DEFAULT_SFX_VOL = 1.0f;
+    public CameraManager cameraManager;
 
     private DateTime walkingStartTime;
     private bool hasPlayed = false;
@@ -57,6 +58,7 @@ public class AudioManager : Singleton<AudioManager>
 
     void Start()
     {
+        cameraManager = GameObject.FindAnyObjectByType<CameraManager>();
         // 기본값 설정
         if (channels <= 0)
         {

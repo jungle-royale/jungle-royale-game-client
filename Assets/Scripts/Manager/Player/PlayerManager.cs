@@ -20,6 +20,8 @@ public class PlayerManager : MonoBehaviour
     private Dictionary<int, GameObject> otherPlayerGameObjectDictionary = new Dictionary<int, GameObject>();
     private Dictionary<int, GameObject> otherPlayerMarkDictionary = new Dictionary<int, GameObject>();
 
+    public Dictionary<int, string> usersNameDictionary = new Dictionary<int, string>();
+
     private HashSet<int> movePlayerIdList = new HashSet<int>();
     private HashSet<int> dashPlayerIdList = new HashSet<int>();
     private HashSet<int> shootingPlayerIdList = new HashSet<int>();
@@ -57,6 +59,11 @@ public class PlayerManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    public void SetCurrentUsersDictionary(int userId, string userName)
+    {
+        this.usersNameDictionary[userId] = userName;
     }
 
     void Update()
@@ -106,6 +113,14 @@ public class PlayerManager : MonoBehaviour
         currentPlayerGameObject.tag = "Player";
         currentPlayerGameObject.name = ClientManager.Instance.CurrentPlayerName;
 
+        PlayerUIDTO playerUIData = new PlayerUIDTO
+        {
+            playerObj = currentPlayerGameObject,
+            userName = usersNameDictionary[data.id],
+            maxHealth = data.health,
+            health = data.health
+        };
+
         // 플레이어의 HealthBar 초기화
         HealthBar healthBarComponent = currentPlayerGameObject.GetComponentInChildren<HealthBar>();
         if (healthBarComponent != null)
@@ -113,7 +128,9 @@ public class PlayerManager : MonoBehaviour
             healthBarComponent.SetMaxHealth(data.health);
         }
         ClientManager.Instance.SetMaxBulletGage(data.bulletGage);
+
         EventBus<InGameGUIEventType>.Publish<int>(InGameGUIEventType.SetBulletBarLabel, data.bulletGage);
+        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.SetUserNameLabel, playerUIData); // 닉네임   
     }
 
     private void CreateOtherPlayer(Player data)
@@ -130,6 +147,8 @@ public class PlayerManager : MonoBehaviour
 
         otherPlayerGameObjectDictionary[data.id] = newPlayer;
         otherPlayerMarkDictionary[data.id] = newPlayerMark;
+
+        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.SetUserNameLabel, newPlayer); // 닉네임
     }
 
     private void ValidateCurrentPlayerAtUpdate(Player serverData)

@@ -1,4 +1,6 @@
 using System;
+using UnityEditor.SceneManagement;
+using UnityEngine;
 
 public struct StateUIDTO
 {
@@ -6,4 +8,12 @@ public struct StateUIDTO
     public int totalPlayer;
     public int killCount;
     // public int point;
+}
+
+public struct PlayerUIDTO
+{
+    public GameObject playerObj;
+    public string userName;
+    public int maxHealth;
+    public int health;
 }
