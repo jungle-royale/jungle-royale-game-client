@@ -239,7 +239,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             List<GetItemState> GetItemStateList = new List<GetItemState>();
             List<PlayerDeadState> PlayerDeadStateList = new List<PlayerDeadState>();
 
-            if (gameState.ChangingState.HitBulletState != null && gameState.ChangingState.HitBulletState.Count > 0)
+            if (gameState.ChangingState.HitBulletState != null)
             {
                 foreach (var HitBulletState in gameState.ChangingState.HitBulletState)
                 {
@@ -247,7 +247,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                 }
             }
 
-            if (gameState.ChangingState.GetItemState != null && gameState.ChangingState.GetItemState.Count > 0)
+            if (gameState.ChangingState.GetItemState != null)
             {
 
                 foreach (var GetItemState in gameState.ChangingState.GetItemState)
@@ -256,7 +256,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                 }
             }
 
-            if (gameState.ChangingState.PlayerDeadState != null && gameState.ChangingState.PlayerDeadState.Count > 0)
+            if (gameState.ChangingState.PlayerDeadState != null)
             {
 
                 foreach (var PlayerDeadState in gameState.ChangingState.PlayerDeadState)
@@ -271,7 +271,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             gameStateManager.HandleGameEndState(PlayerDeadStateList);
         }
 
-        if (gameState.BulletState != null && gameState.BulletState.Count > 0)
+        if (gameState.BulletState != null)
         {
             List<Bullet> bulletStateList = new List<Bullet>();
 
@@ -279,6 +279,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             {
                 if (!cameraManager.IsInMinimapCameraView(new Vector3(bulletState.X, 0, bulletState.Y)))
                     continue;
+                Debug.Log($"BulletState: ({bulletState.X}, {bulletState.Y})");
                 bulletStateList.Add(new Bullet(bulletState.BulletId, bulletState.BulletType, bulletState.X, bulletState.Y));
             }
 
@@ -297,7 +298,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             healPackManager.UpdateHealPackList(healpackStateList);
         }
 
-        if (gameState.MagicItemState != null && gameState.MagicItemState.Count > 0)
+        if (gameState.MagicItemState != null)
         {
             List<Magic> magicitemStateList = new List<Magic>();
 
@@ -309,7 +310,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             magicManager.UpdateMagicList(magicitemStateList);
         }
 
-        if (gameState.TileState != null && gameState.TileState.Count > 0)
+        if (gameState.TileState != null)
         {
             List<Tile> tileStateList = new List<Tile>();
 
