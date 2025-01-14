@@ -2549,7 +2549,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4443362655621591008, guid: eb7669a1dd79d45e89d9c7a002838aaf, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb7669a1dd79d45e89d9c7a002838aaf, type: 3}
@@ -3167,7 +3168,8 @@ PrefabInstance:
       value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3820739437686493078, guid: 1692be7476b9648f68d47e1127f058ab, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1692be7476b9648f68d47e1127f058ab, type: 3}
@@ -3246,7 +3248,8 @@ PrefabInstance:
       value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6038504553899266381, guid: 22ad69f5064944c7b93b67a24f7e6b14, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22ad69f5064944c7b93b67a24f7e6b14, type: 3}
@@ -3325,7 +3328,8 @@ PrefabInstance:
       value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1164401454764755363, guid: 723b46920f490453d89540e4a32662ee, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 723b46920f490453d89540e4a32662ee, type: 3}
@@ -3404,7 +3408,8 @@ PrefabInstance:
       value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5884355931663043383, guid: ad531e069044f4ba7a9459fa62588349, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad531e069044f4ba7a9459fa62588349, type: 3}
