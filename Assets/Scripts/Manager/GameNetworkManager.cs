@@ -227,7 +227,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         {
             int userId = currentPlayer.PlayerId;
             string userName = currentPlayer.PlayerName;
-            ClientManager.Instance.SetCurrentUsersDictionary(userId, userName);
+            playerManager.SetCurrentUsersDictionary(userId, userName);
         }
     }
 

@@ -197,7 +197,7 @@ public class InGameGUIManager : MonoBehaviour
         EventBus<InGameGUIEventType>.Subscribe<StateUIDTO>(InGameGUIEventType.UpdateStateLabel, UpdateStateUI);
         EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.SetBulletBarLabel, SetBulletBarUI);
         EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.UpdateBulletBarLabel, UpdateBulletBarUI);
-        EventBus<InGameGUIEventType>.Subscribe<GameObject>(InGameGUIEventType.SetUserNameLabel, UpdateUserNameLabel);
+        EventBus<InGameGUIEventType>.Subscribe<PlayerUIDTO>(InGameGUIEventType.SetUserNameLabel, UpdateUserNameLabel);
     }
 
     private void OnDestroy()
@@ -212,7 +212,7 @@ public class InGameGUIManager : MonoBehaviour
         EventBus<InGameGUIEventType>.Unsubscribe<StateUIDTO>(InGameGUIEventType.UpdateStateLabel, UpdateStateUI);
         EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.SetBulletBarLabel, SetBulletBarUI);
         EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.UpdateBulletBarLabel, UpdateBulletBarUI);
-        EventBus<InGameGUIEventType>.Unsubscribe<GameObject>(InGameGUIEventType.SetUserNameLabel, UpdateUserNameLabel);
+        EventBus<InGameGUIEventType>.Unsubscribe<PlayerUIDTO>(InGameGUIEventType.SetUserNameLabel, UpdateUserNameLabel);
     }
 
     private void OnActivateCanvas(string gameState)
@@ -452,9 +452,32 @@ public class InGameGUIManager : MonoBehaviour
         // }
     }
 
-    private void UpdateUserNameLabel(GameObject PlayerCanvas)
+    private void UpdateUserNameLabel(PlayerUIDTO playerUIdata)
     {
-        // newPlayer 객체의 PlayerCanvas의 NickNameLabel을 업데이트   
-        // .GetComponent<TextMeshProUGUI>();
+        // PlayerCanvas 찾기
+        Transform playerCanvasTransform = playerUIdata.playerObj.transform.Find("PlayerCanvas");
+        if (playerCanvasTransform == null)
+        {
+            Debug.LogError("PlayerCanvas를 찾을 수 없습니다.");
+            return;
+        }
+
+        // UserNameLabel 찾기
+        Transform userNameLabelTransform = playerCanvasTransform.Find("UserNameLabel");
+        if (userNameLabelTransform == null)
+        {
+            Debug.LogError("UserNameLabel을 찾을 수 없습니다.");
+            return;
+        }
+
+        // TextMeshProUGUI 컴포넌트 가져오기
+        TextMeshProUGUI userNameLabel = userNameLabelTransform.GetComponent<TextMeshProUGUI>();
+        if (userNameLabel == null)
+        {
+            Debug.LogError("UserNameLabel에 TextMeshProUGUI 컴포넌트가 없습니다.");
+            return;
+        }
+
+        userNameLabel.text = playerUIdata.userName;
     }
 }

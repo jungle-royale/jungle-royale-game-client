@@ -59,7 +59,7 @@ public class BulletManager : MonoBehaviour
             }
             ActivateBulletEffect(bulletObject, bullet.BulletType);
 
-            // bulletObject.transform.position = new Vector3(bullet.X, BULLET_Y, bullet.Y);
+            bulletObject.transform.position = new Vector3(bullet.X, BULLET_Y, bullet.Y);
 
         }
         RemoveInactiveBullets(activeBulletIds);
