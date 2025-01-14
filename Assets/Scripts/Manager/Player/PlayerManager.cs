@@ -277,6 +277,9 @@ public class PlayerManager : MonoBehaviour
             if (!movePlayerIdList.Contains(serverData.id))
             {
                 movePlayerIdList.Add(serverData.id);
+                var newPosition = player.transform.position;
+                newPosition.y = PLAYER_Y;
+                player.transform.position = newPosition;
                 animator.SetBool("isMoving", true);
             }
         }
@@ -285,6 +288,9 @@ public class PlayerManager : MonoBehaviour
             if (movePlayerIdList.Contains(serverData.id))
             {
                 movePlayerIdList.Remove(serverData.id);
+                var newPosition = player.transform.position;
+                newPosition.y = PLAYER_Y;
+                player.transform.position = newPosition;
                 animator.SetBool("isMoving", false);
             }
         }

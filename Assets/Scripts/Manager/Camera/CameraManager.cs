@@ -94,6 +94,12 @@ public class CameraManager : MonoBehaviour
     private void UpdateMainCamera(Player player)
     {
         if (mainCamera == null) return;
+
+        if (isMoving)
+        {
+            return;
+        }
+
         GameObject playerObject = playerManager.GetPlayerById(focusedClientId);
         if (playerObject == null)
         {
@@ -134,7 +140,7 @@ public class CameraManager : MonoBehaviour
     {
         if (currentPlayerList.Count == 0) return;
 
-        // 현재 clientId의 플레이어 인덱스 찾기
+        StopUpdateCameraMovement();
         int currentIndex = currentPlayerList.FindIndex(p => p.id == focusedClientId);
 
         // focus에 해당하는 유저가 없으면 current 중에 찾아서 세팅한다.
@@ -211,6 +217,7 @@ public class CameraManager : MonoBehaviour
 
     public void UpdateCameraMovement(float x, float y)
     {
+        Debug.Log($"move camera {x}, {y}");
         isMoving = true;
         float speed = 0.1f;
         var diff = new Vector3(x, 0, y).normalized * speed;
