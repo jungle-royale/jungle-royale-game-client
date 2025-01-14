@@ -130,5 +130,4 @@ public class BulletManager : MonoBehaviour
             return null;
         }
     }
-
 }
