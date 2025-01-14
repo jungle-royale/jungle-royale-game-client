@@ -3,6 +3,8 @@ public enum InGameGUIEventType
     // Canvas 활성화
     ActivateCanvas,
 
+    // PlayerCanavs
+    SetUserNameLabel,
 
     // MainCanvas
     UpdateTimerLabel,

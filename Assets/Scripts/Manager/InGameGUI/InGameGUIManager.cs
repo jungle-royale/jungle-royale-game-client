@@ -44,6 +44,9 @@ public class InGameGUIManager : MonoBehaviour
     public List<TextMeshProUGUI> killCountLabel;
     public List<TextMeshProUGUI> pointLabel;
 
+    // PlayerCanvas
+    public TextMeshProUGUI userNameLabel;
+
     void Start()
     {
         // 캔버스 생성 및 초기화
@@ -129,7 +132,9 @@ public class InGameGUIManager : MonoBehaviour
         GameObject[] bulletBarObjects = GameObject.FindGameObjectsWithTag(tag);
         if (bulletBarObjects == null || bulletBarObjects.Length == 0)
         {
+#if UNITY_EDITOR
             Debug.Log($"'{tag}' 태그를 가진 객체를 찾을 수 없습니다.");
+#endif
             return new List<BulletBar>(); // 빈 리스트 반환
         }
 
@@ -156,7 +161,9 @@ public class InGameGUIManager : MonoBehaviour
         GameObject[] labelObjects = GameObject.FindGameObjectsWithTag(tag);
         if (labelObjects == null || labelObjects.Length == 0)
         {
+#if UNITY_EDITOR
             Debug.Log($"'{tag}' 태그를 가진 객체를 찾을 수 없습니다.");
+#endif
             return new List<TextMeshProUGUI>(); // 빈 리스트 반환
         }
 
@@ -190,6 +197,7 @@ public class InGameGUIManager : MonoBehaviour
         EventBus<InGameGUIEventType>.Subscribe<StateUIDTO>(InGameGUIEventType.UpdateStateLabel, UpdateStateUI);
         EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.SetBulletBarLabel, SetBulletBarUI);
         EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.UpdateBulletBarLabel, UpdateBulletBarUI);
+        EventBus<InGameGUIEventType>.Subscribe<GameObject>(InGameGUIEventType.SetUserNameLabel, UpdateUserNameLabel);
     }
 
     private void OnDestroy()
@@ -204,6 +212,7 @@ public class InGameGUIManager : MonoBehaviour
         EventBus<InGameGUIEventType>.Unsubscribe<StateUIDTO>(InGameGUIEventType.UpdateStateLabel, UpdateStateUI);
         EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.SetBulletBarLabel, SetBulletBarUI);
         EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.UpdateBulletBarLabel, UpdateBulletBarUI);
+        EventBus<InGameGUIEventType>.Unsubscribe<GameObject>(InGameGUIEventType.SetUserNameLabel, UpdateUserNameLabel);
     }
 
     private void OnActivateCanvas(string gameState)
@@ -441,5 +450,11 @@ public class InGameGUIManager : MonoBehaviour
         //         // label.text = stateData.point.ToString("D3");
         //     }
         // }
+    }
+
+    private void UpdateUserNameLabel(GameObject PlayerCanvas)
+    {
+        // newPlayer 객체의 PlayerCanvas의 NickNameLabel을 업데이트   
+        // .GetComponent<TextMeshProUGUI>();
     }
 }

@@ -34,58 +34,60 @@ namespace Message {
             "ZXNzYWdlLkdhbWVDb3VudEgAEiUKCGdhbWVJbml0GAggASgLMhEubWVzc2Fn",
             "ZS5HYW1lSW5pdEgAEicKCWdhbWVTdGFydBgJIAEoCzISLm1lc3NhZ2UuR2Ft",
             "ZVN0YXJ0SAASLwoNZ2FtZVJlY29ubmVjdBgKIAEoCzIWLm1lc3NhZ2UuR2Ft",
-            "ZVJlY29ubmVjdEgAQg0KC01lc3NhZ2VUeXBlIiwKCEdhbWVJbml0EgoKAmlk",
-            "GAEgASgFEhQKDG1pblBsYXllck51bRgCIAEoBSIrCglDaGFuZ2VEaXISDQoF",
-            "YW5nbGUYASABKAISDwoHaXNNb3ZlZBgCIAEoCCIcCgtDaGFuZ2VBbmdsZRIN",
-            "CgVhbmdsZRgBIAEoAiJJCg1HYW1lUmVjb25uZWN0EgoKAmlkGAEgASgFEhQK",
-            "DG1pblBsYXllck51bRgCIAEoBRIWCg50b3RhbFBsYXllck51bRgDIAEoBSI6",
-            "CgdOZXdVc2VyEi8KDmN1cnJlbnRQbGF5ZXJzGAEgAygLMhcubWVzc2FnZS5D",
-            "dXJyZW50UGxheWVycyI2Cg5DdXJyZW50UGxheWVycxIQCghwbGF5ZXJJZBgB",
-            "IAEoBRISCgpwbGF5ZXJOYW1lGAIgASgJIqgCCglHYW1lU3RhdGUSKQoLcGxh",
-            "eWVyU3RhdGUYASADKAsyFC5tZXNzYWdlLlBsYXllclN0YXRlEikKC2J1bGxl",
-            "dFN0YXRlGAIgAygLMhQubWVzc2FnZS5CdWxsZXRTdGF0ZRItCg1oZWFsUGFj",
-            "a1N0YXRlGAMgAygLMhYubWVzc2FnZS5IZWFsUGFja1N0YXRlEi8KDm1hZ2lj",
-            "SXRlbVN0YXRlGAQgAygLMhcubWVzc2FnZS5NYWdpY0l0ZW1TdGF0ZRIlCgl0",
-            "aWxlU3RhdGUYBSADKAsyEi5tZXNzYWdlLlRpbGVTdGF0ZRIPCgdsYXN0U2Vj",
-            "GAYgASgFEi0KDWNoYW5naW5nU3RhdGUYByABKAsyFi5tZXNzYWdlLkNoYW5n",
-            "aW5nU3RhdGUi6wEKC1BsYXllclN0YXRlEgoKAmlkGAEgASgFEgkKAXgYAiAB",
-            "KAISCQoBeRgDIAEoAhIOCgZoZWFsdGgYBCABKAUSEQoJbWFnaWNUeXBlGAUg",
-            "ASgFEg0KBWFuZ2xlGAYgASgCEhQKDGRhc2hDb29sVGltZRgHIAEoBRIPCgdp",
-            "c01vdmVkGAggASgIEhEKCWlzRGFzaGluZxgJIAEoCBIOCgZpc0J1cm4YCiAB",
-            "KAgSEgoKaXNTaG9vdGluZxgLIAEoCBIKCgJkeBgMIAEoAhIKCgJkeRgNIAEo",
-            "AhISCgpidWxsZXRHYWdlGA4gASgFIicKEUNoYW5nZUJ1bGxldFN0YXRlEhIK",
-            "CmlzU2hvb3RpbmcYASABKAgiSQoLQnVsbGV0U3RhdGUSEAoIYnVsbGV0SWQY",
-            "ASABKAUSEgoKYnVsbGV0VHlwZRgCIAEoBRIJCgF4GAMgASgCEgkKAXkYBCAB",
-            "KAIiGgoJR2FtZUNvdW50Eg0KBWNvdW50GAEgASgFIhYKBkRvRGFzaBIMCgRk",
-            "YXNoGAEgASgIIjYKCUdhbWVTdGFydBIRCgltYXBMZW5ndGgYASABKAUSFgoO",
-            "dG90YWxQbGF5ZXJOdW0YAiABKAUiNQoNSGVhbFBhY2tTdGF0ZRIOCgZpdGVt",
-            "SWQYASABKAUSCQoBeBgCIAEoAhIJCgF5GAMgASgCIkkKDk1hZ2ljSXRlbVN0",
-            "YXRlEg4KBml0ZW1JZBgBIAEoBRIRCgltYWdpY1R5cGUYAiABKAUSCQoBeBgD",
-            "IAEoAhIJCgF5GAQgASgCIlYKCVRpbGVTdGF0ZRIOCgZ0aWxlSWQYASABKAUS",
-            "CQoBeBgCIAEoAhIJCgF5GAMgASgCEhAKCHRpbGVUeXBlGAQgASgFEhEKCXRp",
-            "bGVTdGF0ZRgFIAEoBSKgAQoNQ2hhbmdpbmdTdGF0ZRIvCg5oaXRCdWxsZXRT",
-            "dGF0ZRgBIAMoCzIXLm1lc3NhZ2UuSGl0QnVsbGV0U3RhdGUSKwoMZ2V0SXRl",
-            "bVN0YXRlGAIgAygLMhUubWVzc2FnZS5HZXRJdGVtU3RhdGUSMQoPcGxheWVy",
-            "RGVhZFN0YXRlGAMgAygLMhgubWVzc2FnZS5QbGF5ZXJEZWFkU3RhdGUicgoO",
-            "SGl0QnVsbGV0U3RhdGUSEgoKb2JqZWN0VHlwZRgBIAEoBRIQCghidWxsZXRJ",
-            "ZBgCIAEoBRIQCghvYmplY3RJZBgDIAEoBRIJCgF4GAQgASgCEgkKAXkYBSAB",
-            "KAISEgoKYnVsbGV0VHlwZRgGIAEoBSJYCgxHZXRJdGVtU3RhdGUSDgoGaXRl",
-            "bUlkGAEgASgFEhAKCHBsYXllcklkGAIgASgFEhAKCGl0ZW1UeXBlGAMgASgF",
-            "EgkKAXgYBCABKAISCQoBeRgFIAEoAiJsCg9QbGF5ZXJEZWFkU3RhdGUSEAoI",
-            "a2lsbGVySWQYASABKAUSDgoGZGVhZElkGAIgASgFEhMKC2R5aW5nU3RhdHVz",
-            "GAMgASgFEg8KB2tpbGxOdW0YBCABKAUSEQoJUGxhY2VtZW50GAUgASgFQgpa",
-            "CC9tZXNzYWdlYgZwcm90bzM="));
+            "ZVJlY29ubmVjdEgAQg0KC01lc3NhZ2VUeXBlIlgKCEdhbWVJbml0EgoKAmlk",
+            "GAEgASgFEhQKDG1pblBsYXllck51bRgCIAEoBRIVCg1idWxsZXRNYXhUaWNr",
+            "GAMgASgFEhMKC2J1bGxldFNwZWVkGAQgASgCIisKCUNoYW5nZURpchINCgVh",
+            "bmdsZRgBIAEoAhIPCgdpc01vdmVkGAIgASgIIhwKC0NoYW5nZUFuZ2xlEg0K",
+            "BWFuZ2xlGAEgASgCInUKDUdhbWVSZWNvbm5lY3QSCgoCaWQYASABKAUSFAoM",
+            "bWluUGxheWVyTnVtGAIgASgFEhYKDnRvdGFsUGxheWVyTnVtGAMgASgFEhUK",
+            "DWJ1bGxldE1heFRpY2sYBCABKAUSEwoLYnVsbGV0U3BlZWQYBSABKAIiOgoH",
+            "TmV3VXNlchIvCg5jdXJyZW50UGxheWVycxgBIAMoCzIXLm1lc3NhZ2UuQ3Vy",
+            "cmVudFBsYXllcnMiNgoOQ3VycmVudFBsYXllcnMSEAoIcGxheWVySWQYASAB",
+            "KAUSEgoKcGxheWVyTmFtZRgCIAEoCSK9AgoJR2FtZVN0YXRlEikKC3BsYXll",
+            "clN0YXRlGAEgAygLMhQubWVzc2FnZS5QbGF5ZXJTdGF0ZRIpCgtidWxsZXRT",
+            "dGF0ZRgCIAMoCzIULm1lc3NhZ2UuQnVsbGV0U3RhdGUSLQoNaGVhbFBhY2tT",
+            "dGF0ZRgDIAMoCzIWLm1lc3NhZ2UuSGVhbFBhY2tTdGF0ZRIvCg5tYWdpY0l0",
+            "ZW1TdGF0ZRgEIAMoCzIXLm1lc3NhZ2UuTWFnaWNJdGVtU3RhdGUSJQoJdGls",
+            "ZVN0YXRlGAUgAygLMhIubWVzc2FnZS5UaWxlU3RhdGUSDwoHbGFzdFNlYxgG",
+            "IAEoBRItCg1jaGFuZ2luZ1N0YXRlGAcgASgLMhYubWVzc2FnZS5DaGFuZ2lu",
+            "Z1N0YXRlEhMKC3NlbmRpbmdUaW1lGAggASgDIusBCgtQbGF5ZXJTdGF0ZRIK",
+            "CgJpZBgBIAEoBRIJCgF4GAIgASgCEgkKAXkYAyABKAISDgoGaGVhbHRoGAQg",
+            "ASgFEhEKCW1hZ2ljVHlwZRgFIAEoBRINCgVhbmdsZRgGIAEoAhIUCgxkYXNo",
+            "Q29vbFRpbWUYByABKAUSDwoHaXNNb3ZlZBgIIAEoCBIRCglpc0Rhc2hpbmcY",
+            "CSABKAgSDgoGaXNCdXJuGAogASgIEhIKCmlzU2hvb3RpbmcYCyABKAgSCgoC",
+            "ZHgYDCABKAISCgoCZHkYDSABKAISEgoKYnVsbGV0R2FnZRgOIAEoBSInChFD",
+            "aGFuZ2VCdWxsZXRTdGF0ZRISCgppc1Nob290aW5nGAEgASgIIkkKC0J1bGxl",
+            "dFN0YXRlEhAKCGJ1bGxldElkGAEgASgFEhIKCmJ1bGxldFR5cGUYAiABKAUS",
+            "CQoBeBgDIAEoAhIJCgF5GAQgASgCIhoKCUdhbWVDb3VudBINCgVjb3VudBgB",
+            "IAEoBSIWCgZEb0Rhc2gSDAoEZGFzaBgBIAEoCCI2CglHYW1lU3RhcnQSEQoJ",
+            "bWFwTGVuZ3RoGAEgASgFEhYKDnRvdGFsUGxheWVyTnVtGAIgASgFIjUKDUhl",
+            "YWxQYWNrU3RhdGUSDgoGaXRlbUlkGAEgASgFEgkKAXgYAiABKAISCQoBeRgD",
+            "IAEoAiJJCg5NYWdpY0l0ZW1TdGF0ZRIOCgZpdGVtSWQYASABKAUSEQoJbWFn",
+            "aWNUeXBlGAIgASgFEgkKAXgYAyABKAISCQoBeRgEIAEoAiJWCglUaWxlU3Rh",
+            "dGUSDgoGdGlsZUlkGAEgASgFEgkKAXgYAiABKAISCQoBeRgDIAEoAhIQCgh0",
+            "aWxlVHlwZRgEIAEoBRIRCgl0aWxlU3RhdGUYBSABKAUioAEKDUNoYW5naW5n",
+            "U3RhdGUSLwoOaGl0QnVsbGV0U3RhdGUYASADKAsyFy5tZXNzYWdlLkhpdEJ1",
+            "bGxldFN0YXRlEisKDGdldEl0ZW1TdGF0ZRgCIAMoCzIVLm1lc3NhZ2UuR2V0",
+            "SXRlbVN0YXRlEjEKD3BsYXllckRlYWRTdGF0ZRgDIAMoCzIYLm1lc3NhZ2Uu",
+            "UGxheWVyRGVhZFN0YXRlInIKDkhpdEJ1bGxldFN0YXRlEhIKCm9iamVjdFR5",
+            "cGUYASABKAUSEAoIYnVsbGV0SWQYAiABKAUSEAoIb2JqZWN0SWQYAyABKAUS",
+            "CQoBeBgEIAEoAhIJCgF5GAUgASgCEhIKCmJ1bGxldFR5cGUYBiABKAUiWAoM",
+            "R2V0SXRlbVN0YXRlEg4KBml0ZW1JZBgBIAEoBRIQCghwbGF5ZXJJZBgCIAEo",
+            "BRIQCghpdGVtVHlwZRgDIAEoBRIJCgF4GAQgASgCEgkKAXkYBSABKAIibAoP",
+            "UGxheWVyRGVhZFN0YXRlEhAKCGtpbGxlcklkGAEgASgFEg4KBmRlYWRJZBgC",
+            "IAEoBRITCgtkeWluZ1N0YXR1cxgDIAEoBRIPCgdraWxsTnVtGAQgASgFEhEK",
+            "CVBsYWNlbWVudBgFIAEoBUIKWggvbWVzc2FnZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.Wrapper), global::Message.Wrapper.Parser, new[]{ "ChangeAngle", "ChangeDir", "DoDash", "ChangeBulletState", "GameState", "NewUser", "GameCount", "GameInit", "GameStart", "GameReconnect" }, new[]{ "MessageType" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameInit), global::Message.GameInit.Parser, new[]{ "Id", "MinPlayerNum" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameInit), global::Message.GameInit.Parser, new[]{ "Id", "MinPlayerNum", "BulletMaxTick", "BulletSpeed" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.ChangeDir), global::Message.ChangeDir.Parser, new[]{ "Angle", "IsMoved" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.ChangeAngle), global::Message.ChangeAngle.Parser, new[]{ "Angle" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameReconnect), global::Message.GameReconnect.Parser, new[]{ "Id", "MinPlayerNum", "TotalPlayerNum" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameReconnect), global::Message.GameReconnect.Parser, new[]{ "Id", "MinPlayerNum", "TotalPlayerNum", "BulletMaxTick", "BulletSpeed" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.NewUser), global::Message.NewUser.Parser, new[]{ "CurrentPlayers" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.CurrentPlayers), global::Message.CurrentPlayers.Parser, new[]{ "PlayerId", "PlayerName" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameState), global::Message.GameState.Parser, new[]{ "PlayerState", "BulletState", "HealPackState", "MagicItemState", "TileState", "LastSec", "ChangingState" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Message.GameState), global::Message.GameState.Parser, new[]{ "PlayerState", "BulletState", "HealPackState", "MagicItemState", "TileState", "LastSec", "ChangingState", "SendingTime" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.PlayerState), global::Message.PlayerState.Parser, new[]{ "Id", "X", "Y", "Health", "MagicType", "Angle", "DashCoolTime", "IsMoved", "IsDashing", "IsBurn", "IsShooting", "Dx", "Dy", "BulletGage" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.ChangeBulletState), global::Message.ChangeBulletState.Parser, new[]{ "IsShooting" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Message.BulletState), global::Message.BulletState.Parser, new[]{ "BulletId", "BulletType", "X", "Y" }, null, null, null, null),
@@ -863,6 +865,8 @@ namespace Message {
     public GameInit(GameInit other) : this() {
       id_ = other.id_;
       minPlayerNum_ = other.minPlayerNum_;
+      bulletMaxTick_ = other.bulletMaxTick_;
+      bulletSpeed_ = other.bulletSpeed_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -899,6 +903,30 @@ namespace Message {
       }
     }
 
+    /// <summary>Field number for the "bulletMaxTick" field.</summary>
+    public const int BulletMaxTickFieldNumber = 3;
+    private int bulletMaxTick_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int BulletMaxTick {
+      get { return bulletMaxTick_; }
+      set {
+        bulletMaxTick_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "bulletSpeed" field.</summary>
+    public const int BulletSpeedFieldNumber = 4;
+    private float bulletSpeed_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float BulletSpeed {
+      get { return bulletSpeed_; }
+      set {
+        bulletSpeed_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -916,6 +944,8 @@ namespace Message {
       }
       if (Id != other.Id) return false;
       if (MinPlayerNum != other.MinPlayerNum) return false;
+      if (BulletMaxTick != other.BulletMaxTick) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(BulletSpeed, other.BulletSpeed)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -925,6 +955,8 @@ namespace Message {
       int hash = 1;
       if (Id != 0) hash ^= Id.GetHashCode();
       if (MinPlayerNum != 0) hash ^= MinPlayerNum.GetHashCode();
+      if (BulletMaxTick != 0) hash ^= BulletMaxTick.GetHashCode();
+      if (BulletSpeed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(BulletSpeed);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -951,6 +983,14 @@ namespace Message {
         output.WriteRawTag(16);
         output.WriteInt32(MinPlayerNum);
       }
+      if (BulletMaxTick != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(BulletMaxTick);
+      }
+      if (BulletSpeed != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(BulletSpeed);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -969,6 +1009,14 @@ namespace Message {
         output.WriteRawTag(16);
         output.WriteInt32(MinPlayerNum);
       }
+      if (BulletMaxTick != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(BulletMaxTick);
+      }
+      if (BulletSpeed != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(BulletSpeed);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -984,6 +1032,12 @@ namespace Message {
       }
       if (MinPlayerNum != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(MinPlayerNum);
+      }
+      if (BulletMaxTick != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(BulletMaxTick);
+      }
+      if (BulletSpeed != 0F) {
+        size += 1 + 4;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1002,6 +1056,12 @@ namespace Message {
       }
       if (other.MinPlayerNum != 0) {
         MinPlayerNum = other.MinPlayerNum;
+      }
+      if (other.BulletMaxTick != 0) {
+        BulletMaxTick = other.BulletMaxTick;
+      }
+      if (other.BulletSpeed != 0F) {
+        BulletSpeed = other.BulletSpeed;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1030,6 +1090,14 @@ namespace Message {
             MinPlayerNum = input.ReadInt32();
             break;
           }
+          case 24: {
+            BulletMaxTick = input.ReadInt32();
+            break;
+          }
+          case 37: {
+            BulletSpeed = input.ReadFloat();
+            break;
+          }
         }
       }
     #endif
@@ -1055,6 +1123,14 @@ namespace Message {
           }
           case 16: {
             MinPlayerNum = input.ReadInt32();
+            break;
+          }
+          case 24: {
+            BulletMaxTick = input.ReadInt32();
+            break;
+          }
+          case 37: {
+            BulletSpeed = input.ReadFloat();
             break;
           }
         }
@@ -1538,6 +1614,8 @@ namespace Message {
       id_ = other.id_;
       minPlayerNum_ = other.minPlayerNum_;
       totalPlayerNum_ = other.totalPlayerNum_;
+      bulletMaxTick_ = other.bulletMaxTick_;
+      bulletSpeed_ = other.bulletSpeed_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1586,6 +1664,30 @@ namespace Message {
       }
     }
 
+    /// <summary>Field number for the "bulletMaxTick" field.</summary>
+    public const int BulletMaxTickFieldNumber = 4;
+    private int bulletMaxTick_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int BulletMaxTick {
+      get { return bulletMaxTick_; }
+      set {
+        bulletMaxTick_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "bulletSpeed" field.</summary>
+    public const int BulletSpeedFieldNumber = 5;
+    private float bulletSpeed_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float BulletSpeed {
+      get { return bulletSpeed_; }
+      set {
+        bulletSpeed_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1604,6 +1706,8 @@ namespace Message {
       if (Id != other.Id) return false;
       if (MinPlayerNum != other.MinPlayerNum) return false;
       if (TotalPlayerNum != other.TotalPlayerNum) return false;
+      if (BulletMaxTick != other.BulletMaxTick) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(BulletSpeed, other.BulletSpeed)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1614,6 +1718,8 @@ namespace Message {
       if (Id != 0) hash ^= Id.GetHashCode();
       if (MinPlayerNum != 0) hash ^= MinPlayerNum.GetHashCode();
       if (TotalPlayerNum != 0) hash ^= TotalPlayerNum.GetHashCode();
+      if (BulletMaxTick != 0) hash ^= BulletMaxTick.GetHashCode();
+      if (BulletSpeed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(BulletSpeed);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1644,6 +1750,14 @@ namespace Message {
         output.WriteRawTag(24);
         output.WriteInt32(TotalPlayerNum);
       }
+      if (BulletMaxTick != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(BulletMaxTick);
+      }
+      if (BulletSpeed != 0F) {
+        output.WriteRawTag(45);
+        output.WriteFloat(BulletSpeed);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1666,6 +1780,14 @@ namespace Message {
         output.WriteRawTag(24);
         output.WriteInt32(TotalPlayerNum);
       }
+      if (BulletMaxTick != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(BulletMaxTick);
+      }
+      if (BulletSpeed != 0F) {
+        output.WriteRawTag(45);
+        output.WriteFloat(BulletSpeed);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1684,6 +1806,12 @@ namespace Message {
       }
       if (TotalPlayerNum != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(TotalPlayerNum);
+      }
+      if (BulletMaxTick != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(BulletMaxTick);
+      }
+      if (BulletSpeed != 0F) {
+        size += 1 + 4;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1705,6 +1833,12 @@ namespace Message {
       }
       if (other.TotalPlayerNum != 0) {
         TotalPlayerNum = other.TotalPlayerNum;
+      }
+      if (other.BulletMaxTick != 0) {
+        BulletMaxTick = other.BulletMaxTick;
+      }
+      if (other.BulletSpeed != 0F) {
+        BulletSpeed = other.BulletSpeed;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1737,6 +1871,14 @@ namespace Message {
             TotalPlayerNum = input.ReadInt32();
             break;
           }
+          case 32: {
+            BulletMaxTick = input.ReadInt32();
+            break;
+          }
+          case 45: {
+            BulletSpeed = input.ReadFloat();
+            break;
+          }
         }
       }
     #endif
@@ -1766,6 +1908,14 @@ namespace Message {
           }
           case 24: {
             TotalPlayerNum = input.ReadInt32();
+            break;
+          }
+          case 32: {
+            BulletMaxTick = input.ReadInt32();
+            break;
+          }
+          case 45: {
+            BulletSpeed = input.ReadFloat();
             break;
           }
         }
@@ -2242,6 +2392,7 @@ namespace Message {
       tileState_ = other.tileState_.Clone();
       lastSec_ = other.lastSec_;
       changingState_ = other.changingState_ != null ? other.changingState_.Clone() : null;
+      sendingTime_ = other.sendingTime_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -2330,6 +2481,18 @@ namespace Message {
       }
     }
 
+    /// <summary>Field number for the "sendingTime" field.</summary>
+    public const int SendingTimeFieldNumber = 8;
+    private long sendingTime_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public long SendingTime {
+      get { return sendingTime_; }
+      set {
+        sendingTime_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -2352,6 +2515,7 @@ namespace Message {
       if(!tileState_.Equals(other.tileState_)) return false;
       if (LastSec != other.LastSec) return false;
       if (!object.Equals(ChangingState, other.ChangingState)) return false;
+      if (SendingTime != other.SendingTime) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -2366,6 +2530,7 @@ namespace Message {
       hash ^= tileState_.GetHashCode();
       if (LastSec != 0) hash ^= LastSec.GetHashCode();
       if (changingState_ != null) hash ^= ChangingState.GetHashCode();
+      if (SendingTime != 0L) hash ^= SendingTime.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2397,6 +2562,10 @@ namespace Message {
         output.WriteRawTag(58);
         output.WriteMessage(ChangingState);
       }
+      if (SendingTime != 0L) {
+        output.WriteRawTag(64);
+        output.WriteInt64(SendingTime);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -2420,6 +2589,10 @@ namespace Message {
         output.WriteRawTag(58);
         output.WriteMessage(ChangingState);
       }
+      if (SendingTime != 0L) {
+        output.WriteRawTag(64);
+        output.WriteInt64(SendingTime);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -2440,6 +2613,9 @@ namespace Message {
       }
       if (changingState_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(ChangingState);
+      }
+      if (SendingTime != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(SendingTime);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -2466,6 +2642,9 @@ namespace Message {
           ChangingState = new global::Message.ChangingState();
         }
         ChangingState.MergeFrom(other.ChangingState);
+      }
+      if (other.SendingTime != 0L) {
+        SendingTime = other.SendingTime;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2517,6 +2696,10 @@ namespace Message {
             input.ReadMessage(ChangingState);
             break;
           }
+          case 64: {
+            SendingTime = input.ReadInt64();
+            break;
+          }
         }
       }
     #endif
@@ -2565,6 +2748,10 @@ namespace Message {
               ChangingState = new global::Message.ChangingState();
             }
             input.ReadMessage(ChangingState);
+            break;
+          }
+          case 64: {
+            SendingTime = input.ReadInt64();
             break;
           }
         }

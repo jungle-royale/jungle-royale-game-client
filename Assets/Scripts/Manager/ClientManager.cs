@@ -6,6 +6,8 @@ using UnityEngine.Networking;
 using System.Collections;
 using Message;
 using UnityEngine.Timeline;
+using Unity.VisualScripting;
+using System.Collections.Generic;
 
 public class ClientManager : Singleton<ClientManager>
 {
@@ -25,8 +27,11 @@ public class ClientManager : Singleton<ClientManager>
     public int DashCoolTime;
     public int BulletGage;
 
+    // GameInit, GameReconnect
     public int minPlayerNum;
     public int totalPlayerNum;
+    public int bulletMaxTick;
+    public float bulletSpeed;
 
     // DeadState Datat
     public int placement;
@@ -37,9 +42,16 @@ public class ClientManager : Singleton<ClientManager>
 
     public int maxBulletGage;
 
+    public Dictionary<int, string> currentUsersDictionary = new Dictionary<int, string>();
+
     public void SetClientId(int clientId)
     {
         this.ClientId = clientId;
+    }
+
+    public void SetCurrentUsersDictionary(int userId, string userName)
+    {
+        this.currentUsersDictionary[userId] = userName;
     }
 
     public void SetMinPlayerNumber(int minPlayerNum)
@@ -52,6 +64,17 @@ public class ClientManager : Singleton<ClientManager>
         // Debug.Log("총 플레이어 수 세팅!!!");
         this.totalPlayerNum = totalPlayerNum;
     }
+
+    public void SetBulletMaxTick(int bulletMaxTick)
+    {
+        this.bulletMaxTick = bulletMaxTick;
+    }
+
+    public void SetBulletSpeed(float bulletSpeed)
+    {
+        this.bulletSpeed = bulletSpeed;
+    }
+
 
     public void SetMaxBulletGage(int bulletGage)
     {

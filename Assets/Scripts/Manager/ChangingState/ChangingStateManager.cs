@@ -77,7 +77,7 @@ public class ChangingStateManager : MonoBehaviour
         // TODO: 여기서 카메라 range check
         Debug.Log($"PlayerPosition: {new Vector3(player.transform.position.x, 0, player.transform.position.z)}");
         Debug.Log($"CameraPosition: {cameraManager.GetMinimapCameraPosition()}");
-        if (!cameraManager.IsInCameraView(new Vector3(player.transform.position.x, 0, player.transform.position.z)))
+        if (!cameraManager.IsInMinimapCameraView(new Vector3(player.transform.position.x, 0, player.transform.position.z)))
         {
             return;
         }
@@ -132,12 +132,12 @@ public class ChangingStateManager : MonoBehaviour
     private void UpdateFallDead(int deadPlayerId)
     {
         GameObject player = playerManager.GetPlayerById(deadPlayerId);
-
     }
 
     private void HandlePlayerHitBulletState(HitBulletState state)
     {
         // TODO: 여기서 카메라 range check
+        if (cameraManager != null && !cameraManager.IsInMinimapCameraView(new Vector3(state.X, 0, state.Y))) return;
 
         // PlayerManager에서 플레이어 객체 가져오기
         GameObject player = playerManager.GetPlayerById(state.ObjectId);
@@ -191,6 +191,7 @@ public class ChangingStateManager : MonoBehaviour
 
     private void HandleObjectHitBulletState(HitBulletState state)
     {
+        if (cameraManager != null && !cameraManager.IsInMainCameraView(new Vector3(state.X, 0, state.Y))) return;
 
         AudioManager.Instance.PlayHitSfx(0.7f);
 

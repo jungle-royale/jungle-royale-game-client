@@ -113,7 +113,9 @@ public class PlayerManager : MonoBehaviour
             healthBarComponent.SetMaxHealth(data.health);
         }
         ClientManager.Instance.SetMaxBulletGage(data.bulletGage);
+
         EventBus<InGameGUIEventType>.Publish<int>(InGameGUIEventType.SetBulletBarLabel, data.bulletGage);
+        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.SetUserNameLabel, currentPlayerGameObject); // 닉네임
     }
 
     private void CreateOtherPlayer(Player data)
@@ -130,6 +132,8 @@ public class PlayerManager : MonoBehaviour
 
         otherPlayerGameObjectDictionary[data.id] = newPlayer;
         otherPlayerMarkDictionary[data.id] = newPlayerMark;
+
+        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.SetUserNameLabel, newPlayer); // 닉네임
     }
 
     private void ValidateCurrentPlayerAtUpdate(Player serverData)

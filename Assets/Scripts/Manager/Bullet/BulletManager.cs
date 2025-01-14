@@ -1,11 +1,18 @@
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class BulletManager : MonoBehaviour
 {
     private Dictionary<int, GameObject> bulletObjects = new Dictionary<int, GameObject>();
+    private int bulletMaxTick;
+    private int bulletSpeed;
     private float BULLET_Y = 0.9f;
 
+    void Update()
+    {
+
+    }
 
     public void UpdateBullets(List<Bullet> bullets)
     {
@@ -52,7 +59,7 @@ public class BulletManager : MonoBehaviour
             }
             ActivateBulletEffect(bulletObject, bullet.BulletType);
 
-            bulletObject.transform.position = new Vector3(bullet.X, BULLET_Y, bullet.Y);
+            // bulletObject.transform.position = new Vector3(bullet.X, BULLET_Y, bullet.Y);
 
         }
         RemoveInactiveBullets(activeBulletIds);
