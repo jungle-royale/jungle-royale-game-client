@@ -95,8 +95,6 @@ public class BulletManager : MonoBehaviour
     {
         List<int> bulletsToRemove = new List<int>();
 
-        Debug.Log($"Client Bullet {bulletObjects}");
-
         foreach (var bulletId in bulletObjects.Keys)
         {
             if (!activeBulletIds.Contains(bulletId))
@@ -105,7 +103,6 @@ public class BulletManager : MonoBehaviour
             }
         }
 
-        Debug.Log($"지움? {activeBulletIds}");
         foreach (var bulletId in bulletsToRemove)
         {
             if (bulletObjects.TryGetValue(bulletId, out GameObject bullet))

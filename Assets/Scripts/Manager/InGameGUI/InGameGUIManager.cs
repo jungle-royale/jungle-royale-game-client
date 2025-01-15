@@ -19,6 +19,7 @@ public class InGameGUIManager : MonoBehaviour
     private GameObject watchModeCanvas;
     private GameObject gameWinCanvas;
     private GameObject errorCanvas;
+    private GameObject descriptionCanvas;
 
     // MainCanvas
     [Header("MainCanvas Label")]
@@ -74,6 +75,7 @@ public class InGameGUIManager : MonoBehaviour
         watchModeCanvas = InstantiateCanvas("Prefabs/UIs/WatchModeCanvas");
         gameWinCanvas = InstantiateCanvas("Prefabs/UIs/GameWinCanvas");
         errorCanvas = InstantiateCanvas("Prefabs/UIs/ErrorCanvas");
+        descriptionCanvas = InstantiateCanvas("Prefabs/UIs/DescriptionCanvas");
 
         // 모든 캔버스 비활성화
         SetAllCanvasesInactive();
@@ -107,6 +109,7 @@ public class InGameGUIManager : MonoBehaviour
         if (watchModeCanvas != null) watchModeCanvas.SetActive(false);
         if (gameWinCanvas != null) gameWinCanvas.SetActive(false);
         if (errorCanvas != null) errorCanvas.SetActive(false);
+        // if (descriptionCanvas != null) descriptionCanvas.SetActive(false);
     }
 
     private void CacheCanvasComponents()
@@ -274,6 +277,17 @@ public class InGameGUIManager : MonoBehaviour
             case "ErrorCanvas":
                 mainCanvas?.SetActive(false);
                 errorCanvas.SetActive(true);
+                break;
+            case "DescriptionCanvas":
+                bool isMainActive = mainCanvas.activeSelf;
+                Debug.Log($"mainCanvas before toggle: {mainCanvas.activeSelf}");
+                mainCanvas?.SetActive(!isMainActive);
+                Debug.Log($"mainCanvas before toggle: {mainCanvas.activeSelf}");
+
+                // descriptionCanvas 상태 확인
+                Debug.Log($"DescriptionCanvas before toggle: {descriptionCanvas.activeSelf}");
+                descriptionCanvas?.SetActive(!descriptionCanvas.activeSelf);
+                Debug.Log($"DescriptionCanvas after toggle: {descriptionCanvas.activeSelf}");
                 break;
             default:
                 Debug.LogError($"Unknown game state: {gameState}");

@@ -141,12 +141,13 @@ public class InputManager : MonoBehaviour
         {
             float aimAngle = input.GetCurrentAimAngle();
 
-            if (lastAngle == aimAngle) {
+            if (lastAngle == aimAngle)
+            {
                 lastClickState = true;
                 networkSender.SendChangeBulletStateMessage(ClientId, true);
-            }            
+            }
 
-            Debug.Log($"{lastAngle} {aimAngle}");
+            // Debug.Log($"{lastAngle} {aimAngle}");
         }
         else if (!input.GetMouseLeftButton() && lastClickState)
         {

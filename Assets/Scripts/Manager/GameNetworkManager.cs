@@ -126,7 +126,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     private void OnError(string errorMsg)
     {
         Debug.Log($"Error! {errorMsg}");
-        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "ErrorCanvas");
+        // EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "ErrorCanvas");
     }
 
     private void OnClose(WebSocketCloseCode OnClose)
@@ -216,8 +216,9 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         ClientManager.Instance.SetTotalPlayerNumber(gameReconnect.TotalPlayerNum);
         ClientManager.Instance.SetBulletMaxTick(gameReconnect.BulletMaxTick);
         ClientManager.Instance.SetBulletSpeed(gameReconnect.BulletSpeed);
-        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateMinPlayerLabel, gameReconnect.MinPlayerNum);
-        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateMinPlayerLabel, gameReconnect.TotalPlayerNum);
+        // EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateMinPlayerLabel, gameReconnect.MinPlayerNum);
+        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdatePlayerCountLabel, gameReconnect.TotalPlayerNum);
+        EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameStart");
         new LoadingScreenRemover().Remove();
     }
 
@@ -279,7 +280,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             {
                 if (!cameraManager.IsInMinimapCameraView(new Vector3(bulletState.X, 0, bulletState.Y)))
                     continue;
-                Debug.Log($"BulletState: ({bulletState.X}, {bulletState.Y})");
+                // Debug.Log($"BulletState: ({bulletState.X}, {bulletState.Y})");
                 bulletStateList.Add(new Bullet(bulletState.BulletId, bulletState.BulletType, bulletState.X, bulletState.Y));
             }
 
