@@ -119,40 +119,15 @@ public class TileManager : MonoBehaviour
 
     private void UpdatePlayerHaptick(GameObject tileObject)
     {
-        // PlayerManager에서 플레이어 객체 가져오기
-        GameObject player = playerManager.GetPlayerById(ClientManager.Instance.ClientId);
-        if (player == null)
+        Vector3? targetPosition = cameraManager.GetFocusedPosition();
+        if (targetPosition == null)
         {
             return;
         }
 
-        // "Ground"라는 이름의 자식 객체 찾기
-        Transform groundTransform = tileObject.transform.Find("Ground");
-
-        if (groundTransform != null)
-        {
-            // Ground의 Scale 가져오기
-            Vector3 groundScale = groundTransform.localScale;
-        }
-        else
-        {
-            Debug.LogError("Ground object not found under the tileObject!");
-        }
-
-        Vector3 playerPosition = player.transform.position;
-
         Vector3 tilePosition = tileObject.transform.position;
-        Vector3 tileScale = groundTransform.localScale;
 
-        float tileMinX = tilePosition.x - (tileScale.x / 2f);
-        float tileMaxX = tilePosition.x + (tileScale.x / 2f);
-        float tileMinZ = tilePosition.z - (tileScale.z / 2f);
-        float tileMaxZ = tilePosition.z + (tileScale.z / 2f);
-
-        bool isOnTile = playerPosition.x >= tileMinX && playerPosition.x <= tileMaxX &&
-                        playerPosition.z >= tileMinZ && playerPosition.z <= tileMaxZ;
-
-        if (isOnTile)
+        if (IsOnTile(tileObject, targetPosition.GetValueOrDefault()))
         {
             debouncer.Debounce(200, () =>
             {
@@ -165,6 +140,24 @@ public class TileManager : MonoBehaviour
         {
             cameraManager.StopCameraShake();
         }
+    }
+
+    private bool IsOnTile(GameObject tileObject, Vector3 targetPosition)
+    {
+        // "Ground"라는 이름의 자식 객체 찾기
+        Transform groundTransform = tileObject.transform.Find("Ground");
+
+        Vector3 tilePosition = tileObject.transform.position;
+        Vector3 tileScale = groundTransform.localScale;
+
+        float tileMinX = tilePosition.x - (tileScale.x / 2f);
+        float tileMaxX = tilePosition.x + (tileScale.x / 2f);
+        float tileMinZ = tilePosition.z - (tileScale.z / 2f);
+        float tileMaxZ = tilePosition.z + (tileScale.z / 2f);
+
+        bool isOnTile = targetPosition.x >= tileMinX && targetPosition.x <= tileMaxX &&
+                        targetPosition.z >= tileMinZ && targetPosition.z <= tileMaxZ;
+        return isOnTile;
     }
 
     private void UpdateGroundColors(GameObject tileObject, float lerpFactor)

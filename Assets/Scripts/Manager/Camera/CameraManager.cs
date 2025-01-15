@@ -70,6 +70,19 @@ public class CameraManager : MonoBehaviour
         focusedClientId = id;
     }
 
+    public Vector3? GetFocusedPosition()
+    {
+        if (isMoving) {
+            return null;
+        }
+        GameObject playerObject = playerManager.GetPlayerById(focusedClientId);
+        if (playerObject == null)
+        {
+            return null;
+        }
+        return playerObject.transform.position;
+    }
+
     public void UpdateCameraFromServer(List<Player> playerListFromServer)
     {
         if (focusedClientId == -1)
