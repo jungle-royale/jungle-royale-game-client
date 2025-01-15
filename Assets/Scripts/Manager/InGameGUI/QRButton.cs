@@ -13,6 +13,9 @@ public class QRCodeGenerator : MonoBehaviour
     private GameObject rawImageObject; // 동적으로 생성된 RawImage 오브젝트
     private string qrData;
 
+    public int QR_WIDTH = 100;
+    public int QR_HEIGHT = 100;
+
     void Start()
     {
         canvas = GameObject.Find("MainCanvas");
@@ -67,7 +70,7 @@ public class QRCodeGenerator : MonoBehaviour
         if (isOn)
         {
             // QR 이미지 생성 및 표시
-            GenerateAndDisplayQRCode(qrData, 256, 256);
+            GenerateAndDisplayQRCode(qrData, QR_WIDTH, QR_HEIGHT);
         }
         else
         {
@@ -100,7 +103,16 @@ public class QRCodeGenerator : MonoBehaviour
         // RawImage RectTransform 설정
         RectTransform rectTransform = rawImage.GetComponent<RectTransform>();
         rectTransform.sizeDelta = new Vector2(width, height); // 크기 설정
-        rectTransform.anchoredPosition = Vector2.zero; // 위치 설정 (Canvas의 중심)
+
+        // 앵커를 오른쪽 상단으로 설정
+        rectTransform.anchorMin = new Vector2(1, 1); // 오른쪽 상단 앵커
+        rectTransform.anchorMax = new Vector2(1, 1);
+
+        // 피벗 설정 (오른쪽 상단 기준)
+        rectTransform.pivot = new Vector2(1, 1);
+
+        // 위치 설정
+        rectTransform.anchoredPosition = new Vector2(0, 0); // Canvas의 오른쪽 상단에서 약간 안쪽으로 이동
     }
 
     private Texture2D GenerateQRCode(string text, int width, int height)
