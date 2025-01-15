@@ -28,6 +28,8 @@ public class Billboard : MonoBehaviour
             // 카메라를 바라보도록 회전
             transform.LookAt(transform.position + cam.forward);
 
+            if (transform.parent == null) return;
+
             // 부모 객체의 위치 가져오기 (플레이어 위치)
             Vector3 parentPosition = transform.parent.position;
 
