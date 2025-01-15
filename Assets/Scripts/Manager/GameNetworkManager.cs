@@ -126,7 +126,6 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     private void OnError(string errorMsg)
     {
         Debug.Log($"Error! {errorMsg}");
-        // EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "ErrorCanvas");
     }
 
     private void OnClose(WebSocketCloseCode OnClose)
@@ -216,7 +215,6 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         ClientManager.Instance.SetTotalPlayerNumber(gameReconnect.TotalPlayerNum);
         ClientManager.Instance.SetBulletMaxTick(gameReconnect.BulletMaxTick);
         ClientManager.Instance.SetBulletSpeed(gameReconnect.BulletSpeed);
-        // EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateMinPlayerLabel, gameReconnect.MinPlayerNum);
         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdatePlayerCountLabel, gameReconnect.TotalPlayerNum);
         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameStart");
         new LoadingScreenRemover().Remove();
@@ -365,7 +363,6 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         if (!IsOpen())
         {
             Debug.LogWarning("WebSocket is not open. Cannot send data.");
-            // EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "ErrorCanvas");
             return;
         }
 

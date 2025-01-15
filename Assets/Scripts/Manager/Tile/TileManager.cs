@@ -19,6 +19,8 @@ public class TileManager : MonoBehaviour
     public Color warningColor = new Color(255 / 255f, 130 / 255f, 130 / 255f); // 세미빨강
     private Color baseColor = new Color(1f, 1f, 1f); // 흰색
 
+    public Material crackedMaterial;
+
 
     private void Awake()
     {
@@ -169,13 +171,46 @@ public class TileManager : MonoBehaviour
             Renderer renderer = groundsTransform.GetComponent<Renderer>();
             if (renderer != null)
             {
-                // 기존 Material을 복사하여 독립적인 Material 생성
-                if (!renderer.material.name.Contains("(Instance)")) // 이미 인스턴스화된 Material인지 확인
+                // 기존 Material 배열 가져오기
+                Material[] currentMaterials = renderer.materials;
+
+                // CrackedGround Material이 이미 추가되었는지 확인
+                bool hasCrackedMaterial = false;
+                foreach (Material mat in currentMaterials)
                 {
-                    renderer.material = new Material(renderer.material);
+                    if (mat.name.Contains(crackedMaterial.name))
+                    {
+                        hasCrackedMaterial = true;
+                        break;
+                    }
                 }
 
-                renderer.material.color = Color.Lerp(baseColor, warningColor, lerpFactor);
+                // CrackedGround Material이 없을 경우 한 번만 추가
+                if (!hasCrackedMaterial)
+                {
+                    Material[] newMaterials = new Material[currentMaterials.Length + 1];
+                    for (int i = 0; i < currentMaterials.Length; i++)
+                    {
+                        // 기존 Material을 복사하여 독립적인 Material 생성
+                        if (!currentMaterials[i].name.Contains("(Instance)"))
+                        {
+                            newMaterials[i] = new Material(currentMaterials[i]);
+                        }
+                        else
+                        {
+                            newMaterials[i] = currentMaterials[i];
+                        }
+                    }
+
+                    // CrackedGround Material 추가
+                    newMaterials[newMaterials.Length - 1] = crackedMaterial;
+
+                    // 새 Material 배열 설정
+                    renderer.materials = newMaterials;
+                }
+
+                // 첫 번째 Material의 색상 변경 (복사된 Material)
+                renderer.materials[0].color = Color.Lerp(baseColor, warningColor, lerpFactor);
             }
             else
             {

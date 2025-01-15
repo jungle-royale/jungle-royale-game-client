@@ -8,12 +8,25 @@ public class GameStateManager : Singleton<GameStateManager>
 {
 
     private DateTime _sessionStartTime;
+    public PlayerManager playerManager;
     public CameraManager cameraManager;
 
     void Start()
     {
         _sessionStartTime = DateTime.Now;
         Debug.Log("게임 시작 : " + _sessionStartTime);
+
+        playerManager = FindObjectOfType<PlayerManager>();
+        if (playerManager == null)
+        {
+            Debug.LogError("PlayerManager 없음");
+        }
+
+        cameraManager = FindObjectOfType<CameraManager>();
+        if (cameraManager == null)
+        {
+            Debug.LogError("CameraManager 없음");
+        }
 
         // AudioManager를 통해 BackgroundBGM 재생
         AudioManager.Instance.PlayBGM("WaitingRoomBGM");
@@ -82,14 +95,13 @@ public class GameStateManager : Singleton<GameStateManager>
 
         StateUIDTO stateData = new StateUIDTO
         {
+            nickName = playerManager.GetNickNameById(ClientManager.Instance.ClientId),
             placement = ClientManager.Instance.placement,
             totalPlayer = ClientManager.Instance.totalPlayerNum,
             killCount = ClientManager.Instance.killCount,
             // point = 500
         };
         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.UpdateStateLabel, stateData);
-
-
     }
 
 }

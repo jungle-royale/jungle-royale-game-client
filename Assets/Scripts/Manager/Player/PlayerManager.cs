@@ -9,6 +9,9 @@ public class PlayerManager : MonoBehaviour
     public GameObject currentPlayerMarkPrefab; // 내 플레이어 프리팹
     public GameObject otherPlayerMarkPrefab; // 내 플레이어 프리팹
 
+    [SerializeField]
+    private Mesh[] randomMeshes; // 랜덤으로 사용할 Mesh 배열
+
     private bool currentPlayerDead = false;
 
     // 이펙트
@@ -61,6 +64,20 @@ public class PlayerManager : MonoBehaviour
         return null;
     }
 
+    public string GetNickNameById(int playerId)
+    {
+        if (usersNameDictionary[playerId] != null)
+        {
+            Debug.Log($"return ID {usersNameDictionary[playerId]}");
+            return usersNameDictionary[playerId];
+        }
+        else
+        {
+            Debug.LogError($"플레이어 {playerId}의 닉네임을 찾을 수 없습니다.");
+            return null;
+        }
+    }
+
     public void SetCurrentUsersDictionary(int userId, string userName)
     {
         this.usersNameDictionary[userId] = userName;
@@ -109,6 +126,8 @@ public class PlayerManager : MonoBehaviour
     {
         currentPlayerGameObject = Instantiate(playerPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity);
         currentPlayerMark = Instantiate(currentPlayerMarkPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity); // 내 플레이어 마크
+        SetRandomMesh(currentPlayerGameObject);
+
 
         currentPlayerGameObject.tag = "Player";
         currentPlayerGameObject.name = ClientManager.Instance.CurrentPlayerName;
@@ -137,6 +156,7 @@ public class PlayerManager : MonoBehaviour
     {
         GameObject newPlayer = Instantiate(playerPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity);
         GameObject newPlayerMark = Instantiate(otherPlayerMarkPrefab, new Vector3(data.x, PLAYER_Y, data.y), Quaternion.identity); // 다른 플레이어 마크
+        SetRandomMesh(newPlayer);
 
         // 플레이어의 HealthBar 초기화
         HealthBar healthBarComponent = newPlayer.GetComponentInChildren<HealthBar>();
@@ -157,6 +177,33 @@ public class PlayerManager : MonoBehaviour
         };
 
         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.SetUserNameLabel, otherPlayerUIData); // 닉네임
+    }
+
+    private void SetRandomMesh(GameObject newPlayer)
+    {
+        // PlayerMesh 객체 탐색
+        Transform playerMeshTransform = newPlayer.transform.Find("PlayerMesh");
+        if (playerMeshTransform != null)
+        {
+            SkinnedMeshRenderer skinnedMeshRenderer = playerMeshTransform.GetComponent<SkinnedMeshRenderer>();
+            if (skinnedMeshRenderer != null)
+            {
+                // 랜덤 Mesh 설정
+                if (randomMeshes.Length > 0)
+                {
+                    int randomIndex = UnityEngine.Random.Range(0, randomMeshes.Length);
+                    skinnedMeshRenderer.sharedMesh = randomMeshes[randomIndex];
+                }
+            }
+            else
+            {
+                Debug.LogWarning("SkinnedMeshRenderer를 찾을 수 없습니다.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("'PlayerMesh' 자식 객체를 찾을 수 없습니다.");
+        }
     }
 
     private void ValidateCurrentPlayerAtUpdate(Player serverData)
