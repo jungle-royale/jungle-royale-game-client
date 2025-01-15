@@ -1424,6 +1424,7 @@ MonoBehaviour:
   playerManager: {fileID: 1981735298}
   cameraManager: {fileID: 68227891}
   warningColor: {r: 1, g: 0.50980395, b: 0.50980395, a: 1}
+  crackedMaterial: {fileID: 2100000, guid: b6abd16f8daa24abaa701af60d876f75, type: 2}
 --- !u!1 &1981735297
 GameObject:
   m_ObjectHideFlags: 0
