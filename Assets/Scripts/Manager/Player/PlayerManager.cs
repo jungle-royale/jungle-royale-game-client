@@ -242,7 +242,7 @@ public class PlayerManager : MonoBehaviour
         HealthBar healthBarComponent = player.GetComponentInChildren<HealthBar>();
         if (healthBarComponent != null)
         {
-            healthBarComponent.SetHealth(serverData.health);
+            healthBarComponent.SetHealth(serverData.health, serverData.id);
         }
     }
 
