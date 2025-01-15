@@ -40,6 +40,7 @@ public class InGameGUIManager : MonoBehaviour
 
     // State Canvas
     [Header("State Canvas Label")]
+    public List<TextMeshProUGUI> nickNameLabel;
     public List<TextMeshProUGUI> placementLabel;
     public List<TextMeshProUGUI> totalPlayerLabel;
     public List<TextMeshProUGUI> killCountLabel;
@@ -125,6 +126,7 @@ public class InGameGUIManager : MonoBehaviour
         hpLabel = FindLabelsByTag("HpLabel");
         bulletBarLabel = FindBulletBarsByTag("BulletBar");
 
+        nickNameLabel = FindLabelsByTag("NicknameLabel");
         placementLabel = FindLabelsByTag("PlacementLabel");
         totalPlayerLabel = FindLabelsByTag("TotalPlayerLabel");
         killCountLabel = FindLabelsByTag("KillCountLabel");
@@ -165,7 +167,7 @@ public class InGameGUIManager : MonoBehaviour
         if (labelObjects == null || labelObjects.Length == 0)
         {
 #if UNITY_EDITOR
-            Debug.Log($"'{tag}' 태그를 가진 객체를 찾을 수 없습니다.");
+            // Debug.Log($"'{tag}' 태그를 가진 객체를 찾을 수 없습니다.");
 #endif
             return new List<TextMeshProUGUI>(); // 빈 리스트 반환
         }
@@ -430,6 +432,13 @@ public class InGameGUIManager : MonoBehaviour
 
     private void UpdateStateUI(StateUIDTO stateData)
     {
+        if (nickNameLabel != null)
+        {
+            foreach (var label in nickNameLabel) // placementLabel 리스트 순회
+            {
+                label.text = $"{stateData.nickName}";
+            }
+        }
         if (placementLabel != null)
         {
             foreach (var label in placementLabel) // placementLabel 리스트 순회

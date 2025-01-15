@@ -3,6 +3,7 @@ using UnityEngine;
 
 public struct StateUIDTO
 {
+    public string nickName;
     public int placement;
     public int totalPlayer;
     public int killCount;

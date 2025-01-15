@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 1195984329777143379}
   - component: {fileID: 1705473466216642649}
   m_Layer: 3
-  m_Name: RW_LP_CP_Character_SnowManMesh.001
+  m_Name: PlayerMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -408,6 +408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eded25784a184239a3c2b9bbd010037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerManager: {fileID: 0}
   cameraManager: {fileID: 0}
 --- !u!54 &7805842424218092354
 Rigidbody:
@@ -838,7 +839,7 @@ PrefabInstance:
     - target: {fileID: 3843087526362166028, guid: df2d79d5dd3334ce99d11e8174878245,
         type: 3}
       propertyPath: m_TagString
-      value: NicknameLabel
+      value: UserNameLabel
       objectReference: {fileID: 0}
     - target: {fileID: 7623479863435578230, guid: df2d79d5dd3334ce99d11e8174878245,
         type: 3}

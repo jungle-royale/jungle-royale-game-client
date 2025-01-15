@@ -2,10 +2,17 @@ using UnityEngine;
 
 public class PlayerAnimationEvent : MonoBehaviour
 {
+    public PlayerManager playerManager;
     public CameraManager cameraManager;
 
     void Awake()
     {
+        playerManager = FindObjectOfType<PlayerManager>();
+        if (playerManager == null)
+        {
+            Debug.LogError("PlayerManager 없음");
+        }
+
         cameraManager = FindObjectOfType<CameraManager>();
         if (cameraManager == null)
         {
@@ -64,6 +71,7 @@ public class PlayerAnimationEvent : MonoBehaviour
 
             StateUIDTO stateData = new StateUIDTO
             {
+                nickName = playerManager.GetNickNameById(ClientManager.Instance.ClientId),
                 placement = ClientManager.Instance.placement,
                 totalPlayer = ClientManager.Instance.totalPlayerNum,
                 killCount = ClientManager.Instance.killCount,
