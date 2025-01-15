@@ -151,7 +151,7 @@ public class PlayerManager : MonoBehaviour
 
         PlayerUIDTO otherPlayerUIData = new PlayerUIDTO
         {
-            playerObj = newPlayer,
+            playerObj = otherPlayerGameObjectDictionary[data.id],
             userName = usersNameDictionary[data.id],
             maxHealth = data.health,
             health = data.health
