@@ -2,6 +2,7 @@ public enum InGameGUIEventType
 {
     // Canvas 활성화
     ActivateCanvas,
+    ToggleCanvas,
 
     // PlayerCanavs
     SetUserNameLabel,

@@ -109,7 +109,7 @@ public class InGameGUIManager : MonoBehaviour
         if (watchModeCanvas != null) watchModeCanvas.SetActive(false);
         if (gameWinCanvas != null) gameWinCanvas.SetActive(false);
         if (errorCanvas != null) errorCanvas.SetActive(false);
-        // if (descriptionCanvas != null) descriptionCanvas.SetActive(false);
+        if (descriptionCanvas != null) descriptionCanvas.SetActive(false);
     }
 
     private void CacheCanvasComponents()
@@ -201,6 +201,7 @@ public class InGameGUIManager : MonoBehaviour
         EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.SetBulletBarLabel, SetBulletBarUI);
         EventBus<InGameGUIEventType>.Subscribe<int>(InGameGUIEventType.UpdateBulletBarLabel, UpdateBulletBarUI);
         EventBus<InGameGUIEventType>.Subscribe<PlayerUIDTO>(InGameGUIEventType.SetUserNameLabel, UpdateUserNameLabel);
+        EventBus<InGameGUIEventType>.Subscribe(InGameGUIEventType.ToggleCanvas, OnToggleCanvas);
     }
 
     private void OnDestroy()
@@ -216,6 +217,7 @@ public class InGameGUIManager : MonoBehaviour
         EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.SetBulletBarLabel, SetBulletBarUI);
         EventBus<InGameGUIEventType>.Unsubscribe<int>(InGameGUIEventType.UpdateBulletBarLabel, UpdateBulletBarUI);
         EventBus<InGameGUIEventType>.Unsubscribe<PlayerUIDTO>(InGameGUIEventType.SetUserNameLabel, UpdateUserNameLabel);
+        EventBus<InGameGUIEventType>.Unsubscribe(InGameGUIEventType.ToggleCanvas, OnToggleCanvas);
     }
 
     private void OnActivateCanvas(string gameState)
@@ -278,23 +280,18 @@ public class InGameGUIManager : MonoBehaviour
                 mainCanvas?.SetActive(false);
                 errorCanvas.SetActive(true);
                 break;
-            case "DescriptionCanvas":
-                bool isMainActive = mainCanvas.activeSelf;
-                Debug.Log($"mainCanvas before toggle: {mainCanvas.activeSelf}");
-                mainCanvas?.SetActive(!isMainActive);
-                Debug.Log($"mainCanvas before toggle: {mainCanvas.activeSelf}");
-
-                // descriptionCanvas 상태 확인
-                Debug.Log($"DescriptionCanvas before toggle: {descriptionCanvas.activeSelf}");
-                descriptionCanvas?.SetActive(!descriptionCanvas.activeSelf);
-                Debug.Log($"DescriptionCanvas after toggle: {descriptionCanvas.activeSelf}");
-                break;
             default:
                 Debug.LogError($"Unknown game state: {gameState}");
                 break;
         }
 
         CacheCanvasComponents();
+    }
+
+    private void OnToggleCanvas()
+    {
+        mainCanvas?.SetActive(!mainCanvas.activeSelf);
+        descriptionCanvas?.SetActive(!descriptionCanvas.activeSelf);
     }
 
     private bool IsAlreadyGameEnd()
