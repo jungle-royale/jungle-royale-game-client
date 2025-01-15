@@ -138,7 +138,7 @@ public class InGameGUIManager : MonoBehaviour
         if (bulletBarObjects == null || bulletBarObjects.Length == 0)
         {
 #if UNITY_EDITOR
-            Debug.Log($"'{tag}' 태그를 가진 객체를 찾을 수 없습니다.");
+            // Debug.Log($"'{tag}' 태그를 가진 객체를 찾을 수 없습니다.");
 #endif
             return new List<BulletBar>(); // 빈 리스트 반환
         }

@@ -11,6 +11,10 @@ public class HealthBar : MonoBehaviour
     public Image fill;
     public TextMeshProUGUI hpText; // HpText를 참조하기 위한 변수
 
+    public DamageEffect damageEffect;
+
+    private int beforeHealth;
+
     private void Awake()
     {
         // HealthBar 오브젝트의 자식 중 "HpText" 이름을 가진 게임 오브젝트에서 TextMeshProUGUI 컴포넌트를 찾음
@@ -24,6 +28,7 @@ public class HealthBar : MonoBehaviour
 
     public void SetMaxHealth(int health)
     {
+        this.beforeHealth = health;
         slider.maxValue = health;
         slider.value = health;
 
@@ -37,6 +42,13 @@ public class HealthBar : MonoBehaviour
 
     public void SetHealth(int health)
     {
+        if (health < beforeHealth) // 이전 체력보다 전달 받은 체력이 더 줄었으면
+        {
+            beforeHealth = health;
+            if (damageEffect != null)
+                damageEffect.TriggerDamageEffect(); // 데미지 이펙트 발생
+        }
+
         slider.value = health;
 
         fill.color = gradient.Evaluate(slider.normalizedValue);
