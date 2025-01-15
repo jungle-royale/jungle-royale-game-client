@@ -9,7 +9,7 @@ public class MagicManager : MonoBehaviour
 
     public void UpdateMagicList(List<Magic> items)
     {
-        if (items == null || items.Count() == 0) return;
+        if (items == null) return;
 
         HashSet<int> activeItemIds = new HashSet<int>();
         Dictionary<int, GameObject> targetDictionary = magicItemObjects;
