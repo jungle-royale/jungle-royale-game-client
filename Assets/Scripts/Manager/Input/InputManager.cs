@@ -86,6 +86,7 @@ public class InputManager : MonoBehaviour
         // 죽었을 때, 종료 시, 키 정리(쏘던 거 멈춤)를 위해 서버에 데이터 보냄
         networkSender.SendChangeBulletStateMessage(ClientId, false);
         networkSender.SendChangeDirMessage(0, false);
+        networkSender.SendDoDash(false);
     }
 
     private void ActivateTabKey()
