@@ -201,7 +201,7 @@ public class CameraManager : MonoBehaviour
 
         while (elapsedTime < shakeDuration)
         {
-            shakeAudioDebouncer.Debounce(2500, () =>
+            shakeAudioDebouncer.Debounce(1000, () =>
             {
                 AudioManager.Instance.PlaySfx(AudioManager.Sfx.DestroyGround);
             });
