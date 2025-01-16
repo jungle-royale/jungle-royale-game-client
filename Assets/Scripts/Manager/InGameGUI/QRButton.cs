@@ -10,11 +10,11 @@ public class QRCodeGenerator : MonoBehaviour
 {
     public GameObject canvas; // RawImage를 생성할 부모 Canvas
     public Toggle qrToggle; // QR 이미지를 열고 닫을 토글
-    private GameObject rawImageObject; // 동적으로 생성된 RawImage 오브젝트
+    public GameObject rawImageObject;
     private string qrData;
 
-    public int QR_WIDTH = 100;
-    public int QR_HEIGHT = 100;
+    public int QR_WIDTH = 256;
+    public int QR_HEIGHT = 256;
 
     void Start()
     {
@@ -71,14 +71,14 @@ public class QRCodeGenerator : MonoBehaviour
         {
             // QR 이미지 생성 및 표시
             GenerateAndDisplayQRCode(qrData, QR_WIDTH, QR_HEIGHT);
+            rawImageObject.SetActive(true);
         }
         else
         {
             // QR 이미지 숨김
             if (rawImageObject != null)
             {
-                Destroy(rawImageObject);
-                rawImageObject = null;
+                rawImageObject.SetActive(false);
             }
         }
     }
@@ -94,25 +94,8 @@ public class QRCodeGenerator : MonoBehaviour
         // QR 코드 텍스처 생성
         Texture2D qrTexture = GenerateQRCode(text, width, height);
 
-        // RawImage 동적 생성
-        rawImageObject = new GameObject("QRCodeImage");
-        rawImageObject.transform.SetParent(canvas.transform, false); // Canvas의 자식으로 설정
-        RawImage rawImage = rawImageObject.AddComponent<RawImage>();
+        RawImage rawImage = rawImageObject.GetComponent<RawImage>();
         rawImage.texture = qrTexture; // 생성한 QR 코드를 텍스처로 설정
-
-        // RawImage RectTransform 설정
-        RectTransform rectTransform = rawImage.GetComponent<RectTransform>();
-        rectTransform.sizeDelta = new Vector2(width, height); // 크기 설정
-
-        // 앵커를 오른쪽 상단으로 설정
-        rectTransform.anchorMin = new Vector2(1, 1); // 오른쪽 상단 앵커
-        rectTransform.anchorMax = new Vector2(1, 1);
-
-        // 피벗 설정 (오른쪽 상단 기준)
-        rectTransform.pivot = new Vector2(1, 1);
-
-        // 위치 설정
-        rectTransform.anchoredPosition = new Vector2(0, 0); // Canvas의 오른쪽 상단에서 약간 안쪽으로 이동
     }
 
     private Texture2D GenerateQRCode(string text, int width, int height)

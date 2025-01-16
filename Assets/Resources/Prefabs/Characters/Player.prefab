@@ -723,18 +723,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f34c27846956f4f32bb9ea834c61bd83, type: 3}
---- !u!114 &5481499022610749321 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5437378465853803419, guid: f34c27846956f4f32bb9ea834c61bd83,
-    type: 3}
-  m_PrefabInstance: {fileID: 533466232935832594}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &8334679703919647862 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8416660074185326692, guid: f34c27846956f4f32bb9ea834c61bd83,
@@ -968,11 +956,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 4712191068188438747, guid: df2d79d5dd3334ce99d11e8174878245,
-        type: 3}
-      propertyPath: redOverlay
-      value: 
-      objectReference: {fileID: 5481499022610749321}
     - target: {fileID: 7623479863435578230, guid: df2d79d5dd3334ce99d11e8174878245,
         type: 3}
       propertyPath: m_Pivot.x

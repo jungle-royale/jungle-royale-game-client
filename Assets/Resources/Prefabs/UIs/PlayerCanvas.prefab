@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 4414040733044798399}
   - component: {fileID: 4512769387293165462}
   - component: {fileID: 6831633214278489879}
-  - component: {fileID: 4712191068188438747}
+  - component: {fileID: 425474198835308526}
   m_Layer: 5
   m_Name: PlayerCanvas
   m_TagString: Untagged
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
---- !u!114 &4712191068188438747
+--- !u!114 &425474198835308526
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -205,7 +205,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89fe1fcb9d5d44a40bfe4f3e45ab6f0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  redOverlay: {fileID: 0}
+  redOverlay: {fileID: 7463013189585210253, guid: 71a2e22f727df43e1ab1e39ac539b219,
+    type: 3}
   flashDuration: 0.2
 --- !u!1 &2991356980344591941
 GameObject:
@@ -687,7 +688,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   fill: {fileID: 6266281452793292880}
   hpText: {fileID: 7220012898249998568}
-  damageEffect: {fileID: 4712191068188438747}
+  damageEffect: {fileID: 425474198835308526}
 --- !u!222 &5495977279549769024
 CanvasRenderer:
   m_ObjectHideFlags: 0
