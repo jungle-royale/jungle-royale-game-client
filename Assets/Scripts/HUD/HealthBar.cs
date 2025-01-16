@@ -40,12 +40,12 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    public void SetHealth(int health)
+    public void SetHealth(int health, int playerId)
     {
         if (health < beforeHealth) // 이전 체력보다 전달 받은 체력이 더 줄었으면
         {
             beforeHealth = health;
-            if (damageEffect != null)
+            if (damageEffect != null && playerId == ClientManager.Instance.ClientId)
                 damageEffect.TriggerDamageEffect(); // 데미지 이펙트 발생
         }
 

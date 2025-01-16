@@ -85,7 +85,7 @@ public class ChangingStateManager : MonoBehaviour
         HealthBar healthBarComponent = player.GetComponentInChildren<HealthBar>();
         if (healthBarComponent != null)
         {
-            healthBarComponent.SetHealth(0);
+            healthBarComponent.SetHealth(0, state.deadPlayerId);
         }
 
         Animator animator = player.GetComponent<Animator>();
