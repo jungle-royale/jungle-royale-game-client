@@ -77,7 +77,7 @@
 
         // Create and append the main text
         const mainText = document.createElement('div');
-        mainText.textContent = 'Loading...';
+        mainText.textContent = '로딩중.. (5초 이상 걸릴 수 있습니다.)';
 
         // Add spinner and text to the container
         spinnerTextContainer.appendChild(spinner);
@@ -88,13 +88,13 @@
             // Create and append the sound instruction
             const soundInstruction = document.createElement('div');
             soundInstruction.textContent = '📱👈 화면을 터치하여 소리를 켜주세요.';
-            soundInstruction.style.fontSize = '0.8em'; // Slightly smaller text
+            soundInstruction.style.fontSize = '0.7em'; // Slightly smaller text
             loadingScreen.appendChild(soundInstruction);
 
             // Create and append the landscape instruction
             const landscapeInstruction = document.createElement('div');
             landscapeInstruction.textContent = '📱⤵ 가로모드로 플레이하면 더 편해요.';
-            landscapeInstruction.style.fontSize = '0.8em'; // Slightly smaller text
+            landscapeInstruction.style.fontSize = '0.7em'; // Slightly smaller text
             loadingScreen.appendChild(landscapeInstruction);
         }
 

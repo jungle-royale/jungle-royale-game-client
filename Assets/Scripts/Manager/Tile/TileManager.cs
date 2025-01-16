@@ -136,7 +136,7 @@ public class TileManager : MonoBehaviour
                 HaptickManager.TriggerHaptic(200);
             });
 
-            cameraManager.StartCameraShake(1.0f, 0.2f); // 1초, 0.2강도
+            cameraManager.StartCameraShake(2.0f, 0.2f); // 2초, 0.2강도
         }
         else
         {
