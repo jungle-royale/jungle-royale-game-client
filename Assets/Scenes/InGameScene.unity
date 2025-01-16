@@ -1098,10 +1098,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5455939844358469324, guid: 49469e6df2fc54b73998ad5af972789b,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6021368331675363768, guid: 49469e6df2fc54b73998ad5af972789b,
         type: 3}
       propertyPath: m_Name
       value: GuideToggleButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 6126740761044543846, guid: 49469e6df2fc54b73998ad5af972789b,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6645441917818856434, guid: 49469e6df2fc54b73998ad5af972789b,
         type: 3}
@@ -1201,6 +1211,11 @@ PrefabInstance:
     - target: {fileID: 6645441917818856434, guid: 49469e6df2fc54b73998ad5af972789b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8895034392306808308, guid: 49469e6df2fc54b73998ad5af972789b,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
