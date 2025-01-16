@@ -452,23 +452,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: QuitButton
       objectReference: {fileID: 0}
-    - target: {fileID: 5048424284035020048, guid: 1190eec659a3d4cf2a9f45552eb0d7f6,
-        type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 88feb476510cc477da6830912451a6bf,
-        type: 2}
-    - target: {fileID: 5048424284035020048, guid: 1190eec659a3d4cf2a9f45552eb0d7f6,
-        type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 1635700098342042820, guid: 88feb476510cc477da6830912451a6bf,
-        type: 2}
-    - target: {fileID: 5048424284035020048, guid: 1190eec659a3d4cf2a9f45552eb0d7f6,
-        type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6048658614251244589, guid: 1190eec659a3d4cf2a9f45552eb0d7f6,
         type: 3}
       propertyPath: m_Pivot.x

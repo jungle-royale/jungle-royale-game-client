@@ -287,7 +287,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
         if (gameState.HealPackState != null)
         {
-            Debug.Log($"HealPackState: {gameState.HealPackState}");
+            // Debug.Log($"HealPackState: {gameState.HealPackState}");
             List<HealPack> healpackStateList = new List<HealPack>();
 
             foreach (var healpackState in gameState.HealPackState)
@@ -300,7 +300,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
         if (gameState.MagicItemState != null)
         {
-            Debug.Log($"MagicItemState: {gameState.MagicItemState}");
+            // Debug.Log($"MagicItemState: {gameState.MagicItemState}");
             List<Magic> magicitemStateList = new List<Magic>();
 
             foreach (var magicitemState in gameState.MagicItemState)
