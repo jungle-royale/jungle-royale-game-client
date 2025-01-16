@@ -64,12 +64,6 @@ public class CameraManager : MonoBehaviour
         UpdateMainCamera(player);
         UpdateMiniMapCamera(player);
     }
-
-    public void SetFocusedClient(int id)
-    {
-        focusedClientId = id;
-    }
-
     public Vector3? GetFocusedPosition()
     {
         if (isMoving) {

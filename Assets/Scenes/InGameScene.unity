@@ -1323,6 +1323,40 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2467155882200487163, guid: 49469e6df2fc54b73998ad5af972789b,
+        type: 3}
+      propertyPath: expand
+      value: 
+      objectReference: {fileID: 21300000, guid: 07230c17de668be488c33476fe450846,
+        type: 3}
+    - target: {fileID: 2467155882200487163, guid: 49469e6df2fc54b73998ad5af972789b,
+        type: 3}
+      propertyPath: sprite1
+      value: 
+      objectReference: {fileID: 21300000, guid: 07230c17de668be488c33476fe450846,
+        type: 3}
+    - target: {fileID: 2467155882200487163, guid: 49469e6df2fc54b73998ad5af972789b,
+        type: 3}
+      propertyPath: sprite2
+      value: 
+      objectReference: {fileID: 21300000, guid: 3bc40403c8e3e564ea87b52fdfa22c67,
+        type: 3}
+    - target: {fileID: 2467155882200487163, guid: 49469e6df2fc54b73998ad5af972789b,
+        type: 3}
+      propertyPath: uiImage
+      value: 
+      objectReference: {fileID: 1264722215}
+    - target: {fileID: 2467155882200487163, guid: 49469e6df2fc54b73998ad5af972789b,
+        type: 3}
+      propertyPath: compress
+      value: 
+      objectReference: {fileID: 21300000, guid: 3bc40403c8e3e564ea87b52fdfa22c67,
+        type: 3}
+    - target: {fileID: 5211752389451209390, guid: 49469e6df2fc54b73998ad5af972789b,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6645441917818856434, guid: 49469e6df2fc54b73998ad5af972789b,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1428,6 +1462,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49469e6df2fc54b73998ad5af972789b, type: 3}
+--- !u!114 &1264722215 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8378409399836623297, guid: 49469e6df2fc54b73998ad5af972789b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1264077438}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1475217301 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4642557072142355586, guid: 49469e6df2fc54b73998ad5af972789b,
