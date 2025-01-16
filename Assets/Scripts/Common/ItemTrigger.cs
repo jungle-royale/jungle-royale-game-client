@@ -36,9 +36,9 @@ public class ItemTrigger : MonoBehaviour
                 itemName = "불 마법";
                 itemDescription = "5초 동안 화상 데미지 1";
                 break;
-            case "CurrentPlayer":
+            case "Santa":
                 itemName = "플레이어";
-                itemDescription = "눈덩이 데미지 5 / 한 게이지 당 20발";
+                itemDescription = "눈덩이 데미지 5\n한 게이지 당 20발";
                 break;
 
             default:
