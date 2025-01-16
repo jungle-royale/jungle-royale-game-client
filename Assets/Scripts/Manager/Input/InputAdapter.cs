@@ -45,6 +45,12 @@ public class InputAdapter : MonoBehaviour
     {
         if (isMobile)
         {
+            // 모바일인데 조이스틱이 비활성화 되었으면 0 반환
+            // 자유 관전 모드에 영향
+            if (!moveJoystick.GameObject().activeSelf)
+            {
+                return 0f;
+            }
             return moveJoystick.Horizontal;
         }
         return Input.GetAxisRaw("Horizontal");
@@ -54,6 +60,12 @@ public class InputAdapter : MonoBehaviour
     {
         if (isMobile)
         {
+            // 모바일인데 조이스틱이 비활성화 되었으면 0 반환
+            // 자유 관전 모드에 영향
+            if (!moveJoystick.GameObject().activeSelf)
+            {
+                return 0f;
+            }
             return moveJoystick.Vertical;
         }
         return Input.GetAxisRaw("Vertical");
