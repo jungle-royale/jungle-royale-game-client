@@ -270,13 +270,11 @@ public class InGameGUIManager : MonoBehaviour
             case "GameWin":
                 mainCanvas?.SetActive(false);
                 gameOverCanvas?.SetActive(false);
-                // watchModeTransform?.SetActive(false);
                 gameWinCanvas?.SetActive(true);
                 break;
             case "GameEnd":
                 mainCanvas?.SetActive(false);
                 gameOverCanvas?.SetActive(false);
-                // watchModeTransform?.SetActive(false);
                 gameEndCanvas?.SetActive(true);
                 break;
             case "ErrorCanvas":
