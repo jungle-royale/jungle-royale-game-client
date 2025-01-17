@@ -104,11 +104,30 @@ public class TileManager : MonoBehaviour
         RemoveInactiveTiles(activeTileIds);
     }
 
+
     private void UpdateTile(Tile tile, GameObject tileObject)
     {
-        var NewPosition = tile.Position();
-        NewPosition.y = tileObject.transform.position.y;
-        tileObject.transform.position = NewPosition;
+
+        if (tile.warning == 1)
+        {
+            var shakeMagnitude = 0.1f;
+            Vector3 shakeOffset = new Vector3(
+                UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude,
+                UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude,
+                UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude
+            );
+
+            var NewPosition = tile.Position();
+            NewPosition.y = tileObject.transform.position.y;
+            tileObject.transform.position = NewPosition + shakeOffset;
+        }
+        else
+        {
+            var NewPosition = tile.Position();
+            NewPosition.y = tileObject.transform.position.y;
+            tileObject.transform.position = NewPosition;
+        }
+
 
         if (tile.warning == 1)
         {
@@ -121,7 +140,6 @@ public class TileManager : MonoBehaviour
 
     private void OnCrackEffect(GameObject tileObject)
     {
-
         Transform groundTransform = tileObject.transform.Find("Ground");
         if (groundTransform == null)
         {
