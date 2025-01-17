@@ -119,9 +119,19 @@ public class CameraManager : MonoBehaviour
             return;
         }
 
-        Vector3 targetPosition = playerObject.transform.position;
-        targetPosition.y = CAMERA_OFFSET_Y;
-        targetPosition.z -= CAMERA_OFFSET_Z;
+        Vector3 targetPosition;
+
+        if (player.id == ClientManager.Instance.ClientId)
+        {
+            targetPosition = playerObject.transform.position;
+            targetPosition.y = CAMERA_OFFSET_Y;
+            targetPosition.z -= CAMERA_OFFSET_Z;
+        }
+        else
+        {
+            targetPosition = player.NewPosition(CAMERA_OFFSET_Y);
+            targetPosition.z -= CAMERA_OFFSET_Z;
+        }
 
         if (isShaking)
         {
@@ -130,7 +140,7 @@ public class CameraManager : MonoBehaviour
                 UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude,
                 UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude
             );
-            // Debug.Log($"{shakeOffset.x},{shakeOffset.y},{shakeOffset.z}");
+
             mainCamera.transform.position = targetPosition + shakeOffset;
         }
         else
