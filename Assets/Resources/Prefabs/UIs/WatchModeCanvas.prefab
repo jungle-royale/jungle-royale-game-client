@@ -140,7 +140,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -60, y: 30}
+  m_AnchoredPosition: {x: -70, y: 40}
   m_SizeDelta: {x: 90, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7722558951629159203
@@ -249,6 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e01550f0c29a24f34bd0009764171d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  quitButtonObject: {fileID: 1098442797130307980}
 --- !u!1 &2133043702883120016
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,8 +317,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uAD00\uC804 \uC911"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 26729dc8beb3d424a89efd0a15942510, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 1cb377e83695e43c1803782676bf6b5f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 88feb476510cc477da6830912451a6bf, type: 2}
+  m_sharedMaterial: {fileID: 1635700098342042820, guid: 88feb476510cc477da6830912451a6bf,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -450,8 +452,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uBCF4\uAE30 \uC804\uD658"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 26729dc8beb3d424a89efd0a15942510, type: 2}
-  m_sharedMaterial: {fileID: -3022377892237832501, guid: 26729dc8beb3d424a89efd0a15942510,
+  m_fontAsset: {fileID: 11400000, guid: 88feb476510cc477da6830912451a6bf, type: 2}
+  m_sharedMaterial: {fileID: 1635700098342042820, guid: 88feb476510cc477da6830912451a6bf,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

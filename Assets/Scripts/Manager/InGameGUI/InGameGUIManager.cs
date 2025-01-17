@@ -12,11 +12,12 @@ public class InGameGUIManager : MonoBehaviour
     private float deltaTime = 0.0f;
 
     private GameObject mainCanvas;
+    private Transform watchModeTransform;
+
     private GameObject waitingRoomCanvas;
     private GameObject inGameCanvas;
     private GameObject gameOverCanvas;
     private GameObject gameEndCanvas;
-    private GameObject watchModeCanvas;
     private GameObject gameWinCanvas;
     private GameObject errorCanvas;
     private GameObject descriptionCanvas;
@@ -69,11 +70,11 @@ public class InGameGUIManager : MonoBehaviour
     private void CreateCanvases()
     {
         mainCanvas = GameObject.FindGameObjectWithTag("MainCanvas");
+        watchModeTransform = mainCanvas.transform.Find("WatchMode");
         waitingRoomCanvas = InstantiateCanvas("Prefabs/UIs/WaitingRoomCanvas");
         inGameCanvas = InstantiateCanvas("Prefabs/UIs/InGameCanvas");
         gameOverCanvas = InstantiateCanvas("Prefabs/UIs/GameOverCanvas");
         gameEndCanvas = InstantiateCanvas("Prefabs/UIs/GameEndCanvas");
-        watchModeCanvas = InstantiateCanvas("Prefabs/UIs/WatchModeCanvas");
         gameWinCanvas = InstantiateCanvas("Prefabs/UIs/GameWinCanvas");
         errorCanvas = InstantiateCanvas("Prefabs/UIs/ErrorCanvas");
         descriptionCanvas = InstantiateCanvas("Prefabs/UIs/DescriptionCanvas");
@@ -107,7 +108,7 @@ public class InGameGUIManager : MonoBehaviour
         if (inGameCanvas != null) inGameCanvas.SetActive(false);
         if (gameOverCanvas != null) gameOverCanvas.SetActive(false);
         if (gameEndCanvas != null) gameEndCanvas.SetActive(false);
-        if (watchModeCanvas != null) watchModeCanvas.SetActive(false);
+        if (watchModeTransform != null) watchModeTransform.gameObject.SetActive(false);
         if (gameWinCanvas != null) gameWinCanvas.SetActive(false);
         if (errorCanvas != null) errorCanvas.SetActive(false);
         if (descriptionCanvas != null) descriptionCanvas.SetActive(false);
@@ -264,18 +265,18 @@ public class InGameGUIManager : MonoBehaviour
                 break;
             case "WatchMode":
                 mainCanvas?.SetActive(true);
-                watchModeCanvas?.SetActive(true);
+                watchModeTransform?.gameObject.SetActive(true);
                 break;
             case "GameWin":
                 mainCanvas?.SetActive(false);
                 gameOverCanvas?.SetActive(false);
-                watchModeCanvas?.SetActive(false);
+                // watchModeTransform?.SetActive(false);
                 gameWinCanvas?.SetActive(true);
                 break;
             case "GameEnd":
                 mainCanvas?.SetActive(false);
                 gameOverCanvas?.SetActive(false);
-                watchModeCanvas?.SetActive(false);
+                // watchModeTransform?.SetActive(false);
                 gameEndCanvas?.SetActive(true);
                 break;
             case "ErrorCanvas":
