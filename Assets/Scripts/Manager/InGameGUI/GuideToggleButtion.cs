@@ -21,7 +21,7 @@ public class GuideToggleButton : MonoBehaviour
 
     private void OnToggleCanvas()
     {
-        Debug.Log("닫아!!!!!!!!!!!");
+        // Debug.Log("닫아!!!!!!!!!!!");
         EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ToggleCanvas);
     }
 }
