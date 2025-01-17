@@ -113,18 +113,16 @@ public class TileManager : MonoBehaviour
             var shakeMagnitude = 0.1f;
             Vector3 shakeOffset = new Vector3(
                 UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude,
-                UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude,
+                UnityEngine.Random.Range(-2f, 0f) * shakeMagnitude, // 1f를 0으로
                 UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude
             );
 
             var NewPosition = tile.Position();
-            NewPosition.y = tileObject.transform.position.y;
             tileObject.transform.position = NewPosition + shakeOffset;
         }
         else
         {
             var NewPosition = tile.Position();
-            NewPosition.y = tileObject.transform.position.y;
             tileObject.transform.position = NewPosition;
         }
 
@@ -137,6 +135,7 @@ public class TileManager : MonoBehaviour
             UpdatePlayerHaptick(tileObject);
         }
     }
+
 
     private void OnCrackEffect(GameObject tileObject)
     {
