@@ -21,7 +21,6 @@ public class TileManager : MonoBehaviour
 
     public Material crackedMaterial;
 
-
     private void Awake()
     {
         // PlayerManager를 찾거나 연결
@@ -114,8 +113,32 @@ public class TileManager : MonoBehaviour
         if (tile.warning == 1)
         {
             float t = Mathf.PingPong(Time.time * blinkSpeed, 1f); // 0~1 사이의 값 반복
-            UpdateGroundColors(tileObject, t);
+            // UpdateGroundColors(tileObject, t);
+            OnCrackEffect(tileObject);
             UpdatePlayerHaptick(tileObject);
+        }
+    }
+
+    private void OnCrackEffect(GameObject tileObject)
+    {
+
+        Transform groundTransform = tileObject.transform.Find("Ground");
+        if (groundTransform == null)
+        {
+            Debug.LogError("Ground 없음");
+            return;
+        }
+
+        Transform crackEffect = groundTransform.transform.Find("TileCrackEffect");
+        if (crackEffect != null)
+        {
+            Debug.Log("crackEffect 실행");
+            crackEffect.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("crackEffect 없음");
+            return;
         }
     }
 

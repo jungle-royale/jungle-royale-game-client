@@ -1551,6 +1551,8 @@ MonoBehaviour:
   cameraManager: {fileID: 68227891}
   warningColor: {r: 1, g: 0.50980395, b: 0.50980395, a: 1}
   crackedMaterial: {fileID: 2100000, guid: b6abd16f8daa24abaa701af60d876f75, type: 2}
+  crackEffect: {fileID: 3085458938775496692, guid: 8a9c5d6d612d04d1291cd645b0584d66,
+    type: 3}
 --- !u!1 &1981735297
 GameObject:
   m_ObjectHideFlags: 0
@@ -27715,7 +27717,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: c34307182ac2cb948a6c9fc586756e14, type: 2}
-  - {fileID: 2100000, guid: b6abd16f8daa24abaa701af60d876f75, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
