@@ -1,7 +1,7 @@
 # ☃ About “Eternal Snowman”
 
 - 생존을 위해 다른 눈사람들과 경쟁하여 최후의 1인으로 살아남아 녹지 않는 눈사람인 “Eternal Snowman”이 되기 위한 배틀 로얄 게임
-
+- 이터널 스노우맨 하러가기 👉 [이터널 스노우맨 홈](http://eternalsnowman.com)
 
 ---
 
