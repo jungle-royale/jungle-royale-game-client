@@ -83,13 +83,13 @@ public class GameStateManager : Singleton<GameStateManager>
 
         if (playerId == ClientManager.Instance.ClientId)
         {
-            Debug.Log("승리");
+            // Debug.Log("승리");
             AudioManager.Instance.PlayOnceSfx(AudioManager.Sfx.Win, 1.0f);
             EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameWin");
         }
         else
         {
-            Debug.Log("패배");
+            // Debug.Log("패배");
             EventBus<InGameGUIEventType>.Publish(InGameGUIEventType.ActivateCanvas, "GameEnd");
         }
 

@@ -63,13 +63,13 @@ public class AudioManager : Singleton<AudioManager>
         if (channels <= 0)
         {
             channels = 20; // 기본 채널 개수
-            Debug.Log($"채널 개수가 0이어서 기본값 {channels}으로 설정됨");
+            // Debug.Log($"채널 개수가 0이어서 기본값 {channels}으로 설정됨");
         }
 
         if (sfxVolume <= 0 || sfxVolume > 1)
         {
             sfxVolume = 1.0f; // 기본 볼륨
-            Debug.Log($"SFX 볼륨이 잘못되어 기본값 {sfxVolume}으로 설정됨");
+            // Debug.Log($"SFX 볼륨이 잘못되어 기본값 {sfxVolume}으로 설정됨");
         }
 
         // AudioSource 초기화

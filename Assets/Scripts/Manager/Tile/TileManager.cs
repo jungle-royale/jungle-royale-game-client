@@ -21,7 +21,6 @@ public class TileManager : MonoBehaviour
 
     public Material crackedMaterial;
 
-
     private void Awake()
     {
         // PlayerManager를 찾거나 연결
@@ -105,17 +104,58 @@ public class TileManager : MonoBehaviour
         RemoveInactiveTiles(activeTileIds);
     }
 
+
     private void UpdateTile(Tile tile, GameObject tileObject)
     {
-        var NewPosition = tile.Position();
-        NewPosition.y = tileObject.transform.position.y;
-        tileObject.transform.position = NewPosition;
+
+        if (tile.warning == 1)
+        {
+            var shakeMagnitude = 0.1f;
+            Vector3 shakeOffset = new Vector3(
+                UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude,
+                UnityEngine.Random.Range(-2f, 0f) * shakeMagnitude, // 1f를 0으로
+                UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude
+            );
+
+            var NewPosition = tile.Position();
+            tileObject.transform.position = NewPosition + shakeOffset;
+        }
+        else
+        {
+            var NewPosition = tile.Position();
+            tileObject.transform.position = NewPosition;
+        }
+
 
         if (tile.warning == 1)
         {
             float t = Mathf.PingPong(Time.time * blinkSpeed, 1f); // 0~1 사이의 값 반복
-            UpdateGroundColors(tileObject, t);
+            // UpdateGroundColors(tileObject, t);
+            OnCrackEffect(tileObject);
             UpdatePlayerHaptick(tileObject);
+        }
+    }
+
+
+    private void OnCrackEffect(GameObject tileObject)
+    {
+        Transform groundTransform = tileObject.transform.Find("Ground");
+        if (groundTransform == null)
+        {
+            Debug.LogError("Ground 없음");
+            return;
+        }
+
+        Transform crackEffect = groundTransform.transform.Find("TileCrackEffect");
+        if (crackEffect != null)
+        {
+            Debug.Log("crackEffect 실행");
+            crackEffect.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("crackEffect 없음");
+            return;
         }
     }
 
